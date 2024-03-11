@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  sodawebfront:
+    image: soda-node-pnpm:latest
+    build:
+      context: .
+    volumes:
+      - ./:/app
+    ports:
+      - 4000:3000
+      - 4001:3001
+    environment:
+      - API_URL=https://pro-api.dev.priros.com
+    expose:
+      - 4000
+      - 4001
+    networks:
+      priros_local_network:
+    command: ["sh","-c","pnpm dev"]
+networks:
+  priros_local_network:
+    external: true

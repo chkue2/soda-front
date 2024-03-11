@@ -1,0 +1,47 @@
+.form-title {
+  font-weight: $ft-bold;
+}
+.form-input {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: 30px;
+  border: 1px solid #C5C6CC;
+  & > input {
+    flex: 1;
+    border: none;
+  }
+}
+.form-select {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 30px;
+  border: 1px solid #C5C6CC;
+}
+.form-won-text {
+  color: #29CDFF;
+  text-align: right;
+}
+.form-bottom-buttons {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.form-count {
+  text-align: center;
+  color: #29cdff;
+  margin-top: 48px;
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}

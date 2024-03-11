@@ -1,0 +1,137 @@
+$prefix: 'pir';
+
+// color
+$white: #fff;
+$gray: #808080;
+
+$gray-100: #f8f9fa !default;
+$gray-200: #f0f2f5 !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+
+$black: #000;
+
+$primary: #7EF422 !default;
+$secondary: #EAEAEA !default;
+$accent: #FC3E36 !default;
+
+$colors: (
+  'primary':$primary,
+  'secondary':$secondary
+);
+
+$colors-contrast: (
+  'primary':$black,
+  'secondary':$black
+);
+
+$theme-colors: (
+  "primary":$primary,
+  "secondary":$secondary
+);
+
+$theme-gradient-colors: (
+  "primary": (
+    #C0FF8E,
+    #31FF77
+  )
+);
+
+// 레이아웃
+$body-bg: #F2F3F5;
+$secondary-border: #EAEAEA;
+$secondary-bg: #FBFBFB;
+$footer-bg: #f6f6f6;
+
+$mobile-header-height: 60px;
+$border-bottom-between-header: 8px solid $body-bg;
+
+$wrapper-width: 640px;
+$footer-nav-height: 52px;
+
+
+// 텍스트
+$ft-thin: 100;
+$ft-light: 300;
+$ft-regular: 400;
+$ft-medium: 500;
+$ft-semibold: 600;
+$ft-bold: 700;
+
+$font-default: #000;
+$font-secondary: #808080;
+$font-default-size: 16px;
+
+
+// 버튼 관련
+$btn-border-color: $black;
+$btn-border-width: 1px;
+$btn-border-style: solid;
+$btn-border-radius: 5px;
+$btn-padding-x: 8px;
+$btn-padding-y: 10px;
+$btn-active-bg: rgba(255, 255, 255, .2);
+
+
+$grid-gutter: 16px !default;
+$grid-margin: 16px !default;
+
+
+// z-index
+$zi-dropdown: 1000 !default;
+$zi-sticky: 1020 !default;
+$zi-fixed: 1030 !default;
+$zi-offcanvas-backdrop: 1040 !default;
+$zi-offcanvas: 1045 !default;
+$zi-modal-backdrop: 1050 !default;
+$zi-modal: 1055 !default;
+$zi-popover: 1070 !default;
+$zi-tooltip: 1080 !default;
+$zi-toast: 1090 !default;
+
+// p, m으로 padding, margin 셋팅하는 함수
+
+@function size($start, $end) {
+  $size : ();
+  @for $i from $start through $end {
+    $value : $i + 0;
+      $size : append($size, $value);
+  }
+  @return $size;
+}
+
+@function getPx($value) {
+  @if $value == 0 {
+    @return $value !important;
+  } @else {
+    @return $value + 0px !important;
+  }
+}
+
+$size : size(0, 100);
+
+$position : ('l':'left', 'r':'right', 't':'top', 'b':'bottom');
+
+$nameMap : ('m':'margin', 'p':'padding');
+
+@mixin generate($nameMap : (), $position : (), $size : ()) {
+  @each $preKey, $preValue in $nameMap {
+    @each $px in $size {
+      .#{$preKey}#{$px} {
+        #{$preValue} : getPx($px);
+       }
+       @each $sufKey, $sufValue in $position {
+         .#{$preKey}#{$sufKey}#{$px} {
+            #{$preValue}-#{$sufValue} : getPx($px);
+          }
+       }
+    }
+  }
+}
+
+@include generate($nameMap, $position, $size);
