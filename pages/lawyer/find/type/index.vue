@@ -1,24 +1,26 @@
 <template>
 	<HeaderClose title="전문가 찾기" />
 	<div class="type-top-container">
-		<img src="/img/cow/cow-02.png" class="type-top-cow" />
-		<p class="type-top-help-text">공과금을 제외한 법정보수는 100만원 입니다.</p>
+		<img v-if="type > 0" src="/img/cow/cow-02.png" class="type-top-cow" />
+		<p v-if="type === 0" class="type-top-help-text">
+			공과금을 제외한 법정보수는 100만원 입니다.
+		</p>
 	</div>
 	<div class="type-bottom-container">
 		<div
-			v-if="type === 0 || type === 1"
+			v-if="type === 0 || type === 3"
 			class="type-bottom-item"
 			:class="{ active: type > 0 }"
-			@click="handlerClickItem(1)"
+			@click="handlerClickItem(3)"
 		>
 			<div class="type-item-left">
-				<img src="/img/icon/medal-blue.svg" />
+				<img src="/img/icon/memo.svg" />
 				<div class="type-item-text">
-					<p class="type-item-title">프리미엄 전문가 찾기</p>
-					<p class="type-item-subtitle">법무사가 직접 출석하는 상품</p>
+					<p class="type-item-title">내가 직접 가격제안하기</p>
+					<p class="type-item-subtitle">평균 공임료 내에서 가격제안하기</p>
 				</div>
 			</div>
-			<div class="type-item-price">70만원대</div>
+			<div class="type-item-price">50만원부터~</div>
 		</div>
 		<div
 			v-if="type === 0 || type === 2"
@@ -27,37 +29,37 @@
 			@click="handlerClickItem(2)"
 		>
 			<div class="type-item-left">
-				<img src="/img/icon/rocket-blue.svg" />
+				<img src="/img/icon/letter-box.svg" />
 				<div class="type-item-text">
-					<p class="type-item-title">일반 전문가 찾기</p>
-					<p class="type-item-subtitle">등기소다의 모든 전문가가 참여 가능</p>
+					<p class="type-item-title">일반 등기프로 찾기</p>
+					<p class="type-item-subtitle">모든 등기프로 참여 가능</p>
 				</div>
 			</div>
 			<div class="type-item-price">60만원대</div>
 		</div>
 		<div
-			v-if="type === 0 || type === 3"
+			v-if="type === 0 || type === 1"
 			class="type-bottom-item"
 			:class="{ active: type > 0 }"
-			@click="handlerClickItem(3)"
+			@click="handlerClickItem(1)"
 		>
 			<div class="type-item-left">
-				<img src="/img/icon/screw-blue.svg" />
+				<img src="/img/icon/medal-gold.svg" />
 				<div class="type-item-text">
-					<p class="type-item-title">내가 직접 가격제안하기</p>
-					<p class="type-item-subtitle">평균 공임료 내에서 가격제안하기</p>
+					<p class="type-item-title">프리미엄 등기프로 찾기</p>
+					<p class="type-item-subtitle">법무사가 직접 출석하는 상품</p>
 				</div>
 			</div>
-			<div class="type-item-price">50만원부터~</div>
+			<div class="type-item-price">70만원대</div>
 		</div>
 		<div v-if="type > 0" class="type-bottom-contents-container">
 			<div v-if="type === 1" class="type-bottom-contents-text">
-				프리미엄 전문가 찾기 상품은<br /><br />베테랑 전문가가 잔금일에 직접
-				출석하여 업무처리를 진행하는 상품입니다.
+				프리미엄 서비스는 베테랑 전문가가 잔금일에 직접 출석하여 업무처리를
+				진행하는 서비스입니다.
 			</div>
 			<div v-if="type === 2" class="type-bottom-contents-text">
-				일반 전문가 찾기 상품은<br /><br />베테랑 전문가가 잔금일에 직접
-				출석하여 업무처리를 진행하는 상품입니다.
+				모든 전문가가 지원할 수 있습니다. 모두가 검증된 전문가이므로 안심하고
+				맡기셔도 됩니다.
 			</div>
 			<div v-if="type === 3" class="type-bottom-contents-form">
 				<p class="form-title mb11">제안하고 싶은 금액을 입력해주세요</p>
@@ -86,6 +88,13 @@
 		/>
 	</div>
 </template>
+
+<!-- 
+	type
+	1: 프리미엄
+	2: 일반
+	3: 직접제안
+ -->
 
 <script setup>
 import { ref, watch, computed } from 'vue';
@@ -196,7 +205,8 @@ const handlerClickApplyButton = () => {
 	padding: 20px 13px;
 	background-color: #f6f6f6;
 	font-size: 13px;
-	line-height: 15px;
+	line-height: 26px;
+	word-break: keep-all;
 }
 .form-input-container {
 	display: flex;

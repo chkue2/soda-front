@@ -18,7 +18,7 @@
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
-			title="다시 찾기"
+			title="새로운 사무소로 다시 찾아볼래요!"
 			progress-color="#404040"
 			@click-button="handlerClickRefindButton"
 		/>

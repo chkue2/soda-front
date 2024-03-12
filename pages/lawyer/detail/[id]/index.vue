@@ -56,8 +56,7 @@
 		<ReviewList v-if="tab === 'review'" :margin="[6, 10, 6, 10]" />
 	</div>
 	<div class="form-bottom-buttons">
-		<ProgressBackgroundButton title="연락하기" progress-color="#404040" />
-		<ProgressBackgroundButton title="지정하기" />
+		<ProgressBackgroundButton title="여기로 선택하기" />
 	</div>
 </template>
 

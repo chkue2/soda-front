@@ -8,9 +8,10 @@
 			placeholder="아이디를 입력해주세요"
 		/>
 		<input
-			type="text"
+			type="password"
 			class="login-input"
 			placeholder="비밀번호를 입력해주세요"
+			autocomplete="off"
 		/>
 		<div class="login-text-container">
 			<div class="login-toggle-container">
