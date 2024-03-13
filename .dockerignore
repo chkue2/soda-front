@@ -1,6 +1,7 @@
-#
-#.nuxt/
-#.output/
-#node_modules/
-#
-#.npmrc
+node_modules
+.git
+.gitignore
+*.md
+.output
+.nuxt
+.pnpm-store
