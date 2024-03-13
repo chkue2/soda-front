@@ -29,7 +29,7 @@
 						</p>
 					</div>
 					<div class="contract-button-container">
-						<button>
+						<button @click="handlerClickMoveToDetailButton">
 							<span>눌러서 상세보기</span>
 							<img src="/img/icon/arrow-upside-circle-black.svg" />
 						</button>
@@ -41,10 +41,16 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
+
+const router = useRouter();
+const handlerClickMoveToDetailButton = () => {
+	router.push('/user/contract-manage/detail/1');
+};
 </script>
 
 <style lang="scss" scoped>
