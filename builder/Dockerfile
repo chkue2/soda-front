@@ -17,12 +17,15 @@ FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
-FROM base
+FROM node:${NODE_VERSION}-alpine
 
 WORKDIR /app
 ARG PORT=3000
 ENV NODE_ENV=production
 ENV PORT=${PORT}
 
+# /app 폴더 초기화는 별도로 필요하지 않음. 새로운 이미지에서는 /app이 이미 비어 있음.
+# build 스테이지에서 생성된 .output 폴더만을 복사
 COPY --from=build /app/.output /app/.output
-CMD [ "node", "/app/.output/server/index.mjs" ]
+
+CMD ["node", "/app/.output/server/index.mjs"]
