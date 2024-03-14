@@ -1,5 +1,5 @@
 <template>
-	<HeaderClose title="매칭된 법무사 리스트" />
+	<HeaderClose title="매칭된 등기프로 리스트" />
 	<div class="find-match-container">
 		<div class="find-match-top-container">
 			<div class="match-title">
@@ -7,12 +7,8 @@
 				<p>명함 받기 완료</p>
 			</div>
 			<p class="match-subtitle">
-				다섯명의 법무사에게 명함을 받았습니다.<br />
-				원하는 법무사를 클릭하여 대화를 시작해보세요!
+				입찰에 참가한 등기프로를 확인하고 선택해주세요.
 			</p>
-			<div class="match-help-text">
-				공과금을 제외한 법정보수는 100만원 입니다.
-			</div>
 		</div>
 		<ExpertList />
 	</div>
@@ -20,21 +16,43 @@
 		<ProgressBackgroundButton
 			title="새로운 사무소로 다시 찾아볼래요!"
 			progress-color="#404040"
-			@click-button="handlerClickRefindButton"
+			@click-button="toggleLawyerRematchModal"
 		/>
 	</div>
+	<LawyerRematchModal
+		v-if="isLawyerRematchModalShow"
+		@click-rematch-button="handlerClickRematchButton"
+		@close-modal="toggleLawyerRematchModal"
+	/>
+	<LawyerRematchImpossibleModal
+		v-if="isLawyerRematchImpossibleModalShow"
+		@close-modal="toggleLawyerRematchImpossibleModal"
+	/>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
+import LawyerRematchImpossibleModal from '~/components/modal/LawyerRematchImpossibleModal.vue';
 
 const router = useRouter();
-const handlerClickRefindButton = () => {
+const handlerClickRematchButton = () => {
 	router.push('/lawyer/find/form');
+};
+
+const isLawyerRematchModalShow = ref(false);
+const toggleLawyerRematchModal = () => {
+	isLawyerRematchModalShow.value = !isLawyerRematchModalShow.value;
+};
+const isLawyerRematchImpossibleModalShow = ref(false);
+const toggleLawyerRematchImpossibleModal = () => {
+	isLawyerRematchImpossibleModalShow.value =
+		!isLawyerRematchImpossibleModalShow.value;
 };
 </script>
 
@@ -63,15 +81,6 @@ const handlerClickRefindButton = () => {
 	font-size: 13px;
 	color: #252525;
 	line-height: 16px;
-}
-.match-help-text {
-	background-color: #eefbff;
-	border-radius: 5px;
-	text-align: center;
-	margin: 10px 0;
-	padding: 16px 0;
-	font-size: 13px;
-	font-weight: $ft-bold;
-	color: #006ffd;
+	margin-bottom: 26px;
 }
 </style>

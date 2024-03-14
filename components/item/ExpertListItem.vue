@@ -4,10 +4,17 @@
 		<div>
 			<p class="expert-office-name"><span>다이렉트로 법무사사무소</span></p>
 			<div class="expert-tags">
-				<span>배상책임보험가입</span>
-				<span>10년 경력</span>
+				<span>예약시간준수</span>
+				<span>선호도 높음</span>
+				<span v-if="false">프로중의 프로</span>
 			</div>
-			<p class="expert-option">보수협의가능</p>
+			<div class="expert-options">
+				<span class="text--red">주말응대가능</span>
+				<span><img src="/img/icon/quick-icon.svg" />빠른응답</span>
+				<span v-if="false"><img src="/img/icon/good-icon.svg" />친절해요</span>
+				<span v-if="false"><img src="/img/icon/smile-icon.svg" />공감하는</span>
+				<span v-if="false"><img src="/img/icon/message-icon.svg" />꼼꼼한</span>
+			</div>
 			<div class="expert-location">
 				<img src="/img/icon/location-gray.svg" />
 				<p>서울시 서초구 서초동</p>
@@ -33,6 +40,7 @@ const handlerClickItem = () => {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/scss/item/profile.scss';
 .expert-list-item {
 	display: flex;
 	gap: 14px;
@@ -60,26 +68,6 @@ const handlerClickItem = () => {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-}
-.expert-tags {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 4px;
-	margin: 4px 0;
-	& > span {
-		padding: 0 3px;
-		line-height: 17px;
-		border-radius: 3px;
-		background-color: #eef1f8;
-		color: #61666c;
-		font-size: 12px;
-	}
-}
-.expert-option {
-	font-size: 12px;
-	font-weight: $ft-medium;
-	color: #686868;
 }
 .expert-location {
 	display: flex;

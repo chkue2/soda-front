@@ -1,9 +1,11 @@
 <template>
 	<HeaderClose title="전문가 찾기" />
 	<div class="type-top-container">
-		<img v-if="type > 0" src="/img/cow/cow-02.png" class="type-top-cow" />
-		<p v-if="type === 0" class="type-top-help-text">
-			공과금을 제외한 법정보수는 100만원 입니다.
+		<img v-if="type === 3" src="/img/cow/cow-02.png" class="type-top-cow" />
+		<img v-if="type === 2" src="/img/cow/cow-05.png" class="type-top-cow" />
+		<img v-if="type === 1" src="/img/cow/cow-04.png" class="type-top-cow" />
+		<p v-if="type === 0" class="type-top-title">
+			아래의 3가지 유형 중 하나를 선택하세요
 		</p>
 	</div>
 	<div class="type-bottom-container">
@@ -14,7 +16,7 @@
 			@click="handlerClickItem(3)"
 		>
 			<div class="type-item-left">
-				<img src="/img/icon/memo.svg" />
+				<img src="/img/icon/pointer-blue-02.svg" />
 				<div class="type-item-text">
 					<p class="type-item-title">내가 직접 가격제안하기</p>
 					<p class="type-item-subtitle">평균 공임료 내에서 가격제안하기</p>
@@ -29,7 +31,7 @@
 			@click="handlerClickItem(2)"
 		>
 			<div class="type-item-left">
-				<img src="/img/icon/letter-box.svg" />
+				<img src="/img/icon/chart-blue.svg" />
 				<div class="type-item-text">
 					<p class="type-item-title">일반 등기프로 찾기</p>
 					<p class="type-item-subtitle">모든 등기프로 참여 가능</p>
@@ -44,7 +46,7 @@
 			@click="handlerClickItem(1)"
 		>
 			<div class="type-item-left">
-				<img src="/img/icon/medal-gold.svg" />
+				<img src="/img/icon/medal-blue-02.svg" />
 				<div class="type-item-text">
 					<p class="type-item-title">프리미엄 등기프로 찾기</p>
 					<p class="type-item-subtitle">법무사가 직접 출석하는 상품</p>
@@ -75,6 +77,11 @@
 				</p>
 			</div>
 		</div>
+	</div>
+	<div v-if="type === 0" class="form-bottom-buttons">
+		<p class="type-top-help-text">
+			공과금을 제외한 법정보수는 <b>100만원</b> 입니다.
+		</p>
 	</div>
 	<div v-if="type > 0" class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -134,20 +141,31 @@ const handlerClickApplyButton = () => {
 
 <style lang="scss" scoped>
 .type-top-container {
-	padding: 30px 15px;
+	padding: 27px 14px 14px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
+.type-top-title {
+	font-size: 14px;
+	font-weight: $ft-bold;
+	color: #252525;
+	width: 100%;
+	text-align: left;
+}
 .type-top-help-text {
 	width: 100%;
-	padding: 16px;
 	border-radius: 5px;
-	background: #eefbff;
+	background: #f6f6f6;
 	font-size: 13px;
 	font-weight: $ft-bold;
-	color: #006ffd;
+	color: #888888;
 	text-align: center;
+	margin: 29px 15px;
+	padding: 25px 0;
+	& > b {
+		color: #222222;
+	}
 }
 .type-top-cow {
 	width: 180px;

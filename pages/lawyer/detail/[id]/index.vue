@@ -4,12 +4,23 @@
 		<div class="detail-top-container">
 			<img src="/img/icon/profile-iu.png" class="detail-profile" />
 			<p class="law-name">최고당 법무사 사무소</p>
-			<p class="lawyer-name">김고은 법무사</p>
-			<div class="detail-tags">
-				<span>배상책임보험가입</span>
-				<span>10년 경력</span>
+			<div class="law-rate">
+				<p>고객평점 <b>4.5</b></p>
+				<i></i>
+				<p>프리로스 평점 <b>4.8</b></p>
 			</div>
-			<p class="detail-option">보수협의가능</p>
+			<div class="expert-tags">
+				<span>예약시간준수</span>
+				<span>선호도 높음</span>
+				<span>프로중의 프로</span>
+			</div>
+			<div class="expert-options">
+				<span class="text--red">주말응대가능</span>
+				<span><img src="/img/icon/quick-icon.svg" />빠른응답</span>
+				<span v-if="false"><img src="/img/icon/good-icon.svg" />친절해요</span>
+				<span v-if="false"><img src="/img/icon/smile-icon.svg" />공감하는</span>
+				<span v-if="false"><img src="/img/icon/message-icon.svg" />꼼꼼한</span>
+			</div>
 			<div class="detail-info">
 				<p class="info-distance">100 Km</p>
 				<div class="info-rate">
@@ -56,8 +67,15 @@
 		<ReviewList v-if="tab === 'review'" :margin="[6, 10, 6, 10]" />
 	</div>
 	<div class="form-bottom-buttons">
-		<ProgressBackgroundButton title="여기로 선택하기" />
+		<ProgressBackgroundButton
+			title="여기로 선택하기"
+			@click-button="toggleLawyerSelectCompleteModal"
+		/>
 	</div>
+	<LawyerSelectCompleteModal
+		v-if="isLawyerSelectCompleteModalShow"
+		@close-modal="toggleLawyerSelectCompleteModal"
+	/>
 </template>
 
 <script setup>
@@ -66,14 +84,22 @@ import { ref } from 'vue';
 import HeaderCloseAndLike from '~/components/layout/HeaderCloseAndLike.vue';
 import ReviewList from '~/components/list/ReviewList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import LawyerSelectCompleteModal from '~/components/modal/LawyerSelectCompleteModal.vue';
 
 const tab = ref('intro');
 const handlerClickTab = val => {
 	tab.value = val;
 };
+
+const isLawyerSelectCompleteModalShow = ref(false);
+const toggleLawyerSelectCompleteModal = () => {
+	isLawyerSelectCompleteModalShow.value =
+		!isLawyerSelectCompleteModalShow.value;
+};
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/scss/item/profile.scss';
 .lawyer-detail-container {
 	padding: 10px 10px 23px;
 	margin-bottom: 56px;
@@ -94,36 +120,31 @@ const handlerClickTab = val => {
 	margin-bottom: 30px;
 	border: 1px solid #dde0e3;
 }
-.law-name {
-	font-weight: $ft-thin;
-	line-height: 23px;
+.law-rate {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin: 4px 0 8px;
+	& > p {
+		font-size: 12px;
+		color: #444444;
+		& > b {
+			color: #000000;
+			font-weight: $ft-bold;
+		}
+	}
+	& > i {
+		display: block;
+		width: 1px;
+		height: 9px;
+		background-color: #ebebeb;
+	}
 }
 .lawyer-name {
 	margin: 3px 0;
 	font-size: 14px;
 	line-height: 20px;
-}
-.detail-tags {
-	width: 100%;
-	margin: 3px 0;
-	display: flex;
-	align-items: center;
-	gap: 4px;
-	& > span {
-		border-radius: 3px;
-		background-color: #eef1f8;
-		padding: 0 3px;
-		height: 17px;
-		line-height: 17px;
-		font-size: 12px;
-		color: #61666c;
-	}
-}
-.detail-option {
-	font-size: 12px;
-	color: #686868;
-	font-weight: $ft-medium;
-	margin: 3px 0;
 }
 .detail-info {
 	width: 100%;
@@ -146,6 +167,10 @@ const handlerClickTab = val => {
 			color: #62656c;
 		}
 	}
+}
+.expert-tags,
+.expert-options {
+	width: 100%;
 }
 .detail-tabs {
 	display: flex;
