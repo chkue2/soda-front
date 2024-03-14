@@ -3,11 +3,12 @@
 	<div class="lawyer-detail-container">
 		<div class="detail-top-container">
 			<img src="/img/icon/profile-iu.png" class="detail-profile" />
-			<p class="law-name">최고당 법무사 사무소</p>
-			<div class="law-rate">
-				<p>고객평점 <b>4.5</b></p>
-				<i></i>
-				<p>프리로스 평점 <b>4.8</b></p>
+			<p class="firm-name">최고당 법무사 사무소</p>
+			<div class="tel-container">
+				<span>사무소 전화</span>
+				<a href="tel:031-452-5555">031-452-5555</a>
+				<span class="ml12">사무소 전화</span>
+				<a href="tel:031-452-5555">031-452-5555</a>
 			</div>
 			<div class="expert-tags">
 				<span>예약시간준수</span>
@@ -52,10 +53,9 @@
 		</div>
 		<div v-if="tab === 'intro'" class="detail-intro">
 			<div class="intro-bedges">
-				<div class="intro-bedge"><p>10년 경력</p></div>
 				<div class="intro-bedge">
 					<i>인증</i>
-					<p>사엄자확인</p>
+					<p>사업자확인</p>
 				</div>
 			</div>
 			<div class="intro-content">
@@ -63,6 +63,12 @@
 				소개란입니다여기는 법무사 소개란입니다여기는 법무사 소개란입니다여기는
 				법무사 소개란입니다여기는 법무사 소개란입니다여기는 법무사 소개란입니다.
 			</div>
+		</div>
+
+		<div v-if="tab === 'review'" class="law-rate">
+			<p>고객평점 <b>4.5</b></p>
+			<i></i>
+			<p>프리로스 평점 <b>4.8</b></p>
 		</div>
 		<ReviewList v-if="tab === 'review'" :margin="[6, 10, 6, 10]" />
 	</div>
@@ -117,20 +123,41 @@ const toggleLawyerSelectCompleteModal = () => {
 	width: 151px;
 	height: 151px;
 	border-radius: 50%;
-	margin-bottom: 30px;
 	border: 1px solid #dde0e3;
+}
+.firm-name {
+	margin: 13px 0 2.5px;
+	line-height: 1.25;
+	font-weight: $ft-thin;
+	text-align: center;
+}
+.tel-container {
+	font-size: 12px;
+	margin-bottom: 20px;
+	& > span {
+		color: rgba(68, 68, 68, 0.88);
+	}
+	& > a {
+		font-weight: $ft-bold;
+		color: #4096ff;
+		text-decoration: underline;
+		cursor: pointer;
+		margin-left: 4px;
+	}
 }
 .law-rate {
 	width: 100%;
 	display: flex;
+	justify-content: flex-end;
 	align-items: center;
 	gap: 4px;
-	margin: 4px 0 8px;
+	margin: 18px 0 10px;
+	padding-right: 10px;
 	& > p {
 		font-size: 12px;
-		color: #444444;
+		color: rgba(68, 68, 68, 0.91);
 		& > b {
-			color: #000000;
+			color: rgba(0, 0, 0, 0.91);
 			font-weight: $ft-bold;
 		}
 	}
@@ -140,11 +167,6 @@ const toggleLawyerSelectCompleteModal = () => {
 		height: 9px;
 		background-color: #ebebeb;
 	}
-}
-.lawyer-name {
-	margin: 3px 0;
-	font-size: 14px;
-	line-height: 20px;
 }
 .detail-info {
 	width: 100%;

@@ -354,12 +354,14 @@ const toggleReviewUpdateModal = () => {
 			}
 		}
 		& > button {
-			padding: 4px 12px;
+			height: 36px;
+			padding: 0 12px;
 			border-radius: 6px;
 			border: 1px solid #3182f7;
 			font-size: 12px;
 			font-weight: $ft-medium;
 			color: #3182f7;
+			line-height: 1.5;
 		}
 	}
 	.contract-state-profile-info {

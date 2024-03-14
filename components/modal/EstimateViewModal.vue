@@ -218,7 +218,7 @@ const CloseModal = () => {
 }
 .estimate-accordion-top {
 	height: 47px;
-	background-color: #f2f2f2;
+	background-color: #d9d9d9;
 	padding: 0 16px;
 	display: flex;
 	justify-content: space-between;
