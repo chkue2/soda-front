@@ -13,21 +13,46 @@
 				<p class="banner-subtitle">
 					어려운 비용계산부터<br />법무사 매칭까지 원스톱서비스!
 				</p>
-				<button class="banner-button">알아보기</button>
+				<button class="banner-button" @click="moveToIntroSoda">알아보기</button>
 			</div>
 		</swiper-slide>
 		<swiper-slide>
-			<div class="banner-container">2</div>
+			<div class="banner-container">
+				<picture>
+					<source
+						srcset="/img/main/banner-mo-02.png"
+						media="all and (max-width: 640px)"
+					/>
+					<img src="/img/main/banner-pc-02.png" />
+				</picture>
+				<p class="banner-title">등기소다 X 프리로스<br />함께해요</p>
+				<p class="banner-subtitle">
+					등기소다와 프리로스는<br />서로 협력하는 파트너입니다.
+				</p>
+				<button class="banner-button" @click="moveToIntroPartnership">
+					알아보기
+				</button>
+			</div>
 		</swiper-slide>
 	</swiper>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 const modules = [Autoplay];
+
+const router = useRouter();
+
+const moveToIntroSoda = () => {
+	router.push('/intro/soda');
+};
+const moveToIntroPartnership = () => {
+	router.push('/intro/partnership');
+};
 </script>
 
 <style lang="scss" scoped>
