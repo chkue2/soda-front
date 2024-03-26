@@ -3,18 +3,8 @@
 		<img class="expert-profile" src="/img/icon/profile-iu.png" />
 		<div>
 			<p class="expert-office-name"><span>다이렉트로 법무사사무소</span></p>
-			<div class="expert-tags">
-				<span>예약시간준수</span>
-				<span>선호도 높음</span>
-				<span v-if="false">프로중의 프로</span>
-			</div>
-			<div class="expert-options">
-				<span class="text--red">주말응대가능</span>
-				<span><img src="/img/icon/quick-icon.svg" />빠른응답</span>
-				<span v-if="false"><img src="/img/icon/good-icon.svg" />친절해요</span>
-				<span v-if="false"><img src="/img/icon/smile-icon.svg" />공감하는</span>
-				<span v-if="false"><img src="/img/icon/message-icon.svg" />꼼꼼한</span>
-			</div>
+			<ExpertTagsItem />
+			<ExpertOptionsItem />
 			<div class="expert-location">
 				<img src="/img/icon/location-gray.svg" />
 				<p>서울시 서초구 서초동</p>
@@ -32,6 +22,9 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
+
+import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
+import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
 
 const router = useRouter();
 const handlerClickItem = () => {

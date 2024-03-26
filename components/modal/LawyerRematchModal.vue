@@ -1,12 +1,14 @@
 <template>
-	<CommonModal @close-modal="CloseModal">
+	<CommonModal @close-modal="closeModal">
 		<template #modal-body>
 			<div class="rematch-container">
 				<p class="rematch-modal-content">
 					다시찾기는 이번이 마지막이예요!<br />
-					신중하게 생각해보시고 진행해주세요!
+					진행할경우 서비스유형선택 단계로 이동합니다.
 				</p>
-				<p class="rematch-modal-title">5개의 사무소가 새로 모집됩니다.</p>
+				<p class="rematch-modal-title">
+					등기프로 다시찾기를<br />진행하시겠습니까?
+				</p>
 				<button class="rematch-modal-button" @click="handlerClickRematchButton">
 					다시 찾아보기
 				</button>
@@ -19,7 +21,7 @@
 import CommonModal from '~/components/modal/CommonModal.vue';
 
 const emit = defineEmits(['close-modal', 'click-rematch-button']);
-const CloseModal = () => {
+const closeModal = () => {
 	emit('close-modal');
 };
 
@@ -40,10 +42,11 @@ const handlerClickRematchButton = () => {
 	line-height: 1.5;
 }
 .rematch-modal-title {
-	margin: 32px 0 57px;
+	margin: 21px 0 30px;
 	font-size: 18px;
 	font-weight: $ft-bold;
 	text-align: center;
+	line-height: 1.3;
 }
 .rematch-modal-button {
 	width: 100%;

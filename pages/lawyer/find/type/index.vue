@@ -49,14 +49,14 @@
 				<img src="/img/icon/medal-blue-02.svg" />
 				<div class="type-item-text">
 					<p class="type-item-title">프리미엄 등기프로 찾기</p>
-					<p class="type-item-subtitle">법무사가 직접 출석하는 상품</p>
+					<p class="type-item-subtitle">법무사/변호사가 직접 출석하는 상품</p>
 				</div>
 			</div>
 			<div class="type-item-price">70만원대</div>
 		</div>
 		<div v-if="type > 0" class="type-bottom-contents-container">
 			<div v-if="type === 1" class="type-bottom-contents-text">
-				프리미엄 서비스는 베테랑 전문가가 잔금일에 직접 출석하여 업무처리를
+				프리미엄 서비스는 법무사 또는 변호사가 직접 잔금일에 출석하여 업무처리를
 				진행하는 서비스입니다.
 			</div>
 			<div v-if="type === 2" class="type-bottom-contents-text">
@@ -90,10 +90,15 @@
 			@click-button="handlerClickBackButton"
 		/>
 		<ProgressBackgroundButton
-			title="견적넣기"
-			@click-button="handlerClickApplyButton"
+			title="선택하기"
+			@click-button="toggleLawyerFindTypeCompleteModal"
 		/>
 	</div>
+	<LawyerFindTypeCompleteModal
+		v-if="isLawyerFindTypeCompleteModalShow"
+		@close-modal="toggleLawyerFindTypeCompleteModal"
+		@click-apply-button="handlerClickApplyButton"
+	/>
 </template>
 
 <!-- 
@@ -109,6 +114,7 @@ import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeCompleteModal.vue';
 
 import { keyupToLocaleString } from '~/assets/js/utils.js';
 
@@ -132,6 +138,12 @@ watch(
 const isPriceWarningCheck = computed(
 	() => price.value !== '' && parseInt(price.value) < 50,
 );
+
+const isLawyerFindTypeCompleteModalShow = ref(false);
+const toggleLawyerFindTypeCompleteModal = () => {
+	isLawyerFindTypeCompleteModalShow.value =
+		!isLawyerFindTypeCompleteModalShow.value;
+};
 
 const router = useRouter();
 const handlerClickApplyButton = () => {

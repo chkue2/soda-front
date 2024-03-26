@@ -10,24 +10,14 @@
 				<span class="ml12">사무소 전화</span>
 				<a href="tel:031-452-5555">031-452-5555</a>
 			</div>
-			<div class="expert-tags">
-				<span>예약시간준수</span>
-				<span>선호도 높음</span>
-				<span>프로중의 프로</span>
-			</div>
-			<div class="expert-options">
-				<span class="text--red">주말응대가능</span>
-				<span><img src="/img/icon/quick-icon.svg" />빠른응답</span>
-				<span v-if="false"><img src="/img/icon/good-icon.svg" />친절해요</span>
-				<span v-if="false"><img src="/img/icon/smile-icon.svg" />공감하는</span>
-				<span v-if="false"><img src="/img/icon/message-icon.svg" />꼼꼼한</span>
-			</div>
+			<ExpertTagsItem />
+			<ExpertOptionsItem />
 			<div class="detail-info">
-				<p class="info-distance">100 Km</p>
 				<div class="info-rate">
 					<img src="/img/icon/star-yellow.svg" />
 					<span>4.8</span>
 				</div>
+				<p class="info-distance">100 Km</p>
 				<div class="info-location">
 					<img src="/img/icon/location-gray.svg" />
 					<span>서울시 서초구 서초동</span>
@@ -54,8 +44,12 @@
 		<div v-if="tab === 'intro'" class="detail-intro">
 			<div class="intro-bedges">
 				<div class="intro-bedge">
+					<i>안심</i>
+					<p>배상책임보험</p>
+				</div>
+				<div class="intro-bedge">
 					<i>인증</i>
-					<p>사업자확인</p>
+					<p>사업자/자격증</p>
 				</div>
 			</div>
 			<div class="intro-content">
@@ -88,6 +82,8 @@
 import { ref } from 'vue';
 
 import HeaderCloseAndLike from '~/components/layout/HeaderCloseAndLike.vue';
+import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
+import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
 import ReviewList from '~/components/list/ReviewList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import LawyerSelectCompleteModal from '~/components/modal/LawyerSelectCompleteModal.vue';
@@ -151,7 +147,7 @@ const toggleLawyerSelectCompleteModal = () => {
 	justify-content: flex-end;
 	align-items: center;
 	gap: 4px;
-	margin: 18px 0 10px;
+	margin: 18px 0 18px;
 	padding-right: 10px;
 	& > p {
 		font-size: 12px;
@@ -255,7 +251,7 @@ const toggleLawyerSelectCompleteModal = () => {
 		align-items: center;
 		gap: 5px;
 		& > p {
-			font-size: 14px;
+			font-size: 12px;
 			font-weight: $ft-bold;
 		}
 		& > i {

@@ -1,5 +1,5 @@
 <template>
-	<HeaderClose title="매칭된 등기프로 리스트" />
+	<HeaderClose title="등기프로 찾기" />
 	<div class="find-match-container">
 		<div class="find-match-top-container">
 			<div class="match-title">

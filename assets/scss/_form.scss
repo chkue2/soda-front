@@ -1,5 +1,8 @@
 .form-title {
   font-weight: $ft-bold;
+  &.text-center {
+    text-align: center;
+  }
 }
 .form-input {
   width: 100%;
@@ -10,9 +13,11 @@
   padding: 0 20px;
   border-radius: 30px;
   border: 1px solid #C5C6CC;
+  font-size: 16px;
   & > input {
     flex: 1;
     border: none;
+    font-size: 16px;
   }
 }
 .form-select {
@@ -21,6 +26,7 @@
   padding: 0 20px;
   border-radius: 30px;
   border: 1px solid #C5C6CC;
+  font-size: 16px;
 }
 .form-won-text {
   color: #29CDFF;

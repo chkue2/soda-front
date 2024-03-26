@@ -169,6 +169,9 @@ const handlerClickMoveToDetailButton = () => {
 		display: flex;
 		align-items: center;
 		gap: 5px;
+		& > span {
+			font-size: 14px;
+		}
 	}
 }
 </style>

@@ -84,29 +84,6 @@
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
 						<img src="/img/icon/check-bubble-blue.svg" />
-						<p>일정보고 완료</p>
-					</div>
-				</div>
-				<div>
-					<p class="contract-state-subtitle">
-						잔금일과 잔금시간을 꼭 확인해주세요.
-					</p>
-					<div class="contract-state-contents">
-						<div class="contract-state-contents-block">
-							<p class="contract-state-contents-title">잔금일</p>
-							<p class="contract-state-contents-content">2024-05-15</p>
-						</div>
-						<div class="contract-state-contents-block">
-							<p class="contract-state-contents-title">잔금시간</p>
-							<p class="contract-state-contents-content">오전 9시 30분</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="contract-state-card card-on">
-				<div class="contract-state-title">
-					<div class="contract-state-title-left">
-						<img src="/img/icon/check-bubble-blue.svg" />
 						<p>담당자보고 완료</p>
 					</div>
 				</div>
@@ -123,6 +100,29 @@
 								<span>연락처</span>
 								<a href="tel:010-1234-1234">010-1234-1234</a>
 							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="contract-state-card card-on">
+				<div class="contract-state-title">
+					<div class="contract-state-title-left">
+						<img src="/img/icon/check-bubble-blue.svg" />
+						<p>일정보고 완료</p>
+					</div>
+				</div>
+				<div>
+					<p class="contract-state-subtitle">
+						잔금일과 잔금시간을 꼭 확인해주세요.
+					</p>
+					<div class="contract-state-contents">
+						<div class="contract-state-contents-block">
+							<p class="contract-state-contents-title">잔금일</p>
+							<p class="contract-state-contents-content">2024-05-15</p>
+						</div>
+						<div class="contract-state-contents-block">
+							<p class="contract-state-contents-title">잔금시간</p>
+							<p class="contract-state-contents-content">오전 9시 30분</p>
 						</div>
 					</div>
 				</div>

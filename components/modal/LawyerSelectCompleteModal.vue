@@ -5,8 +5,7 @@
 				<p class="select-modal-content">탁월한 선택이예요!</p>
 				<p class="select-modal-title">사무소 선택을 완료했어요</p>
 				<p class="select-modal-text">
-					매칭된 등기프로의 정보는<br /><b>[내 계약관리]</b>에서 확인
-					가능합니다.
+					등기프로가 수임확정하면<br />알림톡을 보내드려요.
 				</p>
 				<button class="select-modal-button" @click="handlerClickPageMoveButton">
 					바로가기
