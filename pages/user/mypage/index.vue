@@ -78,7 +78,7 @@
 							class="mypage-menu-item-icon"
 						/>
 					</NuxtLink>
-					<NuxtLink to="/" class="mypage-menu-item">
+					<NuxtLink to="/user/my-review" class="mypage-menu-item">
 						<div class="mypage-menu-item-title">
 							<p>내 리뷰 관리</p>
 						</div>
