@@ -68,7 +68,7 @@
 							class="mypage-menu-item-icon"
 						/>
 					</NuxtLink>
-					<NuxtLink to="/" class="mypage-menu-item">
+					<NuxtLink to="/user/my-like" class="mypage-menu-item">
 						<div class="mypage-menu-item-title">
 							<p>좋아요 활동</p>
 							<span class="like-count">6</span>

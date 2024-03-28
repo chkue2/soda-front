@@ -1,4 +1,3 @@
-import { Style } from '#build/components';
 <template>
 	<div id="pagination" class="pagination">
 		<span
