@@ -45,7 +45,7 @@
 				<div class="banner-counter">2/4</div>
 			</div>
 			<div class="mypage-menu-container">
-				<div class="mypage-menu">
+				<div v-if="false" class="mypage-menu">
 					<p class="mypage-menu-title">내 정보</p>
 					<NuxtLink to="/" class="mypage-menu-item">
 						<div class="mypage-menu-item-title">

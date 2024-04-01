@@ -51,11 +51,6 @@
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
-			title="직접 찾기"
-			progress-color="#404040"
-			@click-button="handlerClickFindYourself"
-		/>
-		<ProgressBackgroundButton
 			title="전문가 찾기"
 			@click-button="handlerClickFind"
 		/>

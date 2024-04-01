@@ -46,19 +46,21 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { useAuthStore } from '~/store/auth.js';
 
 const router = useRouter();
+const route = useRoute();
 const useAuth = useAuthStore();
 
 const handlerClickLoginButton = () => {
 	console.log('id and password check');
 	useAuth.login();
-	router.push('/');
+	if (route.redirectedFrom === undefined) return router.replace('/');
+	else return router.replace(route.redirectedFrom.fullPath);
 };
 </script>
 

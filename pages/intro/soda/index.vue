@@ -62,10 +62,10 @@
 	</div>
 	<picture>
 		<source
-			srcset="/img/intro/soda-intro-mo-04.png"
+			srcset="/img/intro/soda-intro-mo-06.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-04.png" />
+		<img src="/img/intro/soda-intro-pc-06.png" />
 	</picture>
 	<div class="intro-soda-section pt24 pb36">
 		<p class="intro-soda-subtitle">3. 견적넣기</p>
@@ -78,23 +78,23 @@
 		</div>
 	</div>
 	<div class="intro-soda-section pt24 pb21">
-		<p class="intro-soda-subtitle">4. 법무사 매칭</p>
+		<p class="intro-soda-subtitle">4. 등기프로 매칭</p>
 		<p class="intro-soda-section-content">
-			견적을 넣으면 2시간동안 총 5명의 법무사와 매칭이 시작됩니다. 법무사의
-			평점이나 리뷰를 확인해보고 마음에 드는 법무사가 없다면 다시찾기로 5명의
-			법무사를 새로 추천받을 수 있어요.
+			견적을 넣으면 2시간동안 총 5명의 등기프로와 매칭이 시작됩니다. 등기프로의
+			평점이나 리뷰를 확인해보고 마음에 드는 등기프로가 없다면 다시찾기로 5명의
+			등기프로를 새로 추천받을 수 있어요.
 		</p>
 	</div>
 	<picture>
 		<source
-			srcset="/img/intro/soda-intro-mo-05.png"
+			srcset="/img/intro/soda-intro-mo-07.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-05.png" />
+		<img src="/img/intro/soda-intro-pc-07.png" />
 	</picture>
 	<div class="intro-soda-section pt25 pb54">
 		<p class="intro-soda-section-content">
-			등기소다는 엄선된 전문 법무사들로 구성된 네트워크를 자랑합니다. 우리
+			등기소다는 엄선된 전문 프로들로 구성된 네트워크를 자랑합니다. 우리
 			플랫폼에 등록된 모든 법무사들은 엄격한 심사 과정을 거쳐 선별되었으며,
 			전문성과 경험이 뛰어난 실력있는 전문가들입니다. 등기소다를 통해 고객들은
 			최고 수준의 법률 서비스를 제공받을 수 있습니다. 또한 등기소다는 법무사들의

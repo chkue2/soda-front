@@ -3,7 +3,7 @@
 		<p class="header-title">{{ props.title }}</p>
 		<div class="header-right">
 			<button class="header-like">
-				<img src="/img/icon/heart-red.svg" />
+				<img src="/img/icon/heart-gray.svg" />
 			</button>
 			<button class="header-close" @click="handlerClickClose">
 				<img src="/img/icon/close-black.svg" />

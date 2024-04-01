@@ -56,6 +56,10 @@ import {
 	convertToKoreanCurrency,
 } from '~/assets/js/utils.js';
 
+definePageMeta({
+	middleware: 'auth',
+});
+
 const form = ref({
 	bDate: '',
 	address: '',
