@@ -38,7 +38,7 @@
 				<p class="review-detail-block-score">{{ props.kind }}</p>
 			</div>
 			<div class="review-detail-block-column">
-				<p class="review-detail-block-column-title">내부평가</p>
+				<p class="review-detail-block-column-title">내부평점</p>
 				<div class="review-detail-block-bar">
 					<i :style="{ width: insideBarWidth }"></i>
 				</div>
