@@ -58,12 +58,13 @@
 				법무사 소개란입니다여기는 법무사 소개란입니다여기는 법무사 소개란입니다.
 			</div>
 		</div>
-
-		<div v-if="tab === 'review'" class="law-rate">
-			<p>고객평점 <b>4.5</b></p>
-			<i></i>
-			<p>프리로스 평점 <b>4.8</b></p>
-		</div>
+		<ReviewDetailBlockItem
+			v-if="tab === 'review'"
+			:time="2.8"
+			:performance="3.5"
+			:kind="2.9"
+			:inside="1.4"
+		/>
 		<ReviewList v-if="tab === 'review'" :margin="[6, 10, 6, 10]" />
 	</div>
 	<div class="form-bottom-buttons">
@@ -84,6 +85,7 @@ import { ref } from 'vue';
 import HeaderCloseAndLike from '~/components/layout/HeaderCloseAndLike.vue';
 import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
 import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
+import ReviewDetailBlockItem from '~/components/item/ReviewDetailBlockItem.vue';
 import ReviewList from '~/components/list/ReviewList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import LawyerSelectCompleteModal from '~/components/modal/LawyerSelectCompleteModal.vue';
@@ -139,29 +141,6 @@ const toggleLawyerSelectCompleteModal = () => {
 		text-decoration: underline;
 		cursor: pointer;
 		margin-left: 4px;
-	}
-}
-.law-rate {
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	gap: 4px;
-	margin: 18px 0 18px;
-	padding-right: 10px;
-	& > p {
-		font-size: 12px;
-		color: rgba(68, 68, 68, 0.91);
-		& > b {
-			color: rgba(0, 0, 0, 0.91);
-			font-weight: $ft-bold;
-		}
-	}
-	& > i {
-		display: block;
-		width: 1px;
-		height: 9px;
-		background-color: #ebebeb;
 	}
 }
 .detail-info {
