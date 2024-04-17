@@ -6,33 +6,80 @@
 					<div class="filter-tags">
 						<p class="tags-title">경력</p>
 						<div class="tags-contents">
-							<span class="filter-tag active">경력무관</span>
-							<span class="filter-tag">5년이상</span>
-							<span class="filter-tag">10년이상</span>
+							<span
+								class="filter-tag"
+								:class="{ active: careersValue.includes('1') }"
+								@click="handlerClickCareer('1')"
+								>경력무관</span
+							>
+							<span
+								class="filter-tag"
+								:class="{ active: careersValue.includes('2') }"
+								@click="handlerClickCareer('2')"
+								>5년이상</span
+							>
+							<span
+								class="filter-tag"
+								:class="{ active: careersValue.includes('3') }"
+								@click="handlerClickCareer('3')"
+								>10년이상</span
+							>
 						</div>
 					</div>
 					<div class="filter-tags">
 						<p class="tags-title">대표배지</p>
 						<div class="tags-contents">
-							<span class="filter-tag active">배상책임보험가입</span>
-							<span class="filter-tag">고객평점우수</span>
-							<span class="filter-tag">시간엄수</span>
-							<span class="filter-tag">친절함</span>
+							<span
+								class="filter-tag"
+								:class="{ active: badgesValue.includes('1') }"
+								@click="handlerClickBadge('1')"
+								>배상책임보험가입</span
+							>
+							<span
+								class="filter-tag"
+								:class="{ active: badgesValue.includes('2') }"
+								@click="handlerClickBadge('2')"
+								>고객평점우수</span
+							>
+							<span
+								class="filter-tag"
+								:class="{ active: badgesValue.includes('3') }"
+								@click="handlerClickBadge('3')"
+								>시간엄수</span
+							>
+							<span
+								class="filter-tag"
+								:class="{ active: badgesValue.includes('4') }"
+								@click="handlerClickBadge('4')"
+								>친절함</span
+							>
 						</div>
 					</div>
 				</div>
 				<p class="filter-title">지역</p>
 				<div class="filter-select-container">
-					<select>
+					<select v-model="addressValue.sido">
 						<option value="">시/도</option>
+						<option value="서울특별시">서울특별시</option>
 					</select>
-					<select>
+					<select v-model="addressValue.gungu">
 						<option value="">군/구</option>
+						<option value="도봉구">도봉구</option>
+					</select>
+				</div>
+				<div class="filter-select-container mt10 mb48">
+					<select v-model="addressValue.dong">
+						<option value="">동/읍/면</option>
+						<option value="도봉동">도봉동</option>
 					</select>
 				</div>
 				<div class="filter-buttons">
-					<button class="reset-button">초기화</button>
-					<button class="apply-button">적용하기</button>
+					<button class="reset-button" @click="handlerClickResetButton">
+						초기화
+					</button>
+					<button class="apply-button" @click="handlerClickApplyButton">
+						적용하기
+					</button>
 				</div>
 			</div>
 		</template>
@@ -40,10 +87,83 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
 
-const emit = defineEmits(['close-modal']);
+const emit = defineEmits([
+	'close-modal',
+	'set-careers',
+	'set-badges',
+	'set-address',
+]);
 const closeModal = () => {
+	emit('close-modal');
+};
+
+const props = defineProps({
+	careers: {
+		type: Array,
+		default: () => [],
+	},
+	badges: {
+		type: Array,
+		default: () => [],
+	},
+	address: {
+		type: Object,
+		default: () => {
+			return {
+				sido: '',
+				gungu: '',
+				dong: '',
+			};
+		},
+	},
+});
+
+const careersValue = ref([]);
+const badgesValue = ref([]);
+const addressValue = ref({
+	sido: '',
+	gungu: '',
+	dong: '',
+});
+
+onMounted(() => {
+	careersValue.value = [...props.careers];
+	badgesValue.value = [...props.badges];
+	addressValue.value = { ...props.address };
+});
+
+const handlerClickCareer = val => {
+	if (careersValue.value.includes(val)) {
+		careersValue.value = careersValue.value.filter(v => v !== val);
+	} else {
+		careersValue.value.push(val);
+	}
+};
+const handlerClickBadge = val => {
+	if (badgesValue.value.includes(val)) {
+		badgesValue.value = badgesValue.value.filter(v => v !== val);
+	} else {
+		badgesValue.value.push(val);
+	}
+};
+
+const handlerClickResetButton = () => {
+	careersValue.value = [];
+	badgesValue.value = [];
+	addressValue.value = {
+		sido: '',
+		gungu: '',
+		dong: '',
+	};
+};
+
+const handlerClickApplyButton = () => {
+	emit('set-careers', careersValue.value);
+	emit('set-badges', badgesValue.value);
+	emit('set-address', addressValue.value);
 	emit('close-modal');
 };
 </script>
@@ -90,7 +210,6 @@ const closeModal = () => {
 	display: flex;
 	gap: 9px;
 	width: 100%;
-	margin: 17px 0 77px;
 	& > select {
 		flex: 1;
 		height: 44px;

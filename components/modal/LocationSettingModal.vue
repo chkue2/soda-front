@@ -8,12 +8,17 @@
 					잔금일 당일, 수월한 업무 수행을 위해서는 거래대상 소재지에서 가까운
 					거리에 있는 법무사와 매칭하는 것이 좋습니다.
 				</p>
-				<div class="setting-select-container">
+				<div class="setting-select-container mt24">
 					<select>
 						<option value="">시/도</option>
 					</select>
 					<select>
 						<option value="">군/구</option>
+					</select>
+				</div>
+				<div class="setting-select-container mt10 mb34">
+					<select>
+						<option value="">동/읍/면</option>
 					</select>
 				</div>
 				<button class="setting-button">설정하기</button>
@@ -64,7 +69,6 @@ const closeModal = () => {
 	display: flex;
 	gap: 9px;
 	width: 100%;
-	margin: 26px 0;
 	& > select {
 		flex: 1;
 		height: 44px;

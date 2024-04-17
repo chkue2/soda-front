@@ -31,6 +31,12 @@
 			/>
 			<FindFilterModal
 				v-if="isFindFilterModalShow"
+				:careers="careers"
+				:badges="badges"
+				:address="address"
+				@set-careers="setCareers"
+				@set-badges="setBadges"
+				@set-address="setAddress"
 				@close-modal="toggleFindFilterModal"
 			/>
 		</template>
@@ -48,6 +54,25 @@ definePageMeta({
 	middleware: 'auth',
 	layout: false,
 });
+
+const careers = ref([]);
+const badges = ref([]);
+
+const setCareers = val => {
+	careers.value = val;
+};
+const setBadges = val => {
+	badges.value = val;
+};
+
+const address = ref({
+	sido: '',
+	gungu: '',
+	dong: '',
+});
+const setAddress = val => {
+	address.value = val;
+};
 
 const isLocationSettingModalShow = ref(false);
 const toggleLocationSettingModal = () => {

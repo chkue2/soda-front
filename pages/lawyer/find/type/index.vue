@@ -19,7 +19,7 @@
 				<img src="/img/icon/pointer-blue-02.svg" />
 				<div class="type-item-text">
 					<p class="type-item-title">내가 직접 가격제안하기</p>
-					<p class="type-item-subtitle">평균 공임료 내에서 가격제안하기</p>
+					<p class="type-item-subtitle">보수료를 직접 제안하는 실속형</p>
 				</div>
 			</div>
 			<div class="type-item-price">50만원부터~</div>
@@ -34,7 +34,7 @@
 				<img src="/img/icon/chart-blue.svg" />
 				<div class="type-item-text">
 					<p class="type-item-title">일반 등기프로 찾기</p>
-					<p class="type-item-subtitle">모든 등기프로 참여 가능</p>
+					<p class="type-item-subtitle">모두가 좋아하는 등기소다 표준</p>
 				</div>
 			</div>
 			<div class="type-item-price">60만원대</div>
@@ -49,7 +49,7 @@
 				<img src="/img/icon/medal-blue-02.svg" />
 				<div class="type-item-text">
 					<p class="type-item-title">프리미엄 등기프로 찾기</p>
-					<p class="type-item-subtitle">법무사/변호사가 직접 출석하는 상품</p>
+					<p class="type-item-subtitle">전문가 대면을 원한다면 프리미엄</p>
 				</div>
 			</div>
 			<div class="type-item-price">70만원대</div>
