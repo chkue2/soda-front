@@ -9,28 +9,107 @@
 					거리에 있는 법무사와 매칭하는 것이 좋습니다.
 				</p>
 				<div class="setting-select-container mt24">
-					<select>
+					<select v-model="selectedAddress.sido" @change="handlerChangeSido">
 						<option value="">시/도</option>
+						<option
+							v-for="(sido, index) in locationStore.sidoEnums"
+							:key="index"
+							:value="sido.label"
+						>
+							{{ sido.label }}
+						</option>
 					</select>
-					<select>
+					<select v-model="selectedAddress.gugun" @change="handlerChangeGugun">
 						<option value="">군/구</option>
+						<option
+							v-for="(gugun, index) in locationStore.gugunEnums"
+							:key="index"
+							:value="gugun.label"
+						>
+							{{ gugun.label }}
+						</option>
 					</select>
 				</div>
 				<div class="setting-select-container mt10 mb34">
-					<select>
+					<select v-model="selectedAddress.dong" @change="handlerChangeDong">
 						<option value="">동/읍/면</option>
+						<option
+							v-for="(dong, index) in locationStore.detailEnums"
+							:key="index"
+							:value="dong.label"
+						>
+							{{ dong.label }}
+						</option>
 					</select>
 				</div>
-				<button class="setting-button">설정하기</button>
+				<button class="setting-button" @click="setAddress">설정하기</button>
 			</div>
 		</template>
 	</CommonModal>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
+import { useLocationStore } from '~/store/location.js';
 
-const emit = defineEmits(['close-modal']);
+const locationStore = useLocationStore();
+
+const props = defineProps({
+	address: {
+		type: Object,
+		default: () => {
+			return {
+				sido: '',
+				gugun: '',
+				dong: '',
+				locationCode: '',
+			};
+		},
+	},
+});
+
+const selectedAddress = ref({ ...props.address });
+
+onMounted(() => {
+	locationStore.getSido();
+	if (props.address.sido !== '') {
+		locationStore.getGugun(props.address.sido);
+	}
+	if (props.address.gugun !== '') {
+		locationStore.getDetail(props.address.sido, props.address.gugun);
+	}
+});
+
+const handlerChangeSido = () => {
+	locationStore.getGugun(selectedAddress.value.sido);
+	selectedAddress.value.gugun = '';
+	selectedAddress.value.dong = '';
+	locationStore.setLocationCode('');
+};
+
+const handlerChangeGugun = () => {
+	locationStore.getDetail(
+		selectedAddress.value.sido,
+		selectedAddress.value.gugun,
+	);
+	selectedAddress.value.dong = '';
+	locationStore.setLocationCode('');
+};
+
+const handlerChangeDong = () => {
+	const code = locationStore.detailEnums.filter(
+		d => d.label === selectedAddress.value.dong,
+	)[0].code;
+
+	selectedAddress.value.locationCode = code;
+};
+
+const emit = defineEmits(['set-address', 'close-modal']);
+const setAddress = () => {
+	emit('set-address', selectedAddress.value);
+	closeModal();
+};
 const closeModal = () => {
 	emit('close-modal');
 };

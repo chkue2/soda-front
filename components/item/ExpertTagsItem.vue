@@ -1,10 +1,19 @@
 <template>
 	<div class="expert-tags">
-		<span>예약시간준수</span>
-		<span>선호도 높음</span>
-		<span v-if="false">프로중의 프로</span>
+		<span v-if="props.badge.includes('TITLE_01')">예약시간준수</span>
+		<span v-if="props.badge.includes('TITLE_02')">선호도 높음</span>
+		<span v-if="props.badge.includes('TITLE_03')">프로중의 프로</span>
 	</div>
 </template>
+
+<script setup>
+const props = defineProps({
+	badge: {
+		type: Array,
+		default: () => [],
+	},
+});
+</script>
 
 <style scoped>
 @import '~/assets/scss/item/profile.scss';

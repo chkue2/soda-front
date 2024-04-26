@@ -10,6 +10,11 @@ export default defineNuxtConfig({
 		},
 	},
 	devtools: { enabled: true },
+	runtimeConfig: {
+		public: {
+			apiURL: process.env.API_URL,
+		},
+	},
 	ssr: false,
 	modules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
 	css: ['~/assets/scss/_style.scss'],

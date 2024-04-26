@@ -1,5 +1,5 @@
 <template>
-	<HeaderClose title="전문가 찾기" />
+	<HeaderClose title="등기프로 찾기" />
 	<div class="form-container">
 		<p class="form-title mb11">잔금일자를 선택해주세요</p>
 		<div class="form-input mb27">

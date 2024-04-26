@@ -4,73 +4,97 @@
 			<div class="filter-container">
 				<div class="filter-tag-container">
 					<div class="filter-tags">
-						<p class="tags-title">경력</p>
+						<p class="tags-title">획득배지</p>
 						<div class="tags-contents">
 							<span
 								class="filter-tag"
-								:class="{ active: careersValue.includes('1') }"
-								@click="handlerClickCareer('1')"
-								>경력무관</span
+								:class="{ active: careersValue.includes('TITLE_02') }"
+								@click="handlerClickCareer('TITLE_02')"
+								>프로중의 프로</span
 							>
 							<span
 								class="filter-tag"
-								:class="{ active: careersValue.includes('2') }"
-								@click="handlerClickCareer('2')"
-								>5년이상</span
+								:class="{ active: careersValue.includes('TITLE_01') }"
+								@click="handlerClickCareer('TITLE_01')"
+								>선호도 높음</span
 							>
 							<span
 								class="filter-tag"
-								:class="{ active: careersValue.includes('3') }"
-								@click="handlerClickCareer('3')"
-								>10년이상</span
+								:class="{ active: careersValue.includes('TITLE_03') }"
+								@click="handlerClickCareer('TITLE_03')"
+								>예약시간준수</span
 							>
 						</div>
 					</div>
 					<div class="filter-tags">
-						<p class="tags-title">대표배지</p>
+						<p class="tags-title">어필배지</p>
 						<div class="tags-contents">
 							<span
 								class="filter-tag"
-								:class="{ active: badgesValue.includes('1') }"
-								@click="handlerClickBadge('1')"
-								>배상책임보험가입</span
+								:class="{ active: badgesValue.includes('APPEAL_01') }"
+								@click="handlerClickBadge('APPEAL_01')"
+								>주말응대가능</span
 							>
 							<span
 								class="filter-tag"
-								:class="{ active: badgesValue.includes('2') }"
-								@click="handlerClickBadge('2')"
-								>고객평점우수</span
+								:class="{ active: badgesValue.includes('APPEAL_02') }"
+								@click="handlerClickBadge('APPEAL_02')"
+								>빠른응답</span
 							>
 							<span
 								class="filter-tag"
-								:class="{ active: badgesValue.includes('3') }"
-								@click="handlerClickBadge('3')"
-								>시간엄수</span
+								:class="{ active: badgesValue.includes('APPEAL_03') }"
+								@click="handlerClickBadge('APPEAL_03')"
+								>공감하는</span
 							>
 							<span
 								class="filter-tag"
-								:class="{ active: badgesValue.includes('4') }"
-								@click="handlerClickBadge('4')"
-								>친절함</span
+								:class="{ active: badgesValue.includes('APPEAL_04') }"
+								@click="handlerClickBadge('APPEAL_04')"
+								>꼼꼼해요</span
+							>
+							<span
+								class="filter-tag"
+								:class="{ active: badgesValue.includes('APPEAL_05') }"
+								@click="handlerClickBadge('APPEAL_05')"
+								>친절해요</span
 							>
 						</div>
 					</div>
 				</div>
 				<p class="filter-title">지역</p>
 				<div class="filter-select-container">
-					<select v-model="addressValue.sido">
+					<select v-model="addressValue.sido" @change="handlerChangeSido">
 						<option value="">시/도</option>
-						<option value="서울특별시">서울특별시</option>
+						<option
+							v-for="(sido, index) in locationStore.sidoEnums"
+							:key="index"
+							:value="sido.label"
+						>
+							{{ sido.label }}
+						</option>
 					</select>
-					<select v-model="addressValue.gungu">
+					<select v-model="addressValue.gugun" @change="handlerChangeGugun">
 						<option value="">군/구</option>
-						<option value="도봉구">도봉구</option>
+						<option
+							v-for="(gugun, index) in locationStore.gugunEnums"
+							:key="index"
+							:value="gugun.label"
+						>
+							{{ gugun.label }}
+						</option>
 					</select>
 				</div>
 				<div class="filter-select-container mt10 mb48">
-					<select v-model="addressValue.dong">
+					<select v-model="addressValue.dong" @change="handlerChangeDong">
 						<option value="">동/읍/면</option>
-						<option value="도봉동">도봉동</option>
+						<option
+							v-for="(dong, index) in locationStore.detailEnums"
+							:key="index"
+							:value="dong.label"
+						>
+							{{ dong.label }}
+						</option>
 					</select>
 				</div>
 				<div class="filter-buttons">
@@ -89,6 +113,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
+import { useLocationStore } from '~/store/location.js';
+
+const locationStore = useLocationStore();
 
 const emit = defineEmits([
 	'close-modal',
@@ -96,9 +123,6 @@ const emit = defineEmits([
 	'set-badges',
 	'set-address',
 ]);
-const closeModal = () => {
-	emit('close-modal');
-};
 
 const props = defineProps({
 	careers: {
@@ -114,25 +138,26 @@ const props = defineProps({
 		default: () => {
 			return {
 				sido: '',
-				gungu: '',
+				gugun: '',
 				dong: '',
+				locationCode: '',
 			};
 		},
 	},
 });
 
-const careersValue = ref([]);
-const badgesValue = ref([]);
-const addressValue = ref({
-	sido: '',
-	gungu: '',
-	dong: '',
-});
+const careersValue = ref([...props.careers]);
+const badgesValue = ref([...props.badges]);
+const addressValue = ref({ ...props.address });
 
 onMounted(() => {
-	careersValue.value = [...props.careers];
-	badgesValue.value = [...props.badges];
-	addressValue.value = { ...props.address };
+	locationStore.getSido();
+	if (props.address.sido !== '') {
+		locationStore.getGugun(props.address.sido);
+	}
+	if (props.address.gugun !== '') {
+		locationStore.getDetail(props.address.sido, props.address.gugun);
+	}
 });
 
 const handlerClickCareer = val => {
@@ -150,13 +175,35 @@ const handlerClickBadge = val => {
 	}
 };
 
+const handlerChangeSido = () => {
+	locationStore.getGugun(addressValue.value.sido);
+	addressValue.value.gugun = '';
+	addressValue.value.dong = '';
+	locationStore.setLocationCode('');
+};
+
+const handlerChangeGugun = () => {
+	locationStore.getDetail(addressValue.value.sido, addressValue.value.gugun);
+	addressValue.value.dong = '';
+	locationStore.setLocationCode('');
+};
+
+const handlerChangeDong = () => {
+	const code = locationStore.detailEnums.filter(
+		d => d.label === addressValue.value.dong,
+	)[0].code;
+
+	addressValue.value.locationCode = code;
+};
+
 const handlerClickResetButton = () => {
 	careersValue.value = [];
 	badgesValue.value = [];
 	addressValue.value = {
 		sido: '',
-		gungu: '',
+		gugun: '',
 		dong: '',
+		locationCode: '',
 	};
 };
 
@@ -164,6 +211,10 @@ const handlerClickApplyButton = () => {
 	emit('set-careers', careersValue.value);
 	emit('set-badges', badgesValue.value);
 	emit('set-address', addressValue.value);
+	emit('close-modal');
+};
+
+const closeModal = () => {
 	emit('close-modal');
 };
 </script>
@@ -176,7 +227,7 @@ const handlerClickApplyButton = () => {
 	display: flex;
 	flex-direction: column;
 	gap: 52px;
-	padding: 0 35px;
+	padding: 0 20px;
 }
 .filter-tags {
 	display: flex;

@@ -51,7 +51,7 @@
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
-			title="전문가 찾기"
+			title="등기프로 찾기"
 			@click-button="handlerClickFind"
 		/>
 	</div>

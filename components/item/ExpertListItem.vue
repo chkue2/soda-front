@@ -1,19 +1,21 @@
 <template>
 	<div class="expert-list-item" @click="handlerClickItem">
-		<img class="expert-profile" src="/img/icon/profile-iu.png" />
+		<img class="expert-profile" :src="imageUrl" />
 		<div>
-			<p class="expert-office-name"><span>다이렉트로 법무사사무소</span></p>
-			<ExpertTagsItem />
-			<ExpertOptionsItem />
-			<div class="expert-location">
-				<img src="/img/icon/location-gray.svg" />
-				<p>서울시 서초구 서초동</p>
+			<p class="expert-office-name">
+				<span>{{ props.item.firmName }}</span>
+			</p>
+			<ExpertTagsItem :badge="props.item.badge || []" />
+			<ExpertOptionsItem :badge="props.item.badge || []" />
+			<div class="expert-rate">
+				<img src="/img/icon/star-yellow.svg" />
+				<p>{{ props.item.firmAvgStar.toFixed(1) }}</p>
 			</div>
 			<div class="expert-info">
-				<p class="expert-distance">0 Km</p>
-				<div class="expert-rate">
-					<img src="/img/icon/star-yellow.svg" />
-					<p>4.8</p>
+				<p class="expert-distance">{{ props.item.distance_km }} Km</p>
+				<div class="expert-location">
+					<img src="/img/icon/location-gray.svg" />
+					<p>{{ props.item.sido }} {{ props.item.gugun }}</p>
 				</div>
 			</div>
 		</div>
@@ -21,10 +23,22 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
 import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
+
+const props = defineProps({
+	item: {
+		type: Object,
+		default: () => {},
+	},
+});
+
+const imageUrl = computed(
+	() => `${useRuntimeConfig().public.apiURL}${props.item.profileFileUrl}`,
+);
 
 const router = useRouter();
 const handlerClickItem = () => {
