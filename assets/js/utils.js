@@ -40,4 +40,16 @@ const convertToKoreanCurrency = num => {
 	return result.join('');
 };
 
-export { keyupToLocaleString, convertToKoreanCurrency };
+/**
+ * 숫자로만 된 전화번호를 -를 포함한 전화번호로 변경
+ *
+ * @param {string} text
+ * @returns
+ */
+const rexFormatPhone = text => {
+	return text
+		?.replace(/[^0-9]/g, '')
+		?.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, '$1-$2-$3');
+};
+
+export { keyupToLocaleString, convertToKoreanCurrency, rexFormatPhone };

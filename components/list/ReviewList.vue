@@ -5,7 +5,11 @@
 			margin: `${props.margin[0]}px ${props.margin[1]}px ${props.margin[2]}px ${props.margin[3]}px`,
 		}"
 	>
-		<ReviewItem v-for="i in 5" :key="i" />
+		<ReviewItem
+			v-for="(review, index) in reviews"
+			:key="index"
+			:review="review"
+		/>
 	</div>
 </template>
 
@@ -16,6 +20,10 @@ const props = defineProps({
 	margin: {
 		type: Array,
 		default: () => [0, 0, 0, 0],
+	},
+	reviews: {
+		type: Array,
+		default: () => [],
 	},
 });
 </script>

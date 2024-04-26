@@ -36,13 +36,15 @@ const props = defineProps({
 	},
 });
 
-const imageUrl = computed(
-	() => `${useRuntimeConfig().public.apiURL}${props.item.profileFileUrl}`,
+const imageUrl = computed(() =>
+	props.item.profileFileUrl
+		? `${useRuntimeConfig().public.apiURL}${props.item.profileFileUrl}`
+		: '',
 );
 
 const router = useRouter();
 const handlerClickItem = () => {
-	router.push('/lawyer/detail/1');
+	router.push(`/lawyer/detail/${props.item.firmCode}`);
 };
 </script>
 

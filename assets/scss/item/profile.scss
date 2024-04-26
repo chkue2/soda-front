@@ -12,6 +12,9 @@
 		color: #61666c;
 		font-size: 12px;
 	}
+	&.align-center {
+		justify-content: center;
+	}
 }
 .expert-options {
 	display: flex;
@@ -28,5 +31,8 @@
 		&.text--red {
 			color: #ff7a85;
 		}
+	}
+	&.align-center {
+		justify-content: center;
 	}
 }

@@ -2,25 +2,28 @@
 	<HeaderCloseAndLike title="최고당 법무사 사무소" />
 	<div class="lawyer-detail-container">
 		<div class="detail-top-container">
-			<img src="/img/icon/profile-iu.png" class="detail-profile" />
-			<p class="firm-name">최고당 법무사 사무소</p>
+			<img :src="imageUrl" class="detail-profile" />
+			<p class="firm-name">{{ firmDetail.firmName }}</p>
 			<div class="tel-container">
 				<span>사무소 전화</span>
-				<a href="tel:031-452-5555">031-452-5555</a>
-				<span class="ml12">사무소 전화</span>
-				<a href="tel:031-452-5555">031-452-5555</a>
+				<a :href="`tel:${rexFormatPhone(firmDetail.firmPhone || '')}`">{{
+					rexFormatPhone(firmDetail.firmPhone || '')
+				}}</a>
+				<span class="ml12">대표전화</span>
+				<a :href="`tel:${rexFormatPhone(firmDetail.delegaterPhone || '')}`">{{
+					rexFormatPhone(firmDetail.delegaterPhone || '')
+				}}</a>
 			</div>
-			<ExpertTagsItem />
-			<ExpertOptionsItem />
+			<ExpertTagsItem v-if="isTagShow" :badge="badge" align="center" />
+			<ExpertOptionsItem v-if="isOptionShow" :badge="badge" align="center" />
 			<div class="detail-info">
 				<div class="info-rate">
 					<img src="/img/icon/star-yellow.svg" />
-					<span>4.8</span>
+					<span>{{ firmAvgStar }}</span>
 				</div>
-				<p class="info-distance">100 Km</p>
 				<div class="info-location">
 					<img src="/img/icon/location-gray.svg" />
-					<span>서울시 서초구 서초동</span>
+					<span>{{ firmDetail.sido }} {{ firmDetail.gugun }}</span>
 				</div>
 			</div>
 		</div>
@@ -38,34 +41,39 @@
 				@click="handlerClickTab('review')"
 			>
 				<p>리뷰</p>
-				<span>100</span>
+				<span>{{ firmDetail.reviewCount }}</span>
 			</div>
 		</div>
 		<div v-if="tab === 'intro'" class="detail-intro">
-			<div class="intro-bedges">
-				<div class="intro-bedge">
+			<!-- <div class="intro-bedges">
+				<div class="intro-badge">
 					<i>안심</i>
 					<p>배상책임보험</p>
 				</div>
-				<div class="intro-bedge">
+				<div class="intro-badge">
 					<i>인증</i>
 					<p>사업자/자격증</p>
 				</div>
-			</div>
+			</div> -->
 			<div class="intro-content">
-				여기는 법무사 소개란입니다.여기는 법무사 소개란입니다여기는 법무사
-				소개란입니다여기는 법무사 소개란입니다여기는 법무사 소개란입니다여기는
-				법무사 소개란입니다여기는 법무사 소개란입니다여기는 법무사 소개란입니다.
+				{{
+					firmDetail.introduction || `안녕하세요. ${firmDetail.firmName}입니다.`
+				}}
 			</div>
 		</div>
 		<ReviewDetailBlockItem
 			v-if="tab === 'review'"
-			:time="2.8"
-			:performance="3.5"
-			:kind="2.9"
-			:inside="1.4"
+			:time="firmDetail.timeStar"
+			:performance="firmDetail.repidStar"
+			:kind="firmDetail.kindStar"
+			:inside="firmDetail.workStar"
+			:score-avg="firmDetail.firmAvgStar"
 		/>
-		<ReviewList v-if="tab === 'review'" :margin="[6, 10, 6, 10]" />
+		<ReviewList
+			v-if="tab === 'review'"
+			:margin="[6, 10, 6, 10]"
+			:reviews="firmDetail.review || []"
+		/>
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -80,7 +88,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 import HeaderCloseAndLike from '~/components/layout/HeaderCloseAndLike.vue';
 import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
@@ -89,6 +98,38 @@ import ReviewDetailBlockItem from '~/components/item/ReviewDetailBlockItem.vue';
 import ReviewList from '~/components/list/ReviewList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import LawyerSelectCompleteModal from '~/components/modal/LawyerSelectCompleteModal.vue';
+
+import { lawyerDetail } from '~/services/lawyerDetail.js';
+import { rexFormatPhone } from '~/assets/js/utils.js';
+
+const route = useRoute();
+
+const firmDetail = ref({});
+
+onMounted(() => {
+	const firmCode = route.params.id;
+	lawyerDetail.getLawyerDetail(firmCode).then(({ data }) => {
+		firmDetail.value = data;
+	});
+});
+
+const badge = computed(() => firmDetail.value.badge || []);
+const isTagShow = computed(
+	() => badge.value.filter(b => b.includes('TITLE')).length > 0,
+);
+const isOptionShow = computed(
+	() => badge.value.filter(b => b.includes('APPEAL')).length > 0,
+);
+
+const imageUrl = computed(() =>
+	firmDetail.value.profileFileUrl
+		? `${useRuntimeConfig().public.apiURL}${firmDetail.value.profileFileUrl}`
+		: '',
+);
+
+const firmAvgStar = computed(() =>
+	firmDetail.value.firmAvgStar ? firmDetail.value.firmAvgStar.toFixed(1) : 0,
+);
 
 const tab = ref('intro');
 const handlerClickTab = val => {
@@ -146,6 +187,7 @@ const toggleLawyerSelectCompleteModal = () => {
 .detail-info {
 	width: 100%;
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	gap: 6px;
 	padding: 2px 0;
@@ -225,7 +267,7 @@ const toggleLawyerSelectCompleteModal = () => {
 		padding: 0 18px;
 		gap: 24px;
 	}
-	.intro-bedge {
+	.intro-badge {
 		display: inline-flex;
 		align-items: center;
 		gap: 5px;

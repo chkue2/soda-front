@@ -1,5 +1,5 @@
 <template>
-	<div class="expert-options">
+	<div class="expert-options" :class="{ 'align-center': align === 'center' }">
 		<span v-if="props.badge.includes('APPEAL_01')" class="text--red"
 			>주말응대가능</span
 		>
@@ -23,6 +23,10 @@ const props = defineProps({
 	badge: {
 		type: Array,
 		default: () => [],
+	},
+	align: {
+		type: String,
+		default: '',
 	},
 });
 </script>

@@ -1,15 +1,15 @@
 <template>
 	<div class="review-detail-block-container">
 		<div class="review-detail-block-left">
-			<p class="review-detail-score">{{ scoreAvg }}</p>
+			<p class="review-detail-score">{{ props.scoreAvg.toFixed(1) }}</p>
 			<div class="review-detail-rate">
 				<img
-					v-for="i in parseInt(scoreAvg)"
+					v-for="i in parseInt(props.scoreAvg)"
 					:key="i"
 					src="/img/icon/star-yellow.svg"
 				/>
 				<img
-					v-for="i in 5 - parseInt(scoreAvg)"
+					v-for="i in 5 - parseInt(props.scoreAvg)"
 					:key="i"
 					src="/img/icon/star-gray.svg"
 				/>
@@ -68,16 +68,16 @@ const props = defineProps({
 		type: Number,
 		default: 0,
 	},
+	scoreAvg: {
+		type: Number,
+		default: 0,
+	},
 });
 
 const timeBarWidth = computed(() => `${calcRate(props.time)}%`);
 const performanceBarWidth = computed(() => `${calcRate(props.performance)}%`);
 const kindBarWidth = computed(() => `${calcRate(props.kind)}%`);
 const insideBarWidth = computed(() => `${calcRate(props.inside)}%`);
-
-const scoreAvg = computed(() =>
-	((props.time + props.performance + props.kind + props.inside) / 4).toFixed(1),
-);
 
 const calcRate = rate => {
 	return parseFloat(rate) * 20;

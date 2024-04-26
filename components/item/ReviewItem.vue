@@ -1,22 +1,45 @@
 <template>
 	<div class="review-item">
-		<img class="review-profile" src="/img/icon/profile-iu.png" />
+		<img class="review-profile" src="/img/icon/profile-cow.png" />
 		<div class="review-item-contents">
 			<div class="review-title">
-				<p class="review-id">lovely_k**님</p>
-				<p class="review-date">2024.01.01</p>
+				<p class="review-id">{{ props.review.userName }}님</p>
+				<p class="review-date">{{ createdAt }}</p>
 			</div>
 			<div class="review-comment">
-				정말 친절하시고 시간약속도 잘 지켜주셨습니다. 덕분에 첫 주택구매를 잘
-				마쳤어요. 감사합니다. 다음에 또 이용할 생각이에요. 3줄이 넘어가면
-				말줄임표를 사용하게 되어있으니까 아마 이제 줄여지지 않을까 싶은데..
+				{{ props.review.memo }}
 			</div>
 			<div class="review-rate">
-				<img v-for="i in 5" :key="i" src="/img/icon/star-yellow.svg" />
+				<img
+					v-for="i in parseInt(props.review.star)"
+					:key="i"
+					src="/img/icon/star-yellow.svg"
+				/>
+				<img
+					v-for="i in 5 - parseInt(props.review.star)"
+					:key="i"
+					src="/img/icon/star-gray.svg"
+				/>
 			</div>
 		</div>
 	</div>
 </template>
+
+<script setup>
+import { computed } from 'vue';
+import dayjs from 'dayjs';
+
+const props = defineProps({
+	review: {
+		type: Object,
+		default: () => {},
+	},
+});
+
+const createdAt = computed(() =>
+	dayjs(props.review.created).format('YYYY.MM.DD'),
+);
+</script>
 
 <style lang="scss" scoped>
 .review-item {
@@ -25,9 +48,12 @@
 	align-items: center;
 }
 .review-profile {
-	width: 76px;
-	height: 76px;
+	width: 55px;
+	height: 55px;
 	border-radius: 50%;
+}
+.review-item-contents {
+	flex: 1;
 }
 .review-title {
 	display: flex;
@@ -55,5 +81,11 @@
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	line-height: 17px;
+}
+.review-rate {
+	& > img {
+		width: 14px;
+		height: 14px;
+	}
 }
 </style>

@@ -27,6 +27,7 @@ const API_URL = {
 	},
 	LAWYER: {
 		FIND: '/geo/firm/near/filter',
+		DETAIL: '/soda/lawyer/detail/:firm_code',
 	},
 };
 
