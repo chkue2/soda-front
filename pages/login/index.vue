@@ -46,14 +46,19 @@
 </template>
 
 <script setup>
+import { onBeforeUnmount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { useAuthStore } from '~/store/auth.js';
-import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
+import {
+	LOGIN_REDIRECT_KEY,
+	LOGIN_REDIRECT_AUTH_KEY,
+} from '~/assets/js/storageKeys.js';
 
 const router = useRouter();
+const route = useRoute();
 const useAuth = useAuthStore();
 
 const handlerClickLoginButton = () => {
@@ -61,8 +66,22 @@ const handlerClickLoginButton = () => {
 
 	useAuth.login();
 	const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
-	router.replace(redirectUrl || '/');
+	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
+
+	if (redirectAuth === 'Y') {
+		if (route.redirectedFrom.fullPath === undefined) {
+			router.replace('/');
+		} else {
+			router.replace(route.redirectedFrom.fullPath);
+		}
+	} else {
+		router.replace(redirectUrl || '/');
+	}
 };
+
+onBeforeUnmount(() => {
+	localStorage.removeItem(LOGIN_REDIRECT_AUTH_KEY);
+});
 </script>
 
 <style lang="scss" scoped>

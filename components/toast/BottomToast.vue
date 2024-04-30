@@ -80,6 +80,10 @@ const handlerClickButton = () => {
 .bottom-toast-left {
 	display: flex;
 	gap: 10px;
+	& > img {
+		width: 32px;
+		height: 32px;
+	}
 }
 .bottom-toast-title {
 	font-size: 14px;

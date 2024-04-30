@@ -40,7 +40,7 @@
 				></div>
 				<textarea
 					v-if="isUpdate"
-					v-model="content"
+					v-model="cleanHTML"
 					class="review-update-content area"
 				></textarea>
 				<div class="review-update-modal-buttons">
@@ -58,7 +58,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import DOMPurify from 'dompurify';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
 
@@ -74,6 +75,8 @@ const performanceRate = ref(5);
 const content = ref(
 	'정말 친절하시고 시간약속도 잘 지켜주셨습니다. 덕분에 첫 주택구매를 잘 마쳤어요. 처음이라 긴장을 많이했는데 아이유 담당자님이 긴장하지말라고 노래도 불러주시고 얼굴도 예쁜데 마음도 이쁘시더라구요~호호호호 주변에 많이 자랑해놨어요',
 );
+
+const cleanHTML = computed(() => DOMPurify.sanitize(content));
 
 const isUpdate = ref(false);
 const toggleUpdate = () => {

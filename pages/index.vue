@@ -14,7 +14,7 @@
 					</NuxtLink>
 				</div>
 			</div>
-			<ExpertList :margin="[23, 17, 37, 17]" />
+			<ExpertList :margin="[23, 17, 37, 17]" :list="expertList" />
 			<div class="index-title-container">
 				<p class="index-title">등기소다는 이렇게 진행해요</p>
 				<div class="index-subtitle">
@@ -34,7 +34,7 @@
 				v-if="true"
 				:bottom="64"
 				background-color="#29cdff"
-				emoji="smiling-face-with-hearts.svg"
+				emoji="smiling-face-with-hearts.gif"
 				title="명함받기 완료"
 				content="매칭된 법무사를 확인해보세요!"
 				button-text="보기"
@@ -46,6 +46,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
@@ -57,9 +58,39 @@ import ProcessBanner from '~/components/main/ProcessBanner.vue';
 import LawandtechIntro from '~/components/main/LawandtechIntro.vue';
 import BottomToast from '~/components/toast/BottomToast.vue';
 
+import { useLoadingStore } from '~/store/loading.js';
+import { lawyerFind } from '~/services/lawyerFind.js';
+
 definePageMeta({
 	layout: false,
 });
+
+onMounted(() => {
+	callApi();
+});
+
+const expertList = ref([]);
+const loadingStore = useLoadingStore();
+
+const callApi = () => {
+	loadingStore.setLoadingShow(true);
+	lawyerFind
+		.getLawyerList({
+			sido: '',
+			gugun: '',
+			locationCode: '',
+			badgeFilters: [],
+		})
+		.then(({ data }) => {
+			expertList.value = data.slice(0, 6);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+};
 
 const router = useRouter();
 const handlerClickToastButton = () => {

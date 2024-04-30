@@ -11,6 +11,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
+  dompurify:
+    specifier: ^3.1.1
+    version: 3.1.1
   nuxt:
     specifier: ^3.10.3
     version: 3.10.3(eslint@8.57.0)(sass@1.71.1)(vite@5.1.4)
@@ -3028,6 +3031,10 @@ packages:
     engines: {node: '>= 4'}
     dependencies:
       domelementtype: 2.3.0
+    dev: false
+
+  /dompurify@3.1.1:
+    resolution: {integrity: sha512-tVP8C/GJwnABOn/7cx/ymx/hXpmBfWIPihC1aOEvS8GbMqy3pgeYtJk1HXN3CO7tu+8bpY18f6isjR5Cymj0TQ==}
     dev: false
 
   /domutils@3.1.0:

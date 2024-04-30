@@ -5,7 +5,7 @@
 			<div class="location-container">
 				<button class="location-button" @click="toggleLocationSettingModal">
 					<img src="/img/icon/pointer-blue.svg" />
-					<span>내 위치설정</span>
+					<span>{{ addressText }}</span>
 				</button>
 			</div>
 			<div class="find-title">
@@ -16,15 +16,25 @@
 				</button>
 			</div>
 			<div class="find-filters">
-				<button class="sort-button">
-					<img src="/img/icon/sort-black.svg" />
-					<span>기본순</span>
-				</button>
+				<select v-model="sort" class="sort-button" @change="handlerChangeSort">
+					<option value="default">기본순</option>
+					<option value="distance">거리순</option>
+					<option value="review">리뷰순</option>
+				</select>
 				<button class="filter-button" @click="toggleFindFilterModal">
 					<img src="/img/icon/filter-black.svg" />
 				</button>
 			</div>
-			<ExpertList :margin="[0, 9, 24, 9]" :list="expertList" />
+			<ListEmptyItem
+				v-if="expertList.length === 0"
+				title="등기프로를 찾을 수 없습니다."
+				sub-title="조건에 만족하는 등기프로를 찾을 수 없습니다.<br>조건을 변경해보세요!"
+			/>
+			<ExpertList
+				v-if="expertList.length > 0"
+				:margin="[0, 9, 24, 9]"
+				:list="expertList"
+			/>
 			<LocationSettingModal
 				v-if="isLocationSettingModalShow"
 				:address="address"
@@ -41,18 +51,20 @@
 				@set-address="setAddress"
 				@close-modal="toggleFindFilterModal"
 			/>
-			<LoadingModal v-if="isLoading" />
 		</template>
 	</NuxtLayout>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
+
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
+import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
 import LocationSettingModal from '~/components/modal/LocationSettingModal.vue';
-import LoadingModal from '~/components/modal/LoadingModal.vue';
 import FindFilterModal from '~/components/modal/FindFilterModal.vue';
+
+import { useLoadingStore } from '~/store/loading.js';
 import { useLocationStore } from '~/store/location.js';
 import { lawyerFind } from '~/services/lawyerFind.js';
 
@@ -62,6 +74,7 @@ import {
 	LOCATION_KEY,
 	FILTER_CAREERS_KEY,
 	FILTER_BADGES_KEY,
+	FILTER_SORT_KEY,
 } from '~/assets/js/storageKeys.js';
 
 definePageMeta({
@@ -70,6 +83,7 @@ definePageMeta({
 
 const careers = ref([]);
 const badges = ref([]);
+const sort = ref('distance');
 
 const setCareers = val => {
 	careers.value = val;
@@ -81,6 +95,14 @@ const setCareers = val => {
 const setBadges = val => {
 	badges.value = val;
 	window.localStorage.setItem(FILTER_BADGES_KEY, JSON.stringify(badges.value));
+};
+const handlerChangeSort = e => {
+	if (e.target.value === 'distance') {
+		if (address.value.sido === '') {
+			toggleLocationSettingModal();
+		}
+	}
+	window.localStorage.setItem(FILTER_SORT_KEY, JSON.stringify(sort.value));
 };
 
 const address = ref({
@@ -94,6 +116,7 @@ onMounted(() => {
 	const storageAddress = window.localStorage.getItem(LOCATION_KEY);
 	const storageCareers = window.localStorage.getItem(FILTER_CAREERS_KEY);
 	const storageBadges = window.localStorage.getItem(FILTER_BADGES_KEY);
+	const storageSort = window.localStorage.getItem(FILTER_SORT_KEY);
 	if (storageAddress) {
 		address.value = JSON.parse(storageAddress);
 	}
@@ -103,6 +126,9 @@ onMounted(() => {
 	if (storageBadges) {
 		badges.value = JSON.parse(storageBadges);
 	}
+	if (storageSort) {
+		sort.value = JSON.parse(storageSort);
+	}
 });
 
 watch([careers, badges, address], () => {
@@ -110,10 +136,10 @@ watch([careers, badges, address], () => {
 });
 
 const expertList = ref([]);
-const isLoading = ref(false);
+const loadingStore = useLoadingStore();
 
 const callApi = () => {
-	isLoading.value = true;
+	loadingStore.setLoadingShow(true);
 	lawyerFind
 		.getLawyerList({
 			sido: address.value.sido,
@@ -128,7 +154,7 @@ const callApi = () => {
 			alert(e.response.data.message);
 		})
 		.finally(() => {
-			isLoading.value = false;
+			loadingStore.setLoadingShow(false);
 		});
 };
 
@@ -139,6 +165,12 @@ const setAddress = val => {
 	if (val.gugun === '') locationStore.gugunEnums = [];
 	if (val.dong === '') locationStore.detailEnums = [];
 };
+
+const addressText = computed(() =>
+	address.value.sido === ''
+		? '내 위치설정'
+		: `${address.value.sido} ${address.value.gugun}`,
+);
 
 const isLocationSettingModalShow = ref(false);
 const toggleLocationSettingModal = () => {
@@ -203,13 +235,14 @@ const toggleFindFilterModal = () => {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 8px;
 	border-radius: 20px;
 	border: 1px solid #e9eff2;
+	font-size: 14px;
+	text-align: center;
+	background-image: url('/img/icon/sort-black.svg');
+	background-position-x: 18px;
+	padding-left: 12px;
 	cursor: pointer;
-	& > span {
-		font-size: 14px;
-	}
 }
 .filter-button {
 	display: flex;
