@@ -1,5 +1,9 @@
 <template>
-	<HeaderCloseAndLike title="최고당 법무사 사무소" />
+	<HeaderCloseAndLike
+		title="최고당 법무사 사무소"
+		:is-like="firmDetail.firmLike"
+		@click-like-button="handlerClickLikeButton"
+	/>
 	<div class="lawyer-detail-container">
 		<div class="detail-top-container">
 			<img :src="imageUrl" class="detail-profile" />
@@ -99,6 +103,8 @@ import ReviewList from '~/components/list/ReviewList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import LawyerSelectCompleteModal from '~/components/modal/LawyerSelectCompleteModal.vue';
 
+import { useConfirmStore } from '~/store/confirm.js';
+import { useAuthStore } from '~/store/auth.js';
 import { lawyerDetail } from '~/services/lawyerDetail.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 
@@ -140,6 +146,16 @@ const isLawyerSelectCompleteModalShow = ref(false);
 const toggleLawyerSelectCompleteModal = () => {
 	isLawyerSelectCompleteModalShow.value =
 		!isLawyerSelectCompleteModalShow.value;
+};
+
+const confirmStore = useConfirmStore();
+const useAuth = useAuthStore();
+const isLoggedIn = useAuth.user !== null;
+
+const handlerClickLikeButton = () => {
+	if (!isLoggedIn) {
+		confirmStore.setConfirmShow(true);
+	}
 };
 </script>
 

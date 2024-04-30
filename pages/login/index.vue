@@ -51,16 +51,17 @@ import { useRouter, useRoute } from 'vue-router';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { useAuthStore } from '~/store/auth.js';
+import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 
 const router = useRouter();
-const route = useRoute();
 const useAuth = useAuthStore();
 
 const handlerClickLoginButton = () => {
 	console.log('id and password check');
+
 	useAuth.login();
-	if (route.redirectedFrom === undefined) return router.replace('/');
-	else return router.replace(route.redirectedFrom.fullPath);
+	const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
+	router.replace(redirectUrl || '/');
 };
 </script>
 

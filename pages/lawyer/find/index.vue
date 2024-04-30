@@ -65,7 +65,6 @@ import {
 } from '~/assets/js/storageKeys.js';
 
 definePageMeta({
-	middleware: 'auth',
 	layout: false,
 });
 

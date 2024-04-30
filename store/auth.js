@@ -1,3 +1,4 @@
+import { defineStore } from 'pinia';
 import { tokenApi, userSessionKey } from '~/utils/tokenApi';
 export const useAuthStore = defineStore(
 	'auth',

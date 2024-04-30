@@ -1,6 +1,6 @@
 <template>
 	<div class="review-item">
-		<img class="review-profile" src="/img/icon/profile-cow.png" />
+		<img class="review-profile" :src="imageUrl" />
 		<div class="review-item-contents">
 			<div class="review-title">
 				<p class="review-id">{{ props.review.userName }}님</p>
@@ -38,6 +38,12 @@ const props = defineProps({
 
 const createdAt = computed(() =>
 	dayjs(props.review.created).format('YYYY.MM.DD'),
+);
+
+const imageUrl = computed(() =>
+	props.review.profileImg
+		? `${useRuntimeConfig().public.apiURL}${props.review.profileImg}`
+		: '',
 );
 </script>
 

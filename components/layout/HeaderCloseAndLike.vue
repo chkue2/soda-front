@@ -2,8 +2,9 @@
 	<div class="header-close-container">
 		<p class="header-title">{{ props.title }}</p>
 		<div class="header-right">
-			<button class="header-like">
-				<img src="/img/icon/heart-gray.svg" />
+			<button class="header-like" @click="handlerClickLikeButton">
+				<img v-if="!props.isLike" src="/img/icon/heart-gray.svg" />
+				<img v-if="props.isLike" src="/img/icon/heart-red.svg" />
 			</button>
 			<button class="header-close" @click="handlerClickClose">
 				<img src="/img/icon/close-black.svg" />
@@ -23,6 +24,10 @@ const props = defineProps({
 		type: String,
 		default: '',
 	},
+	isLike: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 const useAuth = useAuthStore();
@@ -34,6 +39,11 @@ onMounted(() => {
 const router = useRouter();
 const handlerClickClose = () => {
 	router.back();
+};
+
+const emit = defineEmits(['click-like-button']);
+const handlerClickLikeButton = () => {
+	emit('click-like-button');
 };
 </script>
 
