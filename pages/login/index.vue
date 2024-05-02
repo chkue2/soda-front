@@ -28,7 +28,7 @@
 			로그인
 		</button>
 		<div class="login-links">
-			<NuxtLink to="/" class="login-link">회원가입</NuxtLink>
+			<NuxtLink to="/signup" class="login-link">회원가입</NuxtLink>
 			<div class="login-link-line"></div>
 			<NuxtLink to="/user/find/id" class="login-link">아이디찾기</NuxtLink>
 			<div class="login-link-line"></div>

@@ -13,16 +13,11 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 
 import { useAuthStore } from '~/store/auth.js';
 
-const router = useRouter();
 const useAuth = useAuthStore();
-
-onMounted(() => {
-	useAuth.initialize();
-});
 
 const isLoggedIn = computed(() => useAuth.user !== null);
 </script>

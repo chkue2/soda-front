@@ -8,22 +8,13 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-
-import { useAuthStore } from '~/store/auth.js';
 
 const props = defineProps({
 	title: {
 		type: String,
 		default: '',
 	},
-});
-
-const useAuth = useAuthStore();
-
-onMounted(() => {
-	useAuth.initialize();
 });
 
 const router = useRouter();

@@ -4,7 +4,7 @@ export default defineNuxtPlugin(nuxtApp => {
 	const router = nuxtApp.$router;
 
 	router.beforeEach((to, from, next) => {
-		const exceptionEnums = ['/login'];
+		const exceptionEnums = ['/login', '/signup', '/signup/success'];
 		if (!exceptionEnums.includes(from.path)) {
 			localStorage.setItem(LOGIN_REDIRECT_KEY, from.path);
 		}
