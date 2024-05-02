@@ -1,5 +1,6 @@
 ARG NODE_VERSION=20.8.1
 ARG NODE_ENV=production
+ARG API_URL
 
 # 베이스 이미지 설정
 FROM node:${NODE_VERSION}-alpine as base
