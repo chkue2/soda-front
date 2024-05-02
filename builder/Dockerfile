@@ -4,8 +4,10 @@ ARG NODE_ENV=production
 # 베이스 이미지 설정
 FROM node:${NODE_VERSION}-alpine as base
 
+ENV API_URL=${API_URL}
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+
 RUN corepack enable
 COPY . /app
 WORKDIR /app
