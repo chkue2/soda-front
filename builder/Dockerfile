@@ -1,9 +1,10 @@
 ARG NODE_VERSION=20.8.1
 ARG NODE_ENV=production
-ARG API_URL
 
 # 베이스 이미지 설정
 FROM node:${NODE_VERSION}-alpine as base
+
+ARG API_URL
 
 ENV API_URL=${API_URL}
 ENV PNPM_HOME="/pnpm"
@@ -16,7 +17,9 @@ WORKDIR /app
 FROM base AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
+
 FROM base AS build
+
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
