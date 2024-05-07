@@ -26,14 +26,14 @@
 				</button>
 			</div>
 			<ListEmptyItem
-				v-if="expertList.length === 0"
+				v-if="lawyerFindStore.expertList.length === 0"
 				title="등기프로를 찾을 수 없습니다."
 				sub-title="조건에 만족하는 등기프로를 찾을 수 없습니다.<br>조건을 변경해보세요!"
 			/>
 			<ExpertList
-				v-if="expertList.length > 0"
+				v-if="lawyerFindStore.expertList.length > 0"
 				:margin="[0, 9, 24, 9]"
-				:list="expertList"
+				:list="lawyerFindStore.expertList"
 			/>
 			<LocationSettingModal
 				v-if="isLocationSettingModalShow"
@@ -45,10 +45,13 @@
 				v-if="isFindFilterModalShow"
 				:careers="careers"
 				:badges="badges"
+				:distance="distance"
 				:address="address"
 				@set-careers="setCareers"
 				@set-badges="setBadges"
 				@set-address="setAddress"
+				@set-distance="setDistance"
+				@call-api="callApi"
 				@close-modal="toggleFindFilterModal"
 			/>
 		</template>
@@ -66,14 +69,16 @@ import FindFilterModal from '~/components/modal/FindFilterModal.vue';
 
 import { useLoadingStore } from '~/store/loading.js';
 import { useLocationStore } from '~/store/location.js';
-import { lawyerFind } from '~/services/lawyerFind.js';
+import { useLawyerFindStore } from '~/store/lawyerFind.js';
 
 const locationStore = useLocationStore();
+const lawyerFindStore = useLawyerFindStore();
 
 import {
 	LOCATION_KEY,
 	FILTER_CAREERS_KEY,
 	FILTER_BADGES_KEY,
+	FILTER_DISTANCE_KEY,
 	FILTER_SORT_KEY,
 } from '~/assets/js/storageKeys.js';
 
@@ -83,6 +88,7 @@ definePageMeta({
 
 const careers = ref([]);
 const badges = ref([]);
+const distance = ref(15);
 const sort = ref('distance');
 
 const setCareers = val => {
@@ -96,6 +102,11 @@ const setBadges = val => {
 	badges.value = val;
 	window.localStorage.setItem(FILTER_BADGES_KEY, JSON.stringify(badges.value));
 };
+const setDistance = val => {
+	distance.value = val;
+	window.localStorage.setItem(FILTER_DISTANCE_KEY, distance.value);
+};
+
 const handlerChangeSort = e => {
 	if (e.target.value === 'distance') {
 		if (address.value.sido === '') {
@@ -103,6 +114,7 @@ const handlerChangeSort = e => {
 		}
 	}
 	window.localStorage.setItem(FILTER_SORT_KEY, JSON.stringify(sort.value));
+	callApi();
 };
 
 const address = ref({
@@ -116,6 +128,7 @@ onMounted(() => {
 	const storageAddress = window.localStorage.getItem(LOCATION_KEY);
 	const storageCareers = window.localStorage.getItem(FILTER_CAREERS_KEY);
 	const storageBadges = window.localStorage.getItem(FILTER_BADGES_KEY);
+	const storageDistance = window.localStorage.getItem(FILTER_DISTANCE_KEY);
 	const storageSort = window.localStorage.getItem(FILTER_SORT_KEY);
 	if (storageAddress) {
 		address.value = JSON.parse(storageAddress);
@@ -126,29 +139,29 @@ onMounted(() => {
 	if (storageBadges) {
 		badges.value = JSON.parse(storageBadges);
 	}
+	if (storageDistance) {
+		distance.value = Number(storageDistance);
+	}
 	if (storageSort) {
 		sort.value = JSON.parse(storageSort);
 	}
+
+	if (lawyerFindStore.expertList.length === 0) {
+		callApi();
+	}
 });
 
-watch([careers, badges, address], () => {
-	callApi();
-});
-
-const expertList = ref([]);
 const loadingStore = useLoadingStore();
 
 const callApi = () => {
 	loadingStore.setLoadingShow(true);
-	lawyerFind
-		.getLawyerList({
-			sido: address.value.sido,
-			gugun: address.value.gugun,
-			locationCode: address.value.locationCode,
-			badgeFilters: [...careers.value, ...badges.value],
-		})
-		.then(({ data }) => {
-			expertList.value = data;
+	lawyerFindStore
+		.fetchLawyerFind({
+			address: address.value,
+			careers: careers.value,
+			badges: badges.value,
+			sort: sort.value,
+			distance: distance.value,
 		})
 		.catch(e => {
 			alert(e.response.data.message);

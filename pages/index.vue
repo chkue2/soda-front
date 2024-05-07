@@ -26,7 +26,7 @@
 			<BottomToast
 				v-if="false"
 				:bottom="64"
-				title="명함받는 중"
+				title="프로필카드 받는 중"
 				content="빠른 매칭을 위해 준비중이예요!"
 				button-text="보기"
 			/>
@@ -35,8 +35,8 @@
 				:bottom="64"
 				background-color="#29cdff"
 				emoji="smiling-face-with-hearts.gif"
-				title="명함받기 완료"
-				content="매칭된 법무사를 확인해보세요!"
+				title="프로필카드 받기 완료"
+				content="매칭된 등기프로를 확인해보세요!"
 				button-text="보기"
 				:is-disable="false"
 				@click-button="handlerClickToastButton"

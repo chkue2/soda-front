@@ -8,7 +8,57 @@
 			아래의 3가지 유형 중 하나를 선택하세요
 		</p>
 	</div>
-	<div class="type-bottom-container">
+	<div v-if="type === 0" class="type-middle-container">
+		<div class="type-middle-item" @click="handlerClickItem(3)">
+			<div class="type-middle-item-top">
+				<img src="/img/icon/pointer-blue-02.svg" />
+				<div class="type-middle-item-contents">
+					<p class="type-middle-item-title">
+						내가 직접 가격 제안하기
+						<img src="/img/icon/expand-right-black.svg" />
+					</p>
+					<p class="type-middle-item-subtitle">보수료를 직접 제안하는 실속형</p>
+				</div>
+			</div>
+			<div class="type-middle-item-bottom">
+				<span class="type-middle-item-tag">소다 할인 적용중</span>
+				<div class="type-middle-item-price"><b>23</b> <span>만원~</span></div>
+			</div>
+		</div>
+		<div class="type-middle-item" @click="handlerClickItem(2)">
+			<div class="type-middle-item-top">
+				<img src="/img/icon/chart-blue.svg" />
+				<div class="type-middle-item-contents">
+					<p class="type-middle-item-title">
+						일반 견적으로 제안하기
+						<img src="/img/icon/expand-right-black.svg" />
+					</p>
+					<p class="type-middle-item-subtitle">모두가 좋아하는 등기소다 표준</p>
+				</div>
+			</div>
+			<div class="type-middle-item-bottom">
+				<span class="type-middle-item-tag">소다 할인 적용중</span>
+				<div class="type-middle-item-price"><b>23</b> <span>만원</span></div>
+			</div>
+		</div>
+		<div class="type-middle-item" @click="handlerClickItem(1)">
+			<div class="type-middle-item-top">
+				<img src="/img/icon/medal-blue-02.svg" />
+				<div class="type-middle-item-contents">
+					<p class="type-middle-item-title">
+						프리미엄 견적으로 제안하기
+						<img src="/img/icon/expand-right-black.svg" />
+					</p>
+					<p class="type-middle-item-subtitle">법무사/변호사가 직접 출석</p>
+				</div>
+			</div>
+			<div class="type-middle-item-bottom">
+				<span class="type-middle-item-tag">소다 할인 적용중</span>
+				<div class="type-middle-item-price"><b>23</b> <span>만원</span></div>
+			</div>
+		</div>
+	</div>
+	<div v-if="type > 0" class="type-bottom-container">
 		<div
 			v-if="type === 0 || type === 3"
 			class="type-bottom-item"
@@ -80,7 +130,7 @@
 	</div>
 	<div v-if="type === 0" class="form-bottom-buttons">
 		<p class="type-top-help-text">
-			공과금을 제외한 법정보수는 <b>100만원</b> 입니다.
+			시장가격은 공과금 제외 <b>100만원</b> 수준 입니다.
 		</p>
 	</div>
 	<div v-if="type > 0" class="form-bottom-buttons">
@@ -183,6 +233,59 @@ const handlerClickApplyButton = () => {
 	width: 180px;
 	height: auto;
 	margin: 85px 0 88px;
+}
+.type-middle-container {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	gap: 17px;
+}
+.type-middle-item {
+	padding: 23px 22px;
+	border: 1px solid #ececec;
+	border-radius: 9px;
+	cursor: pointer;
+}
+.type-middle-item-top {
+	display: flex;
+	align-items: center;
+	gap: 17px;
+}
+.type-middle-item-title {
+	font-size: 14px;
+	font-weight: $ft-bold;
+	display: flex;
+	align-items: center;
+	line-height: 1.4;
+	& > img {
+		margin-bottom: 2px;
+	}
+}
+.type-middle-item-subtitle {
+	margin-top: 2px;
+	font-size: 12px;
+	color: #878787;
+}
+.type-middle-item-bottom {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 16px;
+	margin-top: 20px;
+}
+.type-middle-item-tag {
+	padding: 3px 10px;
+	font-size: 10px;
+	color: #343537;
+	background-color: #f5f5f8;
+	border-radius: 10px;
+}
+.type-middle-item-price {
+	font-size: 18px;
+	font-weight: $ft-bold;
+	& > b {
+		color: #29cbff;
+	}
 }
 .type-bottom-container {
 	display: flex;

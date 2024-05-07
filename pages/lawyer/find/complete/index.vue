@@ -3,11 +3,11 @@
 	<div class="find-complete-container">
 		<div class="complete-title">
 			<img src="/img/icon/love-letter.svg" />
-			<p>명함 받는 중</p>
+			<p>프로필카드 받는 중</p>
 		</div>
 		<p class="complete-subtitle">
-			명함은 총 24시간 동안 최대 5명에게 받아 볼 수 있습니다.<br />명함받기가
-			완료되면 알림톡을 보내드려요.
+			총 24시간 동안 최대 5명에게 받아 볼 수 있습니다.<br />모집이 완료되면
+			알림톡을 보내드려요.
 		</p>
 		<img src="/img/cow/cow-03.gif" class="complete-image" />
 	</div>

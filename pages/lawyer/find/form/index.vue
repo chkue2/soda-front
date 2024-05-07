@@ -33,12 +33,22 @@
 			<span>원</span>
 		</div>
 		<p class="form-won-text">{{ won }} 원</p>
+		<p class="form-title mt14 mb11">계약서 사진 업로드</p>
+		<div class="form-input input-file mb11" @click="handlerClickContractFile">
+			<input
+				ref="contractFile"
+				type="file"
+				@change="handlerChangeContractFile"
+			/>
+			<p>{{ contractFileText }}</p>
+			<img src="/img/icon/folder-black.svg" />
+		</div>
+		<p class="form-help-text">주민번호 뒷자리는 가려서 올려주세요</p>
 	</div>
-	<p class="form-count">{{ validateCount }}/5</p>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="다음"
-			:progress-width="(validateCount / 5) * 100"
+			:progress-width="(validateCount / 6) * 100"
 			@click-button="handlerClickNextButton"
 		/>
 	</div>
@@ -66,6 +76,7 @@ const form = ref({
 	detailAddress: '',
 	cDate: '',
 	price: '',
+	contract: null,
 });
 const won = ref('');
 
@@ -78,7 +89,7 @@ watch(
 );
 
 const validateCount = computed(
-	() => Object.values(form.value).filter(v => v !== '').length,
+	() => Object.values(form.value).filter(v => v !== '' && v !== null).length,
 );
 
 const isValidation = computed(
@@ -86,8 +97,26 @@ const isValidation = computed(
 );
 
 const handlerClickSearchAddress = () => {
-	form.value.address = '경기도 안산시 단원구';
+	new window.daum.Postcode({
+		onComplete: function (data) {
+			form.value.address = data.roadAddress;
+		},
+	}).open();
 };
+
+const contractFile = ref(null);
+const handlerClickContractFile = () => {
+	contractFile.value.click();
+};
+const handlerChangeContractFile = e => {
+	const files = e.target.files;
+	if (files.length === 0) return false;
+
+	form.value.contract = files[0];
+};
+const contractFileText = computed(() =>
+	form.value.contract ? form.value.contract.name : '파일업로드',
+);
 
 const router = useRouter();
 const handlerClickNextButton = () => {

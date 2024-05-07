@@ -4,7 +4,7 @@
 		<div class="find-match-top-container">
 			<div class="match-title">
 				<img src="/img/icon/love-letter.svg" />
-				<p>명함 받기 완료</p>
+				<p>프로필카드 받기 완료</p>
 			</div>
 			<p class="match-subtitle">
 				입찰에 참가한 등기프로를 확인하고 선택해주세요.

@@ -2,65 +2,68 @@
 	<CommonModal title="상세필터" @close-modal="closeModal">
 		<template #modal-body>
 			<div class="filter-container">
-				<div class="filter-tag-container">
-					<div class="filter-tags">
-						<p class="tags-title">획득배지</p>
-						<div class="tags-contents">
-							<span
-								class="filter-tag"
-								:class="{ active: careersValue.includes('TITLE_02') }"
-								@click="handlerClickCareer('TITLE_02')"
-								>프로중의 프로</span
-							>
-							<span
-								class="filter-tag"
-								:class="{ active: careersValue.includes('TITLE_01') }"
-								@click="handlerClickCareer('TITLE_01')"
-								>선호도 높음</span
-							>
-							<span
-								class="filter-tag"
-								:class="{ active: careersValue.includes('TITLE_03') }"
-								@click="handlerClickCareer('TITLE_03')"
-								>예약시간준수</span
-							>
-						</div>
+				<p class="filter-title">획득배지</p>
+				<div class="filter-tags">
+					<div class="tags-contents">
+						<span
+							class="filter-tag"
+							:class="{ active: careersValue.includes('TITLE_02') }"
+							@click="handlerClickCareer('TITLE_02')"
+							>프로중의 프로</span
+						>
+						<span
+							class="filter-tag"
+							:class="{ active: careersValue.includes('TITLE_01') }"
+							@click="handlerClickCareer('TITLE_01')"
+							>선호도 높음</span
+						>
+						<span
+							class="filter-tag"
+							:class="{ active: careersValue.includes('TITLE_03') }"
+							@click="handlerClickCareer('TITLE_03')"
+							>예약시간준수</span
+						>
 					</div>
-					<div class="filter-tags">
-						<p class="tags-title">어필배지</p>
-						<div class="tags-contents">
-							<span
-								class="filter-tag"
-								:class="{ active: badgesValue.includes('APPEAL_01') }"
-								@click="handlerClickBadge('APPEAL_01')"
-								>주말응대가능</span
-							>
-							<span
-								class="filter-tag"
-								:class="{ active: badgesValue.includes('APPEAL_02') }"
-								@click="handlerClickBadge('APPEAL_02')"
-								>빠른응답</span
-							>
-							<span
-								class="filter-tag"
-								:class="{ active: badgesValue.includes('APPEAL_03') }"
-								@click="handlerClickBadge('APPEAL_03')"
-								>공감하는</span
-							>
-							<span
-								class="filter-tag"
-								:class="{ active: badgesValue.includes('APPEAL_04') }"
-								@click="handlerClickBadge('APPEAL_04')"
-								>꼼꼼해요</span
-							>
-							<span
-								class="filter-tag"
-								:class="{ active: badgesValue.includes('APPEAL_05') }"
-								@click="handlerClickBadge('APPEAL_05')"
-								>친절해요</span
-							>
-						</div>
+				</div>
+				<p class="filter-title">어필배지</p>
+				<div class="filter-tags">
+					<div class="tags-contents">
+						<span
+							class="filter-tag"
+							:class="{ active: badgesValue.includes('APPEAL_01') }"
+							@click="handlerClickBadge('APPEAL_01')"
+							>주말응대가능</span
+						>
+						<span
+							class="filter-tag"
+							:class="{ active: badgesValue.includes('APPEAL_02') }"
+							@click="handlerClickBadge('APPEAL_02')"
+							>빠른응답</span
+						>
+						<span
+							class="filter-tag"
+							:class="{ active: badgesValue.includes('APPEAL_03') }"
+							@click="handlerClickBadge('APPEAL_03')"
+							>공감하는</span
+						>
+						<span
+							class="filter-tag"
+							:class="{ active: badgesValue.includes('APPEAL_04') }"
+							@click="handlerClickBadge('APPEAL_04')"
+							>꼼꼼해요</span
+						>
+						<span
+							class="filter-tag"
+							:class="{ active: badgesValue.includes('APPEAL_05') }"
+							@click="handlerClickBadge('APPEAL_05')"
+							>친절해요</span
+						>
 					</div>
+				</div>
+				<p class="filter-title">반경(km)</p>
+				<div class="filter-select-container">
+					<input v-model="distanceValue" type="range" min="15" max="100" />
+					<span>{{ distanceValue }}km</span>
 				</div>
 				<p class="filter-title">지역</p>
 				<div class="filter-select-container">
@@ -122,6 +125,8 @@ const emit = defineEmits([
 	'set-careers',
 	'set-badges',
 	'set-address',
+	'set-distance',
+	'call-api',
 ]);
 
 const props = defineProps({
@@ -132,6 +137,10 @@ const props = defineProps({
 	badges: {
 		type: Array,
 		default: () => [],
+	},
+	distance: {
+		type: Number,
+		default: 15,
 	},
 	address: {
 		type: Object,
@@ -149,6 +158,7 @@ const props = defineProps({
 const careersValue = ref([...props.careers]);
 const badgesValue = ref([...props.badges]);
 const addressValue = ref({ ...props.address });
+const distanceValue = ref(props.distance);
 
 onMounted(() => {
 	locationStore.getSido();
@@ -199,6 +209,7 @@ const handlerChangeDong = () => {
 const handlerClickResetButton = () => {
 	careersValue.value = [];
 	badgesValue.value = [];
+	distanceValue.value = 15;
 	addressValue.value = {
 		sido: '',
 		gugun: '',
@@ -210,7 +221,9 @@ const handlerClickResetButton = () => {
 const handlerClickApplyButton = () => {
 	emit('set-careers', careersValue.value);
 	emit('set-badges', badgesValue.value);
+	emit('set-distance', distanceValue.value);
 	emit('set-address', addressValue.value);
+	emit('call-api');
 	emit('close-modal');
 };
 
@@ -221,7 +234,7 @@ const closeModal = () => {
 
 <style lang="scss" scoped>
 .filter-container {
-	padding: 100px 16px 13px;
+	padding: 20px 16px 13px;
 }
 .filter-tag-container {
 	display: flex;
@@ -253,9 +266,10 @@ const closeModal = () => {
 	}
 }
 .filter-title {
-	margin: 24px 0 17px;
+	margin: 44px 0 19px;
 	font-size: 14px;
 	font-weight: $ft-bold;
+	color: #29cdff;
 }
 .filter-select-container {
 	display: flex;
@@ -268,6 +282,12 @@ const closeModal = () => {
 		border: 1px solid #e9eff2;
 		box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.04);
 		padding-left: 16px;
+	}
+	& > input[type='range'] {
+		flex: 1;
+	}
+	& > span {
+		font-size: 14px;
 	}
 }
 .filter-buttons {
@@ -290,5 +310,30 @@ const closeModal = () => {
 		font-weight: $ft-bold;
 		color: #f5f5f5;
 	}
+}
+input[type='range']:focus {
+	outline: none;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 6px;
+	cursor: pointer;
+	box-shadow: unset;
+	background: rgba(50, 166, 249, 0.2);
+	border-radius: 1.3px;
+	border: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+	box-shadow: unset;
+	border: 1px solid #000000;
+	height: 36px;
+	width: 16px;
+	border-radius: 3px;
+	background: #ffffff;
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-top: -5px;
 }
 </style>
