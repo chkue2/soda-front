@@ -40,6 +40,7 @@
 				:address="address"
 				@set-address="setAddress"
 				@close-modal="toggleLocationSettingModal"
+				@call-api="callApi"
 			/>
 			<FindFilterModal
 				v-if="isFindFilterModalShow"

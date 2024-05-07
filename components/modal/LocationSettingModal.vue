@@ -105,9 +105,10 @@ const handlerChangeDong = () => {
 	selectedAddress.value.locationCode = code;
 };
 
-const emit = defineEmits(['set-address', 'close-modal']);
+const emit = defineEmits(['set-address', 'call-api', 'close-modal']);
 const setAddress = () => {
 	emit('set-address', selectedAddress.value);
+	emit('call-api');
 	closeModal();
 };
 const closeModal = () => {
