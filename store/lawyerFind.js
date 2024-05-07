@@ -16,6 +16,7 @@ export const useLawyerFindStore = defineStore('lawyerFind', {
 					distanceLimit: param.distance,
 					sortType:
 						param.sort === 'default' ? 1 : param.sort === 'distance' ? 2 : 3,
+					searchKeyword: param.keyword,
 				})
 				.then(({ data }) => {
 					this.expertList = data;

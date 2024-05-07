@@ -24,6 +24,14 @@
 				<button class="filter-button" @click="toggleFindFilterModal">
 					<img src="/img/icon/filter-black.svg" />
 				</button>
+				<div class="filter-keyword">
+					<input
+						v-model="keyword"
+						type="text"
+						@keyup.enter="handlerEnterKeyword"
+					/>
+					<img src="/img/icon/search-gray.svg" @click="handlerEnterKeyword" />
+				</div>
 			</div>
 			<ListEmptyItem
 				v-if="lawyerFindStore.expertList.length === 0"
@@ -81,6 +89,7 @@ import {
 	FILTER_BADGES_KEY,
 	FILTER_DISTANCE_KEY,
 	FILTER_SORT_KEY,
+	FILTER_KEYWORD_KEY,
 } from '~/assets/js/storageKeys.js';
 
 definePageMeta({
@@ -91,6 +100,7 @@ const careers = ref([]);
 const badges = ref([]);
 const distance = ref(15);
 const sort = ref('distance');
+const keyword = ref('');
 
 const setCareers = val => {
 	careers.value = val;
@@ -118,6 +128,11 @@ const handlerChangeSort = e => {
 	callApi();
 };
 
+const handlerEnterKeyword = () => {
+	window.localStorage.setItem(FILTER_KEYWORD_KEY, keyword.value);
+	callApi();
+};
+
 const address = ref({
 	sido: '',
 	gugun: '',
@@ -131,6 +146,7 @@ onMounted(() => {
 	const storageBadges = window.localStorage.getItem(FILTER_BADGES_KEY);
 	const storageDistance = window.localStorage.getItem(FILTER_DISTANCE_KEY);
 	const storageSort = window.localStorage.getItem(FILTER_SORT_KEY);
+	const storageKeyword = window.localStorage.getItem(FILTER_KEYWORD_KEY);
 	if (storageAddress) {
 		address.value = JSON.parse(storageAddress);
 	}
@@ -145,6 +161,9 @@ onMounted(() => {
 	}
 	if (storageSort) {
 		sort.value = JSON.parse(storageSort);
+	}
+	if (storageKeyword) {
+		keyword.value = storageKeyword;
 	}
 
 	if (lawyerFindStore.expertList.length === 0) {
@@ -163,6 +182,7 @@ const callApi = () => {
 			badges: badges.value,
 			sort: sort.value,
 			distance: distance.value,
+			keyword: keyword.value,
 		})
 		.catch(e => {
 			alert(e.response.data.message);
@@ -254,7 +274,7 @@ const toggleFindFilterModal = () => {
 	font-size: 14px;
 	text-align: center;
 	background-image: url('/img/icon/sort-black.svg');
-	background-position-x: 18px;
+	background-position-x: calc(50% - 25px);
 	padding-left: 12px;
 	cursor: pointer;
 }
@@ -267,5 +287,19 @@ const toggleFindFilterModal = () => {
 	border-radius: 50%;
 	border: 1px solid #e9eff2;
 	cursor: pointer;
+}
+.filter-keyword {
+	flex: 1;
+	height: 37px;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	border: 1px solid #e9eff2;
+	border-radius: 60px;
+	padding: 0 15px;
+	& > input {
+		flex: 1;
+		border: none;
+	}
 }
 </style>

@@ -25,7 +25,6 @@
 					<option value="1">1주택</option>
 				</select>
 			</div>
-			<p class="form-count">{{ validateCount }}/4</p>
 			<div class="form-bottom-buttons">
 				<ProgressBackgroundButton
 					title="계산하기"

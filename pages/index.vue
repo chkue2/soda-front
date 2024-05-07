@@ -80,6 +80,9 @@ const callApi = () => {
 			gugun: '',
 			locationCode: '',
 			badgeFilters: [],
+			sortType: 1,
+			distanceLimit: 100,
+			searchKeyword: '',
 		})
 		.then(({ data }) => {
 			expertList.value = data.slice(0, 6);
