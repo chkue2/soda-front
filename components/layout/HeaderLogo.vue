@@ -24,6 +24,7 @@ const isLoggedIn = computed(() => useAuth.user !== null);
 
 <style lang="scss" scoped>
 .header-logo-container {
+	height: 62px;
 	position: sticky;
 	top: 0;
 	background-color: #ffffff;

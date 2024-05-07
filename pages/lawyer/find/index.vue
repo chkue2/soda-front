@@ -22,12 +22,13 @@
 					<option value="review">리뷰순</option>
 				</select>
 				<button class="filter-button" @click="toggleFindFilterModal">
-					<img src="/img/icon/filter-black.svg" />
+					<img :src="filterPath" />
 				</button>
 				<div class="filter-keyword">
 					<input
 						v-model="keyword"
 						type="text"
+						placeholder="두 글자 이상 검색"
 						@keyup.enter="handlerEnterKeyword"
 					/>
 					<img src="/img/icon/search-gray.svg" @click="handlerEnterKeyword" />
@@ -99,7 +100,7 @@ definePageMeta({
 const careers = ref([]);
 const badges = ref([]);
 const distance = ref(15);
-const sort = ref('distance');
+const sort = ref('default');
 const keyword = ref('');
 
 const setCareers = val => {
@@ -129,6 +130,10 @@ const handlerChangeSort = e => {
 };
 
 const handlerEnterKeyword = () => {
+	if (keyword.value.length === 1) {
+		alert('두 글자 이상 검색해 주세요');
+		return false;
+	}
 	window.localStorage.setItem(FILTER_KEYWORD_KEY, keyword.value);
 	callApi();
 };
@@ -147,6 +152,7 @@ onMounted(() => {
 	const storageDistance = window.localStorage.getItem(FILTER_DISTANCE_KEY);
 	const storageSort = window.localStorage.getItem(FILTER_SORT_KEY);
 	const storageKeyword = window.localStorage.getItem(FILTER_KEYWORD_KEY);
+
 	if (storageAddress) {
 		address.value = JSON.parse(storageAddress);
 	}
@@ -214,6 +220,23 @@ const isFindFilterModalShow = ref(false);
 const toggleFindFilterModal = () => {
 	isFindFilterModalShow.value = !isFindFilterModalShow.value;
 };
+
+const isFilterEmpty = computed(() => {
+	return (
+		careers.value.length === 0 &&
+		badges.value.length === 0 &&
+		distance.value === 15 &&
+		address.value.sido === '' &&
+		address.value.gugun === '' &&
+		address.value.dong === ''
+	);
+});
+
+const filterPath = computed(() =>
+	isFilterEmpty.value
+		? '/img/icon/filter-black.svg'
+		: '/img/icon/filter-blue.svg',
+);
 </script>
 
 <style lang="scss" scoped>
@@ -260,7 +283,7 @@ const toggleFindFilterModal = () => {
 	gap: 7px;
 	position: sticky;
 	z-index: $zi-sticky;
-	top: 45px;
+	top: 62px;
 	background-color: #ffffff;
 }
 .sort-button {

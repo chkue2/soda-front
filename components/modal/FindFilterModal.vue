@@ -158,7 +158,7 @@ const props = defineProps({
 const careersValue = ref([...props.careers]);
 const badgesValue = ref([...props.badges]);
 const addressValue = ref({ ...props.address });
-const distanceValue = ref(props.distance);
+const distanceValue = ref(Number(props.distance));
 
 onMounted(() => {
 	locationStore.getSido();
@@ -221,7 +221,7 @@ const handlerClickResetButton = () => {
 const handlerClickApplyButton = () => {
 	emit('set-careers', careersValue.value);
 	emit('set-badges', badgesValue.value);
-	emit('set-distance', distanceValue.value);
+	emit('set-distance', Number(distanceValue.value));
 	emit('set-address', addressValue.value);
 	emit('call-api');
 	emit('close-modal');
