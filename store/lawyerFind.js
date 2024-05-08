@@ -15,7 +15,13 @@ export const useLawyerFindStore = defineStore('lawyerFind', {
 					badgeFilters: [...param.careers, ...param.badges],
 					distanceLimit: param.distance,
 					sortType:
-						param.sort === 'default' ? 1 : param.sort === 'distance' ? 2 : 3,
+						param.sort === 'default'
+							? 1
+							: param.sort === 'distance'
+								? 2
+								: param.sort === 'rate'
+									? 3
+									: 4,
 					searchKeyword: param.keyword,
 				})
 				.then(({ data }) => {

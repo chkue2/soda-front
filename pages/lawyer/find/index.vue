@@ -19,7 +19,8 @@
 				<select v-model="sort" class="sort-button" @change="handlerChangeSort">
 					<option value="default">기본순</option>
 					<option value="distance">거리순</option>
-					<option value="review">리뷰순</option>
+					<option value="review">리뷰많은</option>
+					<option value="rate">평점순</option>
 				</select>
 				<button class="filter-button" @click="toggleFindFilterModal">
 					<img :src="filterPath" />
@@ -298,7 +299,7 @@ const filterPath = computed(() =>
 	text-align: center;
 	background-image: url('/img/icon/sort-black.svg');
 	background-position-x: calc(50% - 25px);
-	padding-left: 12px;
+	padding-left: 22px;
 	cursor: pointer;
 }
 .filter-button {
