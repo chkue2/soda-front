@@ -9,6 +9,9 @@ export default defineNuxtPlugin(nuxtApp => {
 			'/signup',
 			'/signup/success',
 			'/nice/result',
+			'/signup/sns/kakao',
+			'/signup/sns/naver',
+			'/login/sns/',
 		];
 		if (!exceptionEnums.includes(from.path)) {
 			localStorage.setItem(LOGIN_REDIRECT_KEY, from.path);

@@ -1,19 +1,21 @@
 <template>
 	<HeaderClose title="회원가입" />
-	<AgreeForm v-if="step === 1" @next-step="nextStep" />
-	<InputFormSns v-if="step === 2" />
+	<AgreeForm v-if="signupStore.step === 1" />
+	<InputFormSns v-if="signupStore.step === 2" />
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onBeforeUnmount } from 'vue';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import AgreeForm from '~/components/signup/AgreeForm.vue';
 import InputFormSns from '~/components/signup/InputFormSns.vue';
 
-const step = ref(1);
+import { useSignupStore } from '~/store/signup.js';
 
-const nextStep = () => {
-	step.value++;
-};
+const signupStore = useSignupStore();
+
+onBeforeUnmount(() => {
+	signupStore.resetStep();
+});
 </script>

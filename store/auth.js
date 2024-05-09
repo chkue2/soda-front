@@ -13,16 +13,45 @@ export const useAuthStore = defineStore(
 						JSON.parse(localStorage.getItem(userSessionKey))) ||
 					null;
 			},
-			login() {
-				this.user = {
-					id: 'test',
-					profileImage: '/img/icon/profile-iu.png',
-				};
-				localStorage.setItem(userSessionKey, JSON.stringify(this.user));
+			async login(credentials) {
+				try {
+					const response = await POST('/auth/login', credentials);
+					if (response && response.data) {
+						tokenApi.setToken(response.data.token, response.data.refreshToken);
+						return true;
+					}
+
+					return false;
+				} catch (e) {
+					console.log(e);
+					return false;
+				}
 			},
 			logout() {
 				this.user = null;
-				localStorage.removeItem(userSessionKey);
+				if (typeof window !== 'undefined') {
+					tokenApi.clearAll();
+				}
+				return true;
+			},
+			userProfile() {
+				try {
+					GET_AUTH('/user/profile').then(response => {
+						if (response && response.data) {
+							this.user = {
+								profile: {
+									...response.data,
+								},
+							};
+							if (typeof window !== 'undefined') {
+								localStorage.setItem(userSessionKey, JSON.stringify(this.user));
+							}
+						}
+					});
+				} catch (e) {
+					console.log(e);
+					return false;
+				}
 			},
 		},
 	},

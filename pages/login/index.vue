@@ -3,11 +3,13 @@
 	<div class="login-container">
 		<img src="/img/icon/soda-home.png" class="login-logo" />
 		<input
+			v-model="credentials.userId"
 			type="text"
 			class="login-input"
 			placeholder="아이디를 입력해주세요"
 		/>
 		<input
+			v-model="credentials.password"
 			type="password"
 			class="login-input"
 			placeholder="비밀번호를 입력해주세요"
@@ -15,7 +17,11 @@
 		/>
 		<div class="login-text-container">
 			<div class="login-toggle-container">
-				<div class="login-toggle active">
+				<div
+					class="login-toggle"
+					:class="{ active: isSwitchToggle }"
+					@click="handlerClickSwitchToggle"
+				>
 					<i></i>
 				</div>
 				<p>아이디 저장</p>
@@ -46,7 +52,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
@@ -61,10 +67,60 @@ const router = useRouter();
 const route = useRoute();
 const useAuth = useAuthStore();
 
-const handlerClickLoginButton = () => {
-	console.log('id and password check');
+let isSwitchToggle = ref(false);
 
-	useAuth.login();
+onMounted(() => {
+	const userId = localStorage.getItem('userId');
+	if (userId) {
+		credentials.value.userId = userId;
+	}
+
+	isSwitchToggle.value =
+		localStorage.getItem('saveId') === 'true' ? true : false;
+});
+
+const handlerClickSwitchToggle = () => {
+	isSwitchToggle.value = !isSwitchToggle.value;
+};
+
+const credentials = ref({
+	userId: '',
+	password: '',
+});
+
+const isValidation = computed(() => {
+	return credentials.value.userId !== '' && credentials.value.password !== '';
+});
+
+const handlerClickLoginButton = async () => {
+	if (!isValidation.value) {
+		if (credentials.value.userId === '') {
+			alert('아이디를 입력해주세요.');
+		} else if (credentials.value.password === '') {
+			alert('비밀번호를 입력해주세요.');
+		}
+		return false;
+	}
+
+	const isSuccess = await useAuth.login(credentials.value);
+
+	if (isSuccess) {
+		localStorage.setItem('saveId', isSwitchToggle.value);
+		if (isSwitchToggle.value) {
+			localStorage.setItem('userId', credentials.value.userId);
+		} else {
+			localStorage.removeItem('userId');
+		}
+
+		await useAuth.userProfile();
+
+		redirect();
+	} else {
+		alert('아이디 또는 비밀번호가 다릅니다.');
+	}
+};
+
+const redirect = () => {
 	const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
 	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
 
@@ -127,6 +183,7 @@ onBeforeUnmount(() => {
 		height: 20px;
 		border-radius: 25px;
 		background-color: #d9d9d9;
+		transition: all 0.3s ease-in-out;
 		cursor: pointer;
 		& > i {
 			display: block;
@@ -135,6 +192,7 @@ onBeforeUnmount(() => {
 			border-radius: 50%;
 			background-color: #ffffff;
 			transform: translate(2px, 2px);
+			transition: all 0.3s ease-in-out;
 		}
 		&.active {
 			background-color: #29cdff;

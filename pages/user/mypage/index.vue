@@ -16,7 +16,7 @@
 				</div>
 				<div v-if="isLoggedIn" class="profile-text">
 					<p class="profile-hello">
-						<b>{{ useAuth.user.id }}</b
+						<b>{{ useAuth.user.profile.userName }}</b
 						>님<br />안녕하세요
 					</p>
 				</div>
@@ -134,7 +134,7 @@ const isLoggedIn = computed(() => useAuth.user !== null);
 const profileImage = computed(() =>
 	useAuth.user === null
 		? '/img/icon/profile-cow.png'
-		: useAuth.user.profileImage,
+		: useAuth.user.profile.userProfileImage,
 );
 
 const handlerClickLogoutButton = () => {
