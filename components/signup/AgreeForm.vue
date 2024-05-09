@@ -47,6 +47,10 @@ import { ref, watch, computed } from 'vue';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
+import { useSignupStore } from '~/store/signup.js';
+
+const signupStore = useSignupStore();
+
 const agreeAll = ref(false);
 const agreeUse = ref(false);
 const agreePolicy = ref(false);
@@ -74,15 +78,18 @@ watch([agreeUse, agreePolicy, agreeAd], () => {
 
 const agreePass = computed(() => agreeUse.value && agreePolicy.value);
 
-const emit = defineEmits(['next-step']);
-
 const handlerClickNextButton = () => {
 	if (!agreePass.value) {
 		alert('필수 항목에 모두 동의해주세요.');
 		return false;
 	}
 
-	emit('next-step');
+	signupStore.setAgree({
+		agreeUse: agreeUse.value,
+		agreePolicy: agreePolicy.value,
+		agreeAd: agreeAd.value,
+	});
+	signupStore.nextStep();
 };
 </script>
 

@@ -19,6 +19,12 @@ const API_URL = {
 		INFO: '/user/info',
 		FIND_ID: '/user/findId',
 		FIND_PW: '/user/findPw',
+		CHECK_ID: '/soda/check-id',
+		JOIN: '/join-soda',
+	},
+	NICE: {
+		CHECK_PHONE: '/nice/check-phone',
+		DECRYPT: '/nice/decrypt/soda',
 	},
 	GEO: {
 		SIDO: '/geo/search/sido',
@@ -29,6 +35,9 @@ const API_URL = {
 		FIND: '/geo/firm/near/filter',
 		DETAIL: '/soda/lawyer/detail/:firm_code',
 		CREATE: '/soda/find-lawyer/contract',
+	},
+	CALCULATE: {
+		GET: '/soda/calculate',
 	},
 };
 

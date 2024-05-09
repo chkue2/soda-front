@@ -8,8 +8,8 @@
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
-			title="홈으로"
-			@click-button="handlerClickMoveToHome"
+			title="로그인하기"
+			@click-button="handlerClickMoveToLogin"
 		/>
 	</div>
 </template>
@@ -21,8 +21,8 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
 const router = useRouter();
-const handlerClickMoveToHome = () => {
-	router.replace('/');
+const handlerClickMoveToLogin = () => {
+	router.replace('/login');
 };
 </script>
 

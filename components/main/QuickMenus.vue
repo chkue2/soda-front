@@ -29,7 +29,7 @@
 .quick-my-contract {
 	height: 68px;
 	padding: 0 20px;
-	border-radius: 24px;
+	border-radius: 16px;
 	background-color: #f7f8fa;
 	display: flex;
 	justify-content: space-between;

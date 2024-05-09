@@ -10,43 +10,57 @@
 			<div class="table-body">
 				<div class="table-column">
 					<div class="table-name">취득세</div>
-					<div class="table-price">4,000,000원</div>
-					<div class="table-other">1%</div>
+					<div class="table-price">
+						{{ (res.regTax || 0).toLocaleString() }}원
+					</div>
+					<div class="table-other">{{ res.regTaxRate }}%</div>
 				</div>
 				<div class="table-column">
 					<div class="table-name">지방교육세</div>
-					<div class="table-price">400,000원</div>
-					<div class="table-other">0.100%</div>
+					<div class="table-price">
+						{{ (res.eduTax || 0).toLocaleString() }}원
+					</div>
+					<div class="table-other">{{ res.eduTaxRate }}%</div>
 				</div>
 				<div class="table-column">
 					<div class="table-name">농특세</div>
-					<div class="table-price">0원</div>
-					<div class="table-other">0.2%</div>
+					<div class="table-price">
+						{{ (res.farmTax || 0).toLocaleString() }}원
+					</div>
+					<div class="table-other">{{ res.farmTaxRate }}%</div>
 				</div>
 				<div class="table-column">
 					<div class="table-name">인지</div>
-					<div class="table-price">150,000원</div>
+					<div class="table-price">
+						{{ (res.goveStamp || 0).toLocaleString() }}원
+					</div>
 					<div class="table-other"></div>
 				</div>
 				<div class="table-column">
 					<div class="table-name">중지</div>
-					<div class="table-price">13,000원</div>
+					<div class="table-price">
+						{{ (res.courtStamp || 0).toLocaleString() }}원
+					</div>
 					<div class="table-other"></div>
 				</div>
 				<div class="table-column">
 					<div class="table-name">법정수수료</div>
-					<div class="table-price">944,092원</div>
+					<div class="table-price">
+						{{ (res.legalPay || 0).toLocaleString() }}원
+					</div>
 					<div class="table-other"></div>
 				</div>
 				<div class="table-column table-footer">
 					<div class="table-name">합계</div>
-					<div class="table-price">5,507,092원</div>
+					<div class="table-price">
+						{{ (res.total || 0).toLocaleString() }}원
+					</div>
 				</div>
 			</div>
 		</div>
 		<p class="result-help-text">
 			이 금액은 가계산이며 정확한 금액을 알기 위해서는<br />
-			하단의 <b>견적넣기 버튼</b>을 눌러 법무사와 대화해보시기 바랍니다
+			하단의 <b>등기프로 찾기</b>를 이용해주세요.
 		</p>
 	</div>
 	<div class="form-bottom-buttons">
@@ -58,16 +72,41 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
+import { CALC_FORM_DATA_KEY } from '~/assets/js/storageKeys.js';
+import { calculate } from '~/services/calculate.js';
+
 const router = useRouter();
 
-const handlerClickFindYourself = () => {
-	router.push('/lawyer/find');
-};
+const res = ref({});
+
+onMounted(() => {
+	const formStorage = window.localStorage.getItem(CALC_FORM_DATA_KEY);
+
+	if (!formStorage) {
+		alert('계산에 필요한 항목들을 먼저 입력해주세요.');
+		router.push('/calculate/form');
+	} else {
+		const form = JSON.parse(formStorage);
+		calculate
+			.get({
+				tradePrice: form.price.replaceAll(',', ''),
+				subjectCnt: form.subjectCnt,
+				farmTaxApply: form.farmTaxApply === 'Y',
+			})
+			.then(({ data }) => {
+				res.value = data;
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	}
+});
 
 const handlerClickFind = () => {
 	router.push('/lawyer/find/form');

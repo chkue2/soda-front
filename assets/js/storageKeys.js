@@ -6,6 +6,7 @@ const FILTER_SORT_KEY = 'soda-search-sort';
 const FILTER_KEYWORD_KEY = 'soda-search-keyword';
 const LOGIN_REDIRECT_KEY = 'soda-login-redirect-url';
 const LOGIN_REDIRECT_AUTH_KEY = 'soda-login-redirect-auth';
+const CALC_FORM_DATA_KEY = 'soda-calc-form-data';
 
 export {
 	LOCATION_KEY,
@@ -16,4 +17,5 @@ export {
 	FILTER_KEYWORD_KEY,
 	LOGIN_REDIRECT_KEY,
 	LOGIN_REDIRECT_AUTH_KEY,
+	CALC_FORM_DATA_KEY,
 };

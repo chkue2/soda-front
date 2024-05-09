@@ -52,4 +52,20 @@ const rexFormatPhone = text => {
 		?.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, '$1-$2-$3');
 };
 
-export { keyupToLocaleString, convertToKoreanCurrency, rexFormatPhone };
+/**
+ * 비밀번호 validation
+ * 영문, 숫자, 특수문자를 조합한 8자리 이상.
+ */
+const isValidPassword = password => {
+	const regex =
+		/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+	return regex.test(password);
+};
+
+export {
+	keyupToLocaleString,
+	convertToKoreanCurrency,
+	rexFormatPhone,
+	isValidPassword,
+};
