@@ -9,11 +9,7 @@
 				</button>
 			</div>
 			<div class="find-title">
-				<p>법무사 찾기</p>
-				<button @click="toggleLocationSettingModal">
-					<span>위치를 설정해야하는 이유</span>
-					<img src="/img/icon/help-circle-gray.svg" />
-				</button>
+				<p>등기프로 찾기</p>
 			</div>
 			<div class="find-filters">
 				<select v-model="sort" class="sort-button" @change="handlerChangeSort">
@@ -29,7 +25,7 @@
 					<input
 						v-model="keyword"
 						type="text"
-						placeholder="두 글자 이상 검색"
+						placeholder="2자이상 상호명 검색"
 						@keyup.enter="handlerEnterKeyword"
 					/>
 					<img src="/img/icon/search-gray.svg" @click="handlerEnterKeyword" />
@@ -147,6 +143,15 @@ const address = ref({
 });
 
 onMounted(() => {
+	setTimeout(() => {
+		const target = document.querySelector('.sort-button');
+		if (navigator.userAgent.indexOf('Chrome') > -1) {
+			target.style.paddingLeft = '22px';
+		} else {
+			target.style.paddingLeft = '42px';
+		}
+	}, 100);
+
 	const storageAddress = window.localStorage.getItem(LOCATION_KEY);
 	const storageCareers = window.localStorage.getItem(FILTER_CAREERS_KEY);
 	const storageBadges = window.localStorage.getItem(FILTER_BADGES_KEY);
@@ -209,7 +214,7 @@ const setAddress = val => {
 
 const addressText = computed(() =>
 	address.value.sido === ''
-		? '내 위치설정'
+		? '내위치설정'
 		: `${address.value.sido} ${address.value.gugun}`,
 );
 
@@ -300,6 +305,7 @@ const filterPath = computed(() =>
 	background-image: url('/img/icon/sort-black.svg');
 	background-position-x: calc(50% - 25px);
 	padding-left: 22px;
+	color: #000000;
 	cursor: pointer;
 }
 .filter-button {
@@ -324,6 +330,14 @@ const filterPath = computed(() =>
 	& > input {
 		flex: 1;
 		border: none;
+	}
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+	@supports (-webkit-appearance: none) {
+		.sort-button {
+			padding-left: 42px;
+		}
 	}
 }
 </style>

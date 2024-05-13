@@ -79,7 +79,7 @@
 			:reviews="firmDetail.review || []"
 		/>
 	</div>
-	<div class="form-bottom-buttons">
+	<div v-if="false" class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="여기로 선택하기"
 			@click-button="toggleLawyerSelectCompleteModal"
@@ -107,16 +107,15 @@ import { useConfirmStore } from '~/store/confirm.js';
 import { useAuthStore } from '~/store/auth.js';
 import { lawyerDetail } from '~/services/lawyerDetail.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
+import { firmLike } from '~/services/firmLike.js';
 
 const route = useRoute();
 
 const firmDetail = ref({});
 
+const firmCode = route.params.id;
 onMounted(() => {
-	const firmCode = route.params.id;
-	lawyerDetail.getLawyerDetail(firmCode).then(({ data }) => {
-		firmDetail.value = data;
-	});
+	callApi();
 });
 
 const badge = computed(() => firmDetail.value.badge || []);
@@ -148,13 +147,28 @@ const toggleLawyerSelectCompleteModal = () => {
 		!isLawyerSelectCompleteModalShow.value;
 };
 
+const callApi = () => {
+	lawyerDetail.getLawyerDetail(firmCode).then(({ data }) => {
+		firmDetail.value = data;
+	});
+};
+
 const confirmStore = useConfirmStore();
 const useAuth = useAuthStore();
-const isLoggedIn = useAuth.user !== null;
 
 const handlerClickLikeButton = () => {
+	const isLoggedIn = useAuth.user !== null;
 	if (!isLoggedIn) {
 		confirmStore.setConfirmShow(true);
+	} else {
+		firmLike
+			.setLike(firmCode)
+			.then(() => {
+				callApi();
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
 	}
 };
 </script>

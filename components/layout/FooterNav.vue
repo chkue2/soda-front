@@ -18,7 +18,7 @@
 			:class="{ active: nowMenu === 'lawyer' }"
 		>
 			<img :src="`/img/icon/search${nowMenu === 'lawyer' ? '-on' : ''}.svg`" />
-			<span>법무사찾기</span>
+			<span>찾기</span>
 		</NuxtLink>
 		<NuxtLink
 			to="/user/mypage"

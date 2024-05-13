@@ -3,39 +3,46 @@
 	<p class="page-title">알림</p>
 	<div class="notification-container">
 		<div class="notification-container-title">안 읽은 알림</div>
-		<div class="notification-list">
-			<div class="notification-item">
+		<ListEmptyItem
+			v-if="notReadList.length === 0"
+			title="알림이 없습니다"
+			:margin="[36, 0, 36, 0]"
+		/>
+		<div v-if="notReadList.length > 0" class="notification-list">
+			<div
+				v-for="(item, index) in notReadList"
+				:key="index"
+				class="notification-item"
+				@click="callApiReadNotification(item.seq)"
+			>
 				<div class="notification-top">
-					<p class="notification-title">담당법무사가 지정되었습니다.</p>
-					<p class="notification-date">2024-01-12</p>
+					<p class="notification-title">{{ item.title }}</p>
+					<p class="notification-date">
+						{{ changeDateFormat(item.created || '') }}
+					</p>
 				</div>
-				<p class="notification-content">
-					다이렉트로 법무소사무소 조아라 법무사
-				</p>
-			</div>
-			<div class="notification-item">
-				<div class="notification-top">
-					<p class="notification-title">담당법무사가 지정되었습니다.</p>
-					<p class="notification-date">2024-01-12</p>
-				</div>
+				<p class="notification-content" v-html="item.content"></p>
 			</div>
 		</div>
 		<div class="notification-container-title read mt32">읽은 알림</div>
-		<div class="notification-list read">
-			<div class="notification-item">
+		<ListEmptyItem
+			v-if="readList.length === 0"
+			title="알림이 없습니다"
+			:margin="[36, 0, 36, 0]"
+		/>
+		<div v-if="readList.length > 0" class="notification-list read">
+			<div
+				v-for="(item, index) in readList"
+				:key="index"
+				class="notification-item"
+			>
 				<div class="notification-top">
-					<p class="notification-title">담당법무사가 지정되었습니다.</p>
-					<p class="notification-date">2024-01-12</p>
+					<p class="notification-title">{{ item.title }}</p>
+					<p class="notification-date">
+						{{ changeDateFormat(item.created || '') }}
+					</p>
 				</div>
-				<p class="notification-content">
-					다이렉트로 법무소사무소 조아라 법무사
-				</p>
-			</div>
-			<div class="notification-item">
-				<div class="notification-top">
-					<p class="notification-title">담당법무사가 지정되었습니다.</p>
-					<p class="notification-date">2024-01-12</p>
-				</div>
+				<p class="notification-content" v-html="item.content"></p>
 			</div>
 		</div>
 	</div>
@@ -43,6 +50,7 @@
 		<ProgressBackgroundButton
 			title="모두 읽음으로 표시"
 			progress-color="#404040"
+			@click="callApiReadAllNotification"
 		/>
 		<ProgressBackgroundButton
 			title="닫기"
@@ -53,10 +61,74 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import dayjs from 'dayjs';
 
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
+
+import { notification } from '~/services/notification.js';
+import { useLoadingStore } from '~/store/loading';
+
+const notificationList = ref([]);
+
+onMounted(() => {
+	callApi();
+});
+
+const loadingStore = useLoadingStore();
+
+const callApi = () => {
+	loadingStore.setLoadingShow(true);
+	notification
+		.getNotification()
+		.then(({ data }) => {
+			notificationList.value = data.notification;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+};
+
+const notReadList = computed(() =>
+	notificationList.value.filter(x => x.readYn === false),
+);
+const readList = computed(() =>
+	notificationList.value.filter(x => x.readYn === true),
+);
+
+const changeDateFormat = date => {
+	return dayjs(date).format('YYYY-MM-DD');
+};
+
+const callApiReadNotification = seq => {
+	notification
+		.readNotification(seq)
+		.then(() => {
+			callApi();
+		})
+		.catch(e => {
+			console.log(e);
+			alert(e.response.data.message);
+		});
+};
+
+const callApiReadAllNotification = () => {
+	notification
+		.readAllNotification()
+		.then(() => {
+			callApi();
+		})
+		.catch(e => {
+			console.log(e);
+			alert(e.response.data.message);
+		});
+};
 
 const router = useRouter();
 const handlerClickCloseButton = () => {
@@ -71,7 +143,7 @@ const handlerClickCloseButton = () => {
 	color: #252525;
 }
 .notification-container {
-	padding: 26px 12px;
+	padding: 26px 12px 70px;
 }
 .notification-container-title {
 	border-bottom: 1px solid #ebebeb;
@@ -92,6 +164,9 @@ const handlerClickCloseButton = () => {
 			color: #959595;
 		}
 	}
+}
+.notification-item {
+	cursor: pointer;
 }
 .notification-top {
 	display: flex;

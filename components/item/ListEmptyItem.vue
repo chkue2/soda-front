@@ -1,5 +1,10 @@
 <template>
-	<div class="empty-container">
+	<div
+		class="empty-container"
+		:style="{
+			margin: `${props.margin[0]}px ${props.margin[1]}px ${props.margin[2]}px ${props.margin[3]}px`,
+		}"
+	>
 		<img src="/img/cow/cow-cry.png" />
 		<p class="empty-title">{{ props.title }}</p>
 		<p
@@ -22,6 +27,10 @@ const props = defineProps({
 	subTitle: {
 		type: String,
 		default: '',
+	},
+	margin: {
+		type: Array,
+		default: () => [141, 0, 0, 0],
 	},
 });
 

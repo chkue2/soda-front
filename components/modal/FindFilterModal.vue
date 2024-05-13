@@ -62,7 +62,14 @@
 				</div>
 				<p class="filter-title">반경(km)</p>
 				<div class="filter-select-container">
-					<input v-model="distanceValue" type="range" min="15" max="100" />
+					<input
+						v-model="distanceValue"
+						type="range"
+						min="15"
+						max="100"
+						:style="{ backgroundSize: backgroundSize }"
+						@input="updateSlider"
+					/>
 					<span>{{ distanceValue }}km</span>
 				</div>
 				<p class="filter-title">지역</p>
@@ -168,6 +175,9 @@ onMounted(() => {
 	if (props.address.gugun !== '') {
 		locationStore.getDetail(props.address.sido, props.address.gugun);
 	}
+
+	backgroundSize.value =
+		((distanceValue.value - 15) * 100) / (100 - 15) + '% 100%';
 });
 
 const handlerClickCareer = val => {
@@ -216,6 +226,7 @@ const handlerClickResetButton = () => {
 		dong: '',
 		locationCode: '',
 	};
+	backgroundSize.value = '0% 20%';
 };
 
 const handlerClickApplyButton = () => {
@@ -230,11 +241,21 @@ const handlerClickApplyButton = () => {
 const closeModal = () => {
 	emit('close-modal');
 };
+
+const backgroundSize = ref('20% 100%');
+const updateSlider = e => {
+	let clickedElement = e.target,
+		min = clickedElement.min,
+		max = clickedElement.max,
+		val = clickedElement.value;
+
+	backgroundSize.value = ((val - min) * 100) / (max - min) + '% 100%';
+};
 </script>
 
 <style lang="scss" scoped>
 .filter-container {
-	padding: 20px 16px 13px;
+	padding: 0 25px 27px;
 }
 .filter-tag-container {
 	display: flex;
@@ -282,12 +303,15 @@ const closeModal = () => {
 		border: 1px solid #e9eff2;
 		box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.04);
 		padding-left: 16px;
+		color: #000000;
+		background-color: #ffffff;
 	}
 	& > input[type='range'] {
 		flex: 1;
 	}
 	& > span {
 		font-size: 14px;
+		line-height: 36px;
 	}
 }
 .filter-buttons {
@@ -311,29 +335,106 @@ const closeModal = () => {
 		color: #f5f5f5;
 	}
 }
+/* Slider CSS */
+input[type='range'] {
+	appearance: none;
+	-webkit-appearance: none;
+	display: block;
+	width: 100%;
+	margin: 16px 0;
+	background: rgba(50, 166, 249, 0.2);
+	background-image: -webkit-gradient(
+		linear,
+		20% 0%,
+		20% 100%,
+		color-stop(0%, #add8e6),
+		color-stop(100%, #add8e6)
+	);
+	background-image: -webkit-linear-gradient(left, #32a6f9 0%, #32a6f9 100%);
+	background-image: -moz-linear-gradient(left, #32a6f9 0%, #32a6f9 100%);
+	background-image: -o-linear-gradient(to right, #32a6f9 0%, #32a6f9 100%);
+	background-image: linear-gradient(to right, #32a6f9 0%, #32a6f9 100%);
+	background-repeat: no-repeat;
+}
 input[type='range']:focus {
 	outline: none;
 }
-
 input[type='range']::-webkit-slider-runnable-track {
 	width: 100%;
-	height: 6px;
+	height: 4px;
 	cursor: pointer;
-	box-shadow: unset;
-	background: rgba(50, 166, 249, 0.2);
-	border-radius: 1.3px;
+	box-shadow: none;
+	background: transparent;
+	border-radius: 0px;
 	border: none;
 }
-
 input[type='range']::-webkit-slider-thumb {
-	box-shadow: unset;
-	border: 1px solid #000000;
-	height: 36px;
+	box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.4);
+	border: 8px solid #ffffff;
+	height: 16px;
 	width: 16px;
-	border-radius: 3px;
-	background: #ffffff;
+	border-radius: 50%;
+	background: #3e3e3f;
 	cursor: pointer;
 	-webkit-appearance: none;
-	margin-top: -5px;
+	margin-top: -6px;
 }
+input[type='range']:focus::-webkit-slider-runnable-track {
+	background: transparent;
+}
+input[type='range']::-moz-range-track {
+	width: 100%;
+	height: 4px;
+	cursor: pointer;
+	box-shadow: none;
+	background: transparent;
+	border-radius: 0px;
+	border: none;
+}
+input[type='range']::-moz-range-thumb {
+	box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.4);
+	border: 8px solid #ffffff;
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	background: #ffffff;
+	cursor: pointer;
+}
+input[type='range']::-ms-track {
+	width: 100%;
+	height: 4px;
+	cursor: pointer;
+	background: transparent;
+	border-color: transparent;
+	color: transparent;
+}
+input[type='range']::-ms-fill-lower {
+	background: transparent;
+	border: none;
+	border-radius: 0px;
+	box-shadow: none;
+}
+input[type='range']::-ms-fill-upper {
+	background: transparent;
+	border: none;
+	border-radius: 0px;
+	box-shadow: none;
+}
+input[type='range']::-ms-thumb {
+	box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.4);
+	border: 8px solid #ffffff;
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	background: #ffffff;
+	cursor: pointer;
+	height: 4px;
+}
+input[type='range']:focus::-ms-fill-lower {
+	background: transparent;
+}
+input[type='range']:focus::-ms-fill-upper {
+	background: transparent;
+}
+/* End Range Slider */
 </style>

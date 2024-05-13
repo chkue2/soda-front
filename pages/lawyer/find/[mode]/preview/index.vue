@@ -50,18 +50,31 @@
 		</div>
 	</div>
 	<div class="form-bottom-buttons">
-		<ProgressBackgroundButton title="뒤로" progress-color="#d9d9d9" />
-		<ProgressBackgroundButton title="완료" />
+		<ProgressBackgroundButton
+			title="뒤로"
+			progress-color="#d9d9d9"
+			@click="handlerClickBackButton"
+		/>
+		<ProgressBackgroundButton
+			title="완료"
+			@click="toggleLawyerFindTypeCompleteModal"
+		/>
 	</div>
+	<LawyerFindTypeCompleteModal
+		v-if="isLawyerFindTypeCompleteModalShow"
+		@close-modal="toggleLawyerFindTypeCompleteModal"
+		@click-apply-button="handlerClickApplyButton"
+	/>
 </template>
 
 <script setup>
 import { onMounted, ref, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ExpertListItem from '~/components/item/ExpertListItem.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeCompleteModal.vue';
 
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
@@ -82,6 +95,8 @@ const form = ref({
 });
 
 const route = useRoute();
+const router = useRouter();
+
 onMounted(() => {
 	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
 	const mode = route.params.mode;
@@ -104,9 +119,27 @@ onMounted(() => {
 		});
 });
 
-const contractFileUrl = computed(
-	() => `${form.value.contractUrl}/${form.value.contract}`,
-);
+const contractFileUrl = computed(() => {
+	const domain =
+		location.href.includes('.local') || location.href.includes('.dev')
+			? 'https://pro-api.dev.priros.com'
+			: 'https://pro-api.priros.com';
+	return `${domain}${form.value.contractUrl}/${form.value.contract}`;
+});
+
+const isLawyerFindTypeCompleteModalShow = ref(false);
+const toggleLawyerFindTypeCompleteModal = () => {
+	isLawyerFindTypeCompleteModalShow.value =
+		!isLawyerFindTypeCompleteModalShow.value;
+};
+
+const handlerClickBackButton = () => {
+	router.back();
+};
+
+const handlerClickApplyButton = () => {
+	router.push('/lawyer/find/complete');
+};
 </script>
 
 <style lang="scss" scoped>

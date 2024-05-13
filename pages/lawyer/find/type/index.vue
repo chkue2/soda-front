@@ -141,14 +141,9 @@
 		/>
 		<ProgressBackgroundButton
 			title="선택하기"
-			@click-button="toggleLawyerFindTypeCompleteModal"
+			@click-button="handlerClickApplyButton"
 		/>
 	</div>
-	<LawyerFindTypeCompleteModal
-		v-if="isLawyerFindTypeCompleteModalShow"
-		@close-modal="toggleLawyerFindTypeCompleteModal"
-		@click-apply-button="handlerClickApplyButton"
-	/>
 </template>
 
 <!-- 
@@ -159,18 +154,52 @@
  -->
 
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
-import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeCompleteModal.vue';
 
+import { calculate } from '~/services/calculate.js';
 import { keyupToLocaleString } from '~/assets/js/utils.js';
+import {
+	LAWYER_FIND_TMP_KEY,
+	LAWTER_FIND_TYPE_KEY,
+} from '~/assets/js/storageKeys.js';
+
+const offerPrice = ref(0);
+const normalPrice = ref(0);
+const premiumPrice = ref(0);
+
+onMounted(() => {
+	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
+
+	if (tmpKeyStorage) {
+		calculate
+			.type({ tmpKey: tmpKeyStorage })
+			.then(({ data }) => {
+				console.log(data);
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	} else {
+		alert('정상적인 진입 경로가 아닙니다.');
+		router.push('/');
+	}
+});
 
 const type = ref(0);
+const amount = ref(0);
 
 const handlerClickItem = idx => {
+	if (idx === 1) {
+		amount.value = premiumPrice.value;
+	} else if (idx === 2) {
+		amount.value = normalPrice.value;
+	} else {
+		amount.value = 0;
+	}
 	type.value = idx;
 };
 const handlerClickBackButton = () => {
@@ -189,14 +218,15 @@ const isPriceWarningCheck = computed(
 	() => price.value !== '' && parseInt(price.value) < 50,
 );
 
-const isLawyerFindTypeCompleteModalShow = ref(false);
-const toggleLawyerFindTypeCompleteModal = () => {
-	isLawyerFindTypeCompleteModalShow.value =
-		!isLawyerFindTypeCompleteModalShow.value;
-};
-
 const router = useRouter();
 const handlerClickApplyButton = () => {
+	window.localStorage.setItem(
+		LAWTER_FIND_TYPE_KEY,
+		JSON.stringify({
+			type: type.value,
+			amount: amount.value,
+		}),
+	);
 	router.push('/lawyer/find/ESTIMATE/preview');
 };
 </script>

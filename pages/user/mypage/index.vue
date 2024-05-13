@@ -71,7 +71,7 @@
 					<NuxtLink to="/user/my-like" class="mypage-menu-item">
 						<div class="mypage-menu-item-title">
 							<p>좋아요 활동</p>
-							<span class="like-count">6</span>
+							<span class="like-count">{{ likeCount }}</span>
 						</div>
 						<img
 							src="/img/icon/expand-right-gray.svg"
@@ -115,7 +115,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper/modules';
@@ -124,6 +124,7 @@ import 'swiper/css';
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 
 import { useAuthStore } from '~/store/auth.js';
+import { firmLike } from '~/services/firmLike.js';
 
 const modules = [Autoplay];
 
@@ -141,6 +142,21 @@ const handlerClickLogoutButton = () => {
 	useAuth.logout();
 	router.push('/');
 };
+
+const likeCount = ref(0);
+
+onMounted(() => {
+	if (isLoggedIn.value) {
+		firmLike
+			.getCount()
+			.then(({ data }) => {
+				likeCount.value = data.likeCount;
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	}
+});
 </script>
 
 <style lang="scss" scoped>

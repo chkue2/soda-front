@@ -8,7 +8,7 @@
 			<ExpertTagsItem :badge="props.item.badge || []" />
 			<ExpertOptionsItem :badge="props.item.badge || []" />
 			<div class="expert-rate">
-				<img src="/img/icon/star-yellow.svg" />
+				<img src="/img/icon/star-yellow-02.svg" />
 				<p>{{ props.item.firmAvgStar.toFixed(1) }}</p>
 			</div>
 			<div class="expert-info">
@@ -60,8 +60,8 @@ const handlerClickItem = () => {
 	}
 }
 .expert-profile {
-	width: 93px;
-	height: 93px;
+	width: 104px;
+	height: 104px;
 	border: 1px solid #dde0e3;
 	border-radius: 16px;
 }
@@ -71,7 +71,7 @@ const handlerClickItem = () => {
 	width: 100%;
 	& > span {
 		display: table-cell;
-		font-weight: $ft-thin;
+		font-weight: $ft-medium;
 		line-height: 23px;
 		white-space: nowrap;
 		overflow: hidden;
@@ -86,7 +86,6 @@ const handlerClickItem = () => {
 	& > p {
 		line-height: 16px;
 		font-size: 11px;
-		font-weight: $ft-medium;
 		color: #62656c;
 	}
 }
@@ -96,17 +95,16 @@ const handlerClickItem = () => {
 	gap: 10px;
 }
 .expert-distance {
-	font-size: 11px;
-	font-weight: $ft-bold;
+	font-size: 12px;
+	font-weight: $ft-medium;
 }
 .expert-rate {
 	display: flex;
 	align-items: center;
 	gap: 2px;
 	& > p {
-		font-size: 11px;
-		font-weight: $ft-medium;
-		color: #62656c;
+		font-size: 12px;
+		color: #555a62;
 	}
 }
 </style>

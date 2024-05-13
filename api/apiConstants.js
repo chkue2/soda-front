@@ -40,9 +40,20 @@ const API_URL = {
 	},
 	CALCULATE: {
 		GET: '/soda/calculate',
+		TYPE: '/soda/calculate/servicetype/sodaContract/:tmp_key',
 	},
 	NOTICE: {
 		LIST: '/notice/list',
+	},
+	NOTIFICATION: {
+		LIST: '/notification/list',
+		READ: '/notification/updateRead/:seq',
+		READ_ALL: '/notification/updateReadAll',
+	},
+	LIKE: {
+		COUNT: '/soda/firm-like/count',
+		SET: '/soda/firm-like/update/:firm_code',
+		LIST: '/soda/firm-like/firm-list',
 	},
 };
 

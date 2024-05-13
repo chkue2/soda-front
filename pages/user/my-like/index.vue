@@ -1,21 +1,36 @@
 <template>
 	<HeaderClose title="좋아요 활동" />
 	<ListEmptyItem
-		v-if="false"
+		v-if="likeList.length === 0"
 		title="종아요한 등기프로가 없어요"
 		sub-title="법무사찾기로 내주변 등기프로를 찾아보세요"
 	/>
-	<div class="my-like-container">
-		<ExpertList />
-		<Pagination margin-top="30px" />
+	<div v-if="likeList.length > 0" class="my-like-container">
+		<ExpertList :list="likeList" />
 	</div>
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
-import Pagination from '~/components/paging/Pagination.vue';
+
+import { firmLike } from '~/services/firmLike.js';
+
+const likeList = ref([]);
+
+onMounted(() => {
+	firmLike
+		.getList()
+		.then(({ data }) => {
+			likeList.value = data;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+});
 </script>
 
 <style lang="scss">
