@@ -3,27 +3,38 @@
 		<div class="notice-item-title" @click="handlerClickItem">
 			<div class="notice-item-title-left">
 				<img src="/img/icon/pin-black.svg" />
-				<span class="new-badge">NEW</span>
-				<p>공지사항</p>
+				<span v-if="isNewBoard" class="new-badge">NEW</span>
+				<p>{{ props.notice.title }}</p>
 			</div>
 			<img
 				src="/img/icon/expand-down-black.svg"
 				class="notice-item-title-expand"
 			/>
 		</div>
-		<div class="notice-item-content">
-			공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니다공지사항입니
-		</div>
+		<div class="notice-item-content" v-html="props.notice.content"></div>
 	</div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+
+import dayjs from 'dayjs';
 
 const isOpen = ref(false);
 const handlerClickItem = () => {
 	isOpen.value = !isOpen.value;
 };
+
+const props = defineProps({
+	notice: {
+		type: Object,
+		default: () => {},
+	},
+});
+
+const isNewBoard = computed(
+	() => dayjs().diff(dayjs(props.notice.created), 'days') < 7,
+);
 </script>
 
 <style lang="scss" scoped>
