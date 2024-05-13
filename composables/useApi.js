@@ -15,6 +15,14 @@ const POST_AUTH = async (url, data = {}) => {
 	return await apiAuth.post(url, data);
 };
 
+const PUT = async (url, data = {}) => {
+	return await api.put(url, data);
+};
+
+const PUT_AUTH = async (url, data = {}) => {
+	return await apiAuth.put(url, data);
+};
+
 const DELETE = async (url, data = {}) => {
 	return await api.delete(url, data);
 };
@@ -52,6 +60,8 @@ export {
 	getEndpoint,
 	POST,
 	POST_AUTH,
+	PUT,
+	PUT_AUTH,
 	GET,
 	GET_AUTH,
 	DELETE,

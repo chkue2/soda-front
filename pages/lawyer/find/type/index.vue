@@ -197,7 +197,7 @@ const toggleLawyerFindTypeCompleteModal = () => {
 
 const router = useRouter();
 const handlerClickApplyButton = () => {
-	router.push('/lawyer/find/preview');
+	router.push('/lawyer/find/ESTIMATE/preview');
 };
 </script>
 

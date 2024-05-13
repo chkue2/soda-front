@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
@@ -64,6 +64,8 @@ import {
 	convertToKoreanCurrency,
 } from '~/assets/js/utils.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
+import { useAuthStore } from '~/store/auth.js';
+import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 
 const props = defineProps({
 	mode: {
@@ -72,6 +74,7 @@ const props = defineProps({
 	},
 });
 
+const tmpKey = ref('');
 const form = ref({
 	bDate: '',
 	address: '',
@@ -81,6 +84,27 @@ const form = ref({
 	contract: null,
 });
 const won = ref('');
+
+onMounted(() => {
+	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
+	if (tmpKeyStorage) {
+		tmpKey.value = tmpKeyStorage;
+
+		lawyerContract
+			.getLawyerContract({ tmpKey: tmpKey.value, mode: props.mode })
+			.then(({ data }) => {
+				form.value.bDate = data.bdate;
+				form.value.address = data.address;
+				form.value.detailAddress = data.detailAddress;
+				form.value.cDate = data.cdate;
+				form.value.price = data.price;
+				form.value.contract = data.contractFileName;
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	}
+});
 
 watch(
 	() => form.value.price,
@@ -117,9 +141,14 @@ const handlerChangeContractFile = e => {
 	form.value.contract = files[0];
 };
 const contractFileText = computed(() =>
-	form.value.contract ? form.value.contract.name : '파일업로드',
+	!form.value.contract
+		? '파일업로드'
+		: typeof form.value.contract === 'object'
+			? form.value.contract.name
+			: form.value.contract,
 );
 
+const useAuth = useAuthStore();
 const router = useRouter();
 const handlerClickNextButton = () => {
 	if (!isValidation.value) return false;
@@ -127,24 +156,46 @@ const handlerClickNextButton = () => {
 	const formData = new FormData();
 	formData.append('mode', props.mode);
 	formData.append('detailAddress', form.value.detailAddress);
-	formData.append('userId', 'test');
+	formData.append('userId', useAuth.user.profile.userId);
 	formData.append('price', form.value.price.replaceAll(',', ''));
 	formData.append('bDate', form.value.bDate);
 	formData.append('cDate', form.value.cDate);
-	formData.append('contract', form.value.contract);
 	formData.append('address', form.value.address);
 	formData.append('firmCode', '');
+	if (typeof form.value.contract === 'object') {
+		formData.append('contract', form.value.contract);
+	}
 
-	lawyerContract
-		.setLawyerContract(formData)
-		.then(() => {
-			router.push(
-				props.mode === 'ESTIMATE' ? '/lawyer/find/type' : 'lawyer/find/preview',
-			);
-		})
-		.catch(e => {
-			alert(e.response.data.message);
-		});
+	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
+	if (tmpKeyStorage) {
+		lawyerContract
+			.updateLawyerContract({ tmpKey: tmpKey.value, formData })
+			.then(({ data }) => {
+				window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
+				router.push(
+					props.mode === 'ESTIMATE'
+						? '/lawyer/find/type'
+						: 'lawyer/find/preview',
+				);
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	} else {
+		lawyerContract
+			.setLawyerContract(formData)
+			.then(({ data }) => {
+				window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
+				router.push(
+					props.mode === 'ESTIMATE'
+						? '/lawyer/find/type'
+						: '/lawyer/find/preview',
+				);
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	}
 };
 </script>
 

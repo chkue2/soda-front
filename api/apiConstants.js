@@ -35,9 +35,14 @@ const API_URL = {
 		FIND: '/geo/firm/near/filter',
 		DETAIL: '/soda/lawyer/detail/:firm_code',
 		CREATE: '/soda/find-lawyer/contract',
+		GET: '/soda/find-lawyer/contract/:tmp_key/',
+		UPDATE: '/soda/find-lawyer/contract/:tmp_key',
 	},
 	CALCULATE: {
 		GET: '/soda/calculate',
+	},
+	NOTICE: {
+		LIST: '/notice/list',
 	},
 };
 

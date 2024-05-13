@@ -21,23 +21,25 @@
 			<div class="preview-info-container">
 				<p class="preview-name">홍길동</p>
 				<p class="preview-address">
-					경기도 의왕시 내손동 844 인덕원센트럴자이아파트 5단지 501동 1012호
+					{{ form.address }} {{ form.detailAddress }}
 				</p>
 				<div class="preview-file">
 					<img src="/img/icon/folder-yellow.svg" />
 					<p>매매계약서</p>
-					<a href="#">보기</a>
+					<a :href="contractFileUrl" target="_blank">보기</a>
 				</div>
-				<p class="preview-price"><b>매매대금 550,000,000</b> 원</p>
+				<p class="preview-price">
+					<b>매매대금 {{ (Number(form.price) || 0).toLocaleString() }}</b> 원
+				</p>
 				<div class="preview-date-column mt20">
 					<img src="/img/icon/calendar-color.svg" />
 					<p class="preview-date-title">계약일</p>
-					<p class="preview-date-content">2024-04-01</p>
+					<p class="preview-date-content">{{ form.bDate }}</p>
 				</div>
 				<div class="preview-date-column mt10">
 					<img src="/img/icon/clock-color.svg" />
 					<p class="preview-date-title">잔금일</p>
-					<p class="preview-date-content">2024-04-20</p>
+					<p class="preview-date-content">{{ form.cDate }}</p>
 				</div>
 			</div>
 		</div>
@@ -54,13 +56,57 @@
 </template>
 
 <script setup>
+import { onMounted, ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
+
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ExpertListItem from '~/components/item/ExpertListItem.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
+import { lawyerContract } from '~/services/lawyerContract.js';
+import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
+
 definePageMeta({
 	middleware: 'auth',
 });
+
+const tmpKey = ref('');
+const form = ref({
+	bDate: '',
+	address: '',
+	detailAddress: '',
+	cDate: '',
+	price: '',
+	contract: '',
+	contractUrl: '',
+});
+
+const route = useRoute();
+onMounted(() => {
+	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
+	const mode = route.params.mode;
+
+	tmpKey.value = tmpKeyStorage;
+
+	lawyerContract
+		.getLawyerContract({ tmpKey: tmpKey.value, mode })
+		.then(({ data }) => {
+			form.value.bDate = data.bdate;
+			form.value.address = data.address;
+			form.value.detailAddress = data.detailAddress;
+			form.value.cDate = data.cdate;
+			form.value.price = data.price;
+			form.value.contract = data.contractFileName;
+			form.value.contractUrl = data.contractUrl;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+});
+
+const contractFileUrl = computed(
+	() => `${form.value.contractUrl}/${form.value.contract}`,
+);
 </script>
 
 <style lang="scss" scoped>

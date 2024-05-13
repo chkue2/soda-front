@@ -7,6 +7,7 @@ const FILTER_KEYWORD_KEY = 'soda-search-keyword';
 const LOGIN_REDIRECT_KEY = 'soda-login-redirect-url';
 const LOGIN_REDIRECT_AUTH_KEY = 'soda-login-redirect-auth';
 const CALC_FORM_DATA_KEY = 'soda-calc-form-data';
+const LAWYER_FIND_TMP_KEY = 'soda-lawyer-find-temp';
 
 export {
 	LOCATION_KEY,
@@ -18,4 +19,5 @@ export {
 	LOGIN_REDIRECT_KEY,
 	LOGIN_REDIRECT_AUTH_KEY,
 	CALC_FORM_DATA_KEY,
+	LAWYER_FIND_TMP_KEY,
 };
