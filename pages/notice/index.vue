@@ -7,7 +7,7 @@
 			:notice="noti"
 		/>
 	</div>
-	<Pagination />
+	<Pagination :paging="paging" @click-page="callApi" />
 </template>
 
 <script setup>
@@ -17,6 +17,7 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 import NoticeItem from '~/components/item/NoticeItem.vue';
 import Pagination from '~/components/paging/Pagination.vue';
 
+import { useLoadingStore } from '~/store/loading.js';
 import { notice } from '~/services/notice.js';
 
 const paging = ref({
@@ -30,16 +31,25 @@ const paging = ref({
 const noticeList = ref([]);
 
 onMounted(() => {
+	callApi(paging.value.pageNo);
+});
+
+const loadingStore = useLoadingStore();
+const callApi = pageNo => {
+	loadingStore.setLoadingShow(true);
 	notice
-		.getNotice(paging.value.pageNo)
+		.getNotice(pageNo)
 		.then(({ data }) => {
 			noticeList.value = data.noticeList;
 			paging.value = data.paging;
 		})
 		.catch(e => {
 			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
 		});
-});
+};
 </script>
 
 <style lang="scss" scoped>
