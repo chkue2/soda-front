@@ -9,17 +9,17 @@
 			<p class="preview-title mb20">선택한 서비스</p>
 			<div class="preview-service-column">
 				<p class="preview-service-title">서비스 유형</p>
-				<p class="preview-service-content">프리미엄 견적으로 제안하기</p>
+				<p class="preview-service-content">{{ serviceTypeText }}</p>
 			</div>
 			<div class="preview-service-column">
 				<p class="preview-service-title">보수금액</p>
-				<p class="preview-service-content">60만원</p>
+				<p class="preview-service-content">{{ typeObj.amount }}만원</p>
 			</div>
 		</div>
 		<div class="preview-section">
 			<p class="preview-title mb10">입력한 계약정보</p>
 			<div class="preview-info-container">
-				<p class="preview-name">홍길동</p>
+				<p class="preview-name">{{ useAuth.user.profile.userName }}</p>
 				<p class="preview-address">
 					{{ form.address }} {{ form.detailAddress }}
 				</p>
@@ -34,12 +34,12 @@
 				<div class="preview-date-column mt20">
 					<img src="/img/icon/calendar-color.svg" />
 					<p class="preview-date-title">계약일</p>
-					<p class="preview-date-content">{{ form.bDate }}</p>
+					<p class="preview-date-content">{{ form.cDate }}</p>
 				</div>
 				<div class="preview-date-column mt10">
 					<img src="/img/icon/clock-color.svg" />
 					<p class="preview-date-title">잔금일</p>
-					<p class="preview-date-content">{{ form.cDate }}</p>
+					<p class="preview-date-content">{{ form.bDate }}</p>
 				</div>
 			</div>
 		</div>
@@ -76,8 +76,12 @@ import ExpertListItem from '~/components/item/ExpertListItem.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeCompleteModal.vue';
 
+import { useAuthStore } from '~/store/auth.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
-import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
+import {
+	LAWYER_FIND_TMP_KEY,
+	LAWTER_FIND_TYPE_KEY,
+} from '~/assets/js/storageKeys.js';
 
 definePageMeta({
 	middleware: 'auth',
@@ -93,11 +97,22 @@ const form = ref({
 	contract: '',
 	contractUrl: '',
 });
+const typeObj = ref({
+	type: 0,
+	amount: 0,
+});
 
 const route = useRoute();
 const router = useRouter();
 
+const useAuth = useAuthStore();
+
 onMounted(() => {
+	const typeStorage = window.localStorage.getItem(LAWTER_FIND_TYPE_KEY);
+	if (typeStorage) {
+		typeObj.value = JSON.parse(typeStorage);
+	}
+
 	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
 	const mode = route.params.mode;
 
@@ -117,6 +132,17 @@ onMounted(() => {
 		.catch(e => {
 			alert(e.response.data.message);
 		});
+});
+
+const serviceTypeText = computed(() => {
+	switch (typeObj.value.type) {
+		case 1:
+			return '프리미엄 견적으로 제안하기';
+		case 2:
+			return '일반 견적으로 제안하기';
+		default:
+			return '내가 직접 가격 제안하기';
+	}
 });
 
 const contractFileUrl = computed(() => {

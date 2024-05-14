@@ -4,8 +4,18 @@
 			<HeaderLogo />
 			<p class="page-title">마이페이지</p>
 			<div class="profile-container">
-				<div class="profile-box">
+				<div class="profile-box" @click="handlerClickProfileImage">
 					<img class="profile-image" :src="profileImage" />
+					<img
+						v-if="isLoggedIn"
+						class="setting-icon"
+						src="/img/icon/setting-circle-gray.svg"
+					/>
+					<input
+						ref="profileImageFile"
+						type="file"
+						@change="handlerChangeProfileImageFile"
+					/>
 				</div>
 				<div v-if="!isLoggedIn" class="profile-text">
 					<NuxtLink to="/login" class="login-button">
@@ -133,7 +143,7 @@ const useAuth = useAuthStore();
 
 const isLoggedIn = computed(() => useAuth.user !== null);
 const profileImage = computed(() =>
-	useAuth.user === null
+	useAuth.user === null || useAuth.user.profile.userProfileImage === null
 		? '/img/icon/profile-cow.png'
 		: useAuth.user.profile.userProfileImage,
 );
@@ -157,6 +167,17 @@ onMounted(() => {
 			});
 	}
 });
+
+const profileImageFile = ref(null);
+
+const handlerClickProfileImage = () => {
+	profileImageFile.value.click();
+};
+
+const handlerChangeProfileImageFile = e => {
+	const file = e.target.files[0];
+	console.log(file);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -173,10 +194,19 @@ onMounted(() => {
 }
 .profile-box {
 	position: relative;
+	cursor: pointer;
 	.profile-image {
 		width: 72px;
 		height: 72px;
 		border-radius: 50%;
+	}
+	.setting-icon {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+	& > input {
+		display: none;
 	}
 }
 .login-button {

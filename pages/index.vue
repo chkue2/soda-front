@@ -6,9 +6,9 @@
 			<QuickMenus />
 			<BankBanner />
 			<div class="index-title-container">
-				<p class="index-title">내 주변 법무사 찾기!</p>
+				<p class="index-title">내 주변 등기프로 찾기!</p>
 				<div class="index-subtitle">
-					<p>위치설정하고 주변 법무사 찾아보기</p>
+					<p>위치설정하고 주변 등기프로 찾아보기</p>
 					<NuxtLink to="/lawyer/find" class="more-text">
 						<span>더보기</span><img src="/img/icon/expand-right-black.svg" />
 					</NuxtLink>

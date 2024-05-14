@@ -1,5 +1,5 @@
 <template>
-	<HeaderClose title="전문가 찾기" />
+	<HeaderClose title="등기프로 찾기" />
 	<div class="type-top-container">
 		<img v-if="type === 3" src="/img/cow/cow-02.png" class="type-top-cow" />
 		<img v-if="type === 2" src="/img/cow/cow-05.png" class="type-top-cow" />
@@ -22,7 +22,9 @@
 			</div>
 			<div class="type-middle-item-bottom">
 				<span class="type-middle-item-tag">소다 할인 적용중</span>
-				<div class="type-middle-item-price"><b>23</b> <span>만원~</span></div>
+				<div class="type-middle-item-price">
+					<b>{{ offerPrice }}</b> <span>만원~</span>
+				</div>
 			</div>
 		</div>
 		<div class="type-middle-item" @click="handlerClickItem(2)">
@@ -38,7 +40,9 @@
 			</div>
 			<div class="type-middle-item-bottom">
 				<span class="type-middle-item-tag">소다 할인 적용중</span>
-				<div class="type-middle-item-price"><b>23</b> <span>만원</span></div>
+				<div class="type-middle-item-price">
+					<b>{{ normalPrice }}</b> <span>만원</span>
+				</div>
 			</div>
 		</div>
 		<div class="type-middle-item" @click="handlerClickItem(1)">
@@ -54,7 +58,9 @@
 			</div>
 			<div class="type-middle-item-bottom">
 				<span class="type-middle-item-tag">소다 할인 적용중</span>
-				<div class="type-middle-item-price"><b>23</b> <span>만원</span></div>
+				<div class="type-middle-item-price">
+					<b>{{ premiumPrice }}</b> <span>만원</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -72,7 +78,7 @@
 					<p class="type-item-subtitle">보수료를 직접 제안하는 실속형</p>
 				</div>
 			</div>
-			<div class="type-item-price">50만원부터~</div>
+			<div class="type-item-price">{{ offerPrice }}만원부터~</div>
 		</div>
 		<div
 			v-if="type === 0 || type === 2"
@@ -87,7 +93,7 @@
 					<p class="type-item-subtitle">모두가 좋아하는 등기소다 표준</p>
 				</div>
 			</div>
-			<div class="type-item-price">60만원대</div>
+			<div class="type-item-price">{{ normalPrice }}만원</div>
 		</div>
 		<div
 			v-if="type === 0 || type === 1"
@@ -102,16 +108,16 @@
 					<p class="type-item-subtitle">전문가 대면을 원한다면 프리미엄</p>
 				</div>
 			</div>
-			<div class="type-item-price">70만원대</div>
+			<div class="type-item-price">{{ premiumPrice }}만원</div>
 		</div>
 		<div v-if="type > 0" class="type-bottom-contents-container">
 			<div v-if="type === 1" class="type-bottom-contents-text">
-				프리미엄 서비스는 법무사 또는 변호사가 직접 잔금일에 출석하여 업무처리를
-				진행하는 서비스입니다.
+				직원이 아닌 법무사, 변호사 자격자 본인이 직접 현장에 방문하여 업무를
+				수행합니다.
 			</div>
 			<div v-if="type === 2" class="type-bottom-contents-text">
-				모든 전문가가 지원할 수 있습니다. 모두가 검증된 전문가이므로 안심하고
-				맡기셔도 됩니다.
+				등기소다의 모든 등기프로가 지원할 수 있습니다.<br />모두가 검증된
+				전문가이므로 안심하고 맡겨주세요.
 			</div>
 			<div v-if="type === 3" class="type-bottom-contents-form">
 				<p class="form-title mb11">제안하고 싶은 금액을 입력해주세요</p>
@@ -123,7 +129,7 @@
 					<span>만원</span>
 				</div>
 				<p v-if="isPriceWarningCheck" class="form-warning-text mt11">
-					제안할 수 있는 공임료의 최소금액은 50만원 이상
+					제안할 수 있는 공임료의 최소금액은 {{ offerPrice }}만원 이상
 				</p>
 			</div>
 		</div>
@@ -178,6 +184,9 @@ onMounted(() => {
 		calculate
 			.type({ tmpKey: tmpKeyStorage })
 			.then(({ data }) => {
+				offerPrice.value = data.serviceType.OFFER / 10000;
+				normalPrice.value = data.serviceType.NORMAL / 10000;
+				premiumPrice.value = data.serviceType.PREMIUM / 10000;
 				console.log(data);
 			})
 			.catch(e => {
@@ -217,7 +226,7 @@ watch(
 );
 
 const isPriceWarningCheck = computed(
-	() => price.value !== '' && parseInt(price.value) < 50,
+	() => price.value !== '' && parseInt(price.value) < offerPrice.value,
 );
 
 const router = useRouter();
