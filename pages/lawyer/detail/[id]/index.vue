@@ -1,7 +1,7 @@
 <template>
 	<HeaderCloseAndLike
-		title="최고당 법무사 사무소"
-		:is-like="firmDetail.firmLike"
+		:title="firmDetail.firmName"
+		:is-like="firmLikeYN"
 		@click-like-button="handlerClickLikeButton"
 	/>
 	<div class="lawyer-detail-container">
@@ -110,11 +110,15 @@ import { rexFormatPhone } from '~/assets/js/utils.js';
 import { firmLike } from '~/services/firmLike.js';
 
 const route = useRoute();
+const confirmStore = useConfirmStore();
+const useAuth = useAuthStore();
 
 const firmDetail = ref({});
+const firmLikeYN = ref(false);
 
 const firmCode = route.params.id;
 onMounted(() => {
+	useAuth.initialize();
 	callApi();
 });
 
@@ -151,10 +155,17 @@ const callApi = () => {
 	lawyerDetail.getLawyerDetail(firmCode).then(({ data }) => {
 		firmDetail.value = data;
 	});
+	if (useAuth.user !== null) {
+		firmLike
+			.getLike(firmCode)
+			.then(({ data }) => {
+				firmLikeYN.value = data.like;
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	}
 };
-
-const confirmStore = useConfirmStore();
-const useAuth = useAuthStore();
 
 const handlerClickLikeButton = () => {
 	const isLoggedIn = useAuth.user !== null;

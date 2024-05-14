@@ -211,6 +211,8 @@ watch(
 	() => price.value,
 	() => {
 		price.value = keyupToLocaleString(price.value);
+		amount.value =
+			price.value === '0' ? '' : Number(price.value.replaceAll(',', ''));
 	},
 );
 

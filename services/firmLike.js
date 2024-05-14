@@ -9,6 +9,12 @@ export const firmLike = {
 	async getCount() {
 		return await GET_AUTH(API_URL.LIKE.COUNT);
 	},
+	async getLike(firmCode) {
+		const endpoint = getEndpoint(API_URL.LIKE.GET, {
+			firm_code: firmCode,
+		});
+		return await GET_AUTH(endpoint);
+	},
 	async setLike(firmCode) {
 		const endpoint = getEndpoint(API_URL.LIKE.SET, {
 			firm_code: firmCode,

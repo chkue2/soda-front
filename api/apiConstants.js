@@ -52,6 +52,7 @@ const API_URL = {
 	},
 	LIKE: {
 		COUNT: '/soda/firm-like/count',
+		GET: '/soda/firm-like/get/:firm_code',
 		SET: '/soda/firm-like/update/:firm_code',
 		LIST: '/soda/firm-like/firm-list',
 	},
