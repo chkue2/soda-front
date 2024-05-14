@@ -18,6 +18,7 @@ onMounted(() => {
 			encData,
 			tokenApiId,
 			integrityValue,
+			checkId: true,
 		})
 		.then(({ data }) => {
 			sendData(data.name, data.mobileNo, data.userIdentityKey);

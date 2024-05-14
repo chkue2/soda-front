@@ -306,6 +306,7 @@ const filterPath = computed(() =>
 	background-position-x: calc(50% - 25px);
 	padding-left: 22px;
 	color: #000000;
+	background-color: #ffffff;
 	cursor: pointer;
 }
 .filter-button {
@@ -330,6 +331,7 @@ const filterPath = computed(() =>
 	& > input {
 		flex: 1;
 		border: none;
+		font-size: 14px;
 	}
 }
 
