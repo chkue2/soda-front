@@ -14,6 +14,7 @@
 			class="login-input"
 			placeholder="비밀번호를 입력해주세요"
 			autocomplete="off"
+			@keyup.enter="handlerClickLoginButton"
 		/>
 		<div class="login-text-container">
 			<div class="login-toggle-container">

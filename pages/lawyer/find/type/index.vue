@@ -136,7 +136,7 @@
 	</div>
 	<div v-if="type === 0" class="form-bottom-buttons">
 		<p class="type-top-help-text">
-			시장가격은 공과금 제외 <b>100만원</b> 수준 입니다.
+			시장가격은 공과금 제외 <b>{{ legalpayPrice }}만원</b> 수준 입니다.
 		</p>
 	</div>
 	<div v-if="type > 0" class="form-bottom-buttons">
@@ -176,6 +176,7 @@ import {
 const offerPrice = ref(0);
 const normalPrice = ref(0);
 const premiumPrice = ref(0);
+const legalpayPrice = ref(0);
 
 onMounted(() => {
 	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
@@ -187,7 +188,7 @@ onMounted(() => {
 				offerPrice.value = data.serviceType.OFFER / 10000;
 				normalPrice.value = data.serviceType.NORMAL / 10000;
 				premiumPrice.value = data.serviceType.PREMIUM / 10000;
-				console.log(data);
+				legalpayPrice.value = data.serviceType.LEGALPAY / 10000;
 			})
 			.catch(e => {
 				alert(e.response.data.message);

@@ -5,34 +5,68 @@
 		<div class="contract-manage-tab">진행중</div>
 		<div class="contract-manage-tab">완료</div>
 	</div>
-	<p class="contract-manage-title">내 사건</p>
-	<button class="contract-add-button">
+	<p class="contract-manage-title">내 계약</p>
+	<button v-if="false" class="contract-add-button">
 		<span>간단한 정보입력으로 쉽고 빠르게</span>
 		<p>
 			<img src="/img/icon/add-square-black.svg" />
 			<strong>내 사건 불러오기</strong>
 		</p>
 	</button>
+	<div v-if="false" class="contract-empty">
+		<p class="contract-empty-title">등록된 계약이 아직 없습니다.</p>
+		<img src="/img/cow/contract-empty.png" />
+	</div>
 	<div class="contract-manage-swiper">
 		<swiper :space-between="20" slides-per-view="auto">
 			<swiper-slide v-for="i in 3" :key="i">
-				<div class="contract-manage-item">
+				<div
+					class="contract-manage-item"
+					@click="handlerClickMoveToDetailButton"
+				>
+					<div class="contract-manage-image">
+						<img src="/img/cow/card-02.gif" />
+					</div>
 					<div class="contract-manage-top">
-						<p class="contract-name">홍길동</p>
-						<p class="contract-date">잔금일 2024-05-24</p>
+						<div class="contract-manage-top-flex">
+							<div class="contract-manage-top-left">
+								<p class="contract-name">홍길동</p>
+								<p class="contract-date">잔금일 2024-05-24</p>
+							</div>
+							<div class="contract-manage-top-right">
+								<span class="contract-wait-box">수임대기중</span>
+							</div>
+						</div>
 						<p class="contract-address">
 							경기도 과천시 별양상가1로 18 과천오피스텔 106호
 						</p>
-						<p class="contract-bank">
-							<img src="/img/icon/kakaobank.png" />
-							<span>카카오뱅크</span>
-						</p>
 					</div>
-					<div class="contract-button-container">
-						<button @click="handlerClickMoveToDetailButton">
-							<span>눌러서 상세보기</span>
-							<img src="/img/icon/arrow-upside-circle-black.svg" />
-						</button>
+				</div>
+			</swiper-slide>
+			<swiper-slide v-for="i in 3" :key="i">
+				<div
+					class="contract-manage-item"
+					@click="handlerClickMoveToDetailButton"
+				>
+					<div class="contract-manage-image">
+						<img src="/img/cow/card-01.gif" />
+					</div>
+					<div class="contract-manage-top">
+						<div class="contract-manage-top-flex">
+							<div class="contract-manage-top-left">
+								<p class="contract-name">홍길동</p>
+								<p class="contract-date">잔금일 2024-05-24</p>
+							</div>
+							<div class="contract-manage-top-right">
+								<div class="contract-calendar">
+									<div class="contract-calendar-month">5월</div>
+									<div class="contract-calendar-day">24일</div>
+								</div>
+							</div>
+						</div>
+						<p class="contract-address">
+							경기도 과천시 별양상가1로 18 과천오피스텔 106호
+						</p>
 					</div>
 				</div>
 			</swiper-slide>
@@ -113,38 +147,89 @@ const handlerClickMoveToDetailButton = () => {
 .contract-manage-swiper {
 	margin-top: 15px;
 	padding: 0 20px 20px;
-	&:v-deep(.swiper-slide) {
-		width: calc(100% - 40px);
-	}
+}
+.swiper-slide {
+	width: calc(100% - 30px);
+	padding: 4px;
 }
 .contract-manage-item {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: 456px;
-	padding: 45px 28px 39px;
 	border-radius: 6px;
-	background: conic-gradient(
-		from -57deg at 48.5% 50%,
-		#fbfbfd 26.24999910593033deg,
-		#c8d4da 88.12500178813934deg,
-		#fff 156.58468008041382deg,
-		#aec0ce 191.74442768096924deg,
-		#e3e9ee 237.1290135383606deg,
-		#fafbfc 255.19062280654907deg,
-		#d6dfe6 310.1085305213928deg,
-		#b8c9d3 331.875deg
-	);
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+	cursor: pointer;
+}
+.contract-manage-image {
+	display: flex;
+	justify-content: center;
+	padding: 0 22px;
+	& > img {
+		width: 277px;
+		height: 277px;
+	}
+}
+.contract-manage-top {
+	padding: 9px 16px 19px;
+}
+.contract-manage-top-flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.contract-manage-top-left {
+	display: flex;
+	flex-direction: column;
+}
+.contract-wait-box {
+	border-radius: 6px;
+	border: 1px solid #3182f7;
+	padding: 3px 6px;
+	font-size: 12px;
+	font-weight: $ft-bold;
+	color: #3182f7;
+}
+.contract-calendar {
+	display: flex;
+	flex-direction: column;
+	width: 65px;
+	border-radius: 9px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+	margin-bottom: 12px;
+}
+.contract-calendar-month {
+	border-radius: 9px 9px 0 0;
+	background-color: #ed3241;
+	color: #ffffff;
+	text-align: center;
+	padding: 3px 0;
+	font-size: 14px;
+	font-weight: $ft-bold;
+}
+.contract-calendar-day {
+	border-radius: 0 0 9px 9px;
+	padding: 5px 10px;
+	background-color: #ffffff;
+	font-size: 20px;
+	font-weight: $ft-bold;
+	text-align: center;
 }
 .contract-name {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: $ft-bold;
 }
 .contract-date {
-	margin: 8px 0 23px;
+	margin: 6px 0 14px;
+	background-color: #f8f8f8;
+	border-radius: 6px;
+	padding: 3px 6px;
+	font-size: 14px;
+	font-weight: $ft-medium;
+	color: #8b8b8b;
+	display: inline-block;
 }
 .contract-address {
-	line-height: 24px;
+	font-size: 14px;
 	word-break: keep-all;
 }
 .contract-bank {
@@ -160,18 +245,19 @@ const handlerClickMoveToDetailButton = () => {
 		color: #252525;
 	}
 }
-.contract-button-container {
+.contract-empty {
 	display: flex;
-	justify-content: flex-end;
-	& > button {
-		padding: 10px 19px;
-		border-radius: 19px;
-		display: flex;
-		align-items: center;
-		gap: 5px;
-		& > span {
-			font-size: 14px;
-		}
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 28px 0 70px;
+	& > img {
+		width: 208px;
+		height: auto;
 	}
+}
+.contract-empty-title {
+	color: #b9babe;
+	margin-bottom: 62px;
 }
 </style>
