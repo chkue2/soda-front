@@ -1,10 +1,8 @@
 <template>
 	<HeaderClose title="비밀번호 찾기" />
 	<div class="find-container mb56">
-		<p class="find-text mt35 mb24">
-			등록된 휴대전화로<br />임시비밀번호를 발송하였습니다.
-		</p>
-		<p class="find-text">로그인 후, 새로운 비밀번호를 설정하세요!</p>
+		<p class="find-text mt70 mb14">비밀번호 변경이 완료되었습니다.</p>
+		<p class="find-text">새로운 비밀번호로 로그인해주세요.</p>
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton

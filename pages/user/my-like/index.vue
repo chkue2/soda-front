@@ -19,6 +19,10 @@ import ExpertList from '~/components/list/ExpertList.vue';
 
 import { firmLike } from '~/services/firmLike.js';
 
+definePageMeta({
+	middleware: 'auth',
+});
+
 const likeList = ref([]);
 
 onMounted(() => {
