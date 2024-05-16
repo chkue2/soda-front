@@ -21,6 +21,7 @@ const API_URL = {
 		FIND_PW: '/join-soda/changePassword',
 		CHECK_ID: '/soda/check-id',
 		JOIN: '/join-soda',
+		PROFILE: '/soda/user/profile-update',
 	},
 	NICE: {
 		CHECK_PHONE: '/nice/check-phone',

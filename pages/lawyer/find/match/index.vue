@@ -10,7 +10,11 @@
 				입찰에 참가한 등기프로를 확인하고 선택해주세요.
 			</p>
 		</div>
-		<ExpertList />
+		<ListEmptyItem
+			title="앗! 모집된 사무소가 없어요"
+			sub-title="일정이 맞는 등기프로가 없을 수 있어요.<br>책정 보수금액을 조금 더 상향해서 재입찰 할 수 있어요!"
+		/>
+		<ExpertList :list="[]" />
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -35,6 +39,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
+import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';

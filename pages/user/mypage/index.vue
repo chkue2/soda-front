@@ -135,6 +135,7 @@ import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 
 import { useAuthStore } from '~/store/auth.js';
 import { firmLike } from '~/services/firmLike.js';
+import { user } from '~/services/user.js';
 
 const modules = [Autoplay];
 
@@ -145,7 +146,7 @@ const isLoggedIn = computed(() => useAuth.user !== null);
 const profileImage = computed(() =>
 	useAuth.user === null || useAuth.user.profile.userProfileImage === null
 		? '/img/icon/profile-cow.png'
-		: useAuth.user.profile.userProfileImage,
+		: `data:image/png;base64,${useAuth.user.profile.userProfileImage}`,
 );
 
 const handlerClickLogoutButton = () => {
@@ -171,12 +172,26 @@ onMounted(() => {
 const profileImageFile = ref(null);
 
 const handlerClickProfileImage = () => {
+	if (!isLoggedIn.value) return false;
+
 	profileImageFile.value.click();
 };
 
 const handlerChangeProfileImageFile = e => {
 	const file = e.target.files[0];
-	console.log(file);
+	if (file === undefined) return false;
+
+	const formData = new FormData();
+	formData.append('profile', file);
+
+	user
+		.setProfileImage(formData)
+		.then(() => {
+			useAuth.userProfile();
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 </script>
 
