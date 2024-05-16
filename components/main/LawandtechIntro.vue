@@ -25,6 +25,10 @@
 				<p class="column-content">priros@lawandtech.co.kr</p>
 			</div>
 		</div>
+		<p class="intro-copy mt25 mb17">
+			(주)로앤텍은 통신판매중개자로 법률 서비스 및 업무 당사자가 아니므로 법률
+			서비스 및 업무에 대해 책임을 지지 않습니다.
+		</p>
 		<p class="intro-copy">COPYRIGHT &copy; PRIROS ALL RIGHTS RESERVED.</p>
 	</div>
 </template>
@@ -65,5 +69,6 @@
 	font-size: 12px;
 	color: #b5b5b5;
 	text-align: center;
+	word-break: keep-all;
 }
 </style>

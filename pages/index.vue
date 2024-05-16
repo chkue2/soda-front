@@ -6,7 +6,7 @@
 			<QuickMenus />
 			<BankBanner />
 			<div class="index-title-container">
-				<p class="index-title">내 주변 등기프로 찾기!</p>
+				<p class="index-title mt37 mb8">내 주변 등기프로 찾기!</p>
 				<div class="index-subtitle">
 					<p>위치설정하고 주변 등기프로 찾아보기</p>
 					<NuxtLink to="/lawyer/find" class="more-text">
@@ -16,10 +16,8 @@
 			</div>
 			<ExpertList :margin="[23, 17, 37, 17]" :list="expertList" />
 			<div class="index-title-container">
-				<p class="index-title">등기소다는 이렇게 진행해요</p>
-				<div class="index-subtitle">
-					<p>안전하고 전문적인 법무사를 찾는다면 등기소다!</p>
-				</div>
+				<p class="index-toptitle">등기잘하는 등기소다</p>
+				<p class="index-title mb36">등기소다는 이렇게 진행 해요</p>
 			</div>
 			<ProcessBanner />
 			<LawandtechIntro />
@@ -31,7 +29,7 @@
 				button-text="보기"
 			/>
 			<BottomToast
-				v-if="true"
+				v-if="false"
 				:bottom="64"
 				background-color="#29cdff"
 				emoji="smiling-face-with-hearts.gif"
@@ -109,7 +107,6 @@ const handlerClickToastButton = () => {
 	font-size: 20px;
 	font-weight: $ft-bold;
 	line-height: 29px;
-	margin: 37px 0 8px;
 }
 .index-subtitle {
 	display: flex;
@@ -135,5 +132,10 @@ const handlerClickToastButton = () => {
 			margin-bottom: 1px;
 		}
 	}
+}
+.index-toptitle {
+	font-size: 14px;
+	font-weight: $ft-bold;
+	margin-bottom: 4px;
 }
 </style>
