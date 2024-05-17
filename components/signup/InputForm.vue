@@ -25,7 +25,9 @@
 				placeholder="본인인증 후 자동입력"
 			/>
 		</div>
-		<p class="input-form-title mb5">아이디</p>
+		<p class="input-form-title mb5">
+			아이디<span>영문이나 숫자의 조합, 5자 이상</span>
+		</p>
 		<div class="form-input mb40">
 			<input
 				v-model="form.id"
@@ -72,7 +74,7 @@ import { useRouter } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
-import { isValidPassword } from '~/assets/js/utils.js';
+import { isValidPassword, isValidId } from '~/assets/js/utils.js';
 import { signup } from '~/services/signup.js';
 import { useSignupStore } from '~/store/signup.js';
 
@@ -128,6 +130,7 @@ const isFormValidation = computed(
 	() =>
 		formValidationCount.value === Object.values(form.value).length &&
 		idCheck.value &&
+		isValidId(form.value.id) &&
 		isValidPassword(form.value.password) &&
 		form.value.password === form.value.passwordConfirm,
 );
@@ -139,6 +142,10 @@ const handlerKeyupId = () => {
 const handlerClickIdCheckButton = () => {
 	if (form.value.id === '') {
 		alert('아이디를 입력해주세요');
+		return false;
+	}
+	if (!isValidId(form.value.id)) {
+		alert('아이디는 영문이나 숫자를 조합한 5자리 이상 입력해야 합니다');
 		return false;
 	}
 	signup

@@ -63,9 +63,20 @@ const isValidPassword = password => {
 	return regex.test(password);
 };
 
+/**
+ * 아이디 validation
+ * 영문이나 숫자 5자리 이상.
+ */
+const isValidId = id => {
+	const regex = /^[A-Za-z0-9]{5,}$/;
+
+	return regex.test(id);
+};
+
 export {
 	keyupToLocaleString,
 	convertToKoreanCurrency,
 	rexFormatPhone,
 	isValidPassword,
+	isValidId,
 };
