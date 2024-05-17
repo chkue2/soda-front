@@ -1,4 +1,4 @@
-import { getEndpoint, API_URL, POST, GET } from '~/composables/useApi.js';
+import { API_URL, POST, GET } from '~/composables/useApi.js';
 
 export const signup = {
 	async checkId(data) {

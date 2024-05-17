@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import { tokenApi, userSessionKey } from '~/utils/tokenApi';
+import { API_URL, GET } from '~/composables/useApi.js';
+
 export const useAuthStore = defineStore(
 	'auth',
 	{
@@ -16,6 +18,23 @@ export const useAuthStore = defineStore(
 			async login(credentials) {
 				try {
 					const response = await POST('/auth/login', credentials);
+					if (response && response.data) {
+						tokenApi.setToken(response.data.token, response.data.refreshToken);
+						return true;
+					}
+
+					return false;
+				} catch (e) {
+					return false;
+				}
+			},
+			async loginSns(form) {
+				const endpoint = getEndpoint(API_URL.AUTH.LOGIN_SNS, {
+					login_type: form.loginType,
+					user_key: form.userSnsKeyId,
+				});
+				try {
+					const response = await GET(endpoint);
 					if (response && response.data) {
 						tokenApi.setToken(response.data.token, response.data.refreshToken);
 						return true;
