@@ -142,7 +142,7 @@ onBeforeUnmount(() => {
 
 const handlerClickKakaoLogin = () => {
 	const domain =
-		location.href.includes('.local') || location.href.includes('.dev')
+		location.href.includes('.local') || location.href.includes('dev.')
 			? 'https://pro-api.dev.priros.com'
 			: 'https://pro-api.priros.com';
 
@@ -151,7 +151,7 @@ const handlerClickKakaoLogin = () => {
 
 const handlerClickNaverLogin = () => {
 	const domain =
-		location.href.includes('.local') || location.href.includes('.dev')
+		location.href.includes('.local') || location.href.includes('dev.')
 			? 'https://pro-api.dev.priros.com'
 			: 'https://pro-api.priros.com';
 
