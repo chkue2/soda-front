@@ -9,8 +9,8 @@ export default defineNuxtPlugin(nuxtApp => {
 			'/signup',
 			'/signup/success',
 			'/nice/result',
-			'/signup/sns/kakao',
-			'/signup/sns/naver',
+			'/signup/nice-result',
+			'/signup/sns',
 			'/login/sns/',
 		];
 		if (!exceptionEnums.includes(from.path)) {

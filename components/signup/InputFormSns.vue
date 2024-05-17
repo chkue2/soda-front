@@ -1,4 +1,10 @@
 <template>
+	<form id="niceForm" action="niceForm">
+		<input id="m" type="hidden" name="m" value="checkplusService" />
+		<input id="token_version_id" type="hidden" name="token_version_id" />
+		<input id="enc_data" type="hidden" name="enc_data" />
+		<input id="integrity_value" type="hidden" name="integrity_value" />
+	</form>
 	<div class="input-form-container">
 		<p class="input-form-title mb5">휴대전화번호</p>
 		<div class="form-readonly-box mb10">
@@ -23,26 +29,67 @@
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="회원가입"
-			:progress-width="(formValidationCount / 2) * 100"
+			:progress-width="(formValidationCount / 3) * 100"
 			@click-button="handlerClickSignupButton"
 		/>
 	</div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
+import { signup } from '~/services/signup.js';
+import { useSignupStore } from '~/store/signup.js';
+
 const form = ref({
 	phone: '',
 	name: '',
+	userIdentityKey: '',
+});
+
+const actionUrl = ref('');
+
+const props = defineProps({
+	snsForm: {
+		type: Object,
+		default: () => {},
+	},
+});
+
+onMounted(() => {
+	signup
+		.getNice(`${window.location.origin}/signup/nice-result`)
+		.then(({ data }) => {
+			document.getElementById('token_version_id').value = data.tokenVersionId;
+			document.getElementById('enc_data').value = data.encData;
+			document.getElementById('integrity_value').value = data.integrityValue;
+			actionUrl.value = data.actionUrl;
+
+			const receiveData = async e => {
+				if (e.data.name) {
+					form.value.name = e.data.name;
+					form.value.phone = e.data.phone;
+					form.value.userIdentityKey = e.data.userIdentityKey;
+				}
+			};
+
+			window.addEventListener('message', receiveData, false);
+		})
+		.catch(e => {
+			console.log(e);
+			alert(e.response.data.message);
+		});
 });
 
 const handlerClickSelfIdentification = () => {
-	form.value.phone = '01012341234';
-	form.value.name = '홍길동';
+	const form = document.getElementById('niceForm');
+
+	form.action = actionUrl.value;
+	form.target = 'popupChk';
+	form.submit();
 };
 
 const formValidationCount = computed(
@@ -53,6 +100,7 @@ const isFormValidation = computed(
 );
 
 const router = useRouter();
+const signupStore = useSignupStore();
 const handlerClickSignupButton = () => {
 	if (!isFormValidation.value) {
 		if (form.value.phone === '' || form.value.name === '') {
@@ -61,7 +109,25 @@ const handlerClickSignupButton = () => {
 		return false;
 	}
 
-	router.replace('/signup/success');
+	const formData = new FormData();
+	formData.append('userName', form.value.name);
+	formData.append('mobile', form.value.phone);
+	formData.append('privacyPolicyAgree', signupStore.agreePolicy ? 'Y' : 'N');
+	formData.append('termsOfServiceAgree', signupStore.agreeUse ? 'Y' : 'N');
+	formData.append('advInfoReceiveAgree', signupStore.agreeAd ? 'Y' : 'N');
+	formData.append('alimTalkYn', 'Y');
+	formData.append('userIdentityKey', form.value.userIdentityKey);
+	formData.append('loginType', props.snsForm.loginType);
+	formData.append('userSnsKeyId', props.snsForm.userSnsKeyId);
+
+	signup
+		.joinSns(formData)
+		.then(() => {
+			router.replace('/signup/success');
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 </script>
 

@@ -13,4 +13,7 @@ export const signup = {
 	async join(data) {
 		return await POST(API_URL.USER.JOIN, data);
 	},
+	async joinSns(data) {
+		return await POST(API_URL.USER.JOIN_SNS, data);
+	},
 };

@@ -42,10 +42,10 @@
 			<NuxtLink to="/user/help-center" class="login-link">고객센터</NuxtLink>
 		</div>
 		<div class="login-quick-buttons">
-			<button class="kakao-login">
+			<button class="kakao-login" @click="handlerClickKakaoLogin">
 				<img src="/img/icon/kakao-login.svg" />
 			</button>
-			<button class="naver-login">
+			<button class="naver-login" @click="handlerClickNaverLogin">
 				<img src="/img/icon/naver-login.svg" />
 			</button>
 		</div>
@@ -139,6 +139,24 @@ const redirect = () => {
 onBeforeUnmount(() => {
 	localStorage.removeItem(LOGIN_REDIRECT_AUTH_KEY);
 });
+
+const handlerClickKakaoLogin = () => {
+	const domain =
+		location.href.includes('.local') || location.href.includes('.dev')
+			? 'https://pro-api.dev.priros.com'
+			: 'https://pro-api.priros.com';
+
+	location.href = domain + '/oauth2/authorization/kakao';
+};
+
+const handlerClickNaverLogin = () => {
+	const domain =
+		location.href.includes('.local') || location.href.includes('.dev')
+			? 'https://pro-api.dev.priros.com'
+			: 'https://pro-api.priros.com';
+
+	location.href = domain + '/oauth2/authorization/naver';
+};
 </script>
 
 <style lang="scss" scoped>
