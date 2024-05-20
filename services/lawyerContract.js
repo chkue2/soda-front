@@ -1,4 +1,4 @@
-import { getEndpoint, API_URL, POST, PUT } from '~/composables/useApi.js';
+import { getEndpoint, API_URL, POST, PUT_AUTH } from '~/composables/useApi.js';
 
 export const lawyerContract = {
 	async setLawyerContract(data) {
@@ -12,6 +12,12 @@ export const lawyerContract = {
 		const endpoint = getEndpoint(API_URL.LAWYER.UPDATE, {
 			tmp_key: data.tmpKey,
 		});
-		return await PUT(endpoint, data.formData);
+		return await PUT_AUTH(endpoint, data.formData);
+	},
+	async doneLawyerContract(data) {
+		const endpoint = getEndpoint(API_URL.LAWYER.DONE, {
+			tmp_key: data.tmpKey,
+		});
+		return await PUT_AUTH(endpoint, data.formData);
 	},
 };

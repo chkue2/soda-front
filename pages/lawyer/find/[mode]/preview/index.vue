@@ -108,30 +108,37 @@ const router = useRouter();
 const useAuth = useAuthStore();
 
 onMounted(() => {
+	const mode = route.params.mode;
+
 	const typeStorage = window.localStorage.getItem(LAWTER_FIND_TYPE_KEY);
 	if (typeStorage) {
 		typeObj.value = JSON.parse(typeStorage);
 	}
 
 	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
-	const mode = route.params.mode;
+	if (tmpKeyStorage) {
+		tmpKey.value = tmpKeyStorage;
+	}
 
-	tmpKey.value = tmpKeyStorage;
-
-	lawyerContract
-		.getLawyerContract({ tmpKey: tmpKey.value, mode })
-		.then(({ data }) => {
-			form.value.bDate = data.bdate;
-			form.value.address = data.address;
-			form.value.detailAddress = data.detailAddress;
-			form.value.cDate = data.cdate;
-			form.value.price = data.price;
-			form.value.contract = data.contractFileName;
-			form.value.contractUrl = data.contractUrl;
-		})
-		.catch(e => {
-			alert(e.response.data.message);
-		});
+	if (typeStorage && tmpKeyStorage) {
+		lawyerContract
+			.getLawyerContract({ tmpKey: tmpKey.value, mode })
+			.then(({ data }) => {
+				form.value.bDate = data.bdate;
+				form.value.address = data.address;
+				form.value.detailAddress = data.detailAddress;
+				form.value.cDate = data.cdate;
+				form.value.price = data.price;
+				form.value.contract = data.contractFileName;
+				form.value.contractUrl = data.contractUrl;
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	} else {
+		alert('정상적인 진입 경로가 아닙니다.');
+		router.push('/');
+	}
 });
 
 const serviceTypeText = computed(() => {
@@ -164,7 +171,27 @@ const handlerClickBackButton = () => {
 };
 
 const handlerClickApplyButton = () => {
-	router.push('/lawyer/find/complete');
+	lawyerContract
+		.doneLawyerContract({
+			tmpKey: tmpKey.value,
+			formData: {
+				serviceType:
+					typeObj.value.type === 1
+						? 'PRIMEUM'
+						: typeObj.value.type === 2
+							? 'NORMAL'
+							: 'OFFER',
+				servicePrice: typeObj.value.amount * 10000,
+			},
+		})
+		.then(() => {
+			window.localStorage.removeItem(LAWYER_FIND_TMP_KEY);
+			window.localStorage.removeItem(LAWTER_FIND_TYPE_KEY);
+			router.push('/lawyer/find/complete');
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 </script>
 

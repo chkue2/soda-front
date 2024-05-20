@@ -27,9 +27,10 @@
 				title="프로필카드 받는 중"
 				content="빠른 매칭을 위해 준비중이예요!"
 				button-text="보기"
+				@click-button="handlerClickToastButton"
 			/>
 			<BottomToast
-				v-if="false"
+				v-if="true"
 				:bottom="64"
 				background-color="#29cdff"
 				emoji="smiling-face-with-hearts.gif"

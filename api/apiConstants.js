@@ -40,6 +40,7 @@ const API_URL = {
 		CREATE: '/soda/find-lawyer/contract',
 		GET: '/soda/find-lawyer/contract/:tmp_key/',
 		UPDATE: '/soda/find-lawyer/contract/:tmp_key',
+		DONE: '/soda/find-lawyer/contract/done/:tmp_key',
 	},
 	CALCULATE: {
 		GET: '/soda/calculate',
