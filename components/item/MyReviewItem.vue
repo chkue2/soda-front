@@ -1,54 +1,98 @@
 <template>
 	<div class="my-review-item">
-		<div class="my-review-title">
-			<p>최고다 법무사사무소</p>
+		<div class="my-review-title" @click="moveToLawyerDetailPage">
+			<p>{{ props.review.firmName }}</p>
 			<img src="/img/icon/expand-right-black.svg" />
 		</div>
 		<div class="my-review-rating">
 			<div class="my-review-rating-column">
 				<p>시간준수</p>
 				<div>
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-gray.svg" />
+					<img
+						v-for="i in props.review.timeCriteria"
+						:key="i"
+						src="/img/icon/star-yellow.svg"
+					/>
+					<img
+						v-for="i in 5 - props.review.timeCriteria"
+						:key="i"
+						src="/img/icon/star-gray.svg"
+					/>
 				</div>
 			</div>
 			<div class="my-review-rating-column">
 				<p>친절만족</p>
 				<div>
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-gray.svg" />
+					<img
+						v-for="i in props.review.kindCriteria"
+						:key="i"
+						src="/img/icon/star-yellow.svg"
+					/>
+					<img
+						v-for="i in 5 - props.review.kindCriteria"
+						:key="i"
+						src="/img/icon/star-gray.svg"
+					/>
 				</div>
 			</div>
 			<div class="my-review-rating-column">
 				<p>업무수행</p>
 				<div>
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-yellow.svg" />
-					<img src="/img/icon/star-gray.svg" />
+					<img
+						v-for="i in props.review.rapidCriteria"
+						:key="i"
+						src="/img/icon/star-yellow.svg"
+					/>
+					<img
+						v-for="i in 5 - props.review.rapidCriteria"
+						:key="i"
+						src="/img/icon/star-gray.svg"
+					/>
 				</div>
 			</div>
 		</div>
-		<p class="my-review-reg-date">작성일 2024-02-02</p>
-		<div class="my-review-content">
-			정말 친절하시고 시간약속도 잘 지켜주셨습니다. 덕분에 첫 주택구매를 잘
-			마쳤어요. 처음이라 긴장을 많이했는데 아이유 담당자님이 긴장하지말라고
-			노래도 불러주시고 얼굴도 예쁜데 마음도 이쁘시더라구요~호호호호 주변에 많이
-			자랑해놨어요
-		</div>
+		<p class="my-review-reg-date">작성일 {{ created }}</p>
+		<div class="my-review-content" v-html="memo"></div>
 		<div class="my-review-buttons">
-			<button>수정</button>
-			<button>삭제</button>
+			<button @click="handlerClickUpdateButton">수정</button>
+			<button @click="handlerClickDeleteButton">삭제</button>
 		</div>
 	</div>
 </template>
+
+<script setup>
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+import dayjs from 'dayjs';
+
+const props = defineProps({
+	review: {
+		type: Object,
+		default: () => {},
+	},
+});
+
+const created = computed(() =>
+	dayjs(props.review.created).format('YYYY-MM-DD'),
+);
+const memo = computed(() => props.review.memo.replaceAll('\n', '<br>'));
+
+const emit = defineEmits(['click-update', 'click-delete']);
+
+const handlerClickUpdateButton = () => {
+	emit('click-update', props.review.seq);
+};
+
+const handlerClickDeleteButton = () => {
+	emit('click-delete', props.review.seq);
+};
+
+const router = useRouter();
+const moveToLawyerDetailPage = () => {
+	router.push(`/lawyer/detail/${props.review.firmCode}`);
+};
+</script>
 
 <style lang="scss" scoped>
 .my-review-item {

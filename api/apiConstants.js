@@ -24,6 +24,11 @@ const API_URL = {
 		JOIN: '/join-soda',
 		JOIN_SNS: '/join-soda/sns',
 		PROFILE: '/soda/user/profile-update',
+		REVIEW_LIST: '/soda/user/review',
+		REVIEW_COUNT: '/soda/user/review-count',
+		REVIEW_DETAIL: '/soda/user/review/:seq',
+		REVIEW_UPDATE: '/soda/user/review/update/:seq',
+		REVIEW_DELETE: '/soda/user/review/delete/:seq',
 	},
 	NICE: {
 		CHECK_PHONE: '/nice/check-phone',

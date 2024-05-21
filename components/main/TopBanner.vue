@@ -16,7 +16,7 @@
 				<button class="banner-button" @click="moveToIntroSoda">알아보기</button>
 			</div>
 		</swiper-slide>
-		<swiper-slide>
+		<!-- <swiper-slide>
 			<div class="banner-container">
 				<picture>
 					<source
@@ -33,7 +33,7 @@
 					알아보기
 				</button>
 			</div>
-		</swiper-slide>
+		</swiper-slide> -->
 	</swiper>
 </template>
 
