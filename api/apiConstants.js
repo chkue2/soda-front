@@ -29,6 +29,8 @@ const API_URL = {
 		REVIEW_DETAIL: '/soda/user/review/:seq',
 		REVIEW_UPDATE: '/soda/user/review/update/:seq',
 		REVIEW_DELETE: '/soda/user/review/delete/:seq',
+		INQUIRY_LIST: '/soda/user/inquiry',
+		INQUIRY_INSERT: '/soda/user/inquiry/insert',
 	},
 	NICE: {
 		CHECK_PHONE: '/nice/check-phone',

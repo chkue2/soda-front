@@ -13,7 +13,9 @@
 				<img src="/img/icon/message-white.svg" />
 				<p>고객 문의</p>
 			</div>
-			<NuxtLink to="/" class="help-center-link">1:1문의 남기기</NuxtLink>
+			<NuxtLink to="/user/inquiry" class="help-center-link"
+				>1:1문의 남기기</NuxtLink
+			>
 		</div>
 		<p class="help-center-text">
 			일대일 문의에 문의사항을 남겨주시면 최대한 빠른 시일내에 상담사가
