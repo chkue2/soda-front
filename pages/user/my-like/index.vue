@@ -18,6 +18,7 @@ import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
 
 import { firmLike } from '~/services/firmLike.js';
+import { useLoadingStore } from '~/store/loading.js';
 
 definePageMeta({
 	middleware: 'auth',
@@ -25,7 +26,9 @@ definePageMeta({
 
 const likeList = ref([]);
 
+const loadingStore = useLoadingStore();
 onMounted(() => {
+	loadingStore.setLoadingShow(true);
 	firmLike
 		.getList()
 		.then(({ data }) => {
@@ -33,6 +36,9 @@ onMounted(() => {
 		})
 		.catch(e => {
 			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
 		});
 });
 </script>

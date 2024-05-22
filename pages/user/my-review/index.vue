@@ -26,7 +26,6 @@
 		@click-delete-button="deleteReview"
 		@close-modal="toggleReviewDeleteConfirmModal"
 	/>
-	<LoadingModal v-if="loadingStore.isLoading" />
 </template>
 
 <script setup>
@@ -38,7 +37,6 @@ import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import MyReviewItem from '~/components/item/MyReviewItem.vue';
 import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
 import ReviewDeleteConfirmModal from '~/components/modal/ReviewDeleteConfirmModal.vue';
-import LoadingModal from '~/components/modal/LoadingModal.vue';
 
 import { useLoadingStore } from '~/store/loading.js';
 import { user } from '~/services/user.js';

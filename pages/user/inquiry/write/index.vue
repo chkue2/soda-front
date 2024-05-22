@@ -22,7 +22,6 @@
 			@click-button="handlerClickApplyButton"
 		/>
 	</div>
-	<LoadingModal v-if="loadingStore.isLoading" />
 </template>
 
 <script setup>

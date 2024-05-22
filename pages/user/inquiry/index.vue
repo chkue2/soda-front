@@ -15,7 +15,6 @@
 			<NuxtLink to="/user/inquiry/write" class="inquiry-write">글쓰기</NuxtLink>
 		</div>
 	</div>
-	<LoadingModal v-if="loadingStore.isLoading" />
 </template>
 
 <script setup>
@@ -23,7 +22,6 @@ import { ref, onMounted } from 'vue';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import InquiryItem from '~/components/item/InquiryItem.vue';
-import LoadingModal from '~/components/modal/LoadingModal.vue';
 
 import { inquiry } from '~/services/inquiry.js';
 import { useLoadingStore } from '~/store/loading.js';
