@@ -320,6 +320,7 @@ const sortText = computed(() => {
 	background-color: #ffffff;
 }
 .sort-button {
+	flex: 1;
 	width: 100px;
 	height: 37px;
 	display: flex;
