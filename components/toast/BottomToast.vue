@@ -100,6 +100,7 @@ const handlerClickButton = () => {
 	padding: 8px 15px;
 	border-radius: 6px;
 	background-color: #ffffff;
+	font-size: 14px;
 	&.disable {
 		background-color: #f4f4f4;
 		color: #8d939f;

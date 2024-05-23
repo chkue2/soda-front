@@ -96,7 +96,7 @@ const callApi = () => {
 
 const router = useRouter();
 const handlerClickToastButton = () => {
-	router.push('/lawyer/find/match');
+	router.push('/lawyer/find/soda/match');
 };
 </script>
 

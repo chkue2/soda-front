@@ -174,8 +174,8 @@ const handlerClickNextButton = () => {
 				window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
 				router.push(
 					props.mode === 'ESTIMATE'
-						? '/lawyer/find/type'
-						: 'lawyer/find/preview',
+						? '/lawyer/find/soda/type'
+						: '/lawyer/find/PRO_CARD/preview',
 				);
 			})
 			.catch(e => {
@@ -188,8 +188,8 @@ const handlerClickNextButton = () => {
 				window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
 				router.push(
 					props.mode === 'ESTIMATE'
-						? '/lawyer/find/type'
-						: '/lawyer/find/preview',
+						? '/lawyer/find/soda/type'
+						: '/lawyer/find/PRO_CARD/preview',
 				);
 			})
 			.catch(e => {

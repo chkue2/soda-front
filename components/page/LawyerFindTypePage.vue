@@ -230,16 +230,11 @@ const isPriceWarningCheck = computed(
 	() => price.value !== '' && parseInt(price.value) < offerPrice.value,
 );
 
+const emit = defineEmits(['click-apply-button']);
+
 const router = useRouter();
 const handlerClickApplyButton = () => {
-	window.localStorage.setItem(
-		LAWTER_FIND_TYPE_KEY,
-		JSON.stringify({
-			type: type.value,
-			amount: amount.value,
-		}),
-	);
-	router.push('/lawyer/find/ESTIMATE/preview');
+	emit('click-apply-button', type.value, amount.value);
 };
 </script>
 

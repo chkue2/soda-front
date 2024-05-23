@@ -83,7 +83,7 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 const router = useRouter();
 const handlerClickMoveToDetailButton = () => {
-	router.push('/user/contract-manage/detail/1');
+	router.push('/user/contract-manage/detail/soda/1');
 };
 </script>
 

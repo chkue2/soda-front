@@ -115,7 +115,9 @@ const handlerClickLoginButton = async () => {
 
 		await useAuth.userProfile();
 
-		redirect();
+		setTimeout(() => {
+			redirect();
+		}, 100);
 	} else {
 		alert('아이디 또는 비밀번호가 다릅니다.');
 	}

@@ -9,7 +9,7 @@
 			<ExpertOptionsItem :badge="props.item.badge || []" />
 			<div class="expert-rate">
 				<img src="/img/icon/star-yellow-02.svg" />
-				<p>{{ props.item.firmAvgStar.toFixed(1) }}</p>
+				<p>{{ (props.item.firmAvgStar || 0).toFixed(1) }}</p>
 			</div>
 			<div class="expert-info">
 				<p class="expert-distance">{{ props.item.distance_km }} Km</p>
@@ -32,12 +32,14 @@ import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
 const props = defineProps({
 	item: {
 		type: Object,
-		default: () => {},
+		default: () => {
+			return { profileFileUrl: '' };
+		},
 	},
 });
 
 const imageUrl = computed(() =>
-	props.item.profileFileUrl
+	props.item.profileFileUrl !== undefined && props.item.profileFileUrl
 		? `${useRuntimeConfig().public.apiURL}${props.item.profileFileUrl}`
 		: '',
 );
