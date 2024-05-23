@@ -71,6 +71,7 @@ const closeModal = () => {
 	gap: 18px;
 	button {
 		font-size: 15px;
+		color: #000000;
 		&.active {
 			color: #29cdff;
 		}

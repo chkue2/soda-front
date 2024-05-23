@@ -348,12 +348,13 @@ const sortText = computed(() => {
 	height: 37px;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	gap: 15px;
 	border: 1px solid #e9eff2;
 	border-radius: 60px;
 	padding: 0 15px;
 	& > input {
-		flex: 1;
+		width: 120px;
 		border: none;
 		font-size: 14px;
 	}
