@@ -42,6 +42,7 @@
 			</div>
 			<ListEmptyItem
 				v-if="lawyerFindStore.expertList.length === 0"
+				:margin="[62, 0, 0, 0]"
 				title="등기프로를 찾을 수 없습니다."
 				sub-title="조건에 만족하는 등기프로를 찾을 수 없습니다.<br>조건을 변경해보세요!"
 			/>
@@ -222,7 +223,7 @@ const setAddress = val => {
 
 const addressText = computed(() =>
 	address.value.sido === ''
-		? '내위치설정'
+		? '위치를 설정해주세요'
 		: `${address.value.sido} ${address.value.gugun}`,
 );
 
