@@ -12,7 +12,16 @@
 				<p>등기프로 찾기</p>
 			</div>
 			<div class="find-filters">
-				<select v-model="sort" class="sort-button" @change="handlerChangeSort">
+				<div class="sort-button" @click="toggleSortModal">
+					<img src="/img/icon/sort-black.svg" />
+					<span>{{ sortText }}</span>
+				</div>
+				<select
+					v-if="false"
+					v-model="sort"
+					class="sort-button"
+					@change="handlerChangeSort"
+				>
 					<option value="default">기본순</option>
 					<option value="distance">거리순</option>
 					<option value="review">리뷰많은</option>
@@ -61,6 +70,12 @@
 				@call-api="callApi"
 				@close-modal="toggleFindFilterModal"
 			/>
+			<FindSortModal
+				v-if="isSortModalShow"
+				:sort="sort"
+				@set-sort="setSort"
+				@close-modal="toggleSortModal"
+			/>
 		</template>
 	</NuxtLayout>
 </template>
@@ -73,6 +88,7 @@ import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
 import LocationSettingModal from '~/components/modal/LocationSettingModal.vue';
 import FindFilterModal from '~/components/modal/FindFilterModal.vue';
+import FindSortModal from '~/components/modal/FindSortModal.vue';
 
 import { useLoadingStore } from '~/store/loading.js';
 import { useLocationStore } from '~/store/location.js';
@@ -116,8 +132,9 @@ const setDistance = val => {
 	window.localStorage.setItem(FILTER_DISTANCE_KEY, distance.value);
 };
 
-const handlerChangeSort = e => {
-	if (e.target.value === 'distance') {
+const setSort = val => {
+	sort.value = val;
+	if (sort.value === 'distance') {
 		if (address.value.sido === '') {
 			toggleLocationSettingModal();
 		}
@@ -143,15 +160,6 @@ const address = ref({
 });
 
 onMounted(() => {
-	setTimeout(() => {
-		const target = document.querySelector('.sort-button');
-		if (navigator.userAgent.indexOf('Chrome') > -1) {
-			target.style.paddingLeft = '22px';
-		} else {
-			target.style.paddingLeft = '42px';
-		}
-	}, 100);
-
 	const storageAddress = window.localStorage.getItem(LOCATION_KEY);
 	const storageCareers = window.localStorage.getItem(FILTER_CAREERS_KEY);
 	const storageBadges = window.localStorage.getItem(FILTER_BADGES_KEY);
@@ -227,6 +235,11 @@ const toggleFindFilterModal = () => {
 	isFindFilterModalShow.value = !isFindFilterModalShow.value;
 };
 
+const isSortModalShow = ref(false);
+const toggleSortModal = () => {
+	isSortModalShow.value = !isSortModalShow.value;
+};
+
 const isFilterEmpty = computed(() => {
 	return (
 		careers.value.length === 0 &&
@@ -243,6 +256,19 @@ const filterPath = computed(() =>
 		? '/img/icon/filter-black.svg'
 		: '/img/icon/filter-blue.svg',
 );
+
+const sortText = computed(() => {
+	switch (sort.value) {
+		case 'distance':
+			return '거리순';
+		case 'review':
+			return '리뷰많은';
+		case 'rate':
+			return '평점순';
+		default:
+			return '기본순';
+	}
+});
 </script>
 
 <style lang="scss" scoped>
@@ -293,18 +319,16 @@ const filterPath = computed(() =>
 	background-color: #ffffff;
 }
 .sort-button {
-	width: 110px;
+	width: 100px;
 	height: 37px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 4px;
 	border-radius: 20px;
 	border: 1px solid #e9eff2;
 	font-size: 14px;
 	text-align: center;
-	background-image: url('/img/icon/sort-black.svg');
-	background-position-x: calc(50% - 25px);
-	padding-left: 22px;
 	color: #000000;
 	background-color: #ffffff;
 	cursor: pointer;
