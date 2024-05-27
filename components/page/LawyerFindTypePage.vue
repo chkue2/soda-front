@@ -11,10 +11,10 @@
 		<p class="type-title-bottom mt18">아래 4가지 유형중 하나를 선택하세요</p>
 	</div>
 	<div class="type-top-container">
-		<img v-if="type === 4" src="/img/cow/cow-02.png" class="type-top-cow" />
-		<img v-if="type === 3" src="/img/cow/cow-02.png" class="type-top-cow" />
-		<img v-if="type === 2" src="/img/cow/cow-05.png" class="type-top-cow" />
-		<img v-if="type === 1" src="/img/cow/cow-04.png" class="type-top-cow" />
+		<img v-if="type === 4" src="/img/cow/cow-08.gif" class="type-top-cow" />
+		<img v-if="type === 3" src="/img/cow/cow-11.png" class="type-top-cow" />
+		<img v-if="type === 2" src="/img/cow/cow-10.png" class="type-top-cow" />
+		<img v-if="type === 1" src="/img/cow/cow-09.png" class="type-top-cow" />
 	</div>
 	<div v-if="type === 0" class="type-middle-container">
 		<div class="type-middle-help-text">
@@ -320,7 +320,7 @@ const handlerClickApplyButton = () => {
 	}
 }
 .type-top-container {
-	padding: 27px 14px 14px;
+	padding: 27px 0 14px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -347,9 +347,9 @@ const handlerClickApplyButton = () => {
 	}
 }
 .type-top-cow {
-	width: 180px;
+	width: 100%;
 	height: auto;
-	margin: 85px 0 88px;
+	max-width: 480px;
 }
 .type-middle-container {
 	display: flex;
@@ -441,7 +441,7 @@ const handlerClickApplyButton = () => {
 	border: 2px solid #29cdff;
 	padding: 21px 18px 30px;
 	border-radius: 10px;
-	margin-bottom: 52px;
+	margin: 0 12px 80px;
 }
 .type-bottom-item {
 	width: 100%;
@@ -502,6 +502,7 @@ const handlerClickApplyButton = () => {
 		border-color: #f00000;
 	}
 	& > input {
+		width: 180px;
 		border: none;
 		font-size: 20px;
 		font-weight: $ft-bold;
