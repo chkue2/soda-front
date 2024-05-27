@@ -33,7 +33,7 @@ const API_URL = {
 		INQUIRY_INSERT: '/soda/user/inquiry/insert',
 	},
 	NICE: {
-		CHECK_PHONE: '/nice/check-phone',
+		CHECK_PHONE: '/nice/check-phone/v2',
 		DECRYPT: '/nice/decrypt/soda',
 	},
 	GEO: {
@@ -66,6 +66,12 @@ const API_URL = {
 		GET: '/soda/firm-like/get/:firm_code',
 		SET: '/soda/firm-like/update/:firm_code',
 		LIST: '/soda/firm-like/firm-list',
+	},
+	TRADECASE: {
+		LIST: '/soda/tradeCase/list',
+		GET: '/soda/tradeCase/detail/:trade_case_id',
+		ESTIMATE: '/tradecases/:trade_case_id/estimate',
+		DOCUMENT: '/tradecases/:trade_case_id/document',
 	},
 };
 

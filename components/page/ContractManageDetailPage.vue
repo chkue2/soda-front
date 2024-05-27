@@ -2,21 +2,24 @@
 	<HeaderClose title="내 계약관리 상세" />
 	<div class="contract-manage-top-container">
 		<div class="contract-manage-info-wrapper">
-			<p class="buyer-name">홍길동</p>
+			<p class="buyer-name">{{ tradeCaseDetail.buyer }}</p>
 			<p class="object-address">
-				경기도 의왕시 내손동 844 인덕원센트럴자이아파트 5단지 501동 1012호
+				{{ tradeCaseDetail.fullAddress }}
 			</p>
 			<div class="loans-bank">
-				<img src="/img/icon/kakaobank.png" />
-				<span>카카오뱅크</span>
+				<img :src="bankIcon" />
+				<span>{{ bankName }}</span>
 			</div>
-			<p class="buy-price"><b>매매대금 550,000,000</b> 원</p>
+			<p class="buy-price">
+				<b>매매대금 {{ (tradeCaseDetail.tradePrice || 0).toLocaleString() }}</b>
+				원
+			</p>
 			<div class="info-column">
 				<div class="info-column-title">
 					<img src="/img/icon/calendar-color.svg" />
 					<p>잔금일</p>
 				</div>
-				<p class="info-column-content">2024-04-15</p>
+				<p class="info-column-content">{{ tradeCaseDetail.issueDate }}</p>
 			</div>
 			<div class="info-column">
 				<div class="info-column-title">
@@ -25,9 +28,9 @@
 				</div>
 				<p
 					class="info-column-content time-none"
-					@click="toggleBalanceTimeInformationModal"
+					@click="handlerClickIssueTimeText"
 				>
-					아직 정해지지 않았어요
+					{{ issueTimeText }}
 				</p>
 			</div>
 		</div>
@@ -44,25 +47,31 @@
 				</div>
 				<div>
 					<div class="contract-state-profile">
-						<ExpertListItem />
+						<ExpertListItem :item="profileCard" />
 					</div>
 					<div class="contract-state-profile-info">
 						<p class="contract-state-profile-info-title">서비스 유형</p>
 						<p class="contract-state-profile-info-content">
-							프리미엄 서비스 (잔금일 직접 참석)
+							{{ serviceTypeText }}
 						</p>
 					</div>
 					<div class="contract-state-profile-info">
 						<p class="contract-state-profile-info-title">보수금액</p>
-						<p class="contract-state-profile-info-content">720,000원</p>
+						<p class="contract-state-profile-info-content">
+							{{ (tradeCaseDetail.servicePrice || 0).toLocaleString() }}원
+						</p>
 					</div>
 					<div class="contract-state-profile-tel mt30">
 						<span>사무소로 전화하기</span>
-						<a href="tel:031-452-5555">031-452-5555</a>
+						<a :href="`tel:${rexFormatPhone(profileCard.firmPhone)}`">{{
+							rexFormatPhone(profileCard.firmPhone)
+						}}</a>
 					</div>
 					<div class="contract-state-profile-tel mt18">
 						<span>대표에게 전화하기</span>
-						<a href="tel:010-1234-1234">010-1234-1234</a>
+						<a :href="`tel:${rexFormatPhone(profileCard.delegaterPhone)}`">{{
+							rexFormatPhone(profileCard.delegaterPhone)
+						}}</a>
 					</div>
 					<div class="contract-state-profile-buttons">
 						<button class="button--gray" @click="toggleReviewWriteModal">
@@ -71,75 +80,108 @@
 					</div>
 				</div>
 			</div>
-			<div class="contract-state-card card-on">
+			<div
+				class="contract-state-card"
+				:class="{ 'card-on': tradeCaseDetail.estimateFlag }"
+			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img src="/img/icon/check-bubble-blue.svg" />
+						<img :src="checkImage(tradeCaseDetail.estimateFlag)" />
 						<p>견적보고 완료</p>
 					</div>
-					<button @click="toggleEstimateViewModal">견적서 보기</button>
+					<button
+						v-if="tradeCaseDetail.estimateFlag"
+						@click="toggleEstimateViewModal"
+					>
+						견적서 보기
+					</button>
 				</div>
 			</div>
-			<div class="contract-state-card card-on">
+			<div
+				class="contract-state-card"
+				:class="{ 'card-on': tradeCaseDetail.chargeFlag }"
+			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img src="/img/icon/check-bubble-blue.svg" />
+						<img :src="checkImage(tradeCaseDetail.chargeFlag)" />
 						<p>담당자보고 완료</p>
 					</div>
 				</div>
-				<div>
+				<div v-if="tradeCaseDetail.chargeFlag">
 					<p class="contract-state-subtitle">
 						해당 담당자가 잔금일에 직접 방문합니다.
 					</p>
-					<div class="contract-state-charge-profile">
-						<img src="/img/icon/profile-iu.png" />
+					<div class="contract-state-charge-profile mt14">
+						<img :src="chargerProfileImage" />
 						<div class="contract-state-charge-info">
-							<p class="firm-name">최고다 법무사사무소</p>
-							<p class="charge-name">최고은 법무사</p>
+							<p class="firm-name">{{ charger.firmName }}</p>
+							<p class="charge-name">
+								{{ charger.userName }} {{ charger.position }}
+							</p>
 							<p class="charge-tel">
 								<span>연락처</span>
-								<a href="tel:010-1234-1234">010-1234-1234</a>
+								<a :href="`tel:${rexFormatPhone(charger.mobile)}`">{{
+									rexFormatPhone(charger.mobile)
+								}}</a>
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="contract-state-card card-on">
+			<div
+				class="contract-state-card"
+				:class="{ 'card-on': tradeCaseDetail.scheduleFlag }"
+			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img src="/img/icon/check-bubble-blue.svg" />
+						<img :src="checkImage(tradeCaseDetail.scheduleFlag)" />
 						<p>일정보고 완료</p>
 					</div>
 				</div>
-				<div>
+				<div v-if="tradeCaseDetail.scheduleFlag">
 					<p class="contract-state-subtitle">
 						잔금일과 잔금시간을 꼭 확인해주세요.
 					</p>
-					<div class="contract-state-contents">
+					<div class="contract-state-contents mt14">
 						<div class="contract-state-contents-block">
 							<p class="contract-state-contents-title">잔금일</p>
-							<p class="contract-state-contents-content">2024-05-15</p>
+							<p class="contract-state-contents-content">
+								{{ tradeCaseDetail.issueDate }}
+							</p>
 						</div>
 						<div class="contract-state-contents-block">
 							<p class="contract-state-contents-title">잔금시간</p>
-							<p class="contract-state-contents-content">오전 9시 30분</p>
+							<p class="contract-state-contents-content">
+								{{ tradeCaseDetail.issueTime }}
+							</p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="contract-state-card card-on">
+			<div
+				class="contract-state-card"
+				:class="{ 'card-on': tradeCaseDetail.repayReportFlag }"
+			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img src="/img/icon/check-bubble-blue.svg" />
+						<img :src="checkImage(tradeCaseDetail.repayReportFlag)" />
 						<p>상환보고 완료</p>
 					</div>
-					<button @click="toggleReceiptDownloadModal">상환영수증 보기</button>
+					<button
+						v-if="tradeCaseDetail.repayReportFlag"
+						@click="toggleReceiptDownloadModal"
+					>
+						상환영수증 보기
+					</button>
 				</div>
 			</div>
-			<div class="contract-state-card card-off">
+			<div
+				class="contract-state-card"
+				:class="{ 'card-on': tradeCaseDetail.receiveFlag }"
+			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img src="/img/icon/check-bubble-gray.svg" />
+						<img :src="checkImage(tradeCaseDetail.receiveFlag)" />
 						<p>접수보고 완료</p>
 					</div>
 				</div>
@@ -169,10 +211,12 @@
 	/>
 	<EstimateViewModal
 		v-if="isEstimateViewModalShow"
+		:tid="props.tid"
 		@close-modal="toggleEstimateViewModal"
 	/>
 	<ReceiptDownloadModal
 		v-if="isReceiptDownloadModalShow"
+		:tid="props.tid"
 		@close-modal="toggleReceiptDownloadModal"
 	/>
 	<ReviewWriteModal
@@ -186,7 +230,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ExpertListItem from '~/components/item/ExpertListItem.vue';
@@ -197,6 +242,42 @@ import EstimateViewModal from '~/components/modal/EstimateViewModal.vue';
 import ReceiptDownloadModal from '~/components/modal/ReceiptDownloadModal.vue';
 import ReviewWriteModal from '~/components/modal/ReviewWriteModal.vue';
 import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
+
+import { tradeCase } from '~/services/tradeCase.js';
+import { rexFormatPhone } from '~/assets/js/utils.js';
+import { bankSVG } from '~/assets/js/bankSVG.js';
+
+const props = defineProps({
+	tid: {
+		type: String,
+		default: '',
+	},
+});
+
+const profileCard = ref({});
+const tradeCaseDetail = ref({});
+const charger = ref({});
+
+const issueTimeText = computed(
+	() => tradeCaseDetail.value.issueTime || '아직 정해지지 않았어요',
+);
+
+const router = useRouter();
+onMounted(() => {
+	tradeCase
+		.getTradeCaseDetail(props.tid)
+		.then(({ data }) => {
+			profileCard.value = data.card;
+			tradeCaseDetail.value = data.detail;
+			charger.value = data.charger;
+
+			console.log(data);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+			router.go(-1);
+		});
+});
 
 const isLawyerCancelModalShow = ref(false);
 const toggleLawyerCancelModal = () => {
@@ -229,6 +310,45 @@ const isReviewUpdateModalShow = ref(false);
 const toggleReviewUpdateModal = () => {
 	isReviewUpdateModalShow.value = !isReviewUpdateModalShow.value;
 };
+
+const handlerClickIssueTimeText = () => {
+	if (tradeCaseDetail.value.issueTime === null)
+		toggleBalanceTimeInformationModal();
+};
+
+const bankIcon = computed(() =>
+	tradeCaseDetail.value.venderId
+		? `/img/icon/${bankSVG[tradeCaseDetail.value.venderId].icon}`
+		: '',
+);
+const bankName = computed(() =>
+	tradeCaseDetail.value.venderId
+		? bankSVG[tradeCaseDetail.value.venderId].title
+		: '',
+);
+
+const checkImage = flag =>
+	flag ? '/img/icon/check-bubble-blue.svg' : '/img/icon/check-bubble-gray.svg';
+
+const serviceTypeText = computed(() => {
+	switch (tradeCaseDetail.value.serviceType) {
+		case 'service_1':
+			return '프리미엄 견적으로 제안하기';
+		case 'service_2':
+			return '일반 견적으로 제안하기';
+		default:
+			return '내가 직접 가격 제안하기';
+	}
+});
+
+const chargerProfileImage = computed(() => {
+	const domain =
+		location.href.includes('.local') || location.href.includes('.dev')
+			? 'https://pro-api.dev.priros.com'
+			: 'https://pro-api.priros.com';
+
+	return `${domain}${charger.value.profileFileUrl}`;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -327,12 +447,20 @@ const toggleReviewUpdateModal = () => {
 		border-radius: 15px;
 		background-color: #ffffff;
 		box-shadow: 1px 1px 8.2px 0px rgba(0, 0, 0, 0.25);
-		&.card-off {
+		.contract-state-title {
+			.contract-state-title-left {
+				& > p {
+					color: #d4d4d4;
+					font-weight: $ft-medium;
+				}
+			}
+		}
+		&.card-on {
 			.contract-state-title {
 				.contract-state-title-left {
 					& > p {
-						color: #d4d4d4;
-						font-weight: $ft-medium;
+						color: #000000;
+						font-weight: $ft-bold;
 					}
 				}
 			}
@@ -415,7 +543,7 @@ const toggleReviewUpdateModal = () => {
 		}
 	}
 	.contract-state-subtitle {
-		margin: 4px 0 14px;
+		margin: 4px 0 0;
 		padding-left: 28px;
 		font-size: 13px;
 		color: #a9a9a9;

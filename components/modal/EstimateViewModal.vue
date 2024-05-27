@@ -1,5 +1,5 @@
 <template>
-	<CommonModal @close-modal="CloseModal">
+	<CommonModal @close-modal="closeModal">
 		<template #modal-body>
 			<div class="estimate-container">
 				<p class="estimate-modal-subtitle">한 눈에 보기 쉽게</p>
@@ -18,20 +18,28 @@
 						<div class="estimate-accordion-contents-grid">
 							<p class="estimate-accordion-contents-title">등기비용</p>
 							<p class="estimate-accordion-contents-text">
-								780,000 원<br /><strong>(제세공과금+수수료)</strong>
+								{{ (summary.taxAndPaySum || 0).toLocaleString() }}
+								원<br /><strong>(제세공과금+수수료)</strong>
 							</p>
 							<p class="estimate-accordion-contents-title">입금계좌</p>
-							<p class="estimate-accordion-contents-text">110-11-11123-23</p>
+							<p class="estimate-accordion-contents-text">
+								{{ summary.estimateAccount }}
+							</p>
 							<p class="estimate-accordion-contents-title">대출기관</p>
-							<p class="estimate-accordion-contents-text">카카오뱅크</p>
+							<p class="estimate-accordion-contents-text">{{ bankName }}</p>
 							<p class="estimate-accordion-contents-title">대출금</p>
-							<p class="estimate-accordion-contents-text">110,000,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (summary.mortgageLoan || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">대출실행금</p>
 							<p class="estimate-accordion-contents-text">
-								110,000,000 원<br /><strong>(대출기관 기준에 따름)</strong>
+								{{ (summary.mortgageExecution || 0).toLocaleString() }}
+								원<br /><strong>(대출기관 기준에 따름)</strong>
 							</p>
 							<p class="estimate-accordion-contents-title">견적발행일</p>
-							<p class="estimate-accordion-contents-text">2023-10-01</p>
+							<p class="estimate-accordion-contents-text">
+								{{ summary.created }}
+							</p>
 						</div>
 					</div>
 				</div>
@@ -48,21 +56,34 @@
 					<div class="estimate-accordion-contents">
 						<p class="estimate-accordion-object-title">목적물</p>
 						<p class="estimate-accordion-object-address">
-							경기도 의왕시 내손동 844 인덕원센트럴자이아파트 5단지 501동 1012호
+							{{ tradeCaseInfo.estateAddr }},
+							{{ tradeCaseInfo.estateRestAddr }}
 						</p>
 						<div class="estimate-accordion-contents-grid">
 							<p class="estimate-accordion-contents-title">매수인</p>
-							<p class="estimate-accordion-contents-text">홍길동</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (tradeCaseInfo.buyer || []).join(', ') }}
+							</p>
 							<p class="estimate-accordion-contents-title">산출조건</p>
-							<p class="estimate-accordion-contents-text">조정대상지역-1주택</p>
+							<p class="estimate-accordion-contents-text">
+								{{ tradeCaseInfo.estateCondition }}
+							</p>
 							<p class="estimate-accordion-contents-title">농특세</p>
-							<p class="estimate-accordion-contents-text">비과세</p>
+							<p class="estimate-accordion-contents-text">
+								{{ tradeCaseInfo.farmTaxApply }}
+							</p>
 							<p class="estimate-accordion-contents-title">매매대금</p>
-							<p class="estimate-accordion-contents-text">110,000,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (tradeCaseInfo.tradePrice || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">시가표준액</p>
-							<p class="estimate-accordion-contents-text">400,000,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (tradeCaseInfo.estimatePrice || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">채권매입금</p>
-							<p class="estimate-accordion-contents-text"></p>
+							<p class="estimate-accordion-contents-text">
+								{{ (tradeCaseInfo.estimateBond || 0).toLocaleString() }} 원
+							</p>
 						</div>
 					</div>
 				</div>
@@ -70,7 +91,9 @@
 					<div class="estimate-accordion-top">
 						<p class="estimate-accordion-top-title">제세공과금</p>
 						<div class="estimate-accordion-top-right">
-							<span class="estimate-accordion-top-amount">5,507,092 원</span>
+							<span class="estimate-accordion-top-amount"
+								>{{ (taxesAndDues.taxSum || 0).toLocaleString() }} 원</span
+							>
 							<img
 								src="/img/icon/expand-down-gray.svg"
 								class="estimate-accordion-top-icon"
@@ -80,21 +103,35 @@
 					<div class="estimate-accordion-contents">
 						<div class="estimate-accordion-contents-grid pd-sm">
 							<p class="estimate-accordion-contents-title">취득세</p>
-							<p class="estimate-accordion-contents-text">4,000,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (taxesAndDues.regTax || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">지방교육세</p>
-							<p class="estimate-accordion-contents-text">400,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (taxesAndDues.eduTax || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">농특세</p>
-							<p class="estimate-accordion-contents-text">0 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (taxesAndDues.farmTax || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">인지</p>
-							<p class="estimate-accordion-contents-text">150,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (taxesAndDues.goveStamp || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">중지</p>
-							<p class="estimate-accordion-contents-text">13,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (taxesAndDues.courtStamp || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">채권부담금</p>
-							<p class="estimate-accordion-contents-text">944,092 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (taxesAndDues.bondPay || 0).toLocaleString() }} 원
+							</p>
 						</div>
 						<div class="estimate-accordion-total">
 							<p class="estimate-accordion-total-title">소계</p>
-							<p class="estimate-accordion-total-amount">5,507,092 원</p>
+							<p class="estimate-accordion-total-amount">
+								{{ (taxesAndDues.taxSum || 0).toLocaleString() }} 원
+							</p>
 						</div>
 					</div>
 				</div>
@@ -102,7 +139,9 @@
 					<div class="estimate-accordion-top">
 						<p class="estimate-accordion-top-title">수수료</p>
 						<div class="estimate-accordion-top-right">
-							<span class="estimate-accordion-top-amount">463,100 원</span>
+							<span class="estimate-accordion-top-amount"
+								>{{ (fee.paySum || 0).toLocaleString() }} 원</span
+							>
 							<img
 								src="/img/icon/expand-down-gray.svg"
 								class="estimate-accordion-top-icon"
@@ -112,22 +151,35 @@
 					<div class="estimate-accordion-contents">
 						<div class="estimate-accordion-contents-grid pd-sm">
 							<p class="estimate-accordion-contents-title">적용수수료</p>
-							<p class="estimate-accordion-contents-text">381,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (fee.discountedLegalPay || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">거래신고대행</p>
-							<p class="estimate-accordion-contents-text">40,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (fee.rtmsApplyPay || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">다중매매</p>
-							<p class="estimate-accordion-contents-text">0 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (fee.multiPay || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">수수료계</p>
-							<p class="estimate-accordion-contents-text">421,000 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (fee.payedPaySum || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">부가세</p>
-							<p class="estimate-accordion-contents-text">42,100 원</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (fee.vatLegalPay || 0).toLocaleString() }} 원
+							</p>
 						</div>
 						<div class="estimate-accordion-total">
 							<p class="estimate-accordion-total-title">소계</p>
-							<p class="estimate-accordion-total-amount">463,100 원</p>
+							<p class="estimate-accordion-total-amount">
+								{{ (fee.paySum || 0).toLocaleString() }} 원
+							</p>
 						</div>
 						<p class="estimate-info-text mt25">
-							기본 법정수수료(소계) : 642,400원 (VAT포함)
+							기본 법정수수료(소계) :
+							{{ (fee.legalFee || 0).toLocaleString() }}원 (VAT포함)
 						</p>
 					</div>
 				</div>
@@ -142,24 +194,43 @@
 						</div>
 					</div>
 					<div class="estimate-accordion-contents">
-						<p class="estimate-accordion-intro">준비서류들 표시</p>
+						<p class="estimate-accordion-intro" v-html="infoMemo"></p>
 					</div>
 				</div>
 				<p class="estimate-charge-info">
-					다이렉트로 법무사 (견적담당자 : 김프리 )<br /><a
-						:href="`tel:02-453-7896`"
-						>T. 02-453-7896</a
+					{{ info.registryFirmName }} (견적담당자 :
+					{{ info.estimateChargerName }} )<br /><a
+						:href="`tel:${rexFormatPhone(info.registryFirmPhone)}`"
+						>T. {{ rexFormatPhone(info.registryFirmPhone) }}</a
 					>
 				</p>
-				<button class="estimate-modal-button" @click="CloseModal">닫기</button>
+				<button class="estimate-modal-button" @click="closeModal">닫기</button>
 			</div>
 		</template>
 	</CommonModal>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
+
 import CommonModal from '~/components/modal/CommonModal.vue';
+
+import { tradeCase } from '~/services/tradeCase.js';
+import { bankSVG } from '~/assets/js/bankSVG.js';
+import { rexFormatPhone } from '~/assets/js/utils.js';
+
+const props = defineProps({
+	tid: {
+		type: String,
+		default: '',
+	},
+});
+
+const summary = ref({});
+const tradeCaseInfo = ref({});
+const taxesAndDues = ref({});
+const fee = ref({});
+const info = ref({});
 
 onMounted(() => {
 	document.querySelectorAll('.estimate-accordion').forEach(elm => {
@@ -167,10 +238,32 @@ onMounted(() => {
 			elm.classList.toggle('open');
 		});
 	});
+
+	tradeCase
+		.getEstimate(props.tid)
+		.then(({ data }) => {
+			summary.value = data.summary;
+			tradeCaseInfo.value = data.tradeCaseInfo;
+			taxesAndDues.value = data.taxesAndDues;
+			fee.value = data.fee;
+			info.value = data.info;
+			console.log(data);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+			closeModal();
+		});
 });
 
+const bankName = computed(() =>
+	summary.value.venderId ? bankSVG[summary.value.venderId].title : '',
+);
+const infoMemo = computed(() =>
+	(info.value.estimateMemo || '').replaceAll('\r\n', '<br>'),
+);
+
 const emit = defineEmits(['close-modal']);
-const CloseModal = () => {
+const closeModal = () => {
 	emit('close-modal');
 };
 </script>

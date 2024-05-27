@@ -1,19 +1,10 @@
 <template>
 	<div class="review-detail-block-container">
 		<div class="review-detail-block-left">
-			<p class="review-detail-score">{{ props.scoreAvg.toFixed(1) }}</p>
 			<div class="review-detail-rate">
-				<img
-					v-for="i in parseInt(props.scoreAvg)"
-					:key="i"
-					src="/img/icon/star-yellow.svg"
-				/>
-				<img
-					v-for="i in 5 - parseInt(props.scoreAvg)"
-					:key="i"
-					src="/img/icon/star-gray.svg"
-				/>
+				<img src="/img/icon/star-yellow.svg" />
 			</div>
+			<p class="review-detail-score">{{ props.scoreAvg.toFixed(1) }}</p>
 		</div>
 		<div class="review-detail-block-right">
 			<div class="review-detail-block-column">
@@ -86,7 +77,7 @@ const calcRate = rate => {
 
 <style lang="scss">
 .review-detail-block-container {
-	padding: 0 23px;
+	padding: 0 15px;
 	margin: 28px 0 40px;
 	display: flex;
 	justify-content: center;
@@ -95,9 +86,9 @@ const calcRate = rate => {
 }
 .review-detail-block-left {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	gap: 6px;
 }
 .review-detail-score {
 	font-size: 35px;
@@ -109,8 +100,8 @@ const calcRate = rate => {
 	justify-content: center;
 	align-items: center;
 	& > img {
-		width: 16px;
-		height: 16px;
+		width: 34px;
+		height: 34px;
 	}
 }
 .review-detail-block-right {

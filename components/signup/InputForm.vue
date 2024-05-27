@@ -1,10 +1,10 @@
 <template>
-	<form id="niceForm" action="niceForm">
+	<!-- <form id="niceForm" action="niceForm">
 		<input id="m" type="hidden" name="m" value="checkplusService" />
 		<input id="token_version_id" type="hidden" name="token_version_id" />
 		<input id="enc_data" type="hidden" name="enc_data" />
 		<input id="integrity_value" type="hidden" name="integrity_value" />
-	</form>
+	</form> -->
 	<div class="input-form-container">
 		<p class="input-form-title mb5">휴대전화번호</p>
 		<div class="form-readonly-box mb10">
@@ -90,14 +90,47 @@ const idCheck = ref(false);
 
 const actionUrl = ref('');
 
-onMounted(() => {
+// onMounted(() => {
+// 	signup
+// 		.getNice({ checkId: true })
+// 		.then(({ data }) => {
+// 			console.log(data);
+// 			document.getElementById('token_version_id').value = data.tokenVersionId;
+// 			document.getElementById('enc_data').value = data.encData;
+// 			document.getElementById('integrity_value').value = data.integrityValue;
+// 			actionUrl.value = data.actionUrl;
+
+// 			const receiveData = async e => {
+// 				if (e.data.name) {
+// 					form.value.name = e.data.name;
+// 					form.value.phone = e.data.phone;
+// 					form.value.userIdentityKey = e.data.userIdentityKey;
+// 				}
+// 			};
+
+// 			window.addEventListener('message', receiveData, false);
+// 		})
+// 		.catch(e => {
+// 			console.log(e);
+// 			alert(e.response.data.message);
+// 		});
+// });
+
+const handlerClickSelfIdentification = () => {
+	// const form = document.getElementById('niceForm');
+
+	// form.action = actionUrl.value;
+	// form.target = 'popupChk';
+	// form.submit();
+
 	signup
-		.getNice(`${window.location.origin}/signup/nice-result`)
+		.getNice({
+			checkId: true,
+			// redirect_url: `${window.location.origin}/signup/nice-result`,
+		})
 		.then(({ data }) => {
-			document.getElementById('token_version_id').value = data.tokenVersionId;
-			document.getElementById('enc_data').value = data.encData;
-			document.getElementById('integrity_value').value = data.integrityValue;
-			actionUrl.value = data.actionUrl;
+			const wnd = window.open('', 'new window');
+			wnd.document.write(data);
 
 			const receiveData = async e => {
 				if (e.data.name) {
@@ -113,14 +146,6 @@ onMounted(() => {
 			console.log(e);
 			alert(e.response.data.message);
 		});
-});
-
-const handlerClickSelfIdentification = () => {
-	const form = document.getElementById('niceForm');
-
-	form.action = actionUrl.value;
-	form.target = 'popupChk';
-	form.submit();
 };
 
 const formValidationCount = computed(

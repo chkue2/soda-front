@@ -1,5 +1,5 @@
 <template>
-	<CommonModal @close-modal="CloseModal">
+	<CommonModal @close-modal="closeModal">
 		<template #modal-body>
 			<div class="receipt-container">
 				<p class="receipt-modal-subtitle">다운로드 받을 수 있어요</p>
@@ -10,17 +10,40 @@
 						<img src="/img/icon/download-black.svg" />
 					</div>
 				</div>
-				<button class="receipt-modal-button" @click="CloseModal">닫기</button>
+				<button class="receipt-modal-button" @click="closeModal">닫기</button>
 			</div>
 		</template>
 	</CommonModal>
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+
 import CommonModal from '~/components/modal/CommonModal.vue';
 
+import { tradeCase } from '~/services/tradeCase.js';
+
+const props = defineProps({
+	tid: {
+		type: String,
+		default: '',
+	},
+});
+
+onMounted(() => {
+	tradeCase
+		.getDocuments(props.tid)
+		.then(({ data }) => {
+			console.log(data);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+			closeModal();
+		});
+});
+
 const emit = defineEmits(['close-modal']);
-const CloseModal = () => {
+const closeModal = () => {
 	emit('close-modal');
 };
 </script>

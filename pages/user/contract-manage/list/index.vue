@@ -5,7 +5,7 @@
 		<div class="contract-manage-tab">진행중</div>
 		<div class="contract-manage-tab">완료</div>
 	</div>
-	<p class="contract-manage-title">내 계약</p>
+	<p class="contract-manage-title">내 계약 ({{ tradeCaseList.length }}건)</p>
 	<button v-if="false" class="contract-add-button">
 		<span>간단한 정보입력으로 쉽고 빠르게</span>
 		<p>
@@ -13,59 +13,43 @@
 			<strong>내 사건 불러오기</strong>
 		</p>
 	</button>
-	<div v-if="false" class="contract-empty">
+	<div v-if="tradeCaseList.length === 0" class="contract-empty">
 		<p class="contract-empty-title">등록된 계약이 아직 없습니다.</p>
 		<img src="/img/cow/contract-empty.png" />
 	</div>
-	<div class="contract-manage-swiper">
+	<div v-if="tradeCaseList.length > 0" class="contract-manage-swiper">
 		<swiper :space-between="20" slides-per-view="auto">
-			<swiper-slide v-for="i in 3" :key="i">
+			<swiper-slide v-for="(t, index) in tradeCaseList" :key="index">
 				<div
 					class="contract-manage-item"
-					@click="handlerClickMoveToDetailButton"
+					@click="handlerClickMoveToDetailButton(t.showDetail, t.tradeCaseId)"
 				>
 					<div class="contract-manage-image">
-						<img src="/img/cow/card-02.gif" />
+						<img v-if="t.showDetail" src="/img/cow/card-01.gif" />
+						<img v-if="!t.showDetail" src="/img/cow/card-02.gif" />
 					</div>
 					<div class="contract-manage-top">
 						<div class="contract-manage-top-flex">
 							<div class="contract-manage-top-left">
-								<p class="contract-name">홍길동</p>
-								<p class="contract-date">잔금일 2024-05-24</p>
+								<p class="contract-name">{{ t.buyer }}</p>
+								<p class="contract-date">잔금일 {{ t.issueDate }}</p>
 							</div>
-							<div class="contract-manage-top-right">
+							<div v-if="!t.showDetail" class="contract-manage-top-right">
 								<span class="contract-wait-box">수임대기중</span>
 							</div>
-						</div>
-						<p class="contract-address">
-							경기도 과천시 별양상가1로 18 과천오피스텔 106호
-						</p>
-					</div>
-				</div>
-			</swiper-slide>
-			<swiper-slide v-for="i in 3" :key="i">
-				<div
-					class="contract-manage-item"
-					@click="handlerClickMoveToDetailButton"
-				>
-					<div class="contract-manage-image">
-						<img src="/img/cow/card-01.gif" />
-					</div>
-					<div class="contract-manage-top">
-						<div class="contract-manage-top-flex">
-							<div class="contract-manage-top-left">
-								<p class="contract-name">홍길동</p>
-								<p class="contract-date">잔금일 2024-05-24</p>
-							</div>
-							<div class="contract-manage-top-right">
+							<div v-if="t.showDetail" class="contract-manage-top-right">
 								<div class="contract-calendar">
-									<div class="contract-calendar-month">5월</div>
-									<div class="contract-calendar-day">24일</div>
+									<div class="contract-calendar-month">
+										{{ month(t.issueDate) }}월
+									</div>
+									<div class="contract-calendar-day">
+										{{ day(t.issueDate) }}일
+									</div>
 								</div>
 							</div>
 						</div>
 						<p class="contract-address">
-							경기도 과천시 별양상가1로 18 과천오피스텔 106호
+							{{ t.address }}
 						</p>
 					</div>
 				</div>
@@ -75,16 +59,44 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import dayjs from 'dayjs';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
+import { tradeCase } from '~/services/tradeCase.js';
+import { useLoadingStore } from '~/store/loading.js';
+
+const loadingStore = useLoadingStore();
+const tradeCaseList = ref([]);
+
+onMounted(() => {
+	loadingStore.setLoadingShow(true);
+	tradeCase
+		.getTradeCaseList()
+		.then(({ data }) => {
+			tradeCaseList.value = data;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+});
+
 const router = useRouter();
-const handlerClickMoveToDetailButton = () => {
-	router.push('/user/contract-manage/detail/soda/1');
+const handlerClickMoveToDetailButton = (isShowDetail, tid) => {
+	if (!isShowDetail) return false;
+
+	router.push(`/user/contract-manage/detail/soda/${tid}`);
 };
+
+const month = date => dayjs(date).format('M');
+const day = date => dayjs(date).format('D');
 </script>
 
 <style lang="scss" scoped>

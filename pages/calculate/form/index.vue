@@ -26,7 +26,7 @@
 				<select v-model="form['farmTaxApply']" class="form-select mb27">
 					<option value="">선택해주세요</option>
 					<option value="N">전용면적 85제곱미터 이하</option>
-					<option value="Y">전용면적 85제곱미터 이상</option>
+					<option value="Y">전용면적 85제곱미터 초과</option>
 				</select>
 			</div>
 			<div class="form-bottom-buttons">

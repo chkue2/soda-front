@@ -13,20 +13,24 @@ onMounted(() => {
 	const tokenApiId = urlSearch.get('token_version_id');
 	const integrityValue = urlSearch.get('integrity_value');
 
-	signup
-		.getNiceInfo({
-			encData,
-			tokenApiId,
-			integrityValue,
-			checkId: true,
-		})
-		.then(({ data }) => {
-			sendData(data.name, data.mobileNo, data.userIdentityKey);
-		})
-		.catch(e => {
-			alert(e.response.data.message);
-			window.close();
-		});
+	console.log(encData);
+	console.log(tokenApiId);
+	console.log(integrityValue);
+
+	// signup
+	// 	.getNiceInfo({
+	// 		encData,
+	// 		tokenApiId,
+	// 		integrityValue,
+	// 		checkId: true,
+	// 	})
+	// 	.then(({ data }) => {
+	// 		sendData(data.name, data.mobileNo, data.userIdentityKey);
+	// 	})
+	// 	.catch(e => {
+	// 		alert(e.response.data.message);
+	// 		window.close();
+	// 	});
 });
 const sendData = (name, phone, userIdentityKey) => {
 	window.opener.postMessage({ name, phone, userIdentityKey }, '*');

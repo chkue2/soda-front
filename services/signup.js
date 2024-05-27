@@ -4,8 +4,8 @@ export const signup = {
 	async checkId(data) {
 		return await GET(API_URL.USER.CHECK_ID, data);
 	},
-	async getNice(url) {
-		return await GET(API_URL.NICE.CHECK_PHONE, { return_url: url });
+	async getNice(data) {
+		return await GET(API_URL.NICE.CHECK_PHONE, data);
 	},
 	async getNiceInfo(data) {
 		return await POST(API_URL.NICE.DECRYPT, data);
