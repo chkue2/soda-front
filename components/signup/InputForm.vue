@@ -88,8 +88,6 @@ const form = ref({
 });
 const idCheck = ref(false);
 
-const actionUrl = ref('');
-
 onMounted(() => {
 	const receiveData = async e => {
 		if (e.data.name) {

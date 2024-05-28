@@ -47,6 +47,7 @@ table {
 input, textarea, button {
   outline: none;
   font-size: 16px;
+  background-color: #ffffff;
 }
 input[type=date]::-webkit-calendar-picker-indicator {
   appearance: none;
@@ -58,6 +59,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
   width: 30px;
   height: 30px;
   border-width: thin;
+}
+input::-webkit-date-and-time-value {
+  text-align: left;
 }
 select {
   appearance: none;
@@ -71,5 +75,6 @@ select {
 button {
   border: none;
   background-color: #ffffff;
+  color: #000000;
   cursor: pointer;
 }
