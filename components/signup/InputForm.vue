@@ -109,7 +109,7 @@ const handlerClickSelfIdentification = () => {
 			// redirect_url: `${window.location.origin}/signup/nice-result`,
 		})
 		.then(({ data }) => {
-			const wnd = window.open('', 'new window');
+			const wnd = window.open(undefined, 'new window', 'width=500, height=600');
 			wnd.document.write(data);
 		})
 		.catch(e => {
