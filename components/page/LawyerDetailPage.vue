@@ -22,7 +22,7 @@
 			<ExpertOptionsItem v-if="isOptionShow" :badge="badge" align="center" />
 			<div class="detail-info">
 				<div class="info-rate">
-					<img src="/img/icon/star-yellow.svg" />
+					<img src="/img/icon/star-yellow-02.svg" />
 					<span>{{ firmAvgStar }}</span>
 				</div>
 				<div class="info-location">

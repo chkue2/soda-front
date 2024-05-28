@@ -198,7 +198,7 @@ const clickDeleteButton = () => {
 			background-size: cover;
 			background-position: center;
 			&.active {
-				background-image: url(/img/icon/star-yellow.svg);
+				background-image: url(/img/icon/star-yellow-02.svg);
 			}
 		}
 	}

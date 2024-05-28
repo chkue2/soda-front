@@ -13,7 +13,7 @@
 				<img
 					v-for="i in parseInt(props.review.star)"
 					:key="i"
-					src="/img/icon/star-yellow.svg"
+					src="/img/icon/star-yellow-02.svg"
 				/>
 				<img
 					v-for="i in 5 - parseInt(props.review.star)"

@@ -163,7 +163,7 @@ const setPerformanceRate = rate => {
 		background-position: center;
 		background-image: url(/img/icon/star-gray.svg);
 		&.active {
-			background-image: url(/img/icon/star-yellow.svg);
+			background-image: url(/img/icon/star-yellow-02.svg);
 		}
 	}
 }

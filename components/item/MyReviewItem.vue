@@ -11,7 +11,7 @@
 					<img
 						v-for="i in props.review.timeCriteria"
 						:key="i"
-						src="/img/icon/star-yellow.svg"
+						src="/img/icon/star-yellow-02.svg"
 					/>
 					<img
 						v-for="i in 5 - props.review.timeCriteria"
@@ -26,7 +26,7 @@
 					<img
 						v-for="i in props.review.kindCriteria"
 						:key="i"
-						src="/img/icon/star-yellow.svg"
+						src="/img/icon/star-yellow-02.svg"
 					/>
 					<img
 						v-for="i in 5 - props.review.kindCriteria"
@@ -41,7 +41,7 @@
 					<img
 						v-for="i in props.review.rapidCriteria"
 						:key="i"
-						src="/img/icon/star-yellow.svg"
+						src="/img/icon/star-yellow-02.svg"
 					/>
 					<img
 						v-for="i in 5 - props.review.rapidCriteria"

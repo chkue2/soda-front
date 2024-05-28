@@ -2,7 +2,7 @@
 	<div class="review-detail-block-container">
 		<div class="review-detail-block-left">
 			<div class="review-detail-rate">
-				<img src="/img/icon/star-yellow.svg" />
+				<img src="/img/icon/star-yellow-02.svg" />
 			</div>
 			<p class="review-detail-score">{{ props.scoreAvg.toFixed(1) }}</p>
 		</div>
