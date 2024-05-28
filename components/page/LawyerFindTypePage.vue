@@ -33,7 +33,7 @@
 						<img src="/img/icon/lightning.svg" />
 					</div>
 					<div class="type-middle-item-price">
-						<b>{{ normalPrice }}</b> 만원
+						<b>{{ rocketPrice }}</b> 만원
 					</div>
 				</div>
 				<p class="type-middle-item-bottom">등기소다가 알아서 원스톱 진행</p>
@@ -105,7 +105,7 @@
 						<img src="/img/icon/lightning.svg" />
 					</div>
 					<div class="type-middle-item-price">
-						<b>{{ normalPrice }}</b> 만원
+						<b>{{ rocketPrice }}</b> 만원
 					</div>
 				</div>
 				<p class="type-middle-item-bottom">등기소다가 알아서 원스톱 진행</p>
@@ -221,6 +221,7 @@ import {
 const offerPrice = ref(0);
 const normalPrice = ref(0);
 const premiumPrice = ref(0);
+const rocketPrice = ref(0);
 const legalpayPrice = ref(0);
 
 onMounted(() => {
@@ -234,6 +235,7 @@ onMounted(() => {
 				offerPrice.value = data.serviceType.OFFER / 10000;
 				normalPrice.value = data.serviceType.NORMAL / 10000;
 				premiumPrice.value = data.serviceType.PREMIUM / 10000;
+				rocketPrice.value = data.serviceType.ROCKET / 10000;
 				legalpayPrice.value = data.serviceType.LEGALPAY / 10000;
 			})
 			.catch(e => {
@@ -252,8 +254,10 @@ const handlerClickItem = idx => {
 	// 4번(로켓진행) 금액 추가해야함.
 	if (idx === 1) {
 		amount.value = premiumPrice.value;
-	} else if (idx === 2 || idx === 4) {
+	} else if (idx === 2) {
 		amount.value = normalPrice.value;
+	} else if (idx === 4) {
+		amount.value = rocketPrice.value;
 	} else {
 		amount.value = 0;
 	}

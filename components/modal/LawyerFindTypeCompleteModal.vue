@@ -2,10 +2,10 @@
 	<CommonModal @close-modal="closeModal">
 		<template #modal-body>
 			<div class="complete-container">
-				<p class="complete-modal-content">선택후 모집이 시작됩니다.</p>
-				<p class="complete-modal-title">
-					모집이 시작된 후에는<br />서비스유형 변경이 불가하니<br />신중히
-					선택해주세요!
+				<p class="complete-modal-content">확인후 모집이 시작됩니다.</p>
+				<p class="complete-modal-title">모집을 시작하시겠어요?</p>
+				<p class="complete-modal-subtitle">
+					모집중에는<br />입력하신 정보 수정이 불가합니다.
 				</p>
 				<button class="complete-modal-button" @click="handlerClickApplyButton">
 					모집 시작하기
@@ -40,11 +40,15 @@ const handlerClickApplyButton = () => {
 	line-height: 1.5;
 }
 .complete-modal-title {
-	margin: 15px 0 35px;
+	margin: 15px 0 17px;
 	font-size: 18px;
 	font-weight: $ft-bold;
 	text-align: center;
 	line-height: 1.3;
+}
+.complete-modal-subtitle {
+	margin: 17px 0 26px;
+	text-align: center;
 }
 .complete-modal-button {
 	width: 100%;

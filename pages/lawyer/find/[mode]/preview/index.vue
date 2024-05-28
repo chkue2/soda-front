@@ -182,7 +182,9 @@ const handlerClickApplyButton = () => {
 						? 'PRIMEUM'
 						: typeObj.value.type === 2
 							? 'NORMAL'
-							: 'OFFER',
+							: typeObj.value.type === 4
+								? 'ROCKET'
+								: 'OFFER',
 				servicePrice: typeObj.value.amount * 10000,
 			},
 		})
