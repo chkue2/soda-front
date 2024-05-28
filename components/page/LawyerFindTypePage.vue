@@ -18,7 +18,7 @@
 	</div>
 	<div v-if="type === 0" class="type-middle-container">
 		<div class="type-middle-help-text">
-			<img src="/img/icon/pin-red.svg" />
+			<img src="/img/icon/pin-red.png" />
 			<p>알아서 다~해줬으면 하는 분들께 추천</p>
 		</div>
 		<div class="type-middle-item" @click="handlerClickItem(4)">
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 		<div class="type-middle-help-text mt12">
-			<img src="/img/icon/pin-red.svg" />
+			<img src="/img/icon/pin-red.png" />
 			<p>꼼꼼히 비교하고 선택하고싶은 분들께 추천</p>
 		</div>
 		<div class="type-middle-item" @click="handlerClickItem(3)">
