@@ -60,36 +60,31 @@ const props = defineProps({
 });
 
 onMounted(() => {
+	const receiveData = async e => {
+		if (e.data.name) {
+			form.value.name = e.data.name;
+			form.value.phone = e.data.phone;
+			form.value.userIdentityKey = e.data.userIdentityKey;
+		}
+	};
+
+	window.addEventListener('message', receiveData, false);
+});
+
+const handlerClickSelfIdentification = () => {
 	signup
-		.getNice(`${window.location.origin}/signup/nice-result`)
+		.getNice({
+			checkId: true,
+			// redirect_url: `${window.location.origin}/signup/nice-result`,
+		})
 		.then(({ data }) => {
-			document.getElementById('token_version_id').value = data.tokenVersionId;
-			document.getElementById('enc_data').value = data.encData;
-			document.getElementById('integrity_value').value = data.integrityValue;
-			actionUrl.value = data.actionUrl;
-
-			const receiveData = async e => {
-				if (e.data.name) {
-					form.value.name = e.data.name;
-					form.value.phone = e.data.phone;
-					form.value.userIdentityKey = e.data.userIdentityKey;
-				}
-			};
-
-			window.addEventListener('message', receiveData, false);
+			const wnd = window.open(undefined, 'new window', 'width=500, height=600');
+			wnd.document.write(data);
 		})
 		.catch(e => {
 			console.log(e);
 			alert(e.response.data.message);
 		});
-});
-
-const handlerClickSelfIdentification = () => {
-	const form = document.getElementById('niceForm');
-
-	form.action = actionUrl.value;
-	form.target = 'popupChk';
-	form.submit();
 };
 
 const formValidationCount = computed(

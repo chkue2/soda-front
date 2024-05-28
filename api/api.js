@@ -47,10 +47,10 @@ const defineApi = config => {
 		async config => {
 			const token = tokenApi.getAccessToken();
 			// if (!token) {
-			//     tokenApi.clearAll()
-			//     location.href = '/'
-			//     alert('로그아웃되었습니다. 다시 로그인해주세요.')
-			//     return Promise.reject("토큰 없어")
+			// 	tokenApi.clearAll();
+			// 	location.href = '/';
+			// 	alert('로그아웃되었습니다. 다시 로그인해주세요.');
+			// 	return Promise.reject('토큰 없어');
 			// }
 			config.headers.Authorization = `Bearer ${token}`;
 			return config;
