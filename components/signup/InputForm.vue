@@ -111,16 +111,6 @@ const handlerClickSelfIdentification = () => {
 		.then(({ data }) => {
 			const wnd = window.open('', 'new window');
 			wnd.document.write(data);
-
-			const receiveData = async e => {
-				if (e.data.name) {
-					form.value.name = e.data.name;
-					form.value.phone = e.data.phone;
-					form.value.userIdentityKey = e.data.userIdentityKey;
-				}
-			};
-
-			window.addEventListener('message', receiveData, false);
 		})
 		.catch(e => {
 			console.log(e);
