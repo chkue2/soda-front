@@ -32,10 +32,39 @@ import { ref } from 'vue';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
+import { signup } from '~/services/signup.js';
+
 const form = ref({
 	name: '',
 	phone: '',
 });
+
+onMounted(() => {
+	const receiveData = async e => {
+		if (e.data.name) {
+			form.value.name = e.data.name;
+			form.value.phone = e.data.phone;
+		}
+	};
+
+	window.addEventListener('message', receiveData, false);
+});
+
+const handlerClickSelfIdentification = () => {
+	signup
+		.getNice({
+			checkId: false,
+			// redirect_url: `${window.location.origin}/signup/nice-result`,
+		})
+		.then(({ data }) => {
+			const wnd = window.open(undefined, 'new window', 'width=500, height=600');
+			wnd.document.write(data);
+		})
+		.catch(e => {
+			console.log(e);
+			alert(e.response.data.message);
+		});
+};
 </script>
 
 <style lang="scss" scoped>

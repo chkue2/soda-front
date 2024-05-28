@@ -246,6 +246,7 @@ import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
 import { tradeCase } from '~/services/tradeCase.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { bankSVG } from '~/assets/js/bankSVG.js';
+import { getServiceType } from '~/assets/js/serviceType.js';
 
 const props = defineProps({
 	tid: {
@@ -331,16 +332,7 @@ const checkImage = flag =>
 	flag ? '/img/icon/check-bubble-blue.svg' : '/img/icon/check-bubble-gray.svg';
 
 const serviceTypeText = computed(() => {
-	switch (tradeCaseDetail.value.serviceType) {
-		case 'service_1':
-			return '프리미엄 견적으로 제안하기';
-		case 'service_2':
-			return '일반 견적으로 제안하기';
-		case 'service_4':
-			return '로켓진행 쏘다';
-		default:
-			return '내가 직접 가격 제안하기';
-	}
+	return getServiceType(tradeCaseDetail.value.serviceType);
 });
 
 const chargerProfileImage = computed(() => {

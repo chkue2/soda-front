@@ -78,6 +78,7 @@ import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeComple
 
 import { useAuthStore } from '~/store/auth.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
+import { getServiceType } from '~/assets/js/serviceType.js';
 import {
 	LAWYER_FIND_TMP_KEY,
 	LAWTER_FIND_TYPE_KEY,
@@ -142,16 +143,7 @@ onMounted(() => {
 });
 
 const serviceTypeText = computed(() => {
-	switch (typeObj.value.type) {
-		case 1:
-			return '프리미엄 견적으로 제안하기';
-		case 2:
-			return '일반 견적으로 제안하기';
-		case 4:
-			return '로켓진행 쏘다';
-		default:
-			return '내가 직접 가격 제안하기';
-	}
+	return getServiceType(typeObj.value.type);
 });
 
 const contractFileUrl = computed(() => {
@@ -177,14 +169,7 @@ const handlerClickApplyButton = () => {
 		.doneLawyerContract({
 			tmpKey: tmpKey.value,
 			formData: {
-				serviceType:
-					typeObj.value.type === 1
-						? 'PRIMEUM'
-						: typeObj.value.type === 2
-							? 'NORMAL'
-							: typeObj.value.type === 4
-								? 'ROCKET'
-								: 'OFFER',
+				serviceType: typeObj.value.type,
 				servicePrice: typeObj.value.amount * 10000,
 			},
 		})

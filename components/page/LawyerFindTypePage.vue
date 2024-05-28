@@ -1,6 +1,6 @@
 <template>
 	<HeaderClose title="등기프로 찾기" />
-	<div v-if="type === 0" class="type-title-container">
+	<div v-if="type === ''" class="type-title-container">
 		<p class="type-title-top">
 			공과금제외 시장가격은<br /><span
 				><b>{{ (legalpayPrice * 10000).toLocaleString() }}</b
@@ -10,21 +10,37 @@
 		</p>
 		<p class="type-title-bottom mt18">아래 4가지 유형중 하나를 선택하세요</p>
 	</div>
-	<div v-if="type > 0" class="type-top-container">
-		<img v-if="type === 4" src="/img/cow/cow-08.gif" class="type-top-cow" />
-		<img v-if="type === 3" src="/img/cow/cow-11.png" class="type-top-cow" />
-		<img v-if="type === 2" src="/img/cow/cow-10.png" class="type-top-cow" />
-		<img v-if="type === 1" src="/img/cow/cow-09.png" class="type-top-cow" />
+	<div v-if="type !== ''" class="type-top-container">
+		<img
+			v-if="type === 'ROCKET'"
+			src="/img/cow/cow-08.gif"
+			class="type-top-cow"
+		/>
+		<img
+			v-if="type === 'OFFER'"
+			src="/img/cow/cow-11.png"
+			class="type-top-cow"
+		/>
+		<img
+			v-if="type === 'NORMAL'"
+			src="/img/cow/cow-10.png"
+			class="type-top-cow"
+		/>
+		<img
+			v-if="type === 'PREMIUM'"
+			src="/img/cow/cow-09.png"
+			class="type-top-cow"
+		/>
 	</div>
-	<div v-if="type === 0" class="type-middle-container">
+	<div v-if="type === ''" class="type-middle-container">
 		<div class="type-middle-help-text">
 			<img src="/img/icon/pin-red.png" />
 			<p>알아서 다~해줬으면 하는 분들께 추천</p>
 		</div>
-		<div class="type-middle-item" @click="handlerClickItem(4)">
+		<div class="type-middle-item" @click="handlerClickItem('ROCKET')">
 			<i
 				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 4 }"
+				:class="{ 'active-2': type === 'ROCKET' }"
 			></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -43,10 +59,10 @@
 			<img src="/img/icon/pin-red.png" />
 			<p>꼼꼼히 비교하고 선택하고싶은 분들께 추천</p>
 		</div>
-		<div class="type-middle-item" @click="handlerClickItem(3)">
+		<div class="type-middle-item" @click="handlerClickItem('OFFER')">
 			<i
 				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 3 }"
+				:class="{ 'active-2': type === 'OFFER' }"
 			></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -60,10 +76,10 @@
 				<p class="type-middle-item-bottom">내가 제안한 가격으로 입찰 시작</p>
 			</div>
 		</div>
-		<div class="type-middle-item" @click="handlerClickItem(2)">
+		<div class="type-middle-item" @click="handlerClickItem('NORMAL')">
 			<i
 				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 2 }"
+				:class="{ 'active-2': type === 'NORMAL' }"
 			></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -77,10 +93,10 @@
 				<p class="type-middle-item-bottom">모두가 좋아하는 등기소다 베스트</p>
 			</div>
 		</div>
-		<div class="type-middle-item" @click="handlerClickItem(1)">
+		<div class="type-middle-item" @click="handlerClickItem('PREMIUM')">
 			<i
 				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 1 }"
+				:class="{ 'active-2': type === 'PREMIUM' }"
 			></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -95,8 +111,8 @@
 			</div>
 		</div>
 	</div>
-	<div v-if="type > 0" class="type-bottom-container">
-		<div v-if="type === 4" class="type-bottom-item">
+	<div v-if="type !== ''" class="type-bottom-container">
+		<div v-if="type === 'ROCKET'" class="type-bottom-item">
 			<i class="type-middle-item-circle active"></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -111,7 +127,7 @@
 				<p class="type-middle-item-bottom">등기소다가 알아서 원스톱 진행</p>
 			</div>
 		</div>
-		<div v-if="type === 3" class="type-bottom-item">
+		<div v-if="type === 'OFFER'" class="type-bottom-item">
 			<i class="type-middle-item-circle active"></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -125,7 +141,7 @@
 				<p class="type-middle-item-bottom">내가 제안한 가격으로 입찰 시작</p>
 			</div>
 		</div>
-		<div v-if="type === 2" class="type-bottom-item">
+		<div v-if="type === 'NORMAL'" class="type-bottom-item">
 			<i class="type-middle-item-circle active"></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -139,7 +155,7 @@
 				<p class="type-middle-item-bottom">모두가 좋아하는 등기소다 베스트</p>
 			</div>
 		</div>
-		<div v-if="type === 1" class="type-bottom-item">
+		<div v-if="type === 'PREMIUM'" class="type-bottom-item">
 			<i class="type-middle-item-circle active"></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -153,16 +169,16 @@
 				<p class="type-middle-item-bottom">법무사/변호사가 직접 출석</p>
 			</div>
 		</div>
-		<div v-if="type > 0" class="type-bottom-contents-container">
-			<div v-if="type === 1" class="type-bottom-contents-text">
+		<div v-if="type !== ''" class="type-bottom-contents-container">
+			<div v-if="type === 'PREMIUM'" class="type-bottom-contents-text">
 				법무사, 변호사 자격자 본인이<br />직접 현장에 방문하여 업무를
 				수행합니다.
 			</div>
-			<div v-if="type === 2" class="type-bottom-contents-text">
+			<div v-if="type === 'NORMAL'" class="type-bottom-contents-text">
 				등기소다의 모든 등기프로가 지원할 수 있습니다.<br />모두가 검증된
 				전문가이므로 안심하고 맡겨주세요.
 			</div>
-			<div v-if="type === 3" class="type-bottom-contents-form">
+			<div v-if="type === 'OFFER'" class="type-bottom-contents-form">
 				<p class="form-title mb11">
 					소다에서 제안하는 금액은 {{ normalPrice }}만원 입니다.
 				</p>
@@ -177,13 +193,13 @@
 					제안할 수 있는 최소금액 이상 입력해주세요
 				</p>
 			</div>
-			<div v-if="type === 4" class="type-bottom-contents-text">
+			<div v-if="type === 'ROCKET'" class="type-bottom-contents-text">
 				등기프로 모집 및 선택절차를 생략하고<br />일반견적 제안으로 등기프로를
 				자동배정합니다.
 			</div>
 		</div>
 	</div>
-	<div v-if="type > 0" class="form-bottom-buttons">
+	<div v-if="type !== ''" class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="뒤로"
 			progress-color="#d9d9d9"
@@ -231,7 +247,6 @@ onMounted(() => {
 		calculate
 			.type({ tmpKey: tmpKeyStorage })
 			.then(({ data }) => {
-				// 4번(로켓진행) 금액 추가해야함. (일반서비스 가격으로 책정)
 				offerPrice.value = data.serviceType.OFFER / 10000;
 				normalPrice.value = data.serviceType.NORMAL / 10000;
 				premiumPrice.value = data.serviceType.PREMIUM / 10000;
@@ -247,24 +262,23 @@ onMounted(() => {
 	}
 });
 
-const type = ref(0);
+const type = ref('');
 const amount = ref(0);
 
-const handlerClickItem = idx => {
-	// 4번(로켓진행) 금액 추가해야함.
-	if (idx === 1) {
+const handlerClickItem = val => {
+	if (val === 'PREMIUM') {
 		amount.value = premiumPrice.value;
-	} else if (idx === 2) {
+	} else if (val === 'NORMAL') {
 		amount.value = normalPrice.value;
-	} else if (idx === 4) {
+	} else if (val === 'ROCKET') {
 		amount.value = rocketPrice.value;
 	} else {
 		amount.value = 0;
 	}
-	type.value = idx;
+	type.value = val;
 };
 const handlerClickBackButton = () => {
-	type.value = 0;
+	type.value = '';
 };
 
 const price = ref('');
@@ -283,8 +297,8 @@ const isPriceWarningCheck = computed(
 
 const isValidateNextStep = computed(
 	() =>
-		(type.value !== 3 && amount.value > 0) ||
-		(type.value === 3 && amount.value >= offerPrice.value),
+		(type.value !== 'OFFER' && amount.value > 0) ||
+		(type.value === 'OFFER' && amount.value >= offerPrice.value),
 );
 
 const emit = defineEmits(['click-apply-button']);
