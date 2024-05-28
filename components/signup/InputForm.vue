@@ -90,39 +90,19 @@ const idCheck = ref(false);
 
 const actionUrl = ref('');
 
-// onMounted(() => {
-// 	signup
-// 		.getNice({ checkId: true })
-// 		.then(({ data }) => {
-// 			console.log(data);
-// 			document.getElementById('token_version_id').value = data.tokenVersionId;
-// 			document.getElementById('enc_data').value = data.encData;
-// 			document.getElementById('integrity_value').value = data.integrityValue;
-// 			actionUrl.value = data.actionUrl;
+onMounted(() => {
+	const receiveData = async e => {
+		if (e.data.name) {
+			form.value.name = e.data.name;
+			form.value.phone = e.data.phone;
+			form.value.userIdentityKey = e.data.userIdentityKey;
+		}
+	};
 
-// 			const receiveData = async e => {
-// 				if (e.data.name) {
-// 					form.value.name = e.data.name;
-// 					form.value.phone = e.data.phone;
-// 					form.value.userIdentityKey = e.data.userIdentityKey;
-// 				}
-// 			};
-
-// 			window.addEventListener('message', receiveData, false);
-// 		})
-// 		.catch(e => {
-// 			console.log(e);
-// 			alert(e.response.data.message);
-// 		});
-// });
+	window.addEventListener('message', receiveData, false);
+});
 
 const handlerClickSelfIdentification = () => {
-	// const form = document.getElementById('niceForm');
-
-	// form.action = actionUrl.value;
-	// form.target = 'popupChk';
-	// form.submit();
-
 	signup
 		.getNice({
 			checkId: true,

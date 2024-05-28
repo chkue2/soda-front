@@ -10,7 +10,7 @@
 		</p>
 		<p class="type-title-bottom mt18">아래 4가지 유형중 하나를 선택하세요</p>
 	</div>
-	<div class="type-top-container">
+	<div v-if="type > 0" class="type-top-container">
 		<img v-if="type === 4" src="/img/cow/cow-08.gif" class="type-top-cow" />
 		<img v-if="type === 3" src="/img/cow/cow-11.png" class="type-top-cow" />
 		<img v-if="type === 2" src="/img/cow/cow-10.png" class="type-top-cow" />
@@ -32,7 +32,9 @@
 						<p>로켓진행 쏘다</p>
 						<img src="/img/icon/lightning.svg" />
 					</div>
-					<div class="type-middle-item-price"><b>55</b> 만원</div>
+					<div class="type-middle-item-price">
+						<b>{{ normalPrice }}</b> 만원
+					</div>
 				</div>
 				<p class="type-middle-item-bottom">등기소다가 알아서 원스톱 진행</p>
 			</div>
@@ -102,7 +104,9 @@
 						<p>로켓진행 쏘다</p>
 						<img src="/img/icon/lightning.svg" />
 					</div>
-					<div class="type-middle-item-price"><b>55</b> 만원</div>
+					<div class="type-middle-item-price">
+						<b>{{ normalPrice }}</b> 만원
+					</div>
 				</div>
 				<p class="type-middle-item-bottom">등기소다가 알아서 원스톱 진행</p>
 			</div>
@@ -226,6 +230,7 @@ onMounted(() => {
 		calculate
 			.type({ tmpKey: tmpKeyStorage })
 			.then(({ data }) => {
+				// 4번(로켓진행) 금액 추가해야함. (일반서비스 가격으로 책정)
 				offerPrice.value = data.serviceType.OFFER / 10000;
 				normalPrice.value = data.serviceType.NORMAL / 10000;
 				premiumPrice.value = data.serviceType.PREMIUM / 10000;
@@ -244,9 +249,10 @@ const type = ref(0);
 const amount = ref(0);
 
 const handlerClickItem = idx => {
+	// 4번(로켓진행) 금액 추가해야함.
 	if (idx === 1) {
 		amount.value = premiumPrice.value;
-	} else if (idx === 2) {
+	} else if (idx === 2 || idx === 4) {
 		amount.value = normalPrice.value;
 	} else {
 		amount.value = 0;
@@ -268,7 +274,7 @@ watch(
 );
 
 const isPriceWarningCheck = computed(
-	() => price.value !== '' && parseInt(price.value) < offerPrice.value,
+	() => price.value !== '' && parseInt(amount.value) < offerPrice.value,
 );
 
 const isValidateNextStep = computed(
@@ -320,7 +326,7 @@ const handlerClickApplyButton = () => {
 	}
 }
 .type-top-container {
-	padding: 27px 0 14px;
+	padding: 0 0 34px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

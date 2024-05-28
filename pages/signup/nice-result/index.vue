@@ -5,32 +5,26 @@
 <script setup>
 import { onMounted } from 'vue';
 
-import { signup } from '~/services/signup.js';
-
 onMounted(() => {
 	const urlSearch = new URLSearchParams(window.location.search);
-	const encData = urlSearch.get('enc_data');
-	const tokenApiId = urlSearch.get('token_version_id');
-	const integrityValue = urlSearch.get('integrity_value');
+	const status = atob(urlSearch.get('status'));
+	const name = atob(urlSearch.get('name'));
+	const mobileNo = atob(urlSearch.get('mobileNo'));
+	const userIdentityKey = atob(urlSearch.get('userIdentityKey'));
+	const message = atob(urlSearch.get('message'));
 
-	console.log(encData);
-	console.log(tokenApiId);
-	console.log(integrityValue);
+	console.log(status);
+	console.log(name);
+	console.log(mobileNo);
+	console.log(userIdentityKey);
+	console.log(message);
 
-	// signup
-	// 	.getNiceInfo({
-	// 		encData,
-	// 		tokenApiId,
-	// 		integrityValue,
-	// 		checkId: true,
-	// 	})
-	// 	.then(({ data }) => {
-	// 		sendData(data.name, data.mobileNo, data.userIdentityKey);
-	// 	})
-	// 	.catch(e => {
-	// 		alert(e.response.data.message);
-	// 		window.close();
-	// 	});
+	// 	if(status === '200') {
+	// 		sendData(name, mobileNo, userIdentityKey);
+	// 	} else {
+	// alert('이미 가입된 이력이 있습니다.');
+	// window.close();
+	// 	}
 });
 const sendData = (name, phone, userIdentityKey) => {
 	window.opener.postMessage({ name, phone, userIdentityKey }, '*');
