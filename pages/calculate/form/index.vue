@@ -16,7 +16,6 @@
 				<p class="form-title mb11">보유주택수를 선택해주세요</p>
 				<select v-model="form['subjectCnt']" class="form-select mb29">
 					<option value="">선택해주세요</option>
-					<option value="0">무주택</option>
 					<option value="1">1주택</option>
 					<option value="2">2주택</option>
 					<option value="3">3주택</option>
