@@ -18,7 +18,7 @@ const API_URL = {
 	USER: {
 		VERIFY: '/user/verify-password',
 		INFO: '/user/info',
-		FIND_ID: '/user/findId',
+		FIND_ID: '/soda/findId',
 		FIND_PW: '/join-soda/changePassword',
 		CHECK_ID: '/soda/check-id',
 		JOIN: '/join-soda',

@@ -5,7 +5,7 @@
 	</div>
 	<picture>
 		<source
-			srcset="/img/intro/soda-intro-mo-01.png"
+			srcset="/img/intro/soda-intro-mo-01.gif"
 			media="all and (max-width: 450px)"
 		/>
 		<img src="/img/intro/soda-intro-pc-01.png" />
@@ -62,7 +62,7 @@
 	</div>
 	<picture>
 		<source
-			srcset="/img/intro/soda-intro-mo-06.png"
+			srcset="/img/intro/soda-intro-mo-08.png"
 			media="all and (max-width: 450px)"
 		/>
 		<img src="/img/intro/soda-intro-pc-06.png" />
@@ -119,7 +119,6 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 	margin: 55px 0 10px;
 	font-size: 34px;
 	font-weight: $ft-bold;
-	line-height: 1.45;
 	text-align: center;
 	& > b {
 		color: #29cdff;
@@ -139,7 +138,6 @@ picture {
 .intro-soda-section-title {
 	font-size: 28px;
 	font-weight: $ft-medium;
-	line-height: 1.4;
 	& > b {
 		font-weight: $ft-bold;
 		color: #29cdff;
@@ -147,9 +145,9 @@ picture {
 }
 .intro-soda-section-content {
 	color: #4f4f4f;
-	margin-top: 14px;
-	line-height: 1.25;
+	margin-top: 20px;
 	word-break: keep-all;
+	line-height: 1.45;
 	&.center {
 		text-align: center;
 	}
@@ -163,7 +161,6 @@ picture {
 	font-size: 30px;
 	font-weight: $ft-bold;
 	text-align: center;
-	line-height: 1.4;
 	& > b {
 		color: #29cdff;
 	}
@@ -181,7 +178,6 @@ picture {
 	font-size: 20px;
 	color: #29cdff;
 	font-weight: $ft-bold;
-	line-height: 23px;
 	margin: 12px 0 10px;
 }
 .intro-soda-button {

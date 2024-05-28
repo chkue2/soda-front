@@ -3,7 +3,7 @@
 	<div class="find-match-container">
 		<div class="find-match-top-container">
 			<div class="match-title">
-				<img src="/img/icon/love-letter.svg" />
+				<img src="/img/icon/love-letter.png" />
 				<p>프로필카드 받기 완료</p>
 			</div>
 			<p class="match-subtitle">

@@ -2,7 +2,7 @@
 	<HeaderClose title="등기프로 찾기" />
 	<div class="find-complete-container">
 		<div class="complete-title">
-			<img src="/img/icon/love-letter.svg" />
+			<img src="/img/icon/love-letter.png" />
 			<p>프로필카드 받는 중</p>
 		</div>
 		<p class="complete-subtitle">

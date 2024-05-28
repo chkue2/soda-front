@@ -18,7 +18,12 @@
 		<img src="/img/cow/contract-empty.png" />
 	</div>
 	<div v-if="tradeCaseList.length > 0" class="contract-manage-swiper">
-		<swiper :space-between="20" slides-per-view="auto">
+		<swiper
+			:space-between="20"
+			slides-per-view="auto"
+			:modules="modules"
+			:pagination="{ clickable: true }"
+		>
 			<swiper-slide v-for="(t, index) in tradeCaseList" :key="index">
 				<div
 					class="contract-manage-item"
@@ -62,13 +67,17 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/pagination';
 import dayjs from 'dayjs';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { tradeCase } from '~/services/tradeCase.js';
 import { useLoadingStore } from '~/store/loading.js';
+
+const modules = [Pagination];
 
 const loadingStore = useLoadingStore();
 const tradeCaseList = ref([]);

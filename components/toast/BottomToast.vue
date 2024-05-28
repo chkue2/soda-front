@@ -35,7 +35,7 @@ const props = defineProps({
 	},
 	emoji: {
 		type: String,
-		default: 'love-letter.svg',
+		default: 'love-letter.png',
 	},
 	title: {
 		type: String,

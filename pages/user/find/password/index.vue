@@ -1,11 +1,5 @@
 <template>
 	<HeaderClose title="비밀번호 찾기" />
-	<form id="niceForm" action="niceForm">
-		<input id="m" type="hidden" name="m" value="checkplusService" />
-		<input id="token_version_id" type="hidden" name="token_version_id" />
-		<input id="enc_data" type="hidden" name="enc_data" />
-		<input id="integrity_value" type="hidden" name="integrity_value" />
-	</form>
 	<div class="find-container mb56">
 		<p class="form-title mb11">아이디</p>
 		<div class="form-input mb36">
@@ -14,7 +8,7 @@
 		<p class="form-title mb11">휴대전화번호</p>
 		<div class="form-readonly-input mb36">
 			<input
-				v-model="form.phone"
+				v-model="form.mobile"
 				type="tel"
 				readonly
 				placeholder="본인인증 후 자동입력"
@@ -26,7 +20,7 @@
 		<p class="form-title mb11">이름</p>
 		<div class="form-readonly-input mb24">
 			<input
-				v-model="form.name"
+				v-model="form.userName"
 				type="text"
 				readonly
 				placeholder="본인인증 후 자동입력"
@@ -70,8 +64,8 @@ import { signup } from '~/services/signup.js';
 import { user } from '~/services/user.js';
 
 const form = ref({
-	phone: '',
-	name: '',
+	mobile: '',
+	userName: '',
 	id: '',
 	password: '',
 	passwordConfirm: '',
@@ -81,36 +75,31 @@ const form = ref({
 const actionUrl = ref('');
 
 onMounted(() => {
+	const receiveData = async e => {
+		if (e.data.name) {
+			form.value.userName = e.data.name;
+			form.value.mobile = e.data.phone;
+			form.value.userIdentityKey = e.data.userIdentityKey;
+		}
+	};
+
+	window.addEventListener('message', receiveData, false);
+});
+
+const handlerClickSelfIdentification = () => {
 	signup
-		.getNice(`${window.location.origin}/signup/nice-result`)
+		.getNice({
+			checkId: false,
+			// redirect_url: `${window.location.origin}/signup/nice-result`,
+		})
 		.then(({ data }) => {
-			document.getElementById('token_version_id').value = data.tokenVersionId;
-			document.getElementById('enc_data').value = data.encData;
-			document.getElementById('integrity_value').value = data.integrityValue;
-			actionUrl.value = data.actionUrl;
-
-			const receiveData = async e => {
-				if (e.data.name) {
-					form.value.name = e.data.name;
-					form.value.phone = e.data.phone;
-					form.value.userIdentityKey = e.data.userIdentityKey;
-				}
-			};
-
-			window.addEventListener('message', receiveData, false);
+			const wnd = window.open(undefined, 'new window', 'width=500, height=600');
+			wnd.document.write(data);
 		})
 		.catch(e => {
 			console.log(e);
 			alert(e.response.data.message);
 		});
-});
-
-const handlerClickSelfIdentification = () => {
-	const form = document.getElementById('niceForm');
-
-	form.action = actionUrl.value;
-	form.target = 'popupChk';
-	form.submit();
 };
 
 const formValidationCount = computed(
@@ -128,7 +117,7 @@ const handlerClickApplyButton = () => {
 	if (!isFormValidation.value) {
 		if (form.value.id === '') {
 			alert('아이디를 입력해주세요');
-		} else if (form.value.phone === '' || form.value.name === '') {
+		} else if (form.value.mobile === '' || form.value.userName === '') {
 			alert('본인인증이 필요합니다');
 		} else if (form.value.password === '') {
 			alert('비밀번호를 입력해주세요');
@@ -145,8 +134,8 @@ const handlerClickApplyButton = () => {
 	const formData = new FormData();
 	formData.append('userId', form.value.id);
 	formData.append('password', form.value.password);
-	formData.append('userName', form.value.name);
-	formData.append('mobile', form.value.phone);
+	formData.append('userName', form.value.userName);
+	formData.append('mobile', form.value.mobile);
 	formData.append('userIdentityKey', form.value.userIdentityKey);
 
 	user
