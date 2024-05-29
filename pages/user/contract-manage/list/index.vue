@@ -77,6 +77,10 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 import { tradeCase } from '~/services/tradeCase.js';
 import { useLoadingStore } from '~/store/loading.js';
 
+definePageMeta({
+	middleware: 'auth',
+});
+
 const modules = [Pagination];
 
 const loadingStore = useLoadingStore();

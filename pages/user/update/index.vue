@@ -67,6 +67,10 @@ import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { isValidPassword } from '~/assets/js/utils.js';
 
+definePageMeta({
+	middleware: 'auth',
+});
+
 const form = ref({
 	userName: '',
 	mobile: '',
