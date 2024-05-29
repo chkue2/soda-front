@@ -6,6 +6,6 @@
 import ContractManageDetailPage from '~/components/page/ContractManageDetailPage.vue';
 
 definePageMeta({
-	middleware: 'bankAuth',
+	middleware: 'bank-auth',
 });
 </script>
