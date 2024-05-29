@@ -8,7 +8,7 @@
 			srcset="/img/intro/soda-intro-mo-01.gif"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-01.png" />
+		<img src="/img/intro/soda-intro-pc-01.gif" />
 	</picture>
 	<section class="intro-soda-section pt24 pb76">
 		<p class="intro-soda-section-title">
@@ -65,7 +65,7 @@
 			srcset="/img/intro/soda-intro-mo-08.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-06.png" />
+		<img src="/img/intro/soda-intro-pc-08.png" />
 	</picture>
 	<div class="intro-soda-section pt24 pb36">
 		<p class="intro-soda-subtitle">3. 견적넣기</p>

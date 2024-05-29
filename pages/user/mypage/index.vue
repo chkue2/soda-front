@@ -55,9 +55,9 @@
 				<div class="banner-counter">2/4</div>
 			</div>
 			<div class="mypage-menu-container">
-				<div v-if="false" class="mypage-menu">
+				<div class="mypage-menu">
 					<p class="mypage-menu-title">내 정보</p>
-					<NuxtLink to="/" class="mypage-menu-item">
+					<NuxtLink to="/user/update" class="mypage-menu-item">
 						<div class="mypage-menu-item-title">
 							<p>내 정보 수정하기</p>
 						</div>
@@ -78,6 +78,22 @@
 							class="mypage-menu-item-icon"
 						/>
 					</NuxtLink>
+					<NuxtLink to="/registration/change/intro" class="mypage-menu-item">
+						<div class="mypage-menu-item-title">
+							<p>등기변동 알림서비스</p>
+						</div>
+						<img
+							src="/img/icon/expand-right-gray.svg"
+							class="mypage-menu-item-icon"
+						/>
+					</NuxtLink>
+					<div class="mypage-menu-toggle">
+						<p>
+							내가 계약한 부동산 등기변동 알림서비스를 알림톡으로 받아볼 수
+							있습니다.
+						</p>
+						<ToggleButton />
+					</div>
 					<NuxtLink to="/user/my-like" class="mypage-menu-item">
 						<div class="mypage-menu-item-title">
 							<p>좋아요 활동</p>
@@ -132,6 +148,7 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
+import ToggleButton from '~/components/button/ToggleButton.vue';
 
 import { useAuthStore } from '~/store/auth.js';
 import { firmLike } from '~/services/firmLike.js';
@@ -321,6 +338,19 @@ const handlerChangeProfileImageFile = e => {
 		& > p {
 			font-size: 14px;
 			font-weight: $ft-bold;
+		}
+	}
+	.mypage-menu-toggle {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 30px;
+		margin-top: -16px;
+		& > p {
+			flex: 1;
+			font-size: 12px;
+			color: #a3a3a3;
+			word-break: keep-all;
 		}
 	}
 }

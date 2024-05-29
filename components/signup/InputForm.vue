@@ -1,10 +1,4 @@
 <template>
-	<!-- <form id="niceForm" action="niceForm">
-		<input id="m" type="hidden" name="m" value="checkplusService" />
-		<input id="token_version_id" type="hidden" name="token_version_id" />
-		<input id="enc_data" type="hidden" name="enc_data" />
-		<input id="integrity_value" type="hidden" name="integrity_value" />
-	</form> -->
 	<div class="input-form-container">
 		<p class="input-form-title mb5">휴대전화번호</p>
 		<div class="form-readonly-box mb10">
@@ -199,46 +193,5 @@ const handlerClickSignupButton = () => {
 <style lang="scss" scoped>
 .input-form-container {
 	padding: 40px 30px 70px;
-}
-.form-readonly-box {
-	display: flex;
-	gap: 6px;
-	justify-content: space-between;
-	align-items: center;
-	& > input {
-		flex: 1;
-		height: 45px;
-		padding: 0 20px;
-		background-color: #f2f2f2;
-		border-radius: 6px;
-		border: none;
-		font-size: 16px;
-	}
-	& > button {
-		width: 109px;
-		height: 45px;
-		border-radius: 5px;
-		background-color: #000000;
-		color: #ffffff;
-		font-size: 16px;
-	}
-}
-.input-form-title {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	& > span {
-		font-size: 12px;
-		color: #a3a3a3;
-	}
-}
-.id-check-button {
-	width: 109px;
-	height: 100%;
-	border-radius: 0 30px 30px 0;
-	background-color: #29cdff;
-	font-size: 16px;
-	color: #ffffff;
-	margin-right: -20px;
 }
 </style>
