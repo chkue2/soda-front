@@ -45,4 +45,10 @@ export const user = {
 		const endpoint = getEndpoint(API_URL.USER.REVIEW_DELETE, { seq });
 		return await DELETE_AUTH(endpoint);
 	},
+	async getUserInfoUpdate() {
+		return await GET_AUTH(API_URL.USER.GET_USER_INFO);
+	},
+	async setUserInfoUpdate(data) {
+		return await PUT_AUTH(API_URL.USER.UPDATE_USER_INFO, data);
+	},
 };

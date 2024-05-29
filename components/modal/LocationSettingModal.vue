@@ -107,6 +107,10 @@ const handlerChangeDong = () => {
 
 const emit = defineEmits(['set-address', 'call-api', 'close-modal']);
 const setAddress = () => {
+	if (selectedAddress.value.dong === '') {
+		alert('동/읍/면까지 모두 선택해야 조회 가능합니다.');
+		return false;
+	}
 	emit('set-address', selectedAddress.value);
 	emit('call-api');
 	closeModal();

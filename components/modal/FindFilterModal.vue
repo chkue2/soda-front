@@ -230,6 +230,10 @@ const handlerClickResetButton = () => {
 };
 
 const handlerClickApplyButton = () => {
+	if (addressValue.value.sido !== '' && addressValue.value.dong === '') {
+		alert('동/읍/면까지 모두 선택해야 조회 가능합니다.');
+		return false;
+	}
 	emit('set-careers', careersValue.value);
 	emit('set-badges', badgesValue.value);
 	emit('set-distance', Number(distanceValue.value));

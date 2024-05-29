@@ -1,6 +1,6 @@
 <template>
 	<HeaderClose title="내 계약 관리" />
-	<div class="contract-manage-tabs">
+	<div v-if="false" class="contract-manage-tabs">
 		<div class="contract-manage-tab active">전체</div>
 		<div class="contract-manage-tab">진행중</div>
 		<div class="contract-manage-tab">완료</div>
@@ -166,11 +166,10 @@ const day = date => dayjs(date).format('D');
 	}
 }
 .contract-manage-swiper {
-	margin-top: 15px;
 	padding: 0 20px 20px;
+	position: relative;
 }
 .swiper-slide {
-	width: calc(100% - 30px);
 	padding: 4px;
 }
 .contract-manage-item {
@@ -280,5 +279,20 @@ const day = date => dayjs(date).format('D');
 .contract-empty-title {
 	color: #b9babe;
 	margin-bottom: 62px;
+}
+
+/* swiper */
+.swiper {
+	position: unset;
+	&::v-deep(.swiper-pagination) {
+		bottom: -10px;
+	}
+	&::v-deep(.swiper-pagination-bullet) {
+		background-color: #d9d9d9;
+		opacity: 1;
+	}
+	&::v-deep(.swiper-pagination-bullet-active) {
+		background-color: #252525;
+	}
 }
 </style>
