@@ -57,6 +57,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ToggleButton from '~/components/button/ToggleButton.vue';
@@ -115,6 +116,7 @@ onMounted(() => {
 		});
 });
 
+const router = useRouter();
 const handlerClickUpdateButton = () => {
 	if (!isValidation.value) {
 		if (form.value.currentPassword === '')

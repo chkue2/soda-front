@@ -1,13 +1,15 @@
-import { useAuthStore } from '~/store/auth.js';
-import { LOGIN_REDIRECT_AUTH_KEY } from '~/assets/js/storageKeys.js';
+import {
+	LOGIN_REDIRECT_AUTH_KEY,
+	BANK_ID_KEY,
+	BANK_AUTH_KEY,
+} from '~/assets/js/storageKeys.js';
 
 export default defineNuxtRouteMiddleware((to, from) => {
-	console.log(to.params.id);
+	window.localStorage.setItem(BANK_ID_KEY, to.params.id);
 
-	const useAuth = useAuthStore();
-	useAuth.initialize();
+	const user = window.localStorage.getItem(BANK_AUTH_KEY);
 
-	const isLoggedIn = useAuth.user !== null;
+	const isLoggedIn = user !== null && user !== undefined;
 
 	if (!isLoggedIn) {
 		window.localStorage.setItem(LOGIN_REDIRECT_AUTH_KEY, 'Y');

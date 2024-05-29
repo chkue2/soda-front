@@ -15,6 +15,10 @@ const API_URL = {
 		LOGOUT: '/auth/logout',
 		REFRESH: '/auth/refresh',
 	},
+	BANK_AUTH: {
+		LOGIN: '/soda/verify',
+		ENCODING: '/util/soda/key/enc/:trade_case_id',
+	},
 	USER: {
 		VERIFY: '/user/verify-password',
 		INFO: '/user/info',
