@@ -78,6 +78,7 @@ const API_URL = {
 		GET: '/soda/tradeCase/detail/:trade_case_id',
 		ESTIMATE: '/tradecases/:trade_case_id/estimate',
 		DOCUMENT: '/tradecases/:trade_case_id/document',
+		GET_BANK: '/bank/tradeCase/detail/:trade_case_id',
 	},
 };
 

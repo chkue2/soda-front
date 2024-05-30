@@ -15,7 +15,7 @@
 		<div class="form-readonly-box mb10">
 			<input v-model="form.mobile" type="tel" readonly />
 		</div>
-		<div>
+		<div v-if="loginType === 'DEFAULT'">
 			<p class="input-form-title mb11">아이디</p>
 			<div class="form-readonly-box mb37">
 				<input v-model="form.userId" type="text" readonly />

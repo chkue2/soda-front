@@ -1,5 +1,5 @@
 <template>
-	<ContractManageDetailPage :tid="route.params.id" />
+	<ContractManageDetailPage :tid="route.params.id" type="soda" />
 </template>
 
 <script setup>

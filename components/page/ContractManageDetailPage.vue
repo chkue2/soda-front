@@ -247,11 +247,16 @@ import { tradeCase } from '~/services/tradeCase.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { bankSVG } from '~/assets/js/bankSVG.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
+import { BANK_AUTH_KEY } from '~/assets/js/storageKey.js';
 
 const props = defineProps({
 	tid: {
 		type: String,
 		default: '',
+	},
+	type: {
+		type: String,
+		default: 'soda',
 	},
 });
 
@@ -266,7 +271,7 @@ const issueTimeText = computed(
 const router = useRouter();
 onMounted(() => {
 	tradeCase
-		.getTradeCaseDetail(props.tid)
+		.getTradeCaseDetail(props.tid, props.type)
 		.then(({ data }) => {
 			profileCard.value = data.card;
 			tradeCaseDetail.value = data.detail;
@@ -275,6 +280,7 @@ onMounted(() => {
 			console.log(data);
 		})
 		.catch(e => {
+			window.localStorage.removeItem(BANK_AUTH_KEY);
 			alert(e.response.data.message);
 			router.go(-1);
 		});
