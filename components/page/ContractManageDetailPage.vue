@@ -247,7 +247,7 @@ import { tradeCase } from '~/services/tradeCase.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { bankSVG } from '~/assets/js/bankSVG.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
-import { BANK_AUTH_KEY } from '~/assets/js/storageKey.js';
+import { BANK_AUTH_KEY } from '~/assets/js/storageKeys.js';
 
 const props = defineProps({
 	tid: {
@@ -276,8 +276,6 @@ onMounted(() => {
 			profileCard.value = data.card;
 			tradeCaseDetail.value = data.detail;
 			charger.value = data.charger;
-
-			console.log(data);
 		})
 		.catch(e => {
 			window.localStorage.removeItem(BANK_AUTH_KEY);
