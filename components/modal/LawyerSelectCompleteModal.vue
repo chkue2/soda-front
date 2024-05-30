@@ -1,5 +1,5 @@
 <template>
-	<CommonModal @close-modal="CloseModal">
+	<CommonModal @close-modal="closeModal">
 		<template #modal-body>
 			<div class="select-container">
 				<p class="select-modal-content">탁월한 선택이예요!</p>
@@ -39,7 +39,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['close-modal', 'click-select-button']);
-const CloseModal = () => {
+const closeModal = () => {
 	emit('close-modal');
 };
 

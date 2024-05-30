@@ -201,7 +201,7 @@ const handlerClickSelectButton = () => {
 	lawyerMatch
 		.selectLawyer(tid, firmCode, props.ins)
 		.then(() => {
-			isLawyerSelectCompleteModalShow();
+			toggleLawyerSelectCompleteModal();
 		})
 		.catch(e => {
 			alert(e.response.data.message);
