@@ -55,6 +55,9 @@ const API_URL = {
 		UPDATE: '/soda/find-lawyer/contract/:tmp_key',
 		DONE: '/soda/find-lawyer/contract/done/:tmp_key',
 		LIST: '/soda/find-lawyer/join/:trade_case_id/list',
+		LIST_BANK: '/bank/find-lawyer/join/:trade_case_id/list',
+		SELECT: '/soda/find-lawyer/pro-select/:trade_case_id/:firm_code',
+		SELECT_BANK: '/bank/find-lawyer/pro-select/:trade_case_id/:firm_code',
 	},
 	CALCULATE: {
 		GET: '/soda/calculate',

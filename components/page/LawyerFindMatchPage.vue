@@ -15,7 +15,13 @@
 			title="앗! 모집된 사무소가 없어요"
 			sub-title="일정이 맞는 등기프로가 없을 수 있어요.<br>책정 보수금액을 조금 더 상향해서 재입찰 할 수 있어요!"
 		/>
-		<ExpertList v-if="lawyerList.length > 0" :list="lawyerList" type="match" />
+		<ExpertList
+			v-if="lawyerList.length > 0"
+			:list="lawyerList"
+			:tid="tid"
+			type="match"
+			:ins="props.type"
+		/>
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -53,6 +59,10 @@ const props = defineProps({
 		type: String,
 		default: '',
 	},
+	type: {
+		type: String,
+		default: 'soda',
+	},
 });
 
 const lawyerList = ref([]);
@@ -60,7 +70,7 @@ const lawyerList = ref([]);
 const router = useRouter();
 onMounted(() => {
 	lawyerMatch
-		.getLawyerList(props.tid)
+		.getLawyerList(props.tid, props.type)
 		.then(({ data }) => {
 			lawyerList.value = data;
 			console.log(data);

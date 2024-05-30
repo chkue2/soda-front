@@ -10,6 +10,8 @@
 			:key="index"
 			:item="item"
 			:type="type"
+			:tid="tid"
+			:ins="props.ins"
 		/>
 	</div>
 </template>
@@ -29,6 +31,14 @@ const props = defineProps({
 	type: {
 		type: String,
 		default: '',
+	},
+	tid: {
+		type: String,
+		default: '',
+	},
+	ins: {
+		type: String,
+		default: 'soda',
 	},
 });
 </script>

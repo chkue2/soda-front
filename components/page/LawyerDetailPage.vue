@@ -82,7 +82,7 @@
 	<div v-if="type === 'match'" class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="여기로 선택하기"
-			@click-button="toggleLawyerSelectCompleteModal"
+			@click-button="handlerClickSelectButton"
 		/>
 	</div>
 	<LawyerSelectCompleteModal
@@ -108,9 +108,14 @@ import { useAuthStore } from '~/store/auth.js';
 import { lawyerDetail } from '~/services/lawyerDetail.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { firmLike } from '~/services/firmLike.js';
+import { lawyerMatch } from '~/services/lawyerMatch.js';
 
 const props = defineProps({
 	type: {
+		type: String,
+		default: '',
+	},
+	ins: {
 		type: String,
 		default: '',
 	},
@@ -123,6 +128,7 @@ const useAuth = useAuthStore();
 const firmDetail = ref({});
 const firmLikeYN = ref(false);
 
+const tid = route.params.tid;
 const firmCode = route.params.id;
 onMounted(() => {
 	useAuth.initialize();
@@ -188,6 +194,17 @@ const handlerClickLikeButton = () => {
 				alert(e.response.data.message);
 			});
 	}
+};
+
+const handlerClickSelectButton = () => {
+	lawyerMatch
+		.selectLawyer(tid, firmCode, props.ins)
+		.then(() => {
+			isLawyerSelectCompleteModalShow();
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 </script>
 

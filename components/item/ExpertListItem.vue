@@ -40,6 +40,14 @@ const props = defineProps({
 		type: String,
 		default: '',
 	},
+	tid: {
+		type: String,
+		default: '',
+	},
+	ins: {
+		type: String,
+		default: 'soda',
+	},
 });
 
 const imageUrl = computed(() =>
@@ -51,7 +59,9 @@ const imageUrl = computed(() =>
 const router = useRouter();
 const handlerClickItem = () => {
 	if (props.type === 'match') {
-		router.push(`/lawyer/detail/match/${props.item.firmCode}`);
+		router.push(
+			`/lawyer/detail/match/${props.ins}/${props.tid}/${props.item.firmCode}`,
+		);
 	} else {
 		router.push(`/lawyer/detail/${props.item.firmCode}`);
 	}

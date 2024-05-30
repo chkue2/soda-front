@@ -89,6 +89,7 @@ const handlerClickNextButton = () => {
 			}, 100);
 		})
 		.catch(e => {
+			window.localStorage.removeItem(BANK_AUTH_KEY);
 			alert(e.response.data.message);
 		});
 };
