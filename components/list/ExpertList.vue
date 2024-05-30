@@ -9,6 +9,7 @@
 			v-for="(item, index) in props.list"
 			:key="index"
 			:item="item"
+			:type="type"
 		/>
 	</div>
 </template>
@@ -24,6 +25,10 @@ const props = defineProps({
 	list: {
 		type: Array,
 		default: () => [],
+	},
+	type: {
+		type: String,
+		default: '',
 	},
 });
 </script>

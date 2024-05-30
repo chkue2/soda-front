@@ -49,6 +49,10 @@ const handlerClickHomeButton = () => {
 		font-weight: $ft-bold;
 		color: #252525;
 	}
+	& > img {
+		width: 20px;
+		margin-bottom: 1px;
+	}
 }
 .complete-subtitle {
 	width: 100%;

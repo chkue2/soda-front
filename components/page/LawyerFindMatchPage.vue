@@ -11,10 +11,11 @@
 			</p>
 		</div>
 		<ListEmptyItem
+			v-if="lawyerList.length === 0"
 			title="앗! 모집된 사무소가 없어요"
 			sub-title="일정이 맞는 등기프로가 없을 수 있어요.<br>책정 보수금액을 조금 더 상향해서 재입찰 할 수 있어요!"
 		/>
-		<ExpertList :list="[]" />
+		<ExpertList v-if="lawyerList.length > 0" :list="lawyerList" type="match" />
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -35,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
@@ -45,7 +46,31 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
 import LawyerRematchImpossibleModal from '~/components/modal/LawyerRematchImpossibleModal.vue';
 
+import { lawyerMatch } from '~/services/lawyerMatch.js';
+
+const props = defineProps({
+	tid: {
+		type: String,
+		default: '',
+	},
+});
+
+const lawyerList = ref([]);
+
 const router = useRouter();
+onMounted(() => {
+	lawyerMatch
+		.getLawyerList(props.tid)
+		.then(({ data }) => {
+			lawyerList.value = data;
+			console.log(data);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+			router.push('/');
+		});
+});
+
 const handlerClickRematchButton = () => {
 	router.push('/lawyer/find/form');
 };
@@ -75,6 +100,10 @@ const toggleLawyerRematchImpossibleModal = () => {
 	align-items: center;
 	gap: 4px;
 	margin-bottom: 5px;
+	& > img {
+		width: 20px;
+		margin-bottom: 1px;
+	}
 	& > p {
 		font-weight: $ft-bold;
 		color: #252525;

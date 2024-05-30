@@ -36,6 +36,10 @@ const props = defineProps({
 			return { profileFileUrl: '' };
 		},
 	},
+	type: {
+		type: String,
+		default: '',
+	},
 });
 
 const imageUrl = computed(() =>
@@ -46,7 +50,11 @@ const imageUrl = computed(() =>
 
 const router = useRouter();
 const handlerClickItem = () => {
-	router.push(`/lawyer/detail/${props.item.firmCode}`);
+	if (props.type === 'match') {
+		router.push(`/lawyer/detail/match/${props.item.firmCode}`);
+	} else {
+		router.push(`/lawyer/detail/${props.item.firmCode}`);
+	}
 };
 </script>
 

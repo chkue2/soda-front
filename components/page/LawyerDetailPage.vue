@@ -79,7 +79,7 @@
 			:reviews="firmDetail.review || []"
 		/>
 	</div>
-	<div v-if="false" class="form-bottom-buttons">
+	<div v-if="type === 'match'" class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="여기로 선택하기"
 			@click-button="toggleLawyerSelectCompleteModal"
@@ -108,6 +108,13 @@ import { useAuthStore } from '~/store/auth.js';
 import { lawyerDetail } from '~/services/lawyerDetail.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { firmLike } from '~/services/firmLike.js';
+
+const props = defineProps({
+	type: {
+		type: String,
+		default: '',
+	},
+});
 
 const route = useRoute();
 const confirmStore = useConfirmStore();
