@@ -87,6 +87,7 @@
 	</div>
 	<LawyerSelectCompleteModal
 		v-if="isLawyerSelectCompleteModalShow"
+		:ins="props.ins"
 		@close-modal="toggleLawyerSelectCompleteModal"
 	/>
 </template>

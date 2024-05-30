@@ -7,8 +7,19 @@
 				<p class="select-modal-text">
 					등기프로가 수임확정하면<br />알림톡을 보내드려요.
 				</p>
-				<button class="select-modal-button" @click="handlerClickPageMoveButton">
+				<button
+					v-if="ins === 'soda'"
+					class="select-modal-button"
+					@click="handlerClickPageMoveButton"
+				>
 					바로가기
+				</button>
+				<button
+					v-if="ins === 'bank'"
+					class="select-modal-button"
+					@click="closeModal"
+				>
+					확인
 				</button>
 			</div>
 		</template>
@@ -19,6 +30,13 @@
 import { useRouter } from 'vue-router';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
+
+const props = defineProps({
+	ins: {
+		type: String,
+		default: 'soda',
+	},
+});
 
 const emit = defineEmits(['close-modal', 'click-select-button']);
 const CloseModal = () => {
