@@ -153,11 +153,13 @@ import ToggleButton from '~/components/button/ToggleButton.vue';
 import { useAuthStore } from '~/store/auth.js';
 import { firmLike } from '~/services/firmLike.js';
 import { user } from '~/services/user.js';
+import { useLoadingStore } from '~/store/loading.js';
 
 const modules = [Autoplay];
 
 const router = useRouter();
 const useAuth = useAuthStore();
+const loadingStore = useLoadingStore();
 
 const isLoggedIn = computed(() => useAuth.user !== null);
 const profileImage = computed(() =>
@@ -175,6 +177,7 @@ const likeCount = ref(0);
 
 onMounted(() => {
 	if (isLoggedIn.value) {
+		loadingStore.setLoadingShow(true);
 		firmLike
 			.getCount()
 			.then(({ data }) => {
@@ -182,6 +185,9 @@ onMounted(() => {
 			})
 			.catch(e => {
 				alert(e.response.data.message);
+			})
+			.finally(() => {
+				loadingStore.setLoadingShow(false);
 			});
 	}
 });
