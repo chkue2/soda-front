@@ -257,7 +257,7 @@ onMounted(() => {
 				alert(e.response.data.message);
 			});
 	} else {
-		alert('홈으로 돌아갈게요!');
+		alert('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
 		router.push('/');
 	}
 });
