@@ -73,10 +73,29 @@ const isValidId = id => {
 	return regex.test(id);
 };
 
+/**
+ * blob data를 활용해 file download
+ * 파일명은 fileName.ext
+ *
+ * @param {blob} data
+ * @param {string} fileName
+ * @param {string} ext
+ */
+const fileDownload = (data, fileName, ext) => {
+	const url = window.URL.createObjectURL(new Blob([data]));
+	const link = document.createElement('a');
+	link.href = url;
+	link.setAttribute('download', `${fileName}.${ext}`);
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+};
+
 export {
 	keyupToLocaleString,
 	convertToKoreanCurrency,
 	rexFormatPhone,
 	isValidPassword,
 	isValidId,
+	fileDownload,
 };
