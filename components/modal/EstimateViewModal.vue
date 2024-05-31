@@ -247,7 +247,6 @@ onMounted(() => {
 			taxesAndDues.value = data.taxesAndDues;
 			fee.value = data.fee;
 			info.value = data.info;
-			console.log(data);
 		})
 		.catch(e => {
 			alert(e.response.data.message);

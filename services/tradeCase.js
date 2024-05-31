@@ -27,4 +27,21 @@ export const tradeCase = {
 		});
 		return await GET_AUTH(endpoint);
 	},
+	async downloadDocument(tid, did, ins) {
+		const endpoint = getEndpoint(
+			ins === 'soda'
+				? API_URL.TRADECASE.DOCUMENT_DOWNLOAD
+				: API_URL.TRADECASE.DOCUMENT_DOWNLOAD_BANK,
+			{
+				trade_case_id: tid,
+				document_id: did,
+			},
+		);
+
+		if (ins === 'soda') {
+			return await GET_AUTH(endpoint);
+		} else {
+			return await GET(endpoint);
+		}
+	},
 };

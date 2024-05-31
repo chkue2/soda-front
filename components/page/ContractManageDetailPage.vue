@@ -231,6 +231,7 @@
 	<ReceiptDownloadModal
 		v-if="isReceiptDownloadModalShow"
 		:tid="props.tid"
+		:ins="props.type"
 		@close-modal="toggleReceiptDownloadModal"
 	/>
 	<ReviewWriteModal

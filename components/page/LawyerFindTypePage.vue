@@ -45,7 +45,7 @@
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
 					<div class="type-middle-item-title">
-						<p>로켓진행 쏘다</p>
+						<p>SODA 패스</p>
 						<img src="/img/icon/lightning.svg" />
 					</div>
 					<div class="type-middle-item-price">
@@ -117,7 +117,7 @@
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
 					<div class="type-middle-item-title">
-						<p>로켓진행 쏘다</p>
+						<p>SODA 패스</p>
 						<img src="/img/icon/lightning.svg" />
 					</div>
 					<div class="type-middle-item-price">
@@ -217,7 +217,7 @@
 	1: 프리미엄
 	2: 일반
 	3: 직접제안
-	4: 로켓진행
+	4: 로켓진행 (소다패스)
  -->
 
 <script setup>

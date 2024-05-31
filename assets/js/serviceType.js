@@ -5,7 +5,7 @@ export const getServiceType = type => {
 		case 'NORMAL':
 			return '일반 견적으로 제안하기';
 		case 'ROCKET':
-			return '로켓진행 쏘다';
+			return 'SODA 패스';
 		default:
 			return '내가 직접 가격 제안하기';
 	}

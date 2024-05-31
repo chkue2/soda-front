@@ -11,7 +11,10 @@
 						class="receipt-item"
 					>
 						<p>{{ receipt.docName }}</p>
-						<img src="/img/icon/download-black.svg" />
+						<img
+							src="/img/icon/download-black.svg"
+							@click="handlerClickDownloadButton(receipt.documentId)"
+						/>
 					</div>
 				</div>
 				<button class="receipt-modal-button" @click="closeModal">닫기</button>
@@ -32,6 +35,10 @@ const props = defineProps({
 		type: String,
 		default: '',
 	},
+	ins: {
+		type: String,
+		default: 'soda',
+	},
 });
 
 const receiptList = ref([]);
@@ -47,6 +54,17 @@ onMounted(() => {
 			closeModal();
 		});
 });
+
+const handlerClickDownloadButton = did => {
+	tradeCase
+		.downloadDocument(props.tid, did, props.ins)
+		.then(({ data }) => {
+			console.log(data);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+};
 
 const emit = defineEmits(['close-modal']);
 const closeModal = () => {
