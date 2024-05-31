@@ -2,6 +2,13 @@
 	<HeaderClose title="내 계약관리 상세" />
 	<div class="contract-manage-top-container">
 		<div class="contract-manage-info-wrapper">
+			<button
+				v-if="props.type === 'soda'"
+				class="contract-manage-info-button"
+				@click="toggleContractUpdateModal"
+			>
+				수정
+			</button>
 			<p class="buyer-name">{{ tradeCaseDetail.buyer }}</p>
 			<p class="object-address">
 				{{ tradeCaseDetail.fullAddress }}
@@ -44,6 +51,13 @@
 						<img src="/img/icon/check-bubble-blue.svg" />
 						<p>사무소 선택완료</p>
 					</div>
+					<button
+						v-if="props.type === 'soda'"
+						class="contract-cancel-button"
+						@click="toggleContractCancelModal"
+					>
+						배정취소
+					</button>
 				</div>
 				<div>
 					<div class="contract-state-profile">
@@ -227,6 +241,14 @@
 		v-if="isReviewUpdateModalShow"
 		@close-modal="toggleReviewUpdateModal"
 	/>
+	<ContractUpdateModal
+		v-if="isContractUpdateModalShow"
+		@close-modal="toggleContractUpdateModal"
+	/>
+	<ContractCancelModal
+		v-if="isContractCancelModalShow"
+		@close-modal="toggleContractCancelModal"
+	/>
 </template>
 
 <script setup>
@@ -242,6 +264,8 @@ import EstimateViewModal from '~/components/modal/EstimateViewModal.vue';
 import ReceiptDownloadModal from '~/components/modal/ReceiptDownloadModal.vue';
 import ReviewWriteModal from '~/components/modal/ReviewWriteModal.vue';
 import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
+import ContractUpdateModal from '~/components/modal/ContractUpdateModal.vue';
+import ContractCancelModal from '~/components/modal/ContractCancelModal.vue';
 
 import { tradeCase } from '~/services/tradeCase.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
@@ -315,6 +339,14 @@ const isReviewUpdateModalShow = ref(false);
 const toggleReviewUpdateModal = () => {
 	isReviewUpdateModalShow.value = !isReviewUpdateModalShow.value;
 };
+const isContractUpdateModalShow = ref(false);
+const toggleContractUpdateModal = () => {
+	isContractUpdateModalShow.value = !isContractUpdateModalShow.value;
+};
+const isContractCancelModalShow = ref(false);
+const toggleContractCancelModal = () => {
+	isContractCancelModalShow.value = !isContractCancelModalShow.value;
+};
 
 const handlerClickIssueTimeText = () => {
 	if (tradeCaseDetail.value.issueTime === null)
@@ -355,10 +387,23 @@ const chargerProfileImage = computed(() => {
 	background-color: #f2f3f5;
 }
 .contract-manage-info-wrapper {
-	padding: 35px 23px;
+	padding: 45px 23px 50px;
 	border-radius: 14px;
 	border: 1px solid #dadada;
 	background-color: #ffffff;
+	position: relative;
+	.contract-manage-info-button {
+		width: 60px;
+		height: 30px;
+		border-radius: 6px;
+		border: 1px solid #097cff;
+		font-size: 12px;
+		font-weight: $ft-medium;
+		color: #097cff;
+		position: absolute;
+		top: 12px;
+		right: 12px;
+	}
 	.buyer-name {
 		font-weight: $ft-bold;
 	}
@@ -488,6 +533,10 @@ const chargerProfileImage = computed(() => {
 			font-weight: $ft-medium;
 			color: #3182f7;
 			line-height: 1.5;
+			&.contract-cancel-button {
+				border-color: #b9b9b9;
+				color: #b9b9b9;
+			}
 		}
 	}
 	.contract-state-profile-info {
