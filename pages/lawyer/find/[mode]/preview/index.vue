@@ -137,7 +137,7 @@ onMounted(() => {
 				alert(e.response.data.message);
 			});
 	} else {
-		alert('정상적인 진입 경로가 아닙니다.');
+		alert('홈으로 돌아갈게요!');
 		router.push('/');
 	}
 });
