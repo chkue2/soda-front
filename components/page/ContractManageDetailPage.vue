@@ -268,6 +268,7 @@ import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
 import ContractUpdateModal from '~/components/modal/ContractUpdateModal.vue';
 import ContractCancelModal from '~/components/modal/ContractCancelModal.vue';
 
+import { useLoadingStore } from '~/store/loading.js';
 import { tradeCase } from '~/services/tradeCase.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { bankSVG } from '~/assets/js/bankSVG.js';
@@ -294,7 +295,9 @@ const issueTimeText = computed(
 );
 
 const router = useRouter();
+const loadingStore = useLoadingStore();
 onMounted(() => {
+	loadingStore.setLoadingShow(true);
 	tradeCase
 		.getTradeCaseDetail(props.tid, props.type)
 		.then(({ data }) => {
@@ -306,6 +309,9 @@ onMounted(() => {
 			window.localStorage.removeItem(BANK_AUTH_KEY);
 			alert(e.response.data.message);
 			router.go(-1);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
 		});
 });
 
