@@ -5,8 +5,12 @@
 				<p class="receipt-modal-subtitle">다운로드 받을 수 있어요</p>
 				<p class="receipt-modal-title">상환영수증</p>
 				<div class="receipt-modal-contents">
-					<div v-for="i in 4" :key="i" class="receipt-item">
-						<p>상환영수증({{ i }}).pdf</p>
+					<div
+						v-for="(receipt, index) in receiptList"
+						:key="index"
+						class="receipt-item"
+					>
+						<p>{{ receipt.docName }}</p>
 						<img src="/img/icon/download-black.svg" />
 					</div>
 				</div>
@@ -17,7 +21,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
 
@@ -30,11 +34,13 @@ const props = defineProps({
 	},
 });
 
+const receiptList = ref([]);
+
 onMounted(() => {
 	tradeCase
 		.getDocuments(props.tid)
 		.then(({ data }) => {
-			console.log(data);
+			receiptList.value = data.list;
 		})
 		.catch(e => {
 			alert(e.response.data.message);
