@@ -59,29 +59,18 @@ onMounted(() => {
 });
 
 const handlerClickDownloadButton = (did, fileName) => {
-	if (props.ins === 'soda') {
-		tradeCase
-			.downloadDocument(props.tid, did, props.ins)
-			.then(({ data }) => {
-				if (data !== null && data !== '') {
-					fileDownload(data, fileName.split('.')[0], fileName.split('.')[1]);
-				} else {
-					alert('파일을 다운로드 할 수 없습니다.');
-				}
-			})
-			.catch(e => {
-				alert(e.response.data.message);
-			});
-	} else {
-		const domain =
-			location.href.includes('.local') || location.href.includes('.dev')
-				? 'https://pro-api.dev.priros.com'
-				: 'https://pro-api.priros.com';
-
-		const path = `/bank/tradecases/${props.tid}/document/${did}/download`;
-
-		window.open(domain + path);
-	}
+	tradeCase
+		.downloadDocument(props.tid, did, props.ins)
+		.then(({ data }) => {
+			if (data !== null && data !== '') {
+				fileDownload(data, fileName.split('.')[0], fileName.split('.')[1]);
+			} else {
+				alert('파일을 다운로드 할 수 없습니다.');
+			}
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 
 const emit = defineEmits(['close-modal']);

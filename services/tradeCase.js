@@ -1,4 +1,10 @@
-import { API_URL, GET_AUTH, GET, getEndpoint } from '~/composables/useApi.js';
+import {
+	API_URL,
+	GET_AUTH,
+	GET,
+	GET_DOWNLOAD,
+	getEndpoint,
+} from '~/composables/useApi.js';
 
 export const tradeCase = {
 	async getTradeCaseList() {
@@ -38,10 +44,6 @@ export const tradeCase = {
 			},
 		);
 
-		if (ins === 'soda') {
-			return await GET_AUTH(endpoint);
-		} else {
-			return await GET(endpoint);
-		}
+		return await GET_DOWNLOAD(endpoint);
 	},
 };
