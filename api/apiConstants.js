@@ -88,6 +88,7 @@ const API_URL = {
 		DOCUMENT_DOWNLOAD_BANK:
 			'/bank/tradecases/:trade_case_id/document/:document_id/download',
 		GET_BANK: '/bank/tradeCase/detail/:trade_case_id',
+		INFO: '/soda/tradeCase/update/:trade_case_id',
 	},
 };
 

@@ -47,7 +47,9 @@
 				<p class="form-help-text">주민등록번호 뒷자리는 가려서 올려주세요</p>
 				<div class="update-bottom-buttons">
 					<button class="close-button" @click="closeModal">닫기</button>
-					<button class="update-button">수정하기</button>
+					<button class="update-button" @click="handlerClickUpdateButton">
+						수정하기
+					</button>
 				</div>
 			</div>
 		</template>
@@ -55,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
 
@@ -63,6 +65,8 @@ import {
 	keyupToLocaleString,
 	convertToKoreanCurrency,
 } from '~/assets/js/utils.js';
+import { tradeCase } from '~/services/tradeCase.js';
+import { useLoadingStore } from '~/store/loading.js';
 
 const form = ref({
 	bDate: '',
@@ -73,7 +77,35 @@ const form = ref({
 });
 const won = ref('');
 
-const emit = defineEmits(['close-modal']);
+const props = defineProps({
+	tid: {
+		type: String,
+		default: '',
+	},
+});
+const emit = defineEmits(['call-api', 'close-modal']);
+
+const loadingStore = useLoadingStore();
+
+onMounted(() => {
+	loadingStore.setLoadingShow(true);
+	tradeCase
+		.getInfo(props.tid)
+		.then(({ data }) => {
+			form.value.bDate = data.issueDate;
+			form.value.address = data.estateAddr;
+			form.value.detailAddress = data.estateRestAddr;
+			form.value.price = data.tradePrice;
+			form.value.contract = data.contractFileName;
+		})
+		.catch(e => {
+			console.log(e);
+			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+});
 
 watch(
 	() => form.value.price,
@@ -116,6 +148,34 @@ const contractFileText = computed(() =>
 			? form.value.contract.name
 			: form.value.contract,
 );
+
+const handlerClickUpdateButton = () => {
+	if (!isValidation.value) return false;
+	loadingStore.setLoadingShow(true);
+
+	const formData = new FormData();
+	formData.append('estateRestAddr', form.value.detailAddress);
+	formData.append('tradePrice', form.value.price.replaceAll(',', ''));
+	formData.append('issueDate', form.value.bDate);
+	formData.append('estateAddr', form.value.address);
+	if (typeof form.value.contract === 'object') {
+		formData.append('contract', form.value.contract);
+	}
+
+	tradeCase
+		.updateInfo(props.tid, formData)
+		.then(() => {
+			alert('계약정보가 수정되었습니다.');
+			emit('call-api');
+			closeModal();
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+};
 
 const closeModal = () => {
 	emit('close-modal');

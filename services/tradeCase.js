@@ -4,6 +4,7 @@ import {
 	GET,
 	GET_DOWNLOAD,
 	GET_DOWNLOAD_AUTH,
+	PUT_AUTH,
 	getEndpoint,
 } from '~/composables/useApi.js';
 
@@ -64,5 +65,17 @@ export const tradeCase = {
 		} else {
 			return await GET_DOWNLOAD(endpoint);
 		}
+	},
+	async getInfo(tid) {
+		const endpoint = getEndpoint(API_URL.TRADECASE.INFO, {
+			trade_case_id: tid,
+		});
+		return await GET_AUTH(endpoint);
+	},
+	async updateInfo(tid, formData) {
+		const endpoint = getEndpoint(API_URL.TRADECASE.INFO, {
+			trade_case_id: tid,
+		});
+		return await PUT_AUTH(endpoint, formData);
 	},
 };

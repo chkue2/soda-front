@@ -245,6 +245,8 @@
 	/>
 	<ContractUpdateModal
 		v-if="isContractUpdateModalShow"
+		:tid="props.tid"
+		@call-api="callApi"
 		@close-modal="toggleContractUpdateModal"
 	/>
 	<ContractCancelModal
@@ -298,6 +300,10 @@ const issueTimeText = computed(
 const router = useRouter();
 const loadingStore = useLoadingStore();
 onMounted(() => {
+	callApi();
+});
+
+const callApi = () => {
 	loadingStore.setLoadingShow(true);
 	tradeCase
 		.getTradeCaseDetail(props.tid, props.type)
@@ -314,7 +320,7 @@ onMounted(() => {
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
 		});
-});
+};
 
 const isLawyerCancelModalShow = ref(false);
 const toggleLawyerCancelModal = () => {
