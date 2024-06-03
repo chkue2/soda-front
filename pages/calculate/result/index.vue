@@ -60,7 +60,7 @@
 		</div>
 		<p class="result-help-text">
 			이 금액은 가계산이며 정확한 금액을 알기 위해서는<br />
-			하단의 <b>등기프로 찾기</b>를 이용해주세요.
+			하단의 <b>등기프로 찾기</b>를 눌러 등기프로와 대화해보시기 바랍니다
 		</p>
 	</div>
 	<div class="form-bottom-buttons">
@@ -179,6 +179,8 @@ const handlerClickFind = () => {
 	text-align: center;
 	margin-top: 45px;
 	line-height: 18px;
+	word-break: keep-all;
+	margin: 45px -10px 0;
 	b {
 		font-weight: $ft-bold;
 	}
