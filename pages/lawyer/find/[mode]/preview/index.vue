@@ -151,7 +151,7 @@ const contractFileUrl = computed(() => {
 		location.href.includes('.local') || location.href.includes('.dev')
 			? 'https://pro-api.dev.priros.com'
 			: 'https://pro-api.priros.com';
-	return `${domain}${form.value.contractUrl}/${form.value.contract}`;
+	return `${domain}${form.value.contractUrl}`;
 });
 
 const isLawyerFindTypeCompleteModalShow = ref(false);
