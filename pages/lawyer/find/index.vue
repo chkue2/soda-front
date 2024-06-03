@@ -43,8 +43,8 @@
 			<ListEmptyItem
 				v-if="lawyerFindStore.expertList.length === 0"
 				:margin="[62, 0, 0, 0]"
-				title="등기프로를 찾을 수 없습니다."
-				sub-title="조건에 만족하는 등기프로를 찾을 수 없습니다.<br>조건을 변경해보세요!"
+				title="앗! 검색결과가 없어요"
+				sub-title="검색한 결과가 0건입니다.<br>위치를 재설정하여 다시 검색해보세요!"
 			/>
 			<ExpertList
 				v-if="lawyerFindStore.expertList.length > 0"
