@@ -6,14 +6,14 @@
 		<NuxtLink to="/user/inquiry/write" class="inquiry-write">글쓰기</NuxtLink>
 	</div>
 	<div v-if="inquiryList.length > 0" class="inquiry-list">
+		<div class="inquiry-buttons">
+			<NuxtLink to="/user/inquiry/write" class="inquiry-write">글쓰기</NuxtLink>
+		</div>
 		<InquiryItem
 			v-for="(inq, index) in inquiryList"
 			:key="index"
 			:inquiry="inq"
 		/>
-		<div class="inquiry-buttons">
-			<NuxtLink to="/user/inquiry/write" class="inquiry-write">글쓰기</NuxtLink>
-		</div>
 	</div>
 </template>
 
@@ -83,6 +83,6 @@ onMounted(() => {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	margin: 17px 0 24px;
+	margin-bottom: 17px;
 }
 </style>
