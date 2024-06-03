@@ -6,7 +6,7 @@
 				<p class="setting-title"><b>거래대상 소재지</b>를 설정해주세요!</p>
 				<p class="setting-content">
 					잔금일 당일, 수월한 업무 수행을 위해서는 거래대상 소재지에서 가까운
-					거리에 있는 법무사와 매칭하는 것이 좋습니다.
+					거리에 있는 등기프로와 매칭하는 것이 좋습니다.
 				</p>
 				<div class="setting-select-container mt24">
 					<select v-model="selectedAddress.sido" @change="handlerChangeSido">
@@ -20,7 +20,7 @@
 						</option>
 					</select>
 					<select v-model="selectedAddress.gugun" @change="handlerChangeGugun">
-						<option value="">군/구</option>
+						<option value="">시/군/구</option>
 						<option
 							v-for="(gugun, index) in locationStore.gugunEnums"
 							:key="index"

@@ -85,7 +85,7 @@
 						</option>
 					</select>
 					<select v-model="addressValue.gugun" @change="handlerChangeGugun">
-						<option value="">군/구</option>
+						<option value="">시/군/구</option>
 						<option
 							v-for="(gugun, index) in locationStore.gugunEnums"
 							:key="index"
