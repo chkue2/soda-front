@@ -1,14 +1,11 @@
 <template>
-	<HeaderClose title="등기프로 찾기" />
+	<HeaderClose title="서비스유형 선택하기" />
 	<div v-if="type === ''" class="type-title-container">
-		<p class="type-title-top">
-			공과금제외 시장가격은<br /><span
-				><b>{{ (legalpayPrice * 10000).toLocaleString() }}</b
-				>원</span
-			>
-			수준입니다.
+		<p class="type-title-top">서비스 유형을<br />선택해 주세요</p>
+		<p class="type-title-bottom mt12">
+			공과금제외 시장가격은
+			<span>{{ (legalpayPrice * 10000).toLocaleString() }}원</span>
 		</p>
-		<p class="type-title-bottom mt18">아래 4가지 유형중 하나를 선택하세요</p>
 	</div>
 	<div v-if="type !== ''" class="type-top-container">
 		<img
@@ -33,81 +30,97 @@
 		/>
 	</div>
 	<div v-if="type === ''" class="type-middle-container">
-		<div class="type-middle-help-text">
-			<img src="/img/icon/pin-red.png" />
-			<p>알아서 다~해줬으면 하는 분들께 추천</p>
-		</div>
-		<div class="type-middle-item" @click="handlerClickItem('ROCKET')">
-			<i
-				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 'ROCKET' }"
-			></i>
-			<div class="type-middle-item-content">
-				<div class="type-middle-item-top">
-					<div class="type-middle-item-title">
-						<p>SODA 패스</p>
-						<img src="/img/icon/lightning.svg" />
+		<div class="type-middle-box">
+			<div class="type-middle-help-text pb11 mb14">
+				<p>하나부터 열까지 알아서 해주는 서비스</p>
+				<img src="/img/icon/lightning.svg" />
+			</div>
+			<div
+				class="type-middle-item select-none"
+				@click="handlerClickItem('ROCKET')"
+			>
+				<i
+					class="type-middle-item-circle"
+					:class="{ 'active-2': type === 'ROCKET' }"
+				></i>
+				<div class="type-middle-item-content">
+					<div class="type-middle-item-top">
+						<div class="type-middle-item-title">
+							<p>SODA 패스</p>
+						</div>
+						<div class="type-middle-item-price">
+							<b>{{ rocketPrice }}</b> 만원
+						</div>
 					</div>
-					<div class="type-middle-item-price">
-						<b>{{ rocketPrice }}</b> 만원
-					</div>
+					<p class="type-middle-item-bottom">
+						등기소다가 할인견적으로 원스톱 자동배정
+					</p>
 				</div>
-				<p class="type-middle-item-bottom">등기소다가 알아서 원스톱 진행</p>
 			</div>
 		</div>
-		<div class="type-middle-help-text mt12">
-			<img src="/img/icon/pin-red.png" />
-			<p>꼼꼼히 비교하고 선택하고싶은 분들께 추천</p>
-		</div>
-		<div class="type-middle-item" @click="handlerClickItem('OFFER')">
-			<i
-				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 'OFFER' }"
-			></i>
-			<div class="type-middle-item-content">
-				<div class="type-middle-item-top">
-					<div class="type-middle-item-title">
-						<p>내가 직접 가격 제안</p>
-					</div>
-					<div class="type-middle-item-price">
-						<b>{{ offerPrice }}</b> 만원부터~
-					</div>
-				</div>
-				<p class="type-middle-item-bottom">내가 제안한 가격으로 입찰 시작</p>
+		<div class="type-middle-box">
+			<div class="type-middle-help-text mb12 pb12">
+				<p>직접 가격 제안하고 선택하는 서비스</p>
 			</div>
-		</div>
-		<div class="type-middle-item" @click="handlerClickItem('NORMAL')">
-			<i
-				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 'NORMAL' }"
-			></i>
-			<div class="type-middle-item-content">
-				<div class="type-middle-item-top">
-					<div class="type-middle-item-title">
-						<p>일반 견적으로 제안</p>
+			<div
+				class="type-middle-item select-none mt12"
+				@click="handlerClickItem('OFFER')"
+			>
+				<i
+					class="type-middle-item-circle"
+					:class="{ 'active-2': type === 'OFFER' }"
+				></i>
+				<div class="type-middle-item-content">
+					<div class="type-middle-item-top">
+						<div class="type-middle-item-title">
+							<p>내가 직접 가격 제안</p>
+						</div>
+						<div class="type-middle-item-price">
+							<b>{{ offerPrice }}</b> 만원부터~
+						</div>
 					</div>
-					<div class="type-middle-item-price">
-						<b>{{ normalPrice }}</b> 만원
-					</div>
+					<p class="type-middle-item-bottom">내가 제안한 가격으로 모집 시작</p>
 				</div>
-				<p class="type-middle-item-bottom">모두가 좋아하는 등기소다 베스트</p>
 			</div>
-		</div>
-		<div class="type-middle-item" @click="handlerClickItem('PREMIUM')">
-			<i
-				class="type-middle-item-circle"
-				:class="{ 'active-2': type === 'PREMIUM' }"
-			></i>
-			<div class="type-middle-item-content">
-				<div class="type-middle-item-top">
-					<div class="type-middle-item-title">
-						<p>프리미엄 견적으로 제안</p>
+			<div
+				class="type-middle-item select-none mt32"
+				@click="handlerClickItem('NORMAL')"
+			>
+				<i
+					class="type-middle-item-circle"
+					:class="{ 'active-2': type === 'NORMAL' }"
+				></i>
+				<div class="type-middle-item-content">
+					<div class="type-middle-item-top">
+						<div class="type-middle-item-title">
+							<p>일반 견적으로 제안</p>
+						</div>
+						<div class="type-middle-item-price">
+							<b>{{ normalPrice }}</b> 만원
+						</div>
 					</div>
-					<div class="type-middle-item-price">
-						<b>{{ premiumPrice }}</b> 만원
-					</div>
+					<p class="type-middle-item-bottom">모두가 좋아하는 등기소다 베스트</p>
 				</div>
-				<p class="type-middle-item-bottom">법무사/변호사가 직접 출석</p>
+			</div>
+			<div
+				class="type-middle-item select-none mt32"
+				@click="handlerClickItem('PREMIUM')"
+			>
+				<i
+					class="type-middle-item-circle"
+					:class="{ 'active-2': type === 'PREMIUM' }"
+				></i>
+				<div class="type-middle-item-content">
+					<div class="type-middle-item-top">
+						<div class="type-middle-item-title">
+							<p>프리미엄 견적으로 제안</p>
+						</div>
+						<div class="type-middle-item-price">
+							<b>{{ premiumPrice }}</b> 만원
+						</div>
+					</div>
+					<p class="type-middle-item-bottom">법무사/변호사가 직접 출석</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -124,7 +137,9 @@
 						<b>{{ rocketPrice }}</b> 만원
 					</div>
 				</div>
-				<p class="type-middle-item-bottom">등기소다가 알아서 원스톱 진행</p>
+				<p class="type-middle-item-bottom">
+					등기소다가 할인견적으로 원스톱 자동배정
+				</p>
 			</div>
 		</div>
 		<div v-if="type === 'OFFER'" class="type-bottom-item">
@@ -194,7 +209,7 @@
 				</p>
 			</div>
 			<div v-if="type === 'ROCKET'" class="type-bottom-contents-text">
-				등기프로 모집 및 선택절차를 생략하고<br />일반견적 제안으로 등기프로를
+				등기프로 모집 및 선택절차를 생략하고<br />할인된 견적으로 등기프로를
 				자동배정합니다.
 			</div>
 		</div>
@@ -315,32 +330,27 @@ const handlerClickApplyButton = () => {
 	padding: 33px 25px 56px;
 }
 .type-title-top {
-	font-size: 22px;
-	color: #c0c0c0;
-	font-weight: $ft-medium;
-	& > span {
-		color: #29cdff;
-		font-weight: $ft-bold;
-		& > b {
-			font-weight: $ft-bold;
-			text-decoration: underline;
-		}
-	}
+	font-size: 26px;
+	font-weight: $ft-bold;
 }
 .type-title-bottom {
 	font-weight: $ft-bold;
+	color: #818181;
+	& > span {
+		color: #29cdff;
+	}
 }
 .type-middle-help-text {
 	display: flex;
 	align-items: center;
+	border-bottom: 1px solid #efefef;
 	& > img {
 		width: 18px;
 		height: 18px;
 	}
 	& > p {
-		font-size: 14px;
-		font-weight: $ft-medium;
-		color: #252525;
+		font-weight: $ft-bold;
+		color: #0a7aff;
 	}
 }
 .type-top-container {
@@ -381,6 +391,11 @@ const handlerClickApplyButton = () => {
 	padding: 10px;
 	gap: 8px;
 }
+.type-middle-box {
+	padding: 21px 24px;
+	border: 1px solid #e8e8e8;
+	border-radius: 9px;
+}
 .type-middle-item {
 	padding: 22px 18px;
 	border: 1px solid #e8e8e8;
@@ -389,6 +404,14 @@ const handlerClickApplyButton = () => {
 	align-items: flex-start;
 	justify-content: center;
 	cursor: pointer;
+	&.select-none {
+		border: none;
+		padding: 0;
+		.type-middle-item-top {
+			border: none;
+			padding-bottom: 0;
+		}
+	}
 }
 .type-middle-item-circle {
 	display: block;
@@ -397,7 +420,7 @@ const handlerClickApplyButton = () => {
 	border-radius: 50%;
 	border: 2px solid #e8e8e8;
 	margin-right: 8px;
-	margin-top: 2px;
+	margin-top: 3px;
 	&.active {
 		border-color: #29cdff;
 		display: inline-flex;
