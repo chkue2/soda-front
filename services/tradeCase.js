@@ -5,6 +5,7 @@ import {
 	GET_DOWNLOAD,
 	GET_DOWNLOAD_AUTH,
 	PUT_AUTH,
+	DELETE_AUTH,
 	getEndpoint,
 } from '~/composables/useApi.js';
 
@@ -77,5 +78,11 @@ export const tradeCase = {
 			trade_case_id: tid,
 		});
 		return await PUT_AUTH(endpoint, formData);
+	},
+	async deleteTradeCase(tid) {
+		const endpoint = getEndpoint(API_URL.TRADECASE.DELETE, {
+			trade_case_id: tid,
+		});
+		return await DELETE_AUTH(endpoint);
 	},
 };

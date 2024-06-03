@@ -3,7 +3,7 @@
 	<div class="contract-manage-top-container">
 		<div class="contract-manage-info-wrapper">
 			<button
-				v-if="props.type === 'soda'"
+				v-if="tradeCaseDetail.sodaCase === true"
 				class="contract-manage-info-button"
 				@click="toggleContractUpdateModal"
 			>
@@ -52,7 +52,7 @@
 						<p>사무소 선택완료</p>
 					</div>
 					<button
-						v-if="props.type === 'soda'"
+						v-if="tradeCaseDetail.sodaCase === true"
 						class="contract-cancel-button"
 						@click="toggleContractCancelModal"
 					>
@@ -251,6 +251,7 @@
 	/>
 	<ContractCancelModal
 		v-if="isContractCancelModalShow"
+		@click-cancel-button="cancelContract"
 		@close-modal="toggleContractCancelModal"
 	/>
 </template>
@@ -393,6 +394,22 @@ const chargerProfileImage = computed(() => {
 
 	return `${domain}${charger.value.profileFileUrl}`;
 });
+
+const cancelContract = () => {
+	loadingStore.setLoadingShow(true);
+	tradeCase
+		.deleteTradeCase(props.tid)
+		.then(() => {
+			alert('계약을 취소하였습니다.');
+			router.replace('/');
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+};
 </script>
 
 <style lang="scss" scoped>
