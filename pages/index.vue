@@ -30,7 +30,7 @@
 				@click-button="handlerClickToastButton"
 			/>
 			<BottomToast
-				v-if="true"
+				v-if="false"
 				:bottom="64"
 				background-color="#29cdff"
 				emoji="smiling-face-with-hearts.gif"
