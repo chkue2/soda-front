@@ -7,7 +7,7 @@
 				<p>프로필카드 받기 완료</p>
 			</div>
 			<p class="match-subtitle">
-				입찰에 참가한 등기프로를 확인하고 선택해주세요.
+				모집에 참가한 등기프로를 확인하고 선택해주세요.
 			</p>
 		</div>
 		<ListEmptyItem
