@@ -1,11 +1,11 @@
 <template>
 	<HeaderClose title="비밀번호 찾기" />
 	<div class="find-container mb56">
-		<p class="form-title mb11">아이디</p>
+		<p class="input-form-title mb11">아이디</p>
 		<div class="form-input mb36">
 			<input v-model="form.id" type="text" placeholder="아이디를 입력하세요" />
 		</div>
-		<p class="form-title mb11">휴대전화번호</p>
+		<p class="input-form-title mb11">휴대전화번호</p>
 		<div class="form-readonly-input mb36">
 			<input
 				v-model="form.mobile"
@@ -17,7 +17,7 @@
 				본인인증
 			</button>
 		</div>
-		<p class="form-title mb11">이름</p>
+		<p class="input-form-title mb11">이름</p>
 		<div class="form-readonly-input mb24">
 			<input
 				v-model="form.userName"
@@ -26,7 +26,9 @@
 				placeholder="본인인증 후 자동입력"
 			/>
 		</div>
-		<p class="form-title mb11">비밀번호</p>
+		<p class="input-form-title mb11">
+			새로운 비밀번호 <span>영문,숫자,특수문자를 조합한 8자 이상</span>
+		</p>
 		<div class="form-input mb36">
 			<input
 				v-model="form.password"
@@ -34,7 +36,7 @@
 				placeholder="비밀번호를 입력하세요"
 			/>
 		</div>
-		<p class="form-title mb11">비밀번호 확인</p>
+		<p class="input-form-title mb11">비밀번호 확인</p>
 		<div class="form-input mb36">
 			<input
 				v-model="form.passwordConfirm"
