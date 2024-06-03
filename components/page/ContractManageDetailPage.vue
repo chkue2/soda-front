@@ -226,6 +226,7 @@
 	<EstimateViewModal
 		v-if="isEstimateViewModalShow"
 		:tid="props.tid"
+		:ins="props.type"
 		@close-modal="toggleEstimateViewModal"
 	/>
 	<ReceiptDownloadModal

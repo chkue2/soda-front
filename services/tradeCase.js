@@ -3,6 +3,7 @@ import {
 	GET_AUTH,
 	GET,
 	GET_DOWNLOAD,
+	GET_DOWNLOAD_AUTH,
 	getEndpoint,
 } from '~/composables/useApi.js';
 
@@ -21,17 +22,31 @@ export const tradeCase = {
 			return await GET(endpoint);
 		}
 	},
-	async getEstimate(tid) {
-		const endpoint = getEndpoint(API_URL.TRADECASE.ESTIMATE, {
-			trade_case_id: tid,
-		});
-		return await GET_AUTH(endpoint);
+	async getEstimate(tid, ins) {
+		const endpoint = getEndpoint(
+			ins === 'soda'
+				? API_URL.TRADECASE.ESTIMATE
+				: API_URL.TRADECASE.ESTIMATE_BANK,
+			{
+				trade_case_id: tid,
+			},
+		);
+		if (ins === 'soda') {
+			return await GET_AUTH(endpoint);
+		} else {
+			return await GET(endpoint);
+		}
 	},
-	async getDocuments(tid) {
+	async getDocuments(tid, ins) {
 		const endpoint = getEndpoint(API_URL.TRADECASE.DOCUMENT, {
 			trade_case_id: tid,
 		});
-		return await GET_AUTH(endpoint);
+
+		if (ins === 'soda') {
+			return await GET_AUTH(endpoint);
+		} else {
+			return await GET(endpoint);
+		}
 	},
 	async downloadDocument(tid, did, ins) {
 		const endpoint = getEndpoint(
@@ -44,6 +59,10 @@ export const tradeCase = {
 			},
 		);
 
-		return await GET_DOWNLOAD(endpoint);
+		if (ins === 'soda') {
+			return await GET_DOWNLOAD_AUTH(endpoint);
+		} else {
+			return await GET_DOWNLOAD(endpoint);
+		}
 	},
 };

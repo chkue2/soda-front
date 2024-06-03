@@ -46,8 +46,17 @@ const GET_AUTH = async (url, data = {}) => {
 	});
 };
 
-const GET_DOWNLOAD = async (url, data = {}) => {
+const GET_DOWNLOAD_AUTH = async (url, data = {}) => {
 	return await apiAuth.get(url, {
+		responseType: 'blob',
+		params: {
+			...data,
+		},
+	});
+};
+
+const GET_DOWNLOAD = async (url, data = {}) => {
+	return await api.get(url, {
 		responseType: 'blob',
 		params: {
 			...data,
@@ -67,4 +76,5 @@ export {
 	DELETE,
 	DELETE_AUTH,
 	GET_DOWNLOAD,
+	GET_DOWNLOAD_AUTH,
 };

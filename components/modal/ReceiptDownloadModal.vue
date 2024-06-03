@@ -48,7 +48,7 @@ const receiptList = ref([]);
 
 onMounted(() => {
 	tradeCase
-		.getDocuments(props.tid)
+		.getDocuments(props.tid, props.ins)
 		.then(({ data }) => {
 			receiptList.value = data.list;
 		})

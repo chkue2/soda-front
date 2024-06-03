@@ -224,6 +224,10 @@ const props = defineProps({
 		type: String,
 		default: '',
 	},
+	ins: {
+		type: String,
+		default: 'soda',
+	},
 });
 
 const summary = ref({});
@@ -240,7 +244,7 @@ onMounted(() => {
 	});
 
 	tradeCase
-		.getEstimate(props.tid)
+		.getEstimate(props.tid, props.ins)
 		.then(({ data }) => {
 			summary.value = data.summary;
 			tradeCaseInfo.value = data.tradeCaseInfo;
