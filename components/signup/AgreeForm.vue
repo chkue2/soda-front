@@ -14,6 +14,11 @@
 				<span><b>전체 동의하기</b></span>
 			</label>
 			<label class="agree-form-label pt4 pb14 mb5">
+				<input v-model="agreeAdult" type="checkbox" />
+				<i></i>
+				<span>[필수] 만 18세 이상입니다.</span>
+			</label>
+			<label class="agree-form-label pt4 pb14 mb5">
 				<input v-model="agreeUse" type="checkbox" />
 				<i></i>
 				<span>[필수] 이용약관</span>
@@ -52,6 +57,7 @@ import { useSignupStore } from '~/store/signup.js';
 const signupStore = useSignupStore();
 
 const agreeAll = ref(false);
+const agreeAdult = ref(false);
 const agreeUse = ref(false);
 const agreePolicy = ref(false);
 const agreeAd = ref(false);
@@ -60,11 +66,13 @@ const handlerClickAgreeAll = e => {
 	e.preventDefault();
 
 	if (agreeUse.value && agreePolicy.value && agreeAd.value) {
+		agreeAdult.value = false;
 		agreeUse.value = false;
 		agreePolicy.value = false;
 		agreeAd.value = false;
 		agreeAll.value = false;
 	} else {
+		agreeAdult.value = true;
 		agreeUse.value = true;
 		agreePolicy.value = true;
 		agreeAd.value = true;
@@ -72,11 +80,14 @@ const handlerClickAgreeAll = e => {
 	}
 };
 
-watch([agreeUse, agreePolicy, agreeAd], () => {
-	agreeAll.value = agreeUse.value && agreePolicy.value && agreeAd.value;
+watch([agreeAdult, agreeUse, agreePolicy, agreeAd], () => {
+	agreeAll.value =
+		agreeAdult.value && agreeUse.value && agreePolicy.value && agreeAd.value;
 });
 
-const agreePass = computed(() => agreeUse.value && agreePolicy.value);
+const agreePass = computed(
+	() => agreeAdult.value && agreeUse.value && agreePolicy.value,
+);
 
 const handlerClickNextButton = () => {
 	if (!agreePass.value) {
