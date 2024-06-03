@@ -42,7 +42,7 @@
 			<p>{{ contractFileText }}</p>
 			<img src="/img/icon/folder-black.svg" />
 		</div>
-		<p class="form-help-text">주민번호 뒷자리는 가려서 올려주세요</p>
+		<p class="form-help-text">주민등록번호 뒷자리는 가려서 올려주세요</p>
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton

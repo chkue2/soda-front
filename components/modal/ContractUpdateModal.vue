@@ -44,7 +44,7 @@
 					<p>{{ contractFileText }}</p>
 					<img src="/img/icon/folder-black.svg" />
 				</div>
-				<p class="form-help-text">주민번호 뒷자리는 가려서 올려주세요</p>
+				<p class="form-help-text">주민등록번호 뒷자리는 가려서 올려주세요</p>
 				<div class="update-bottom-buttons">
 					<button class="close-button" @click="closeModal">닫기</button>
 					<button class="update-button">수정하기</button>
