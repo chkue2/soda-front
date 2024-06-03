@@ -62,10 +62,10 @@
 	</div>
 	<picture>
 		<source
-			srcset="/img/intro/soda-intro-mo-08.png"
+			srcset="/img/intro/soda-intro-mo-09.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-08.png" />
+		<img src="/img/intro/soda-intro-pc-09.png" />
 	</picture>
 	<div class="intro-soda-section pt24 pb36">
 		<p class="intro-soda-subtitle">3. 견적넣기</p>
@@ -80,8 +80,8 @@
 	<div class="intro-soda-section pt24 pb21">
 		<p class="intro-soda-subtitle">4. 등기프로 매칭</p>
 		<p class="intro-soda-section-content">
-			견적을 넣으면 2시간동안 총 5명의 등기프로와 매칭이 시작됩니다. 등기프로의
-			평점이나 리뷰를 확인해보고 마음에 드는 등기프로가 없다면 다시찾기로 5명의
+			견적을 넣으면 총 5명의 등기프로와 매칭이 시작됩니다. 등기프로의 평점이나
+			리뷰를 확인해보고 마음에 드는 등기프로가 없다면 다시찾기로 5명의
 			등기프로를 새로 추천받을 수 있어요.
 		</p>
 	</div>
