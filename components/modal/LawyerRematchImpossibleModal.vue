@@ -2,7 +2,7 @@
 	<CommonModal @close-modal="CloseModal">
 		<template #modal-body>
 			<div class="rematch-container">
-				<p class="rematch-modal-warning">잔금일 D-5일 전 계약은 재입찰불가</p>
+				<p class="rematch-modal-warning">잔금일 D-5일 전 계약은 재모집불가</p>
 				<p class="rematch-modal-title">
 					모집된 인원중에서 선택하시거나<br />고객센터로 연락부탁드립니다.
 				</p>
