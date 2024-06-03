@@ -37,6 +37,9 @@ export const user = {
 		const endpoint = getEndpoint(API_URL.USER.REVIEW_DETAIL, { seq });
 		return await GET_AUTH(endpoint);
 	},
+	async insertReview(data) {
+		return await POST_AUTH(API_URL.USER.REVIEW_INSERT, data);
+	},
 	async updateReview(data) {
 		const endpoint = getEndpoint(API_URL.USER.REVIEW_UPDATE, { seq: data.seq });
 		return await PUT_AUTH(endpoint, data.formData);

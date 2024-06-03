@@ -7,14 +7,10 @@
 					남겨주세요.
 				</p>
 				<div class="review-write-profile">
-					<img src="/img/icon/profile-iu.png" />
+					<img :src="profileImageUrl" />
 					<div>
-						<p class="profile-firm-name">최고다 법무사사무소</p>
-						<div class="expert-tags">
-							<span>예약시간준수</span>
-							<span>인기많아요</span>
-							<span>프로중의 프로</span>
-						</div>
+						<p class="profile-firm-name">{{ props.card.firmName }}</p>
+						<ExpertTagsItem :badge="props.card.badge || []" />
 					</div>
 				</div>
 				<div class="review-write-form">
@@ -43,7 +39,7 @@
 						></i>
 					</div>
 					<div class="review-write-form-title mb10">
-						<p>시간준수 만족도</p>
+						<p>업무수행 만족도</p>
 						<span>별점을 눌러 평가해주세요 </span>
 					</div>
 					<div class="review-write-form-rate-container mb20">
@@ -58,11 +54,15 @@
 						<p>후기</p>
 					</div>
 					<textarea
+						v-model="memo"
 						class="review-write-form-text"
-						placeholder="심한 비방, 욕설은 무통보 비공개 처리될 수 있습니다."
+						:placeholder="memoPlaceholder"
 					></textarea>
 				</div>
-				<button class="review-write-modal-button" @click="CloseModal">
+				<button
+					class="review-write-modal-button"
+					@click="handlerClickApplyButton"
+				>
 					저장
 				</button>
 			</div>
@@ -71,17 +71,47 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
 
-const emit = defineEmits(['close-modal']);
-const CloseModal = () => {
-	emit('close-modal');
-};
+import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
+import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
+
+import { user } from '~/services/user.js';
+import { useLoadingStore } from '~/store/loading.js';
+
+const randomMemoEnums = [
+	'안심하고 진행했어요.',
+	'프로다운 모습에 감탄했어요.',
+	'약속시간을 잘 지켜줘서 수월하게 진행했어요.',
+	'모르는것도 친절하게 설명해줬어요.',
+	'기분좋게 계약할 수 있었어요.',
+];
+
+const props = defineProps({
+	card: {
+		type: Object,
+		default: () => {},
+	},
+	detail: {
+		type: Object,
+		default: () => {},
+	},
+});
+const emit = defineEmits(['call-api', 'close-modal']);
+
+const loadingStore = useLoadingStore();
 
 const timeRate = ref(0);
 const kindRate = ref(0);
 const performanceRate = ref(0);
+const memo = ref('');
+
+const memoPlaceholder = ref('');
+
+onMounted(() => {
+	memoPlaceholder.value = randomMemoEnums[Math.floor(Math.random() * 5)];
+});
 
 const setTimeRate = rate => {
 	timeRate.value = rate;
@@ -91,6 +121,56 @@ const setKindRate = rate => {
 };
 const setPerformanceRate = rate => {
 	performanceRate.value = rate;
+};
+
+const profileImageUrl = computed(() => {
+	const domain =
+		location.href.includes('.local') || location.href.includes('.dev')
+			? 'https://pro-api.dev.priros.com'
+			: 'https://pro-api.priros.com';
+
+	return `${domain}${props.card.profileFileUrl}`;
+});
+
+const handlerClickApplyButton = () => {
+	if (timeRate.value === 0) {
+		alert('시간준수 만족도 별점을 눌러 평가해주세요.');
+		return false;
+	} else if (kindRate.value === 0) {
+		alert('친절 만족도 별점을 눌러 평가해주세요.');
+		return false;
+	} else if (performanceRate.value === 0) {
+		alert('업무수행 만족도 별점을 눌러 평가해주세요.');
+		return false;
+	}
+
+	loadingStore.setLoadingShow(true);
+	user
+		.insertReview({
+			tradeCaseId: props.detail.tradeCaseId,
+			firmCode: props.card.firmCode,
+			timeCriteria: timeRate.value,
+			kindCriteria: kindRate.value,
+			rapidCriteria: performanceRate.value,
+			memo: memo.value === '' ? memoPlaceholder.value : memo.value,
+			useYn: 'Y',
+			showYn: 'Y',
+		})
+		.then(() => {
+			alert('리뷰가 작성되었습니다.');
+			emit('call-api');
+			CloseModal();
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		})
+		.finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+};
+
+const CloseModal = () => {
+	emit('close-modal');
 };
 </script>
 

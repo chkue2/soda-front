@@ -88,8 +88,25 @@
 						}}</a>
 					</div>
 					<div class="contract-state-profile-buttons">
-						<button class="button--gray" @click="toggleReviewWriteModal">
+						<button
+							v-if="tradeCaseDetail.receiveFlag === false"
+							class="button--gray"
+						>
 							리뷰남기기
+						</button>
+						<button
+							v-if="tradeCaseDetail.receiveFlag === true && !profileCard.review"
+							class="button--blue"
+							@click="toggleReviewWriteModal"
+						>
+							리뷰남기기
+						</button>
+						<button
+							v-if="tradeCaseDetail.receiveFlag === true && profileCard.review"
+							class="button--black"
+							@click="toggleReviewUpdateModal"
+						>
+							내 리뷰 확인
 						</button>
 					</div>
 				</div>
@@ -237,11 +254,22 @@
 	/>
 	<ReviewWriteModal
 		v-if="isReviewWriteModalShow"
+		:card="profileCard"
+		:detail="tradeCaseDetail"
+		@call-api="callApi"
 		@close-modal="toggleReviewWriteModal"
 	/>
 	<ReviewUpdateModal
 		v-if="isReviewUpdateModalShow"
+		:seq="profileCard.review ? profileCard.review[0].seq : 0"
+		@re-call-api="callApi"
+		@click-delete-button="toggleReviewDeleteConfirmModal"
 		@close-modal="toggleReviewUpdateModal"
+	/>
+	<ReviewDeleteConfirmModal
+		v-if="isReviewDeleteConfirmModalShow"
+		@click-delete-button="deleteReview"
+		@close-modal="toggleReviewDeleteConfirmModal"
 	/>
 	<ContractUpdateModal
 		v-if="isContractUpdateModalShow"
@@ -269,11 +297,13 @@ import EstimateViewModal from '~/components/modal/EstimateViewModal.vue';
 import ReceiptDownloadModal from '~/components/modal/ReceiptDownloadModal.vue';
 import ReviewWriteModal from '~/components/modal/ReviewWriteModal.vue';
 import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
+import ReviewDeleteConfirmModal from '~/components/modal/ReviewDeleteConfirmModal.vue';
 import ContractUpdateModal from '~/components/modal/ContractUpdateModal.vue';
 import ContractCancelModal from '~/components/modal/ContractCancelModal.vue';
 
 import { useLoadingStore } from '~/store/loading.js';
 import { tradeCase } from '~/services/tradeCase.js';
+import { user } from '~/services/user.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { bankSVG } from '~/assets/js/bankSVG.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
@@ -354,6 +384,10 @@ const isReviewUpdateModalShow = ref(false);
 const toggleReviewUpdateModal = () => {
 	isReviewUpdateModalShow.value = !isReviewUpdateModalShow.value;
 };
+const isReviewDeleteConfirmModalShow = ref(false);
+const toggleReviewDeleteConfirmModal = () => {
+	isReviewDeleteConfirmModalShow.value = !isReviewDeleteConfirmModalShow.value;
+};
 const isContractUpdateModalShow = ref(false);
 const toggleContractUpdateModal = () => {
 	isContractUpdateModalShow.value = !isContractUpdateModalShow.value;
@@ -408,6 +442,20 @@ const cancelContract = () => {
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
+		});
+};
+
+const deleteReview = () => {
+	user
+		.deleteReview(profileCard.value.review[0].seq)
+		.then(() => {
+			alert('작성하신 리뷰가 삭제되었습니다.');
+			callApi();
+			toggleReviewDeleteConfirmModal();
+			toggleReviewUpdateModal();
+		})
+		.catch(e => {
+			alert(e.response.data.message);
 		});
 };
 </script>
@@ -610,13 +658,15 @@ const cancelContract = () => {
 			border-radius: 6px;
 			font-size: 12px;
 			font-weight: $ft-medium;
+			color: #ffffff;
 			&.button--blue {
-				color: #4c86e9;
-				background-color: #eaf2ff;
+				background-color: #097cff;
 			}
 			&.button--gray {
-				color: #ffffff;
 				background-color: #d9d9d9;
+			}
+			&.button--black {
+				background-color: #535353;
 			}
 		}
 	}

@@ -28,6 +28,7 @@ const API_URL = {
 		JOIN: '/join-soda',
 		JOIN_SNS: '/join-soda/sns',
 		PROFILE: '/soda/user/profile-update',
+		REVIEW_INSERT: '/soda/user/review/insert',
 		REVIEW_LIST: '/soda/user/review',
 		REVIEW_COUNT: '/soda/user/review-count',
 		REVIEW_DETAIL: '/soda/user/review/:seq',
