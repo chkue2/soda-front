@@ -3,7 +3,7 @@
 	<ListEmptyItem
 		v-if="likeList.length === 0"
 		title="종아요한 등기프로가 없어요"
-		sub-title="법무사찾기로 내주변 등기프로를 찾아보세요"
+		sub-title="등기프로 찾기로 내주변 등기프로를 찾아보세요"
 	/>
 	<div v-if="likeList.length > 0" class="my-like-container">
 		<ExpertList :list="likeList" />
