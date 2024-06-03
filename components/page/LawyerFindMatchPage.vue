@@ -12,7 +12,7 @@
 		</div>
 		<ListEmptyItem
 			v-if="lawyerList.length === 0"
-			title="앗! 모집된 사무소가 없어요"
+			title="앗! 모집된 등기프로가 없어요"
 			sub-title="일정이 맞는 등기프로가 없을 수 있어요.<br>책정 보수금액을 조금 더 상향해서 재입찰 할 수 있어요!"
 		/>
 		<ExpertList
