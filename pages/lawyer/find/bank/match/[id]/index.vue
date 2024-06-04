@@ -1,5 +1,5 @@
 <template>
-	<LawyerFindMatchPage :tid="route.params.id" type="bank" />
+	<LawyerFindMatchPage :tid="route.params.id" ins="bank" />
 </template>
 
 <script setup>

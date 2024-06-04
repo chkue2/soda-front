@@ -243,13 +243,13 @@
 	<EstimateViewModal
 		v-if="isEstimateViewModalShow"
 		:tid="props.tid"
-		:ins="props.type"
+		:ins="props.ins"
 		@close-modal="toggleEstimateViewModal"
 	/>
 	<ReceiptDownloadModal
 		v-if="isReceiptDownloadModalShow"
 		:tid="props.tid"
-		:ins="props.type"
+		:ins="props.ins"
 		@close-modal="toggleReceiptDownloadModal"
 	/>
 	<ReviewWriteModal
@@ -314,7 +314,7 @@ const props = defineProps({
 		type: String,
 		default: '',
 	},
-	type: {
+	ins: {
 		type: String,
 		default: 'soda',
 	},
@@ -337,7 +337,7 @@ onMounted(() => {
 const callApi = () => {
 	loadingStore.setLoadingShow(true);
 	tradeCase
-		.getTradeCaseDetail(props.tid, props.type)
+		.getTradeCaseDetail(props.tid, props.ins)
 		.then(({ data }) => {
 			profileCard.value = data.card;
 			tradeCaseDetail.value = data.detail;

@@ -1,5 +1,5 @@
 <template>
-	<LawyerFindMatchPage :tid="route.params.id" />
+	<LawyerFindMatchPage :tid="route.params.id" ins="soda" />
 </template>
 
 <script setup>

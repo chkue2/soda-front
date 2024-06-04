@@ -1,7 +1,17 @@
 <template>
 	<HeaderClose title="등기프로 찾기" />
 	<div class="find-match-container">
-		<div class="find-match-top-container">
+		<div v-if="status === 'OPEN'" class="find-match-top-container">
+			<div class="match-title">
+				<img src="/img/icon/love-letter.png" />
+				<p>프로필카드 받는 중</p>
+			</div>
+			<p class="match-subtitle">
+				최대 5명에게 받아 볼 수 있습니다.<br />모집이 완료되면 알림톡을
+				보내드려요.
+			</p>
+		</div>
+		<div v-if="status === 'CLOSE'" class="find-match-top-container">
 			<div class="match-title">
 				<img src="/img/icon/love-letter.png" />
 				<p>프로필카드 받기 완료</p>
@@ -20,10 +30,16 @@
 			:list="lawyerList"
 			:tid="tid"
 			type="match"
-			:ins="props.type"
+			:ins="props.ins"
 		/>
 	</div>
-	<div class="form-bottom-buttons">
+	<div v-if="status === 'OPEN'" class="form-bottom-buttons">
+		<ProgressBackgroundButton
+			title="홈으로"
+			@click-button="handlerClickHomeButton"
+		/>
+	</div>
+	<div v-if="status === 'CLOSE'" class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="새로운 사무소로 다시 찾아볼래요!"
 			progress-color="#404040"
@@ -53,27 +69,29 @@ import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
 import LawyerRematchImpossibleModal from '~/components/modal/LawyerRematchImpossibleModal.vue';
 
 import { lawyerMatch } from '~/services/lawyerMatch.js';
+import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 
 const props = defineProps({
 	tid: {
 		type: String,
 		default: '',
 	},
-	type: {
+	ins: {
 		type: String,
 		default: 'soda',
 	},
 });
 
 const lawyerList = ref([]);
+const status = ref('');
 
 const router = useRouter();
 onMounted(() => {
 	lawyerMatch
-		.getLawyerList(props.tid, props.type)
+		.getLawyerList(props.tid, props.ins)
 		.then(({ data }) => {
-			lawyerList.value = data;
-			console.log(data);
+			lawyerList.value = data.list;
+			status.value = data.status;
 		})
 		.catch(e => {
 			alert(e.response.data.message);
@@ -81,8 +99,19 @@ onMounted(() => {
 		});
 });
 
+const handlerClickHomeButton = () => {
+	router.push('/');
+};
 const handlerClickRematchButton = () => {
-	router.push('/lawyer/find/form');
+	lawyerMatch
+		.retryLawyerFind(props.tid, props.ins)
+		.then(({ data }) => {
+			window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
+			router.push(`/lawyer/find/${props.ins}/type`);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 
 const isLawyerRematchModalShow = ref(false);

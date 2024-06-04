@@ -1,5 +1,5 @@
 <template>
-	<ContractManageDetailPage :tid="route.params.id" type="bank" />
+	<ContractManageDetailPage :tid="route.params.id" ins="bank" />
 </template>
 
 <script setup>
