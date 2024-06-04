@@ -54,4 +54,7 @@ export const user = {
 	async setUserInfoUpdate(data) {
 		return await PUT_AUTH(API_URL.USER.UPDATE_USER_INFO, data);
 	},
+	async getToast() {
+		return await GET_AUTH(API_URL.USER.TOAST);
+	},
 };

@@ -22,15 +22,16 @@
 			<ProcessBanner />
 			<LawandtechIntro />
 			<BottomToast
-				v-if="false"
+				v-if="toast && toast.state === 'OPEN'"
 				:bottom="64"
 				title="프로필카드 받는 중"
 				content="빠른 매칭을 위해 준비중이예요!"
 				button-text="보기"
+				:is-disable="false"
 				@click-button="handlerClickToastButton"
 			/>
 			<BottomToast
-				v-if="false"
+				v-if="toast && toast.state === 'CLOSE'"
 				:bottom="64"
 				background-color="#29cdff"
 				emoji="smiling-face-with-hearts.gif"
@@ -59,20 +60,32 @@ import BottomToast from '~/components/toast/BottomToast.vue';
 
 import { useLoadingStore } from '~/store/loading.js';
 import { lawyerFind } from '~/services/lawyerFind.js';
+import { user } from '~/services/user.js';
+import { useAuthStore } from '~/store/auth.js';
 
 definePageMeta({
 	layout: false,
 });
 
+const router = useRouter();
+const loadingStore = useLoadingStore();
+const authStore = useAuthStore();
+
+const expertList = ref([]);
+const toast = ref(null);
+
 onMounted(() => {
 	callApi();
 });
 
-const expertList = ref([]);
-const loadingStore = useLoadingStore();
-
 const callApi = () => {
 	loadingStore.setLoadingShow(true);
+	Promise.all([callLawyerFindApi(), callToast()]).finally(() => {
+		loadingStore.setLoadingShow(false);
+	});
+};
+
+const callLawyerFindApi = () => {
 	lawyerFind
 		.getLawyerList({
 			sido: '',
@@ -88,15 +101,26 @@ const callApi = () => {
 		})
 		.catch(e => {
 			alert(e.response.data.message);
-		})
-		.finally(() => {
-			loadingStore.setLoadingShow(false);
 		});
 };
 
-const router = useRouter();
+const callToast = () => {
+	setTimeout(() => {
+		if (authStore.user !== null) {
+			user
+				.getToast()
+				.then(({ data }) => {
+					toast.value = data.toast[0];
+				})
+				.catch(e => {
+					alert(e.response.data.message);
+				});
+		}
+	}, 500);
+};
+
 const handlerClickToastButton = () => {
-	router.push('/lawyer/find/soda/match');
+	router.push(`/lawyer/find/soda/match/${toast.value.tradeCaseId}`);
 };
 </script>
 

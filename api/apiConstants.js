@@ -38,6 +38,7 @@ const API_URL = {
 		INQUIRY_INSERT: '/soda/user/inquiry/insert',
 		GET_USER_INFO: '/soda/user/info',
 		UPDATE_USER_INFO: '/soda/user/info/update',
+		TOAST: '/soda/find-lawyer/join/toast',
 	},
 	NICE: {
 		CHECK_PHONE: '/nice/check-phone/v2',
