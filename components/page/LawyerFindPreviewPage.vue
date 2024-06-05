@@ -2,8 +2,8 @@
 	<HeaderClose title="등기프로 찾기" />
 	<div class="preview-container">
 		<div v-if="firmCode !== undefined" class="preview-section">
-			<p class="preview-title">선택 사무소</p>
-			<ExpertListItem />
+			<p class="preview-title mb12">선택 사무소</p>
+			<ExpertListItem :item="lawyerDetail" />
 		</div>
 		<div class="preview-section">
 			<p class="preview-title mb20">선택한 서비스</p>
@@ -90,6 +90,7 @@ import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeComple
 import LawyerFindSelectCompleteModal from '~/components/modal/LawyerFindSelectCompleteModal.vue';
 
 import { useAuthStore } from '~/store/auth.js';
+import { useLoadingStore } from '~/store/loading.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
 import {
@@ -111,6 +112,7 @@ const form = ref({
 	contract: '',
 	contractUrl: '',
 });
+const lawyerDetail = ref({});
 const typeObj = ref({
 	type: 0,
 	amount: 0,
@@ -119,6 +121,7 @@ const typeObj = ref({
 const route = useRoute();
 const router = useRouter();
 
+const loadingStore = useLoadingStore();
 const useAuth = useAuthStore();
 
 const mode = route.params.mode;
@@ -136,19 +139,24 @@ onMounted(() => {
 	}
 
 	if (typeStorage && tmpKeyStorage) {
+		loadingStore.setLoadingShow(true);
 		lawyerContract
 			.getLawyerContract({ tmpKey: tmpKey.value, mode })
 			.then(({ data }) => {
-				form.value.bDate = data.bdate;
-				form.value.address = data.address;
-				form.value.detailAddress = data.detailAddress;
-				form.value.cDate = data.cdate;
-				form.value.price = data.price;
-				form.value.contract = data.contractFileName;
-				form.value.contractUrl = data.contractUrl;
+				form.value.bDate = data.contract.bdate;
+				form.value.address = data.contract.address;
+				form.value.detailAddress = data.contract.detailAddress;
+				form.value.cDate = data.contract.cdate;
+				form.value.price = data.contract.price;
+				form.value.contract = data.contract.contractFileName;
+				form.value.contractUrl = data.contract.contractUrl;
+				lawyerDetail.value = data.firm;
 			})
 			.catch(e => {
 				alert(e.response.data.message);
+			})
+			.finally(() => {
+				loadingStore.setLoadingShow(false);
 			});
 	} else {
 		alert('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
