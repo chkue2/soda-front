@@ -6,7 +6,7 @@
 		<NuxtLink v-if="!isLoggedIn" to="/login" class="header-button">
 			<button class="header-button">로그인하기</button>
 		</NuxtLink>
-		<NuxtLink v-if="isLoggedIn" to="/notification" class="header-bell">
+		<NuxtLink v-if="false" to="/notification" class="header-bell">
 			<img src="/img/icon/bell-white.svg" />
 		</NuxtLink>
 	</div>
