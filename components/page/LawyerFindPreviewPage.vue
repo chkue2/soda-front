@@ -167,7 +167,7 @@ const serviceAmountText = computed(() => {
 
 const contractFileUrl = computed(() => {
 	const domain =
-		location.href.includes('.local') || location.href.includes('.dev')
+		location.href.includes('.local') || location.href.includes('dev.')
 			? 'https://pro-api.dev.priros.com'
 			: 'https://pro-api.priros.com';
 	return `${domain}${form.value.contractUrl}`;
