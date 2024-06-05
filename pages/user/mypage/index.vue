@@ -80,7 +80,7 @@
 					</NuxtLink>
 					<NuxtLink to="/registration/change/intro" class="mypage-menu-item">
 						<div class="mypage-menu-item-title">
-							<p>등기변동 알림서비스</p>
+							<p>등기부등본 변동 알림서비스</p>
 						</div>
 						<img
 							src="/img/icon/expand-right-gray.svg"
@@ -89,8 +89,8 @@
 					</NuxtLink>
 					<div class="mypage-menu-toggle">
 						<p>
-							내가 계약한 부동산 등기변동 알림서비스를 알림톡으로 받아볼 수
-							있습니다.
+							내가 계약한 부동산 등기부등본 변동 알림서비스를 알림톡으로 받아볼
+							수 있습니다.
 						</p>
 						<ToggleButton />
 					</div>
