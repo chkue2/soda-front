@@ -27,6 +27,9 @@
 				title="프로필카드 받는 중"
 				content="빠른 매칭을 위해 준비중이예요!"
 				button-text="보기"
+				emoji="love-letter.png"
+				button-color="#f4f4f4"
+				button-text-color="#8D939F"
 				:is-disable="false"
 				@click-button="handlerClickToastButton"
 			/>

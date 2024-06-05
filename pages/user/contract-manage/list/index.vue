@@ -61,6 +61,20 @@
 			</swiper-slide>
 		</swiper>
 	</div>
+	<BottomToast
+		v-if="tradeCaseList.length === 0"
+		:bottom="64"
+		title="원클릭으로 쉬운 내 계약관리"
+		content="간단한 정보입력으로 계약등록"
+		button-text="등록하기"
+		background-color="#fcfcfc"
+		title-color="#3B3C3D"
+		content-color="#737373"
+		button-color="#29CDFF"
+		button-text-color="#ffffff"
+		:is-disable="false"
+		@click-button="moveToFindForm"
+	/>
 </template>
 
 <script setup>
@@ -73,6 +87,7 @@ import 'swiper/css/pagination';
 import dayjs from 'dayjs';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
+import BottomToast from '~/components/toast/BottomToast.vue';
 
 import { tradeCase } from '~/services/tradeCase.js';
 import { useLoadingStore } from '~/store/loading.js';
@@ -82,6 +97,8 @@ definePageMeta({
 });
 
 const modules = [Pagination];
+
+const router = useRouter();
 
 const loadingStore = useLoadingStore();
 const tradeCaseList = ref([]);
@@ -101,7 +118,6 @@ onMounted(() => {
 		});
 });
 
-const router = useRouter();
 const handlerClickMoveToDetailButton = (isShowDetail, tid) => {
 	if (!isShowDetail) return false;
 
@@ -110,6 +126,10 @@ const handlerClickMoveToDetailButton = (isShowDetail, tid) => {
 
 const month = date => dayjs(date).format('M');
 const day = date => dayjs(date).format('D');
+
+const moveToFindForm = () => {
+	router.push('/lawyer/find/form');
+};
 </script>
 
 <style lang="scss" scoped>

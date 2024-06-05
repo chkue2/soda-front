@@ -7,15 +7,23 @@
 		}"
 	>
 		<div class="bottom-toast-left">
-			<img :src="`/img/icon/${props.emoji}`" />
+			<img v-if="props.emoji !== ''" :src="`/img/icon/${props.emoji}`" />
 			<div class="bottom-toast-left-text">
-				<p class="bottom-toast-title">{{ props.title }}</p>
-				<p class="bottom-toast-content">{{ props.content }}</p>
+				<p class="bottom-toast-title" :style="{ color: props.titleColor }">
+					{{ props.title }}
+				</p>
+				<p class="bottom-toast-content" :style="{ color: props.contentColor }">
+					{{ props.content }}
+				</p>
 			</div>
 		</div>
 		<button
 			class="bottom-toast-button"
 			:class="{ disable: isDisable }"
+			:style="{
+				backgroundColor: props.buttonColor,
+				color: props.buttonTextColor,
+			}"
 			@click="handlerClickButton"
 		>
 			{{ props.buttonText }}
@@ -33,9 +41,25 @@ const props = defineProps({
 		type: String,
 		default: '#818181',
 	},
+	titleColor: {
+		type: String,
+		default: '#ffffff',
+	},
+	contentColor: {
+		type: String,
+		default: '#ffffff',
+	},
+	buttonColor: {
+		type: String,
+		default: '#ffffff',
+	},
+	buttonTextColor: {
+		type: String,
+		default: '#000000',
+	},
 	emoji: {
 		type: String,
-		default: 'love-letter.png',
+		default: '',
 	},
 	title: {
 		type: String,
@@ -101,9 +125,5 @@ const handlerClickButton = () => {
 	border-radius: 6px;
 	background-color: #ffffff;
 	font-size: 14px;
-	&.disable {
-		background-color: #f4f4f4;
-		color: #8d939f;
-	}
 }
 </style>
