@@ -72,7 +72,7 @@
 					<div class="contract-state-profile-info">
 						<p class="contract-state-profile-info-title">보수금액</p>
 						<p class="contract-state-profile-info-content">
-							{{ (tradeCaseDetail.servicePrice || 0).toLocaleString() }}원
+							{{ servicePriceText }}
 						</p>
 					</div>
 					<div class="contract-state-profile-tel mt30">
@@ -418,6 +418,11 @@ const checkImage = flag =>
 
 const serviceTypeText = computed(() => {
 	return getServiceType(tradeCaseDetail.value.serviceType);
+});
+const servicePriceText = computed(() => {
+	return tradeCaseDetail.value.serviceType === 'CARD'
+		? '협의완료'
+		: `${(tradeCaseDetail.value.servicePrice || 0).toLocaleString()}원`;
 });
 
 const chargerProfileImage = computed(() => {

@@ -65,12 +65,19 @@ import {
 } from '~/assets/js/utils.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
-import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
+import {
+	LAWYER_FIND_TMP_KEY,
+	LAWTER_FIND_TYPE_KEY,
+} from '~/assets/js/storageKeys.js';
 
 const props = defineProps({
 	mode: {
 		type: String,
 		default: 'ESTIMATE',
+	},
+	firmCode: {
+		type: String,
+		default: '',
 	},
 });
 
@@ -161,9 +168,19 @@ const handlerClickNextButton = () => {
 	formData.append('bDate', form.value.bDate);
 	formData.append('cDate', form.value.cDate);
 	formData.append('address', form.value.address);
-	formData.append('firmCode', '');
+	formData.append('firmCode', props.firmCode);
 	if (typeof form.value.contract === 'object') {
 		formData.append('contract', form.value.contract);
+	}
+
+	if (props.mode === 'PRO_CARD') {
+		window.localStorage.setItem(
+			LAWTER_FIND_TYPE_KEY,
+			JSON.stringify({
+				type: 'CARD',
+				amount: 0,
+			}),
+		);
 	}
 
 	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
@@ -175,7 +192,7 @@ const handlerClickNextButton = () => {
 				router.push(
 					props.mode === 'ESTIMATE'
 						? '/lawyer/find/soda/type'
-						: '/lawyer/find/PRO_CARD/preview',
+						: `/lawyer/find/PRO_CARD/preview/${props.firmCode}`,
 				);
 			})
 			.catch(e => {
@@ -189,7 +206,7 @@ const handlerClickNextButton = () => {
 				router.push(
 					props.mode === 'ESTIMATE'
 						? '/lawyer/find/soda/type'
-						: '/lawyer/find/PRO_CARD/preview',
+						: `/lawyer/find/PRO_CARD/preview/${props.firmCode}`,
 				);
 			})
 			.catch(e => {

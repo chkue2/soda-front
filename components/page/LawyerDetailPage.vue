@@ -85,6 +85,12 @@
 			@click-button="handlerClickSelectButton"
 		/>
 	</div>
+	<div v-if="type === 'recommend'" class="form-bottom-buttons">
+		<ProgressBackgroundButton
+			title="여기로 선택하기"
+			@click-button="handlerClickSelectButtonByRecommend"
+		/>
+	</div>
 	<LawyerSelectCompleteModal
 		v-if="isLawyerSelectCompleteModalShow"
 		:ins="props.ins"
@@ -94,7 +100,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import HeaderCloseAndLike from '~/components/layout/HeaderCloseAndLike.vue';
 import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
@@ -123,6 +129,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
+const router = useRouter();
 const confirmStore = useConfirmStore();
 const useAuth = useAuthStore();
 
@@ -206,6 +213,10 @@ const handlerClickSelectButton = () => {
 		.catch(e => {
 			alert(e.response.data.message);
 		});
+};
+
+const handlerClickSelectButtonByRecommend = () => {
+	router.push(`/lawyer/find/form/PRO_CARD/${firmCode}`);
 };
 </script>
 

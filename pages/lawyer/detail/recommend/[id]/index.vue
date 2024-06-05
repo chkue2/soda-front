@@ -1,5 +1,5 @@
 <template>
-	<LawyerDetailPage />
+	<LawyerDetailPage type="recommend" />
 </template>
 
 <script setup>

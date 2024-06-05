@@ -23,6 +23,6 @@ const handlerClickApplyButton = (type, amount) => {
 			amount,
 		}),
 	);
-	router.push('/lawyer/find/ESTIMATE/preview');
+	router.push(`/lawyer/find/ESTIMATE/preview`);
 };
 </script>
