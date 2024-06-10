@@ -101,12 +101,12 @@ onMounted(() => {
 		lawyerContract
 			.getLawyerContract({ tmpKey: tmpKey.value, mode: props.mode })
 			.then(({ data }) => {
-				form.value.bDate = data.bdate;
-				form.value.address = data.address;
-				form.value.detailAddress = data.detailAddress;
-				form.value.cDate = data.cdate;
-				form.value.price = data.price;
-				form.value.contract = data.contractFileName;
+				form.value.bDate = data.contract.bdate;
+				form.value.address = data.contract.address;
+				form.value.detailAddress = data.contract.detailAddress;
+				form.value.cDate = data.contract.cdate;
+				form.value.price = data.contract.price;
+				form.value.contract = data.contract.contractFileName;
 			})
 			.catch(e => {
 				alert(e.response.data.message);

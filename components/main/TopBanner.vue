@@ -1,7 +1,7 @@
 <template>
 	<swiper :autoplay="true" :loop="true" :modules="modules">
 		<swiper-slide>
-			<div class="banner-container">
+			<div class="banner-container" @click="moveToIntroSoda">
 				<picture>
 					<source
 						srcset="/img/main/banner-mo-01.png"
@@ -13,7 +13,7 @@
 				<p class="banner-subtitle">
 					어려운 비용계산부터<br />법무사 매칭까지 원스톱서비스!
 				</p>
-				<button class="banner-button" @click="moveToIntroSoda">알아보기</button>
+				<button class="banner-button">알아보기</button>
 			</div>
 		</swiper-slide>
 		<!-- <swiper-slide>

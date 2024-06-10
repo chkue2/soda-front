@@ -21,6 +21,7 @@ const defineApi = config => {
 
 	async function requestRefreshTokenUpdate() {
 		const refreshToken = tokenApi.getRefreshToken();
+		console.log(refreshToken);
 		if (refreshToken) {
 			const response = await api
 				.post(API_URL.AUTH.REFRESH, {
