@@ -237,7 +237,7 @@
 
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
@@ -249,6 +249,11 @@ import {
 	LAWTER_FIND_TYPE_KEY,
 } from '~/assets/js/storageKeys.js';
 
+const emit = defineEmits(['click-apply-button']);
+
+const router = useRouter();
+const route = useRoute();
+
 const offerPrice = ref(0);
 const normalPrice = ref(0);
 const premiumPrice = ref(0);
@@ -256,7 +261,12 @@ const rocketPrice = ref(0);
 const legalpayPrice = ref(0);
 
 onMounted(() => {
-	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
+	const tmpKeyStorage =
+		window.localStorage.getItem(LAWYER_FIND_TMP_KEY) || route.params.key;
+
+	if (route.params.key) {
+		window.localStorage.setItem(LAWYER_FIND_TMP_KEY, route.params.key);
+	}
 
 	if (tmpKeyStorage) {
 		calculate
@@ -273,7 +283,7 @@ onMounted(() => {
 			});
 	} else {
 		alert('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
-		router.push('/');
+		location.href = '/';
 	}
 });
 
@@ -316,9 +326,6 @@ const isValidateNextStep = computed(
 		(type.value === 'OFFER' && amount.value >= offerPrice.value),
 );
 
-const emit = defineEmits(['click-apply-button']);
-
-const router = useRouter();
 const handlerClickApplyButton = () => {
 	if (!isValidateNextStep.value) return false;
 	emit('click-apply-button', type.value, amount.value);

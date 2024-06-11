@@ -109,6 +109,7 @@ onMounted(() => {
 				form.value.contract = data.contract.contractFileName;
 			})
 			.catch(e => {
+				window.localStorage.removeItem(LAWYER_FIND_TMP_KEY);
 				alert(e.response.data.message);
 			});
 	}
