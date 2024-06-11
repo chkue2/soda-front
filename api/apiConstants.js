@@ -52,10 +52,13 @@ const API_URL = {
 	LAWYER: {
 		FIND: '/geo/firm/near/filter',
 		DETAIL: '/soda/lawyer/detail/:firm_code',
-		CREATE: '/soda/find-lawyer/contract',
-		GET: '/soda/find-lawyer/contract/:tmp_key/',
+		CREATE: '/soda/find-lawyer/contract/:trade_case_id',
+		CREATE_BANK: '/bank/find-lawyer/contract/:trade_case_id',
+		GET: '/soda/find-lawyer/contract/:tmp_key',
+		GET_BANK: '/bank/find-lawyer/contract/:tmp_key',
 		UPDATE: '/soda/find-lawyer/contract/:tmp_key',
 		DONE: '/soda/find-lawyer/contract/done/:tmp_key',
+		DONE_BANK: '/soda/find-lawyer/contract/done/:tmp_key',
 		LIST: '/soda/find-lawyer/join/:trade_case_id/list',
 		LIST_BANK: '/bank/find-lawyer/join/:trade_case_id/list',
 		SELECT: '/soda/find-lawyer/pro-select/:trade_case_id/:firm_code',
@@ -65,6 +68,7 @@ const API_URL = {
 	CALCULATE: {
 		GET: '/soda/calculate',
 		TYPE: '/soda/calculate/servicetype/sodaContract/:tmp_key',
+		TYPE_BANK: '/soda/calculate/servicetype/sodaContract/:tmp_key',
 	},
 	NOTICE: {
 		LIST: '/notice/list',

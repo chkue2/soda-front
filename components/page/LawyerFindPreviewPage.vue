@@ -102,6 +102,13 @@ definePageMeta({
 	middleware: 'auth',
 });
 
+const props = defineProps({
+	ins: {
+		type: String,
+		default: 'soda',
+	},
+});
+
 const tmpKey = ref('');
 const form = ref({
 	bDate: '',
@@ -141,7 +148,7 @@ onMounted(() => {
 	if (typeStorage && tmpKeyStorage) {
 		loadingStore.setLoadingShow(true);
 		lawyerContract
-			.getLawyerContract({ tmpKey: tmpKey.value, mode })
+			.getLawyerContract({ tmpKey: tmpKey.value, mode }, props.ins)
 			.then(({ data }) => {
 				form.value.bDate = data.contract.bdate;
 				form.value.address = data.contract.address;
@@ -198,13 +205,16 @@ const handlerClickBackButton = () => {
 
 const handlerClickApplyButton = () => {
 	lawyerContract
-		.doneLawyerContract({
-			tmpKey: tmpKey.value,
-			formData: {
-				serviceType: typeObj.value.type,
-				servicePrice: typeObj.value.amount * 10000,
+		.doneLawyerContract(
+			{
+				tmpKey: tmpKey.value,
+				formData: {
+					serviceType: typeObj.value.type,
+					servicePrice: typeObj.value.amount * 10000,
+				},
 			},
-		})
+			props.ins,
+		)
 		.then(() => {
 			window.localStorage.removeItem(LAWYER_FIND_TMP_KEY);
 			window.localStorage.removeItem(LAWTER_FIND_TYPE_KEY);

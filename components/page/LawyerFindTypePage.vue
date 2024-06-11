@@ -243,11 +243,20 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
 import { calculate } from '~/services/calculate.js';
+import { lawyerContract } from '~/services/lawyerContract.js';
 import { keyupToLocaleString } from '~/assets/js/utils.js';
 import {
 	LAWYER_FIND_TMP_KEY,
 	LAWTER_FIND_TYPE_KEY,
+	BANK_AUTH_KEY,
 } from '~/assets/js/storageKeys.js';
+
+const props = defineProps({
+	ins: {
+		type: String,
+		default: 'soda',
+	},
+});
 
 const emit = defineEmits(['click-apply-button']);
 
@@ -261,16 +270,30 @@ const rocketPrice = ref(0);
 const legalpayPrice = ref(0);
 
 onMounted(() => {
-	const tmpKeyStorage =
-		window.localStorage.getItem(LAWYER_FIND_TMP_KEY) || route.params.key;
-
-	if (route.params.key) {
-		window.localStorage.setItem(LAWYER_FIND_TMP_KEY, route.params.key);
+	if (route.params.id) {
+		console.log(1);
+		lawyerContract
+			.setBankLawyerContract(route.params.id)
+			.then(({ data }) => {
+				window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
+				callApi();
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+				window.localStorage.removeItem(BANK_AUTH_KEY);
+				router.go(0);
+			});
+	} else {
+		callApi();
 	}
+});
+
+const callApi = () => {
+	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
 
 	if (tmpKeyStorage) {
 		calculate
-			.type({ tmpKey: tmpKeyStorage })
+			.type({ tmpKey: tmpKeyStorage }, props.ins)
 			.then(({ data }) => {
 				offerPrice.value = data.serviceType.OFFER / 10000;
 				normalPrice.value = data.serviceType.NORMAL / 10000;
@@ -285,7 +308,7 @@ onMounted(() => {
 		alert('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
 		location.href = '/';
 	}
-});
+};
 
 const type = ref('');
 const amount = ref(0);

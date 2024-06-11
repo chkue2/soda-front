@@ -1,5 +1,8 @@
 <template>
-	<LawyerFindTypePage @click-apply-button="handlerClickApplyButton" />
+	<LawyerFindTypePage
+		ins="bank"
+		@click-apply-button="handlerClickApplyButton"
+	/>
 </template>
 
 <script setup>
@@ -10,7 +13,7 @@ import LawyerFindTypePage from '~/components/page/LawyerFindTypePage.vue';
 import { LAWTER_FIND_TYPE_KEY } from '~/assets/js/storageKeys.js';
 
 definePageMeta({
-	middleware: 'auth',
+	middleware: 'bank-auth',
 });
 
 const router = useRouter();
@@ -23,6 +26,6 @@ const handlerClickApplyButton = (type, amount) => {
 			amount,
 		}),
 	);
-	router.push(`/lawyer/find/ESTIMATE/preview`);
+	router.push(`/lawyer/find/bank/ESTIMATE/preview`);
 };
 </script>
