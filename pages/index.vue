@@ -113,7 +113,9 @@ const callToast = () => {
 			user
 				.getToast()
 				.then(({ data }) => {
-					toast.value = data.toast[0];
+					if (data) {
+						toast.value = data.toast[0];
+					}
 				})
 				.catch(e => {
 					alert(e.response.data.message);
