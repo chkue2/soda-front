@@ -79,7 +79,10 @@
 			:reviews="firmDetail.review || []"
 		/>
 	</div>
-	<div v-if="type === 'match'" class="form-bottom-buttons">
+	<div
+		v-if="type === 'match' || type === 'recommend'"
+		class="form-bottom-buttons"
+	>
 		<ProgressBackgroundButton
 			title="여기로 선택하기"
 			@click-button="handlerClickSelectButton"
@@ -124,7 +127,7 @@ const props = defineProps({
 	},
 	ins: {
 		type: String,
-		default: '',
+		default: 'soda',
 	},
 });
 

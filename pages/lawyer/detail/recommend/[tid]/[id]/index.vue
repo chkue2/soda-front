@@ -1,11 +1,11 @@
 <template>
-	<LawyerDetailPage type="recommend" />
+	<LawyerDetailPage type="recommend" ins="bank" />
 </template>
 
 <script setup>
 import LawyerDetailPage from '~/components/page/LawyerDetailPage.vue';
 
 definePageMeta({
-	middleware: 'auth',
+	middleware: 'bank-auth',
 });
 </script>
