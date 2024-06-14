@@ -85,10 +85,10 @@
 			@click-button="handlerClickSelectButton"
 		/>
 	</div>
-	<div v-if="type === 'recommend'" class="form-bottom-buttons">
+	<div v-if="type === 'card'" class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="여기로 선택하기"
-			@click-button="handlerClickSelectButtonByRecommend"
+			@click-button="handlerClickSelectButtonByCard"
 		/>
 	</div>
 	<LawyerSelectCompleteModal
@@ -215,7 +215,7 @@ const handlerClickSelectButton = () => {
 		});
 };
 
-const handlerClickSelectButtonByRecommend = () => {
+const handlerClickSelectButtonByCard = () => {
 	router.push(`/lawyer/find/form/PRO_CARD/${firmCode}`);
 };
 </script>
