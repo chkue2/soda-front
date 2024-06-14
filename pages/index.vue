@@ -113,7 +113,7 @@ const callToast = () => {
 			user
 				.getToast()
 				.then(({ data }) => {
-					if (data) {
+					if (data.toast) {
 						toast.value = data.toast[0];
 					}
 				})
