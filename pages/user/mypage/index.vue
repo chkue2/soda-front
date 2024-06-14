@@ -14,6 +14,7 @@
 					<input
 						ref="profileImageFile"
 						type="file"
+						accept=".png, .jpg, .jpeg"
 						@change="handlerChangeProfileImageFile"
 					/>
 				</div>

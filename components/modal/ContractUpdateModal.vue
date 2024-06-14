@@ -39,6 +39,7 @@
 					<input
 						ref="contractFile"
 						type="file"
+						accept=".png, .gif, .jpg, .jpeg, .pdf"
 						@change="handlerChangeContractFile"
 					/>
 					<p>{{ contractFileText }}</p>
