@@ -186,6 +186,7 @@ const handlerClickNextButton = () => {
 	}
 
 	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
+
 	if (tmpKeyStorage) {
 		lawyerContract
 			.updateLawyerContract({ tmpKey: tmpKey.value, formData })

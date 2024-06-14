@@ -355,7 +355,7 @@ const sortText = computed(() => {
 	border-radius: 60px;
 	padding: 0 15px;
 	& > input {
-		width: 120px;
+		width: 130px;
 		border: none;
 		font-size: 14px;
 	}

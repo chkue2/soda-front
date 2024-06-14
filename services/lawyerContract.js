@@ -8,6 +8,7 @@ import {
 
 export const lawyerContract = {
 	async setLawyerContract(data) {
+		console.log(data);
 		return await POST(API_URL.LAWYER.CREATE, data);
 	},
 	async setBankLawyerContract(tid) {

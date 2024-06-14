@@ -33,7 +33,7 @@
 				<p class="preview-price">
 					<b>매매대금 {{ (Number(form.price) || 0).toLocaleString() }}</b> 원
 				</p>
-				<div class="preview-date-column mt20">
+				<div v-if="props.ins === 'soda'" class="preview-date-column mt20">
 					<img src="/img/icon/calendar-color.png" />
 					<p class="preview-date-title">계약일</p>
 					<p class="preview-date-content">{{ form.cDate }}</p>

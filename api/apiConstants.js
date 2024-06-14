@@ -52,7 +52,7 @@ const API_URL = {
 	LAWYER: {
 		FIND: '/geo/firm/near/filter',
 		DETAIL: '/soda/lawyer/detail/:firm_code',
-		CREATE: '/soda/find-lawyer/contract/:trade_case_id',
+		CREATE: '/soda/find-lawyer/contract',
 		CREATE_BANK: '/bank/find-lawyer/contract/:trade_case_id',
 		GET: '/soda/find-lawyer/contract/:tmp_key',
 		GET_BANK: '/bank/find-lawyer/contract/:tmp_key',

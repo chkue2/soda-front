@@ -209,8 +209,8 @@
 				</p>
 			</div>
 			<div v-if="type === 'ROCKET'" class="type-bottom-contents-text">
-				등기프로 모집 및 선택절차를 생략하고<br />할인된 견적으로 등기프로를
-				자동배정합니다.
+				등기프로 선택절차를 생략하고 할인된 견적으로<br />등기프로를 자동배정
+				(통상 1일이내)합니다.
 			</div>
 		</div>
 	</div>
@@ -271,7 +271,6 @@ const legalpayPrice = ref(0);
 
 onMounted(() => {
 	if (route.params.id) {
-		console.log(1);
 		lawyerContract
 			.setBankLawyerContract(route.params.id)
 			.then(({ data }) => {
