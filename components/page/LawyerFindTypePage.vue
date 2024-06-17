@@ -271,17 +271,22 @@ const legalpayPrice = ref(0);
 
 onMounted(() => {
 	if (route.params.id) {
-		lawyerContract
-			.setBankLawyerContract(route.params.id)
-			.then(({ data }) => {
-				window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
-				callApi();
-			})
-			.catch(e => {
-				alert(e.response.data.message);
-				window.localStorage.removeItem(BANK_AUTH_KEY);
-				router.go(0);
-			});
+		if (props.ins === 'soda') {
+			window.localStorage.setItem(LAWYER_FIND_TMP_KEY, route.params.id);
+			callApi();
+		} else {
+			lawyerContract
+				.setBankLawyerContract(route.params.id)
+				.then(({ data }) => {
+					window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
+					callApi();
+				})
+				.catch(e => {
+					alert(e.response.data.message);
+					window.localStorage.removeItem(BANK_AUTH_KEY);
+					router.go(0);
+				});
+		}
 	} else {
 		callApi();
 	}
