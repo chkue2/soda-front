@@ -80,23 +80,23 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
-import ExpertListItem from '~/components/item/ExpertListItem.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
-import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeCompleteModal.vue';
+import ExpertListItem from '~/components/item/ExpertListItem.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 import LawyerFindSelectCompleteModal from '~/components/modal/LawyerFindSelectCompleteModal.vue';
+import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeCompleteModal.vue';
 
-import { useAuthStore } from '~/store/auth.js';
-import { useLoadingStore } from '~/store/loading.js';
-import { lawyerContract } from '~/services/lawyerContract.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
 import {
-	LAWYER_FIND_TMP_KEY,
 	LAWTER_FIND_TYPE_KEY,
+	LAWYER_FIND_TMP_KEY,
 } from '~/assets/js/storageKeys.js';
+import { lawyerContract } from '~/services/lawyerContract.js';
+import { useAuthStore } from '~/store/auth.js';
+import { useLoadingStore } from '~/store/loading.js';
 
 definePageMeta({
 	middleware: 'auth',

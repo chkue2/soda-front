@@ -28,5 +28,19 @@
     "prettier": "^3.2.5",
     "sass": "^1.71.1",
     "swiper": "^11.0.6"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "useTabs": true,
+    "tabWidth": 2,
+    "endOfLine": "auto",
+    "trailingComma": "all",
+    "printWidth": 80,
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
   }
 }
