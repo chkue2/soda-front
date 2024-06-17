@@ -245,11 +245,7 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 import { calculate } from '~/services/calculate.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { keyupToLocaleString } from '~/assets/js/utils.js';
-import {
-	LAWYER_FIND_TMP_KEY,
-	LAWTER_FIND_TYPE_KEY,
-	BANK_AUTH_KEY,
-} from '~/assets/js/storageKeys.js';
+import { LAWYER_FIND_TMP_KEY, BANK_AUTH_KEY } from '~/assets/js/storageKeys.js';
 
 const props = defineProps({
 	ins: {
