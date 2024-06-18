@@ -9,7 +9,7 @@
 	</div>
 	<div v-if="type !== ''" class="type-top-container">
 		<img
-			v-if="type === 'ROCKET'"
+			v-if="type === 'PASS'"
 			src="/img/cow/cow-08.gif"
 			class="type-top-cow"
 		/>
@@ -37,11 +37,11 @@
 			</div>
 			<div
 				class="type-middle-item select-none"
-				@click="handlerClickItem('ROCKET')"
+				@click="handlerClickItem('PASS')"
 			>
 				<i
 					class="type-middle-item-circle"
-					:class="{ 'active-2': type === 'ROCKET' }"
+					:class="{ 'active-2': type === 'PASS' }"
 				></i>
 				<div class="type-middle-item-content">
 					<div class="type-middle-item-top">
@@ -49,7 +49,7 @@
 							<p>SODA 패스</p>
 						</div>
 						<div class="type-middle-item-price">
-							<b>{{ rocketPrice }}</b> 만원
+							<b>{{ passPrice }}</b> 만원
 						</div>
 					</div>
 					<p class="type-middle-item-bottom">
@@ -125,7 +125,7 @@
 		</div>
 	</div>
 	<div v-if="type !== ''" class="type-bottom-container">
-		<div v-if="type === 'ROCKET'" class="type-bottom-item">
+		<div v-if="type === 'PASS'" class="type-bottom-item">
 			<i class="type-middle-item-circle active"></i>
 			<div class="type-middle-item-content">
 				<div class="type-middle-item-top">
@@ -134,7 +134,7 @@
 						<img src="/img/icon/lightning.svg" />
 					</div>
 					<div class="type-middle-item-price">
-						<b>{{ rocketPrice }}</b> 만원
+						<b>{{ passPrice }}</b> 만원
 					</div>
 				</div>
 				<p class="type-middle-item-bottom">
@@ -208,7 +208,7 @@
 					제안할 수 있는 최소금액 이상 입력해주세요
 				</p>
 			</div>
-			<div v-if="type === 'ROCKET'" class="type-bottom-contents-text">
+			<div v-if="type === 'PASS'" class="type-bottom-contents-text">
 				등기프로 선택절차를 생략하고 할인된 견적으로<br />등기프로를 자동배정
 				(통상 1일이내)합니다.
 			</div>
@@ -262,7 +262,7 @@ const route = useRoute();
 const offerPrice = ref(0);
 const normalPrice = ref(0);
 const premiumPrice = ref(0);
-const rocketPrice = ref(0);
+const passPrice = ref(0);
 const legalpayPrice = ref(0);
 
 onMounted(() => {
@@ -293,7 +293,7 @@ const callApi = () => {
 				offerPrice.value = data.serviceType.OFFER / 10000;
 				normalPrice.value = data.serviceType.NORMAL / 10000;
 				premiumPrice.value = data.serviceType.PREMIUM / 10000;
-				rocketPrice.value = data.serviceType.ROCKET / 10000;
+				passPrice.value = data.serviceType.PASS / 10000;
 				legalpayPrice.value = data.serviceType.LEGALPAY / 10000;
 			})
 			.catch(e => {
@@ -313,8 +313,8 @@ const handlerClickItem = val => {
 		amount.value = premiumPrice.value;
 	} else if (val === 'NORMAL') {
 		amount.value = normalPrice.value;
-	} else if (val === 'ROCKET') {
-		amount.value = rocketPrice.value;
+	} else if (val === 'PASS') {
+		amount.value = passPrice.value;
 	} else {
 		amount.value = 0;
 	}
