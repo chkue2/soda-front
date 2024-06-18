@@ -21,7 +21,12 @@
 			</p>
 		</div>
 		<ListEmptyItem
-			v-if="lawyerList.length === 0"
+			v-if="lawyerList.length === 0 && status === 'OPEN'"
+			title="아직 등기프로를 모집중이예요!"
+			sub-title="등기프로가 모집 될 때까지 기다려주세요!<br>(영업일 기준 다음날 오후 4시까지 모집)"
+		/>
+		<ListEmptyItem
+			v-if="lawyerList.length === 0 && status === 'CLOSE'"
 			title="앗! 모집된 등기프로가 없어요"
 			sub-title="일정이 맞는 등기프로가 없을 수 있어요.<br>책정 보수금액을 조금 더 상향해서 재입찰 할 수 있어요!"
 		/>
@@ -33,7 +38,10 @@
 			:ins="props.ins"
 		/>
 	</div>
-	<div v-if="status === 'OPEN'" class="form-bottom-buttons">
+	<div
+		v-if="status === 'OPEN' && props.ins === 'soda'"
+		class="form-bottom-buttons"
+	>
 		<ProgressBackgroundButton
 			title="홈으로"
 			@click-button="handlerClickHomeButton"
@@ -58,18 +66,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
-import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
-import ExpertList from '~/components/list/ExpertList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
-import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
+import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
+import ExpertList from '~/components/list/ExpertList.vue';
 import LawyerRematchImpossibleModal from '~/components/modal/LawyerRematchImpossibleModal.vue';
+import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
 
-import { lawyerMatch } from '~/services/lawyerMatch.js';
 import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
+import { lawyerMatch } from '~/services/lawyerMatch.js';
 
 const props = defineProps({
 	tid: {

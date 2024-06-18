@@ -2,6 +2,7 @@
 	<HeaderCloseAndLike
 		:title="firmDetail.firmName"
 		:is-like="firmLikeYN"
+		:ins="props.ins"
 		@click-like-button="handlerClickLikeButton"
 	/>
 	<div class="lawyer-detail-container">
@@ -102,23 +103,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import HeaderCloseAndLike from '~/components/layout/HeaderCloseAndLike.vue';
-import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
-import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
-import ReviewDetailBlockItem from '~/components/item/ReviewDetailBlockItem.vue';
-import ReviewList from '~/components/list/ReviewList.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
+import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
+import ReviewDetailBlockItem from '~/components/item/ReviewDetailBlockItem.vue';
+import HeaderCloseAndLike from '~/components/layout/HeaderCloseAndLike.vue';
+import ReviewList from '~/components/list/ReviewList.vue';
 import LawyerSelectCompleteModal from '~/components/modal/LawyerSelectCompleteModal.vue';
 
-import { useConfirmStore } from '~/store/confirm.js';
-import { useAuthStore } from '~/store/auth.js';
-import { lawyerDetail } from '~/services/lawyerDetail.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { firmLike } from '~/services/firmLike.js';
+import { lawyerDetail } from '~/services/lawyerDetail.js';
 import { lawyerMatch } from '~/services/lawyerMatch.js';
+import { useAuthStore } from '~/store/auth.js';
+import { useConfirmStore } from '~/store/confirm.js';
 
 const props = defineProps({
 	type: {

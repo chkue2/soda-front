@@ -61,7 +61,7 @@
 				</div>
 				<div>
 					<div class="contract-state-profile">
-						<ExpertListItem :item="profileCard" />
+						<ExpertListItem :item="profileCard" :ins="props.ins" />
 					</div>
 					<div class="contract-state-profile-info">
 						<p class="contract-state-profile-info-title">서비스 유형</p>
@@ -285,29 +285,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ExpertListItem from '~/components/item/ExpertListItem.vue';
-import LawyerCancelModal from '~/components/modal/LawyerCancelModal.vue';
-import LawyerCancelCompleteModal from '~/components/modal/LawyerCancelCompleteModal.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 import BalanceTimeInformationModal from '~/components/modal/BalanceTimeInformationModal.vue';
-import EstimateViewModal from '~/components/modal/EstimateViewModal.vue';
-import ReceiptDownloadModal from '~/components/modal/ReceiptDownloadModal.vue';
-import ReviewWriteModal from '~/components/modal/ReviewWriteModal.vue';
-import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
-import ReviewDeleteConfirmModal from '~/components/modal/ReviewDeleteConfirmModal.vue';
-import ContractUpdateModal from '~/components/modal/ContractUpdateModal.vue';
 import ContractCancelModal from '~/components/modal/ContractCancelModal.vue';
+import ContractUpdateModal from '~/components/modal/ContractUpdateModal.vue';
+import EstimateViewModal from '~/components/modal/EstimateViewModal.vue';
+import LawyerCancelCompleteModal from '~/components/modal/LawyerCancelCompleteModal.vue';
+import LawyerCancelModal from '~/components/modal/LawyerCancelModal.vue';
+import ReceiptDownloadModal from '~/components/modal/ReceiptDownloadModal.vue';
+import ReviewDeleteConfirmModal from '~/components/modal/ReviewDeleteConfirmModal.vue';
+import ReviewUpdateModal from '~/components/modal/ReviewUpdateModal.vue';
+import ReviewWriteModal from '~/components/modal/ReviewWriteModal.vue';
 
-import { useLoadingStore } from '~/store/loading.js';
-import { tradeCase } from '~/services/tradeCase.js';
-import { user } from '~/services/user.js';
-import { rexFormatPhone } from '~/assets/js/utils.js';
 import { bankSVG } from '~/assets/js/bankSVG.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
 import { BANK_AUTH_KEY } from '~/assets/js/storageKeys.js';
+import { rexFormatPhone } from '~/assets/js/utils.js';
+import { tradeCase } from '~/services/tradeCase.js';
+import { user } from '~/services/user.js';
+import { useLoadingStore } from '~/store/loading.js';
 
 const props = defineProps({
 	tid: {

@@ -26,8 +26,8 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
 import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
+import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
 
 const props = defineProps({
 	item: {
@@ -63,7 +63,7 @@ const handlerClickItem = () => {
 			`/lawyer/detail/match/${props.ins}/${props.tid}/${props.item.firmCode}`,
 		);
 	} else {
-		router.push(`/lawyer/detail/${props.item.firmCode}`);
+		router.push(`/lawyer/detail/${props.ins}/${props.item.firmCode}`);
 	}
 };
 </script>

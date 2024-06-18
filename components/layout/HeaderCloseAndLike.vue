@@ -2,7 +2,11 @@
 	<div class="header-close-container">
 		<p class="header-title">{{ props.title }}</p>
 		<div class="header-right">
-			<button class="header-like" @click="handlerClickLikeButton">
+			<button
+				v-if="props.ins === 'soda'"
+				class="header-like"
+				@click="handlerClickLikeButton"
+			>
 				<img v-if="!props.isLike" src="/img/icon/heart-gray.svg" />
 				<img v-if="props.isLike" src="/img/icon/heart-red.svg" />
 			</button>
@@ -24,6 +28,10 @@ const props = defineProps({
 	isLike: {
 		type: Boolean,
 		default: false,
+	},
+	ins: {
+		type: String,
+		default: 'soda',
 	},
 });
 
