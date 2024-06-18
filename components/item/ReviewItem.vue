@@ -26,8 +26,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import dayjs from 'dayjs';
+import { computed } from 'vue';
 
 const props = defineProps({
 	review: {
@@ -87,6 +87,8 @@ const imageUrl = computed(() =>
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	line-height: 17px;
+	word-wrap: break-word;
+	word-break: break-all;
 }
 .review-rate {
 	& > img {

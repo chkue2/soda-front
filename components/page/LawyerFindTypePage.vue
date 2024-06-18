@@ -14,7 +14,7 @@
 			class="type-top-cow"
 		/>
 		<img
-			v-if="type === 'OFFER'"
+			v-if="type === 'PREMIUM'"
 			src="/img/cow/cow-11.png"
 			class="type-top-cow"
 		/>
@@ -24,7 +24,7 @@
 			class="type-top-cow"
 		/>
 		<img
-			v-if="type === 'PREMIUM'"
+			v-if="type === 'OFFER'"
 			src="/img/cow/cow-09.png"
 			class="type-top-cow"
 		/>
@@ -153,7 +153,7 @@
 						<b>{{ offerPrice }}</b> 만원부터~
 					</div>
 				</div>
-				<p class="type-middle-item-bottom">내가 제안한 가격으로 입찰 시작</p>
+				<p class="type-middle-item-bottom">내가 제안한 가격으로 모집 시작</p>
 			</div>
 		</div>
 		<div v-if="type === 'NORMAL'" class="type-bottom-item">
