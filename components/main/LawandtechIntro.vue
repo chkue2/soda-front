@@ -1,5 +1,5 @@
 <template>
-	<div class="lawandtech-intro-container">
+	<div class="lawandtech-intro-container" :class="{ mb90: props.isToastOpen }">
 		<div class="intro-trems">
 			<button class="intro-trems-button use-term">이용약관</button>
 			<button class="intro-trems-button policy-term">개인정보처리방침</button>
@@ -45,6 +45,13 @@
 
 <script setup>
 import { ref } from 'vue';
+
+const props = defineProps({
+	isToastOpen: {
+		type: Boolean,
+		default: false,
+	},
+});
 
 const isToggle = ref(false);
 

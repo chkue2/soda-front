@@ -20,7 +20,7 @@
 				<p class="index-title mb36">등기소다는 이렇게 진행 해요</p>
 			</div>
 			<ProcessBanner />
-			<LawandtechIntro />
+			<LawandtechIntro :is-toast-open="toast" />
 			<BottomToast
 				v-if="toast && toast.state === 'OPEN'"
 				:bottom="64"
@@ -53,18 +53,18 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
-import TopBanner from '~/components/main/TopBanner.vue';
-import QuickMenus from '~/components/main/QuickMenus.vue';
-import BankBanner from '~/components/main/BankBanner.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
-import ProcessBanner from '~/components/main/ProcessBanner.vue';
+import BankBanner from '~/components/main/BankBanner.vue';
 import LawandtechIntro from '~/components/main/LawandtechIntro.vue';
+import ProcessBanner from '~/components/main/ProcessBanner.vue';
+import QuickMenus from '~/components/main/QuickMenus.vue';
+import TopBanner from '~/components/main/TopBanner.vue';
 import BottomToast from '~/components/toast/BottomToast.vue';
 
-import { useLoadingStore } from '~/store/loading.js';
 import { lawyerFind } from '~/services/lawyerFind.js';
 import { user } from '~/services/user.js';
 import { useAuthStore } from '~/store/auth.js';
+import { useLoadingStore } from '~/store/loading.js';
 
 definePageMeta({
 	layout: false,

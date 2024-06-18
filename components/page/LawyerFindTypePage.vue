@@ -322,6 +322,7 @@ const handlerClickItem = val => {
 };
 const handlerClickBackButton = () => {
 	type.value = '';
+	price.value = '';
 };
 
 const price = ref('');
