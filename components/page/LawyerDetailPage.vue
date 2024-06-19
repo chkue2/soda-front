@@ -140,8 +140,9 @@ const useAuth = useAuthStore();
 const firmDetail = ref({});
 const firmLikeYN = ref(false);
 
-const tid = route.params.tid;
-const firmCode = route.params.id;
+const tid = route.params.id;
+const firmCode = route.params.firmCode;
+
 onMounted(() => {
 	useAuth.initialize();
 	callApi();

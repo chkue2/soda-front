@@ -1,7 +1,7 @@
 import {
-	LOGIN_REDIRECT_AUTH_KEY,
-	BANK_ID_KEY,
 	BANK_AUTH_KEY,
+	BANK_ID_KEY,
+	LOGIN_REDIRECT_AUTH_KEY,
 } from '~/assets/js/storageKeys.js';
 
 export default defineNuxtRouteMiddleware((to, from) => {

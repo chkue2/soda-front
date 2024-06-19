@@ -7,7 +7,7 @@ import { onBeforeUnmount } from 'vue';
 
 import LawyerDetailPage from '~/components/page/LawyerDetailPage.vue';
 
-import { BANK_ID_KEY, BANK_AUTH_KEY } from '~/assets/js/storageKeys.js';
+import { BANK_AUTH_KEY, BANK_ID_KEY } from '~/assets/js/storageKeys.js';
 
 onBeforeUnmount(() => {
 	window.localStorage.removeItem(BANK_ID_KEY);
