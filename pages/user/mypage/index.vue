@@ -33,27 +33,20 @@
 				</div>
 			</div>
 			<div class="mypage-banner-container">
-				<swiper :modules="modules" :autoplay="true" :loop="true">
+				<swiper
+					:modules="modules"
+					:autoplay="true"
+					:loop="true"
+					@slide-change="handlerChangeSlide"
+				>
 					<swiper-slide>
-						<div class="mypage-banner">
+						<div class="mypage-banner" @click="handlerClickNotice">
 							<p><b>NOTICE</b></p>
 							<p>우리동네 사건정보 우선제공 시행</p>
 						</div>
 					</swiper-slide>
-					<swiper-slide>
-						<div class="mypage-banner">
-							<p><b>NOTICE</b></p>
-							<p>우리동네 사건정보 우선제공 시행2</p>
-						</div>
-					</swiper-slide>
-					<swiper-slide>
-						<div class="mypage-banner">
-							<p><b>NOTICE</b></p>
-							<p>우리동네 사건정보 우선제공 시행3</p>
-						</div>
-					</swiper-slide>
 				</swiper>
-				<div class="banner-counter">2/4</div>
+				<div class="banner-counter">{{ noticeCount }}/4</div>
 			</div>
 			<div class="mypage-menu-container">
 				<div class="mypage-menu">
@@ -142,18 +135,18 @@
 </template>
 
 <script setup>
+import 'swiper/css';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
 
-import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 import ToggleButton from '~/components/button/ToggleButton.vue';
+import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 
-import { useAuthStore } from '~/store/auth.js';
 import { firmLike } from '~/services/firmLike.js';
 import { user } from '~/services/user.js';
+import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
 
 const modules = [Autoplay];
@@ -161,6 +154,8 @@ const modules = [Autoplay];
 const router = useRouter();
 const useAuth = useAuthStore();
 const loadingStore = useLoadingStore();
+
+const noticeCount = ref(1);
 
 const isLoggedIn = computed(() => useAuth.user !== null);
 const profileImage = computed(() =>
@@ -216,6 +211,14 @@ const handlerChangeProfileImageFile = e => {
 		.catch(e => {
 			alert(e.response.data.message);
 		});
+};
+
+const handlerClickNotice = () => {
+	router.push('/notice');
+};
+
+const handlerChangeSlide = e => {
+	noticeCount.value = e.realIndex + 1;
 };
 </script>
 

@@ -20,7 +20,7 @@
 				<p class="index-title mb36">등기소다는 이렇게 진행 해요</p>
 			</div>
 			<ProcessBanner />
-			<LawandtechIntro :is-toast-open="toast" />
+			<LawandtechIntro :is-toast-open="toast && toast.state !== 'NONE'" />
 			<BottomToast
 				v-if="toast && toast.state === 'OPEN'"
 				:bottom="64"
