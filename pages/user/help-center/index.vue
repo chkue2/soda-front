@@ -34,11 +34,13 @@
 			평일 오전 09:00 ~ 오후 06:00 (주말 및 공휴일 제외)
 		</p>
 		<p class="help-center-text">점심시간 (오후 12:00 ~ 오후 01:00)</p>
+		<p class="help-center-text cursor" @click="toggleUserOutModal">회원탈퇴</p>
 	</div>
 	<HelpCenterCallModal
 		v-if="isHelpCenterCallModalShow"
 		@close-modal="toggleHelpCenterCallModal"
 	/>
+	<UserOutModal v-if="isUserOutModalShow" @close-modal="toggleUserOutModal" />
 </template>
 
 <script setup>
@@ -46,10 +48,15 @@ import { ref } from 'vue';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import HelpCenterCallModal from '~/components/modal/HelpCenterCallModal.vue';
+import UserOutModal from '~/components/modal/UserOutModal.vue';
 
 const isHelpCenterCallModalShow = ref(false);
 const toggleHelpCenterCallModal = () => {
 	isHelpCenterCallModalShow.value = !isHelpCenterCallModalShow.value;
+};
+const isUserOutModalShow = ref(false);
+const toggleUserOutModal = () => {
+	isUserOutModalShow.value = !isUserOutModalShow.value;
 };
 </script>
 
@@ -92,5 +99,9 @@ const toggleHelpCenterCallModal = () => {
 	color: #949494;
 	line-height: 1.25;
 	margin-top: 13px;
+	&.cursor {
+		cursor: pointer;
+		text-decoration: underline;
+	}
 }
 </style>
