@@ -4,4 +4,7 @@ export const notice = {
 	async getNotice(pageNo) {
 		return await GET(API_URL.NOTICE.LIST, { pageNo });
 	},
+	async getNoticePopup(pageNo) {
+		return await GET(API_URL.NOTICE.POPUP, { pageNo });
+	},
 };

@@ -39,14 +39,16 @@
 					:loop="true"
 					@slide-change="handlerChangeSlide"
 				>
-					<swiper-slide>
+					<swiper-slide v-for="(n, index) in noticePopupList" :key="index">
 						<div class="mypage-banner" @click="handlerClickNotice">
 							<p><b>NOTICE</b></p>
-							<p>우리동네 사건정보 우선제공 시행</p>
+							<p>{{ n.title }}</p>
 						</div>
 					</swiper-slide>
 				</swiper>
-				<div class="banner-counter">{{ noticeCount }}/4</div>
+				<div class="banner-counter">
+					{{ noticeCount }}/{{ noticePopupList.length }}
+				</div>
 			</div>
 			<div class="mypage-menu-container">
 				<div class="mypage-menu">
@@ -145,6 +147,7 @@ import ToggleButton from '~/components/button/ToggleButton.vue';
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 
 import { firmLike } from '~/services/firmLike.js';
+import { notice } from '~/services/notice.js';
 import { user } from '~/services/user.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
@@ -170,23 +173,46 @@ const handlerClickLogoutButton = () => {
 };
 
 const likeCount = ref(0);
+const noticePopupList = ref([]);
 
 onMounted(() => {
-	if (isLoggedIn.value) {
-		loadingStore.setLoadingShow(true);
-		firmLike
-			.getCount()
-			.then(({ data }) => {
-				likeCount.value = data.likeCount;
-			})
-			.catch(e => {
-				alert(e.response.data.message);
-			})
-			.finally(() => {
-				loadingStore.setLoadingShow(false);
-			});
-	}
+	callApi();
 });
+
+const callApi = () => {
+	loadingStore.setLoadingShow(true);
+	if (isLoggedIn.value) {
+		Promise.all([getNoticePopup(), getFirmLikeCount()]).finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+	} else {
+		Promise.all([getNoticePopup()]).finally(() => {
+			loadingStore.setLoadingShow(false);
+		});
+	}
+};
+
+const getFirmLikeCount = () => {
+	firmLike
+		.getCount()
+		.then(({ data }) => {
+			likeCount.value = data.likeCount;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+};
+
+const getNoticePopup = () => {
+	notice
+		.getNoticePopup(1)
+		.then(({ data }) => {
+			noticePopupList.value = data.noticeList;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+};
 
 const profileImageFile = ref(null);
 

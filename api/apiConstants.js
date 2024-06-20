@@ -72,6 +72,7 @@ const API_URL = {
 	},
 	NOTICE: {
 		LIST: '/notice/list',
+		POPUP: '/notice/noticePopup',
 	},
 	NOTIFICATION: {
 		LIST: '/notification/list',
