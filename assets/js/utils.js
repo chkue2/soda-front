@@ -91,11 +91,65 @@ const fileDownload = (data, fileName, ext) => {
 	document.body.removeChild(link);
 };
 
+/**
+ * file 객체를 리사이징 해서 return
+ *
+ * @param {File} file
+ * @param {number} maxWidth
+ * @param {number} maxHeight
+ * @param {number} quality
+ * @param {function} callback
+ */
+const resizeImage = (file, maxWidth, maxHeight, quality, callback) => {
+	const reader = new FileReader();
+
+	reader.onload = function (e) {
+		const img = new Image();
+		img.src = e.target.result;
+
+		img.onload = function () {
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext('2d');
+
+			let width = img.width;
+			let height = img.height;
+
+			if (width > maxWidth) {
+				height *= maxWidth / width;
+				width = maxWidth;
+			}
+			if (height > maxHeight) {
+				width *= maxHeight / height;
+				height = maxHeight;
+			}
+
+			canvas.width = width;
+			canvas.height = height;
+			ctx.drawImage(img, 0, 0, width, height);
+
+			canvas.toBlob(
+				function (blob) {
+					const resizedFile = new File([blob], file.name, {
+						type: file.type,
+						lastModified: Date.now(),
+					});
+					callback(resizedFile);
+				},
+				file.type,
+				quality,
+			);
+		};
+	};
+
+	reader.readAsDataURL(file);
+};
+
 export {
-	keyupToLocaleString,
 	convertToKoreanCurrency,
-	rexFormatPhone,
-	isValidPassword,
-	isValidId,
 	fileDownload,
+	isValidId,
+	isValidPassword,
+	keyupToLocaleString,
+	resizeImage,
+	rexFormatPhone,
 };

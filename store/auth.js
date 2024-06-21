@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { tokenApi, userSessionKey } from '~/utils/tokenApi';
 import { API_URL, GET } from '~/composables/useApi.js';
+import { tokenApi, userSessionKey } from '~/utils/tokenApi';
 
 export const useAuthStore = defineStore(
 	'auth',

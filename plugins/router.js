@@ -12,6 +12,8 @@ export default defineNuxtPlugin(nuxtApp => {
 			'/signup/nice-result',
 			'/signup/sns',
 			'/login/sns',
+			'/user/find/id',
+			'/user/find/password',
 		];
 		if (!exceptionEnums.includes(from.path)) {
 			localStorage.setItem(LOGIN_REDIRECT_KEY, from.path);

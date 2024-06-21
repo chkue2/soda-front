@@ -146,6 +146,7 @@ import { useRouter } from 'vue-router';
 import ToggleButton from '~/components/button/ToggleButton.vue';
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 
+import { resizeImage } from '~/assets/js/utils.js';
 import { firmLike } from '~/services/firmLike.js';
 import { notice } from '~/services/notice.js';
 import { user } from '~/services/user.js';
@@ -226,17 +227,19 @@ const handlerChangeProfileImageFile = e => {
 	const file = e.target.files[0];
 	if (file === undefined) return false;
 
-	const formData = new FormData();
-	formData.append('profile', file);
+	resizeImage(file, 500, 500, 0.7, function (resizedFile) {
+		const formData = new FormData();
+		formData.append('profile', resizedFile);
 
-	user
-		.setProfileImage(formData)
-		.then(() => {
-			useAuth.userProfile();
-		})
-		.catch(e => {
-			alert(e.response.data.message);
-		});
+		user
+			.setProfileImage(formData)
+			.then(() => {
+				useAuth.userProfile();
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	});
 };
 
 const handlerClickNotice = () => {

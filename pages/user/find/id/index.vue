@@ -54,17 +54,17 @@
 		<ProgressBackgroundButton title="아이디 찾기" @click="handlerClickFindId" />
 	</div>
 	<div v-if="isSuccess" class="form-bottom-buttons">
-		<ProgressBackgroundButton title="홈으로" @click="moveToHome" />
+		<ProgressBackgroundButton title="로그인하기" @click="moveToLogin" />
 	</div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { signup } from '~/services/signup.js';
 import { user } from '~/services/user.js';
@@ -151,8 +151,8 @@ const router = useRouter();
 const moveToFindPassword = () => {
 	router.push('/user/find/password');
 };
-const moveToHome = () => {
-	router.push('/');
+const moveToLogin = () => {
+	router.push('/login');
 };
 </script>
 
