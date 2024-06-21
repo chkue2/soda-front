@@ -3,13 +3,16 @@
 	<div class="intro-soda-title">
 		비용계산부터<br />법무사 매칭까지<br /><b>한번에</b>
 	</div>
-	<picture>
-		<source
-			srcset="/img/intro/soda-intro-mo-01.gif"
-			media="all and (max-width: 450px)"
-		/>
-		<img src="/img/intro/soda-intro-pc-01.gif" />
-	</picture>
+	<div class="intro-main-image-container">
+		<p class="intro-main-text">5개 항목만 입력하면<br />필요한 비용계산 완료</p>
+		<picture>
+			<source
+				srcset="/img/intro/soda-intro-mo-01.gif"
+				media="all and (max-width: 450px)"
+			/>
+			<img src="/img/intro/soda-intro-pc-01.gif" />
+		</picture>
+	</div>
 	<section class="intro-soda-section pt24 pb76">
 		<p class="intro-soda-section-title">
 			복잡한 절차?<br /><b>소다가 한번에!</b>
@@ -103,7 +106,7 @@
 			보세요!
 		</p>
 	</div>
-	<div class="intro-soda-section pt41 pb36">
+	<div class="intro-soda-section intro-soda-button-section pt41 pb36">
 		<NuxtLink to="/calculate/form" class="intro-soda-button"
 			>지금 바로 계산해보기</NuxtLink
 		>
@@ -123,6 +126,18 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 	& > b {
 		color: #29cdff;
 	}
+}
+.intro-main-image-container {
+	position: relative;
+}
+.intro-main-text {
+	font-size: 18px;
+	color: #878787;
+	text-align: center;
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 picture {
 	width: 100%;
@@ -179,6 +194,10 @@ picture {
 	color: #29cdff;
 	font-weight: $ft-bold;
 	margin: 12px 0 10px;
+}
+.intro-soda-button-section {
+	position: sticky;
+	bottom: 0;
 }
 .intro-soda-button {
 	display: flex;
