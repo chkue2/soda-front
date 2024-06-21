@@ -55,22 +55,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import dayjs from 'dayjs';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 
 import {
-	keyupToLocaleString,
+	LAWTER_FIND_TYPE_KEY,
+	LAWYER_FIND_TMP_KEY,
+} from '~/assets/js/storageKeys.js';
+import {
 	convertToKoreanCurrency,
+	keyupToLocaleString,
 } from '~/assets/js/utils.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
-import {
-	LAWYER_FIND_TMP_KEY,
-	LAWTER_FIND_TYPE_KEY,
-} from '~/assets/js/storageKeys.js';
 
 const props = defineProps({
 	mode: {
@@ -161,7 +160,21 @@ const contractFileText = computed(() =>
 const useAuth = useAuthStore();
 const router = useRouter();
 const handlerClickNextButton = () => {
-	if (!isValidation.value) return false;
+	if (!isValidation.value) {
+		if (form.value.bDate === '') {
+			alert('잔금일자를 선택해주세요.');
+		} else if (form.value.address === '' || form.value.detailAddress === '') {
+			alert('목적물 소재지를 입력해주세요.');
+		} else if (form.value.cDate === '') {
+			alert('계약일자를 선택해주세요.');
+		} else if (form.value.price === '') {
+			alert('매매대금을 입력해주세요.');
+		} else if (form.value.contract === null) {
+			alert('계약서 사진을 등록해주세요.');
+		}
+
+		return false;
+	}
 
 	const formData = new FormData();
 	formData.append('mode', props.mode);
