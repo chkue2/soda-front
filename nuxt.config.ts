@@ -2,11 +2,40 @@
 export default defineNuxtConfig({
 	app: {
 		head: {
+			title: '등기소다 | 부동산 등기를 위한 법무사 매칭',
 			meta: [
 				{
 					name: 'viewport',
 					content:
 						'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no',
+				},
+				{
+					name: 'keywords',
+					content: '등기대행, 부동산등기, 등기법무사',
+				},
+				{
+					name: 'description',
+					content: '부동산 등기를 위한 법무사 매칭, 등기소다',
+				},
+				{
+					name: 'og:title',
+					property: 'og:title',
+					content: '등기소다',
+				},
+				{
+					name: 'og:url',
+					property: 'og:url',
+					content: 'https://www.lawtalksoda.com',
+				},
+				{
+					name: 'og:description',
+					property: 'og:description',
+					content: '부동산 등기를 위한 법무사 매칭, 등기소다',
+				},
+				{
+					name: 'og:image',
+					property: 'og:image',
+					content: 'https://www.lawtalksoda.com/img/preview/thumbnail.png',
 				},
 			],
 			script: [
