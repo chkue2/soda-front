@@ -4,6 +4,7 @@
 			<img
 				:src="`/img/icon/home${nowMenu === 'home' ? '-on' : ''}.svg`"
 				alt="홈"
+				aria-hidden
 			/>
 			<span>홈</span>
 		</NuxtLink>
@@ -15,6 +16,7 @@
 			<img
 				:src="`/img/icon/pie${nowMenu === 'calc' ? '-on' : ''}.svg`"
 				alt="견적넣기"
+				aria-hidden
 			/>
 			<span>견적넣기</span>
 		</NuxtLink>
@@ -26,6 +28,7 @@
 			<img
 				:src="`/img/icon/search${nowMenu === 'lawyer' ? '-on' : ''}.svg`"
 				alt="찾기"
+				aria-hidden
 			/>
 			<span>찾기</span>
 		</NuxtLink>
@@ -37,6 +40,7 @@
 			<img
 				:src="`/img/icon/user${nowMenu === 'mypage' ? '-on' : ''}.svg`"
 				alt="마이페이지"
+				aria-hidden
 			/>
 			<span>마이페이지</span>
 		</NuxtLink>
