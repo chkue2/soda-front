@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
 	app: {
 		head: {
+			htmlAttrs: {
+				lang: 'ko',
+			},
 			title: '등기소다 | 부동산 등기를 위한 법무사 매칭',
 			meta: [
 				{
