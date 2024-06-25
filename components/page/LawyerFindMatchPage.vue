@@ -51,7 +51,7 @@
 		<ProgressBackgroundButton
 			title="새로운 사무소로 다시 찾아볼래요!"
 			progress-color="#404040"
-			@click-button="toggleLawyerRematchModal"
+			@click-button="handlerClickRetryButton"
 		/>
 	</div>
 	<LawyerRematchModal
@@ -63,6 +63,10 @@
 		v-if="isLawyerRematchImpossibleModalShow"
 		@close-modal="toggleLawyerRematchImpossibleModal"
 	/>
+	<LawyerRematchCountImpossibleModal
+		v-if="isLawyerRematchCountImpossibleModalShow"
+		@close-modal="toggleLawyerRematchCountImpossibleModal"
+	/>
 </template>
 
 <script setup>
@@ -73,6 +77,7 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
+import LawyerRematchCountImpossibleModal from '~/components/modal/LawyerRematchCountImpossibleModal.vue';
 import LawyerRematchImpossibleModal from '~/components/modal/LawyerRematchImpossibleModal.vue';
 import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
 
@@ -130,6 +135,28 @@ const isLawyerRematchImpossibleModalShow = ref(false);
 const toggleLawyerRematchImpossibleModal = () => {
 	isLawyerRematchImpossibleModalShow.value =
 		!isLawyerRematchImpossibleModalShow.value;
+};
+const isLawyerRematchCountImpossibleModalShow = ref(false);
+const toggleLawyerRematchCountImpossibleModal = () => {
+	isLawyerRematchCountImpossibleModalShow.value =
+		!isLawyerRematchCountImpossibleModalShow.value;
+};
+
+const handlerClickRetryButton = () => {
+	lawyerMatch
+		.retryLawyerFindCheck(props.tid, props.ins)
+		.then(({ data }) => {
+			if (data.result === 'SUCCESS') {
+				toggleLawyerRematchModal();
+			} else if (data.result === 'NO_MORE_ISSUE_DATE') {
+				toggleLawyerRematchImpossibleModal();
+			} else {
+				toggleLawyerRematchCountImpossibleModal();
+			}
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 </script>
 

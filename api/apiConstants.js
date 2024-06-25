@@ -64,6 +64,7 @@ const API_URL = {
 		SELECT: '/soda/find-lawyer/pro-select/:trade_case_id/:firm_code',
 		SELECT_BANK: '/bank/find-lawyer/pro-select/:trade_case_id/:firm_code',
 		RE_FIND: '/:ins/find-lawyer/contract/retry/:trade_case_id',
+		RE_FIND_CHECK: '/:ins/find-lawyer/contract/retry/check/:trade_case_id',
 	},
 	CALCULATE: {
 		GET: '/soda/calculate',

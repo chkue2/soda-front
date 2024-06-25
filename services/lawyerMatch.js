@@ -1,4 +1,4 @@
-import { getEndpoint, API_URL, GET } from '~/composables/useApi.js';
+import { API_URL, GET, GET_AUTH, getEndpoint } from '~/composables/useApi.js';
 
 export const lawyerMatch = {
 	async getLawyerList(tid, ins) {
@@ -24,5 +24,16 @@ export const lawyerMatch = {
 			trade_case_id: tid,
 		});
 		return await GET(endpoint);
+	},
+	async retryLawyerFindCheck(tid, ins) {
+		const endpoint = getEndpoint(API_URL.LAWYER.RE_FIND_CHECK, {
+			ins,
+			trade_case_id: tid,
+		});
+		if (ins === 'soda') {
+			return await GET_AUTH(endpoint);
+		} else {
+			return await GET(endpoint);
+		}
 	},
 };

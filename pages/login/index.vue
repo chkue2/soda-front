@@ -54,15 +54,15 @@
 
 <script setup>
 import { onBeforeUnmount, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
-import { useAuthStore } from '~/store/auth.js';
 import {
-	LOGIN_REDIRECT_KEY,
 	LOGIN_REDIRECT_AUTH_KEY,
+	LOGIN_REDIRECT_KEY,
 } from '~/assets/js/storageKeys.js';
+import { useAuthStore } from '~/store/auth.js';
 
 const router = useRouter();
 const route = useRoute();
@@ -128,7 +128,10 @@ const redirect = () => {
 	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
 
 	if (redirectAuth === 'Y') {
-		if (route.redirectedFrom.fullPath === undefined) {
+		if (
+			route.redirectedFrom === undefined ||
+			route.redirectedFrom.fullPath === undefined
+		) {
 			router.replace('/');
 		} else {
 			router.replace(route.redirectedFrom.fullPath);
