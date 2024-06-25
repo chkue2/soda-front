@@ -12,28 +12,32 @@
 			v-if="type === 'PASS'"
 			src="/img/cow/cow-08.gif"
 			class="type-top-cow"
+			alt="소다패스 이미지"
 		/>
 		<img
 			v-if="type === 'PREMIUM'"
 			src="/img/cow/cow-11.png"
 			class="type-top-cow"
+			alt="프리미엄 이미지"
 		/>
 		<img
 			v-if="type === 'NORMAL'"
 			src="/img/cow/cow-10.png"
 			class="type-top-cow"
+			alt="일반 선택 이미지"
 		/>
 		<img
 			v-if="type === 'OFFER'"
 			src="/img/cow/cow-09.png"
 			class="type-top-cow"
+			alt="직접 선택 이미지"
 		/>
 	</div>
 	<div v-if="type === ''" class="type-middle-container">
 		<div class="type-middle-box">
 			<div class="type-middle-help-text pb11 mb14">
 				<p>하나부터 열까지 알아서 해주는 서비스</p>
-				<img src="/img/icon/lightning.svg" />
+				<img src="/img/icon/lightning.svg" alt="소다패스" />
 			</div>
 			<div
 				class="type-middle-item select-none"
@@ -131,7 +135,7 @@
 				<div class="type-middle-item-top">
 					<div class="type-middle-item-title">
 						<p>SODA 패스</p>
-						<img src="/img/icon/lightning.svg" />
+						<img src="/img/icon/lightning.svg" alt="소다패스" />
 					</div>
 					<div class="type-middle-item-price">
 						<b>{{ passPrice }}</b> 만원

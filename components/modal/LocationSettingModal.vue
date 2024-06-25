@@ -2,7 +2,11 @@
 	<CommonModal @close-modal="closeModal">
 		<template #modal-body>
 			<div class="location-setting-container">
-				<img src="/img/cow/cow-find.png" class="setting-cow-image" />
+				<img
+					src="/img/cow/cow-find.png"
+					class="setting-cow-image"
+					alt="주소를 설정해주세요"
+				/>
 				<p class="setting-title"><b>거래대상 소재지</b>를 설정해주세요!</p>
 				<p class="setting-content">
 					잔금일 당일, 수월한 업무 수행을 위해서는 거래대상 소재지에서 가까운
@@ -49,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
 import { useLocationStore } from '~/store/location.js';
 

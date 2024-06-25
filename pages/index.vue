@@ -10,7 +10,11 @@
 				<div class="index-subtitle">
 					<p>위치설정하고 주변 등기프로 찾아보기</p>
 					<NuxtLink to="/lawyer/find" class="more-text">
-						<span>더보기</span><img src="/img/icon/expand-right-black.svg" />
+						<span>더보기</span
+						><img
+							src="/img/icon/expand-right-black.svg"
+							alt="등기프로 찾기 페이지로 이동"
+						/>
 					</NuxtLink>
 				</div>
 			</div>

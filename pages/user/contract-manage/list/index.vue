@@ -9,13 +9,17 @@
 	<button v-if="false" class="contract-add-button">
 		<span>간단한 정보입력으로 쉽고 빠르게</span>
 		<p>
-			<img src="/img/icon/add-square-black.svg" />
+			<img
+				src="/img/icon/add-square-black.svg"
+				alt="내 사건 불러오기"
+				aria-hidden
+			/>
 			<strong>내 사건 불러오기</strong>
 		</p>
 	</button>
 	<div v-if="tradeCaseList.length === 0" class="contract-empty">
 		<p class="contract-empty-title">등록된 계약이 아직 없습니다.</p>
-		<img src="/img/cow/contract-empty.png" />
+		<img src="/img/cow/contract-empty.png" alt="계약 없음 이미지" aria-hidden />
 	</div>
 	<div v-if="tradeCaseList.length > 0" class="contract-manage-swiper">
 		<swiper
@@ -30,8 +34,16 @@
 					@click="handlerClickMoveToDetailButton(t.showDetail, t.tradeCaseId)"
 				>
 					<div class="contract-manage-image">
-						<img v-if="t.showDetail" src="/img/cow/card-01.gif" />
-						<img v-if="!t.showDetail" src="/img/cow/card-02.gif" />
+						<img
+							v-if="t.showDetail"
+							src="/img/cow/card-01.gif"
+							alt="계약 상세 볼 수 있음"
+						/>
+						<img
+							v-if="!t.showDetail"
+							src="/img/cow/card-02.gif"
+							alt="계약 상세 볼 수 없음"
+						/>
 					</div>
 					<div class="contract-manage-top">
 						<div class="contract-manage-top-flex">
@@ -78,13 +90,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Pagination } from 'swiper/modules';
+import dayjs from 'dayjs';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import dayjs from 'dayjs';
+import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import BottomToast from '~/components/toast/BottomToast.vue';

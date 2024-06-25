@@ -11,7 +11,11 @@
 		<div class="intro-flex">
 			<div class="intro-column">
 				<p class="column-title toggle-title" @click="toggleClass">
-					(주)로앤텍 <img src="/img/icon/expand-up-gray-bold.png" />
+					(주)로앤텍
+					<img
+						src="/img/icon/expand-up-gray-bold.png"
+						alt="사업자 정보 상세보기"
+					/>
 				</p>
 			</div>
 			<div class="column-toggle-box" :class="{ open: isToggle }">

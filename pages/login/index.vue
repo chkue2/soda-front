@@ -1,7 +1,7 @@
 <template>
 	<HeaderClose title="로그인" />
 	<div class="login-container">
-		<img src="/img/icon/soda-home.png" class="login-logo" />
+		<img src="/img/icon/soda-home.png" class="login-logo" alt="로그인 로고" />
 		<input
 			v-model="credentials.userId"
 			type="text"
@@ -43,10 +43,10 @@
 		</div>
 		<div class="login-quick-buttons">
 			<button class="kakao-login" @click="handlerClickKakaoLogin">
-				<img src="/img/icon/kakao-login.svg" />
+				<img src="/img/icon/kakao-login.svg" alt="카카오 로그인" />
 			</button>
 			<button class="naver-login" @click="handlerClickNaverLogin">
-				<img src="/img/icon/naver-login.svg" />
+				<img src="/img/icon/naver-login.svg" alt="네이버 로그인" />
 			</button>
 		</div>
 	</div>

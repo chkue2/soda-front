@@ -53,7 +53,12 @@ export default defineNuxtConfig({
 	},
 	plugins: ['~/plugins/router.js'],
 	ssr: false,
-	modules: ['@pinia/nuxt', '@nuxtjs/eslint-module'],
+	modules: ['@pinia/nuxt', '@nuxtjs/eslint-module', '@nuxtjs/robots'],
+	robots: {
+		UserAgent: '*',
+		Disallow: '/contract/',
+		Allow: '/',
+	},
 	css: ['~/assets/scss/_style.scss'],
 	vite: {
 		css: {

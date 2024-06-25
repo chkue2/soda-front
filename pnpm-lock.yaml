@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@nuxtjs/robots':
+        specifier: ^3.0.0
+        version: 3.0.0(rollup@4.12.0)
       axios:
         specifier: ^1.6.8
         version: 1.6.8
@@ -699,6 +702,9 @@ packages:
     resolution: {integrity: sha512-lW9ozEjOrnU8Uot3GOAZ/0ThNAds0d6UAp9n46TNxcTvH/MOcAggGbMNs16c0HYT2HlyPQvXORCHQ5+9p87mmw==}
     peerDependencies:
       eslint: '>=7'
+
+  '@nuxtjs/robots@3.0.0':
+    resolution: {integrity: sha512-qsHGW1KXBvV5Kq7u3huPnFCUTbHS4Fk8Za2mNPgmUXcwLgp3exvhPtdZfIdjrCF/aZk3A8OZONNmGghs6CecBA==}
 
   '@parcel/watcher-android-arm64@2.4.1':
     resolution: {integrity: sha512-LOi/WTbbh3aTn2RYddrO8pnapixAziFl6SMxHM69r3tvdSm94JtCenaKgk1GRg5FJ5wpMCpHeW+7yqPlvZv7kg==}
@@ -4626,6 +4632,15 @@ snapshots:
       - supports-color
       - vite
       - webpack
+
+  '@nuxtjs/robots@3.0.0(rollup@4.12.0)':
+    dependencies:
+      '@nuxt/kit': 3.10.3(rollup@4.12.0)
+      h3: 1.11.1
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - uWebSockets.js
 
   '@parcel/watcher-android-arm64@2.4.1':
     optional: true

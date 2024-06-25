@@ -4,7 +4,7 @@
 		축하합니다.<br />회원가입이 완료되었습니다!
 	</p>
 	<div class="signup-success-image">
-		<img src="/img/cow/cow-06.png" />
+		<img src="/img/cow/cow-06.png" alt="회원가입 완료" aria-hidden />
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -17,8 +17,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 const router = useRouter();
 const handlerClickMoveToLogin = () => {

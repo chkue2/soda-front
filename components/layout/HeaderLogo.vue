@@ -1,13 +1,13 @@
 <template>
 	<div class="header-logo-container">
 		<NuxtLink to="/">
-			<img src="/img/icon/logo-blue.png" />
+			<img src="/img/icon/logo-blue.png" alt="홈으로 이동" />
 		</NuxtLink>
 		<NuxtLink v-if="!isLoggedIn" to="/login" class="header-button">
 			<button class="header-button">로그인하기</button>
 		</NuxtLink>
 		<NuxtLink v-if="false" to="/notification" class="header-bell">
-			<img src="/img/icon/bell-white.svg" />
+			<img src="/img/icon/bell-white.svg" alt="알림페이지로 이동" />
 		</NuxtLink>
 	</div>
 </template>

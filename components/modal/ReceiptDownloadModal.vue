@@ -13,6 +13,7 @@
 						<p>{{ receipt.docName }}</p>
 						<img
 							src="/img/icon/download-black.svg"
+							alt="파일 다운로드"
 							@click="
 								handlerClickDownloadButton(receipt.documentId, receipt.fileName)
 							"
@@ -30,8 +31,8 @@ import { onMounted, ref } from 'vue';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
 
-import { tradeCase } from '~/services/tradeCase.js';
 import { fileDownload } from '~/assets/js/utils.js';
+import { tradeCase } from '~/services/tradeCase.js';
 
 const props = defineProps({
 	tid: {

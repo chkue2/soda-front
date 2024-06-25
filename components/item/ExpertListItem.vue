@@ -1,6 +1,6 @@
 <template>
 	<div class="expert-list-item" @click="handlerClickItem">
-		<img class="expert-profile" :src="imageUrl" />
+		<img class="expert-profile" :src="imageUrl" alt="프로필이미지" />
 		<div>
 			<p class="expert-office-name">
 				<span>{{ props.item.firmName }}</span>
@@ -8,13 +8,13 @@
 			<ExpertTagsItem :badge="props.item.badge || []" />
 			<ExpertOptionsItem :badge="props.item.badge || []" />
 			<div class="expert-rate">
-				<img src="/img/icon/star-yellow-02.svg" />
+				<img src="/img/icon/star-yellow-02.svg" alt="평점" />
 				<p>{{ (props.item.firmAvgStar || 0).toFixed(1) }}</p>
 			</div>
 			<div class="expert-info">
 				<p class="expert-distance">{{ props.item.distance_km }} Km</p>
 				<div class="expert-location">
-					<img src="/img/icon/location-gray.svg" />
+					<img src="/img/icon/location-gray.svg" alt="주소" />
 					<p>{{ props.item.sido }} {{ props.item.gugun }}</p>
 				</div>
 			</div>

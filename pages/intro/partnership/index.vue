@@ -6,7 +6,7 @@
 			srcset="/img/intro/partnership-intro-mo-01.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/partnership-intro-pc-01.png" />
+		<img src="/img/intro/partnership-intro-pc-01.png" alt="파트너십 이미지" />
 	</picture>
 	<div class="partnership-container">
 		<p class="partnership-title">

@@ -7,7 +7,7 @@
 	/>
 	<div class="lawyer-detail-container">
 		<div class="detail-top-container">
-			<img :src="imageUrl" class="detail-profile" />
+			<img :src="imageUrl" class="detail-profile" alt="프로필 이미지" />
 			<p class="firm-name">{{ firmDetail.firmName }}</p>
 			<div class="tel-container">
 				<span>사무소 전화</span>
@@ -23,11 +23,11 @@
 			<ExpertOptionsItem v-if="isOptionShow" :badge="badge" align="center" />
 			<div class="detail-info">
 				<div class="info-rate">
-					<img src="/img/icon/star-yellow-02.svg" />
+					<img src="/img/icon/star-yellow-02.svg" alt="평점" />
 					<span>{{ firmAvgStar }}</span>
 				</div>
 				<div class="info-location">
-					<img src="/img/icon/location-gray.svg" />
+					<img src="/img/icon/location-gray.svg" alt="주소" />
 					<span>{{ firmDetail.sido }} {{ firmDetail.gugun }}</span>
 				</div>
 			</div>

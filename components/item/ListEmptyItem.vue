@@ -5,7 +5,7 @@
 			margin: `${props.margin[0]}px ${props.margin[1]}px ${props.margin[2]}px ${props.margin[3]}px`,
 		}"
 	>
-		<img src="/img/cow/cow-cry.png" />
+		<img src="/img/cow/cow-cry.png" alt="목록이 비어있음" />
 		<p class="empty-title">{{ props.title }}</p>
 		<p
 			v-if="props.subTitle !== ''"
@@ -16,8 +16,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import DOMPurify from 'dompurify';
+import { computed } from 'vue';
 
 const props = defineProps({
 	title: {

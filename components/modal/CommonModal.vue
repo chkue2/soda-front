@@ -5,7 +5,7 @@
 			<div class="modal-title-container">
 				<p class="modal-title">{{ props.title }}</p>
 				<button class="modal-close" @click="handlerClickCloseModal">
-					<img src="/img/icon/close-circle-gray.svg" />
+					<img src="/img/icon/close-circle-gray.svg" alt="모달 닫기" />
 				</button>
 			</div>
 			<slot name="modal-body"></slot>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 const props = defineProps({
 	title: {
 		type: String,

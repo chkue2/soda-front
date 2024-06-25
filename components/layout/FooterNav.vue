@@ -1,7 +1,10 @@
 <template>
 	<div class="nav-container">
 		<NuxtLink to="/" class="nav-item" :class="{ active: nowMenu === 'home' }">
-			<img :src="`/img/icon/home${nowMenu === 'home' ? '-on' : ''}.svg`" />
+			<img
+				:src="`/img/icon/home${nowMenu === 'home' ? '-on' : ''}.svg`"
+				alt="홈"
+			/>
 			<span>홈</span>
 		</NuxtLink>
 		<NuxtLink
@@ -9,7 +12,10 @@
 			class="nav-item"
 			:class="{ active: nowMenu === 'calc' }"
 		>
-			<img :src="`/img/icon/pie${nowMenu === 'calc' ? '-on' : ''}.svg`" />
+			<img
+				:src="`/img/icon/pie${nowMenu === 'calc' ? '-on' : ''}.svg`"
+				alt="견적넣기"
+			/>
 			<span>견적넣기</span>
 		</NuxtLink>
 		<NuxtLink
@@ -17,7 +23,10 @@
 			class="nav-item"
 			:class="{ active: nowMenu === 'lawyer' }"
 		>
-			<img :src="`/img/icon/search${nowMenu === 'lawyer' ? '-on' : ''}.svg`" />
+			<img
+				:src="`/img/icon/search${nowMenu === 'lawyer' ? '-on' : ''}.svg`"
+				alt="찾기"
+			/>
 			<span>찾기</span>
 		</NuxtLink>
 		<NuxtLink
@@ -25,7 +34,10 @@
 			class="nav-item"
 			:class="{ active: nowMenu === 'mypage' }"
 		>
-			<img :src="`/img/icon/user${nowMenu === 'mypage' ? '-on' : ''}.svg`" />
+			<img
+				:src="`/img/icon/user${nowMenu === 'mypage' ? '-on' : ''}.svg`"
+				alt="마이페이지"
+			/>
 			<span>마이페이지</span>
 		</NuxtLink>
 	</div>

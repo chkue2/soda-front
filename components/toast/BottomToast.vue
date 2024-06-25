@@ -7,7 +7,11 @@
 		}"
 	>
 		<div class="bottom-toast-left">
-			<img v-if="props.emoji !== ''" :src="`/img/icon/${props.emoji}`" />
+			<img
+				v-if="props.emoji !== ''"
+				:src="`/img/icon/${props.emoji}`"
+				alt="이모지 아이콘"
+			/>
 			<div class="bottom-toast-left-text">
 				<p class="bottom-toast-title" :style="{ color: props.titleColor }">
 					{{ props.title }}

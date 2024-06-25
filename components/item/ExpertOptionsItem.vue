@@ -4,16 +4,16 @@
 			>주말응대가능</span
 		>
 		<span v-if="props.badge.includes('APPEAL_02')"
-			><img src="/img/icon/quick-icon.svg" />빠른응답</span
+			><img src="/img/icon/quick-icon.svg" alt="빠른응답" />빠른응답</span
 		>
 		<span v-if="props.badge.includes('APPEAL_03')"
-			><img src="/img/icon/good-icon.svg" />친절해요</span
+			><img src="/img/icon/good-icon.svg" alt="친절해요" />친절해요</span
 		>
 		<span v-if="props.badge.includes('APPEAL_04')"
-			><img src="/img/icon/smile-icon.svg" />공감하는</span
+			><img src="/img/icon/smile-icon.svg" alt="공감하는" />공감하는</span
 		>
 		<span v-if="props.badge.includes('APPEAL_05')"
-			><img src="/img/icon/message-icon.svg" />꼼꼼한</span
+			><img src="/img/icon/message-icon.svg" alt="꼼꼼한" />꼼꼼한</span
 		>
 	</div>
 </template>

@@ -3,7 +3,7 @@
 	<div class="find-match-container">
 		<div v-if="status === 'OPEN'" class="find-match-top-container">
 			<div class="match-title">
-				<img src="/img/icon/love-letter.png" />
+				<img src="/img/icon/love-letter.png" alt="프로필카드 받는중" />
 				<p>프로필카드 받는 중</p>
 			</div>
 			<p class="match-subtitle">
@@ -13,7 +13,7 @@
 		</div>
 		<div v-if="status === 'CLOSE'" class="find-match-top-container">
 			<div class="match-title">
-				<img src="/img/icon/love-letter.png" />
+				<img src="/img/icon/love-letter.png" alt="프로필카드 받기 완료" />
 				<p>프로필카드 받기 완료</p>
 			</div>
 			<p class="match-subtitle">

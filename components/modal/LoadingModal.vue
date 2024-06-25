@@ -1,7 +1,7 @@
 <template>
 	<div class="loading-modal">
 		<div class="loading-modal-container">
-			<img src="/img/icon/loading.gif" />
+			<img src="/img/icon/loading.gif" alt="로딩중" />
 		</div>
 	</div>
 </template>

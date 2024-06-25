@@ -2,7 +2,7 @@
 	<div class="my-review-item">
 		<div class="my-review-title" @click="moveToLawyerDetailPage">
 			<p>{{ props.review.firmName }}</p>
-			<img src="/img/icon/expand-right-black.svg" />
+			<img src="/img/icon/expand-right-black.svg" alt="사무소 상세 바로가기" />
 		</div>
 		<div class="my-review-rating">
 			<div class="my-review-rating-column">
@@ -12,11 +12,13 @@
 						v-for="i in props.review.timeCriteria"
 						:key="i"
 						src="/img/icon/star-yellow-02.svg"
+						alt="별점주기"
 					/>
 					<img
 						v-for="i in 5 - props.review.timeCriteria"
 						:key="i"
 						src="/img/icon/star-gray.svg"
+						alt="별점주기"
 					/>
 				</div>
 			</div>
@@ -27,11 +29,13 @@
 						v-for="i in props.review.kindCriteria"
 						:key="i"
 						src="/img/icon/star-yellow-02.svg"
+						alt="별점주기"
 					/>
 					<img
 						v-for="i in 5 - props.review.kindCriteria"
 						:key="i"
 						src="/img/icon/star-gray.svg"
+						alt="별점주기"
 					/>
 				</div>
 			</div>
@@ -42,11 +46,13 @@
 						v-for="i in props.review.rapidCriteria"
 						:key="i"
 						src="/img/icon/star-yellow-02.svg"
+						alt="별점주기"
 					/>
 					<img
 						v-for="i in 5 - props.review.rapidCriteria"
 						:key="i"
 						src="/img/icon/star-gray.svg"
+						alt="별점주기"
 					/>
 				</div>
 			</div>

@@ -11,6 +11,7 @@
 							<img
 								src="/img/icon/expand-down-gray.svg"
 								class="estimate-accordion-top-icon"
+								alt="견적요약 정보 온오프"
 							/>
 						</div>
 					</div>
@@ -50,6 +51,7 @@
 							<img
 								src="/img/icon/expand-down-gray.svg"
 								class="estimate-accordion-top-icon"
+								alt="사건 정보 온오프"
 							/>
 						</div>
 					</div>
@@ -97,6 +99,7 @@
 							<img
 								src="/img/icon/expand-down-gray.svg"
 								class="estimate-accordion-top-icon"
+								alt="제세공과금 온오프"
 							/>
 						</div>
 					</div>
@@ -145,6 +148,7 @@
 							<img
 								src="/img/icon/expand-down-gray.svg"
 								class="estimate-accordion-top-icon"
+								alt="수수료 온오프"
 							/>
 						</div>
 					</div>
@@ -190,6 +194,7 @@
 							<img
 								src="/img/icon/expand-down-gray.svg"
 								class="estimate-accordion-top-icon"
+								alt="견적서 안내문 온오프"
 							/>
 						</div>
 					</div>
@@ -211,13 +216,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
 
-import { tradeCase } from '~/services/tradeCase.js';
 import { bankSVG } from '~/assets/js/bankSVG.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
+import { tradeCase } from '~/services/tradeCase.js';
 
 const props = defineProps({
 	tid: {

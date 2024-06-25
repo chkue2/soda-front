@@ -13,6 +13,7 @@
 			<img
 				src="/img/icon/expand-down-black.svg"
 				class="inquiry-item-title-expand"
+				alt="문의 온오프"
 			/>
 		</div>
 		<div class="inquiry-item-content">
@@ -27,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import dayjs from 'dayjs';
 

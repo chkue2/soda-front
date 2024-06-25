@@ -1,7 +1,7 @@
 <template>
 	<HeaderClose title="1:1 문의" />
 	<div v-if="inquiryList.length === 0" class="inquiry-empty">
-		<img src="/img/cow/cow-07.png" />
+		<img src="/img/cow/cow-07.png" alt="문의 내역 없음" aria-hidden />
 		<p class="empty-title">아직 문의내역이 없습니다</p>
 		<NuxtLink to="/user/inquiry/write" class="inquiry-write">글쓰기</NuxtLink>
 	</div>
@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import InquiryItem from '~/components/item/InquiryItem.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { inquiry } from '~/services/inquiry.js';
 import { useLoadingStore } from '~/store/loading.js';

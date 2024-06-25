@@ -9,7 +9,7 @@
 		<p class="find-text mt24 mb18">등록된 정보와 일치하는 아이디입니다.</p>
 		<div class="find-info-container">
 			<div class="login-type login--kakao">
-				<img src="/img/icon/kakao-logo.svg" />
+				<img src="/img/icon/kakao-logo.svg" alt="카카오" />
 				<span>로그인</span>
 			</div>
 			<div class="find-info-text">

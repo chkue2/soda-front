@@ -13,7 +13,7 @@
 						readonly
 						placeholder="주소를 검색해주세요"
 					/>
-					<img src="/img/icon/search-black.svg" />
+					<img src="/img/icon/search-black.svg" alt="주소 검색" />
 				</div>
 				<div class="form-input mb27">
 					<input
@@ -43,7 +43,7 @@
 						@change="handlerChangeContractFile"
 					/>
 					<p>{{ contractFileText }}</p>
-					<img src="/img/icon/folder-black.svg" />
+					<img src="/img/icon/folder-black.svg" alt="계약서 사진 업로드" />
 				</div>
 				<p class="form-help-text">주민등록번호 뒷자리는 가려서 올려주세요</p>
 				<div class="update-bottom-buttons">
@@ -58,13 +58,13 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
 
 import {
-	keyupToLocaleString,
 	convertToKoreanCurrency,
+	keyupToLocaleString,
 } from '~/assets/js/utils.js';
 import { tradeCase } from '~/services/tradeCase.js';
 import { useLoadingStore } from '~/store/loading.js';

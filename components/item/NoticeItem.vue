@@ -2,13 +2,14 @@
 	<div class="notice-item" :class="{ open: isOpen }">
 		<div class="notice-item-title" @click="handlerClickItem">
 			<div class="notice-item-title-left">
-				<img src="/img/icon/pin-black.svg" />
+				<img src="/img/icon/pin-black.svg" alt="중요 공지" />
 				<span v-if="isNewBoard" class="new-badge">NEW</span>
 				<p>{{ props.notice.title }}</p>
 			</div>
 			<img
 				src="/img/icon/expand-down-black.svg"
 				class="notice-item-title-expand"
+				alt="공지 온오프"
 			/>
 		</div>
 		<div class="notice-item-content" v-html="props.notice.content"></div>
@@ -16,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import dayjs from 'dayjs';
 

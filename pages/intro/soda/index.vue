@@ -10,7 +10,7 @@
 				srcset="/img/intro/soda-intro-mo-01.gif"
 				media="all and (max-width: 450px)"
 			/>
-			<img src="/img/intro/soda-intro-pc-01.gif" />
+			<img src="/img/intro/soda-intro-pc-01.gif" alt="인트로 이미지" />
 		</picture>
 	</div>
 	<section class="intro-soda-section pt24 pb76">
@@ -29,7 +29,7 @@
 			srcset="/img/intro/soda-intro-mo-02.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-02.png" />
+		<img src="/img/intro/soda-intro-pc-02.png" alt="인트로 이미지" />
 	</picture>
 	<div class="intro-soda-section pt80 pb71">
 		<p class="intro-soda-caption">HOW TO USE</p>
@@ -41,7 +41,7 @@
 			누구나 쉽고 빠르게 이용할 수 있습니다.
 		</p>
 		<div class="intro-soda-cow">
-			<img src="/img/cow/cow-02.png" />
+			<img src="/img/cow/cow-02.png" alt="인트로 이미지" />
 		</div>
 		<p class="intro-soda-subtitle">1. 등기소다에 접속</p>
 		<p class="intro-soda-section-content">
@@ -54,7 +54,7 @@
 			srcset="/img/intro/soda-intro-mo-03.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-03.png" />
+		<img src="/img/intro/soda-intro-pc-03.png" alt="인트로 이미지" />
 	</picture>
 	<div class="intro-soda-section pt24 pb60">
 		<p class="intro-soda-subtitle">2. 간단한 정보로 계산하기</p>
@@ -68,7 +68,7 @@
 			srcset="/img/intro/soda-intro-mo-09.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-09.png" />
+		<img src="/img/intro/soda-intro-pc-09.png" alt="인트로 이미지" />
 	</picture>
 	<div class="intro-soda-section pt24 pb36">
 		<p class="intro-soda-subtitle">3. 견적넣기</p>
@@ -77,7 +77,7 @@
 			소유권이전등기에 필요한 전문가를 찾아보세요.
 		</p>
 		<div class="intro-soda-cow">
-			<img src="/img/cow/cow-03.png" />
+			<img src="/img/cow/cow-03.png" alt="인트로 이미지" />
 		</div>
 	</div>
 	<div class="intro-soda-section pt24 pb21">
@@ -93,7 +93,7 @@
 			srcset="/img/intro/soda-intro-mo-07.png"
 			media="all and (max-width: 450px)"
 		/>
-		<img src="/img/intro/soda-intro-pc-07.png" />
+		<img src="/img/intro/soda-intro-pc-07.png" alt="인트로 이미지" />
 	</picture>
 	<div class="intro-soda-section pt25 pb54">
 		<p class="intro-soda-section-content">

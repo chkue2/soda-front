@@ -7,7 +7,7 @@
 						srcset="/img/main/banner-mo-01.png"
 						media="all and (max-width: 640px)"
 					/>
-					<img src="/img/main/banner-pc-01.png" />
+					<img src="/img/main/banner-pc-01.png" alt="메인 배너" />
 				</picture>
 				<p class="banner-title">법무사매칭은?<br />등기소다!</p>
 				<p class="banner-subtitle">
@@ -38,10 +38,10 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { useRouter } from 'vue-router';
 
 const modules = [Autoplay];
 

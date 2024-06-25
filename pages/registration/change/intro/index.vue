@@ -2,7 +2,11 @@
 	<HeaderClose title="등기부등본 변동 알림서비스" />
 	<div class="intro-container">
 		<div class="intro-title">
-			<img src="/img/icon/bell-yellow.svg" />
+			<img
+				src="/img/icon/bell-yellow.svg"
+				alt="등기부등본 변동 알림"
+				aria-hidden
+			/>
 			<p>등기부등본 변동 알림</p>
 		</div>
 		<ul class="intro-contents">

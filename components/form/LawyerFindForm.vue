@@ -13,7 +13,7 @@
 				readonly
 				placeholder="주소를 검색해주세요"
 			/>
-			<img src="/img/icon/search-black.svg" />
+			<img src="/img/icon/search-black.svg" alt="주소검색" />
 		</div>
 		<div class="form-input mb27">
 			<input
@@ -41,7 +41,7 @@
 				@change="handlerChangeContractFile"
 			/>
 			<p>{{ contractFileText }}</p>
-			<img src="/img/icon/folder-black.svg" />
+			<img src="/img/icon/folder-black.svg" alt="계약서 사진 업로드" />
 		</div>
 		<p class="form-help-text">주민등록번호 뒷자리는 가려서 올려주세요</p>
 	</div>

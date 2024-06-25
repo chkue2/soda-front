@@ -33,14 +33,22 @@
 					v-if="findInfo.loginType === 'KAKAO'"
 					class="found-sns found-kakao"
 				>
-					<img src="/img/icon/kakao-logo-02.svg" />
+					<img
+						src="/img/icon/kakao-logo-02.svg"
+						alt="카카오 계정"
+						aria-hidden
+					/>
 					<p>카카오 계정</p>
 				</div>
 				<div
 					v-if="findInfo.loginType === 'NAVER'"
 					class="found-sns found-naver"
 				>
-					<img src="/img/icon/naver-logo-02.svg" />
+					<img
+						src="/img/icon/naver-logo-02.svg"
+						alt="네이버 계정"
+						aria-hidden
+					/>
 					<p>네이버 계정</p>
 				</div>
 				<p class="found-created">가입날짜 {{ created }}</p>

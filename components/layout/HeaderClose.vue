@@ -2,7 +2,7 @@
 	<div class="header-close-container">
 		<p class="header-title">{{ props.title }}</p>
 		<button class="header-close" @click="handlerClickClose">
-			<img src="/img/icon/close-black.svg" />
+			<img src="/img/icon/close-black.svg" alt="뒤로가기" />
 		</button>
 	</div>
 </template>

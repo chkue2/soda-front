@@ -1,6 +1,6 @@
 <template>
 	<div class="review-item">
-		<img class="review-profile" :src="imageUrl" />
+		<img class="review-profile" :src="imageUrl" alt="프로필 이미지" />
 		<div class="review-item-contents">
 			<div class="review-title">
 				<p class="review-id">{{ props.review.userName }}님</p>
@@ -14,11 +14,13 @@
 					v-for="i in parseInt(props.review.star)"
 					:key="i"
 					src="/img/icon/star-yellow-02.svg"
+					alt="별점"
 				/>
 				<img
 					v-for="i in 5 - parseInt(props.review.star)"
 					:key="i"
 					src="/img/icon/star-gray.svg"
+					alt="별점"
 				/>
 			</div>
 		</div>

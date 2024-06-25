@@ -14,7 +14,7 @@
 				{{ tradeCaseDetail.fullAddress }}
 			</p>
 			<div class="loans-bank">
-				<img :src="bankIcon" />
+				<img :src="bankIcon" :alt="bankName" />
 				<span>{{ bankName }}</span>
 			</div>
 			<p class="buy-price">
@@ -23,14 +23,14 @@
 			</p>
 			<div class="info-column">
 				<div class="info-column-title">
-					<img src="/img/icon/calendar-color.svg" />
+					<img src="/img/icon/calendar-color.svg" alt="잔금일" />
 					<p>잔금일</p>
 				</div>
 				<p class="info-column-content">{{ tradeCaseDetail.issueDate }}</p>
 			</div>
 			<div class="info-column">
 				<div class="info-column-title">
-					<img src="/img/icon/clock-color.svg" />
+					<img src="/img/icon/clock-color.svg" alt="잔금시간" />
 					<p>잔금시간</p>
 				</div>
 				<p
@@ -48,7 +48,10 @@
 			<div class="contract-state-card mb12 card-on">
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img src="/img/icon/check-bubble-blue.svg" />
+						<img
+							src="/img/icon/check-bubble-blue.svg"
+							alt="사무소 선택 완료 여부"
+						/>
 						<p>사무소 선택완료</p>
 					</div>
 					<button
@@ -117,7 +120,10 @@
 			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img :src="checkImage(tradeCaseDetail.estimateFlag)" />
+						<img
+							:src="checkImage(tradeCaseDetail.estimateFlag)"
+							alt="견적보고 완료 여부"
+						/>
 						<p>견적보고 완료</p>
 					</div>
 					<button
@@ -134,7 +140,10 @@
 			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img :src="checkImage(tradeCaseDetail.chargeFlag)" />
+						<img
+							:src="checkImage(tradeCaseDetail.chargeFlag)"
+							alt="담당자보고 완료 여부"
+						/>
 						<p>담당자보고 완료</p>
 					</div>
 				</div>
@@ -143,7 +152,7 @@
 						해당 담당자가 잔금일에 직접 방문합니다.
 					</p>
 					<div class="contract-state-charge-profile mt14">
-						<img :src="chargerProfileImage" />
+						<img :src="chargerProfileImage" alt="프로필 카드 이미지" />
 						<div class="contract-state-charge-info">
 							<p class="firm-name">{{ charger.firmName }}</p>
 							<p class="charge-name">
@@ -165,7 +174,10 @@
 			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img :src="checkImage(tradeCaseDetail.scheduleFlag)" />
+						<img
+							:src="checkImage(tradeCaseDetail.scheduleFlag)"
+							alt="일정보고 완료 여부"
+						/>
 						<p>일정보고 완료</p>
 					</div>
 				</div>
@@ -195,7 +207,10 @@
 			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img :src="checkImage(tradeCaseDetail.repayReportFlag)" />
+						<img
+							:src="checkImage(tradeCaseDetail.repayReportFlag)"
+							alt="상환보고 완료 여부"
+						/>
 						<p>상환보고 완료</p>
 					</div>
 					<button
@@ -212,7 +227,10 @@
 			>
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
-						<img :src="checkImage(tradeCaseDetail.receiveFlag)" />
+						<img
+							:src="checkImage(tradeCaseDetail.receiveFlag)"
+							alt="접수보고 완료 여부"
+						/>
 						<p>접수보고 완료</p>
 					</div>
 				</div>

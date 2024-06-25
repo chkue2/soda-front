@@ -7,7 +7,7 @@
 					남겨주세요.
 				</p>
 				<div class="review-write-profile">
-					<img :src="profileImageUrl" />
+					<img :src="profileImageUrl" alt="프로필 이미지" />
 					<div>
 						<p class="profile-firm-name">{{ props.card.firmName }}</p>
 						<ExpertTagsItem :badge="props.card.badge || []" />
@@ -71,11 +71,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
 
 import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
-import ExpertOptionsItem from '~/components/item/ExpertOptionsItem.vue';
 
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';

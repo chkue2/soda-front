@@ -4,7 +4,7 @@
 			등기업무는 등기소다에서!<br />
 			<b>은행</b><strong>들도 믿고 씁니다!</strong>
 		</p>
-		<img src="/img/icon/kakao-bank-building.svg" />
+		<img src="/img/icon/kakao-bank-building.svg" alt="은행도 믿고써요" />
 	</div>
 </template>
 <style lang="scss">

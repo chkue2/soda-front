@@ -5,7 +5,7 @@
 			<p class="page-title">마이페이지</p>
 			<div class="profile-container">
 				<div class="profile-box" @click="handlerClickProfileImage">
-					<img class="profile-image" :src="profileImage" />
+					<img class="profile-image" :src="profileImage" alt="프로필 이미지" />
 					<img
 						v-if="isLoggedIn"
 						class="setting-icon"
@@ -21,7 +21,11 @@
 				<div v-if="!isLoggedIn" class="profile-text">
 					<NuxtLink to="/login" class="login-button">
 						<span>로그인하기</span
-						><img src="/img/icon/expand-right-black.svg" />
+						><img
+							src="/img/icon/expand-right-black.svg"
+							alt="로그인하기"
+							aria-hidden
+						/>
 					</NuxtLink>
 					<p class="login-text">더 많은 서비스를 이용할 수 있습니다.</p>
 				</div>
@@ -60,6 +64,7 @@
 						<img
 							src="/img/icon/expand-right-gray.svg"
 							class="mypage-menu-item-icon"
+							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
 				</div>
@@ -72,6 +77,7 @@
 						<img
 							src="/img/icon/expand-right-gray.svg"
 							class="mypage-menu-item-icon"
+							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
 					<NuxtLink to="/registration/change/intro" class="mypage-menu-item">
@@ -81,6 +87,7 @@
 						<img
 							src="/img/icon/expand-right-gray.svg"
 							class="mypage-menu-item-icon"
+							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
 					<div class="mypage-menu-toggle">
@@ -98,6 +105,7 @@
 						<img
 							src="/img/icon/expand-right-gray.svg"
 							class="mypage-menu-item-icon"
+							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
 					<NuxtLink to="/user/my-review" class="mypage-menu-item">
@@ -107,6 +115,7 @@
 						<img
 							src="/img/icon/expand-right-gray.svg"
 							class="mypage-menu-item-icon"
+							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
 				</div>
@@ -118,6 +127,7 @@
 						<img
 							src="/img/icon/expand-right-gray.svg"
 							class="mypage-menu-item-icon"
+							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
 					<button
@@ -128,7 +138,12 @@
 						<div class="mypage-menu-item-title">
 							<p>로그아웃</p>
 						</div>
-						<img src="/img/icon/logout.svg" class="mypage-menu-item-icon" />
+						<img
+							src="/img/icon/logout.svg"
+							class="mypage-menu-item-icon"
+							alt="로그아웃"
+							aria-hidden
+						/>
 					</button>
 				</div>
 			</div>

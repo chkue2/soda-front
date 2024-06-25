@@ -4,7 +4,7 @@
 			<HeaderLogo />
 			<div class="location-container">
 				<button class="location-button" @click="toggleLocationSettingModal">
-					<img src="/img/icon/pointer-blue.svg" />
+					<img src="/img/icon/pointer-blue.svg" alt="주소" />
 					<span>{{ addressText }}</span>
 				</button>
 			</div>
@@ -13,7 +13,7 @@
 			</div>
 			<div class="find-filters">
 				<div class="sort-button" @click="toggleSortModal">
-					<img src="/img/icon/sort-black.svg" />
+					<img src="/img/icon/sort-black.svg" alt="정렬" />
 					<span>{{ sortText }}</span>
 				</div>
 				<select
@@ -28,7 +28,7 @@
 					<option value="rate">평점순</option>
 				</select>
 				<button class="filter-button" @click="toggleFindFilterModal">
-					<img :src="filterPath" />
+					<img :src="filterPath" alt="필터" />
 				</button>
 				<div class="filter-keyword">
 					<input
@@ -37,7 +37,11 @@
 						placeholder="2자이상 상호명 검색"
 						@keyup.enter="handlerEnterKeyword"
 					/>
-					<img src="/img/icon/search-gray.svg" @click="handlerEnterKeyword" />
+					<img
+						src="/img/icon/search-gray.svg"
+						alt="키워드 검색"
+						@click="handlerEnterKeyword"
+					/>
 				</div>
 			</div>
 			<ListEmptyItem
@@ -82,29 +86,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
-import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
+import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
-import LocationSettingModal from '~/components/modal/LocationSettingModal.vue';
 import FindFilterModal from '~/components/modal/FindFilterModal.vue';
 import FindSortModal from '~/components/modal/FindSortModal.vue';
+import LocationSettingModal from '~/components/modal/LocationSettingModal.vue';
 
+import { useLawyerFindStore } from '~/store/lawyerFind.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useLocationStore } from '~/store/location.js';
-import { useLawyerFindStore } from '~/store/lawyerFind.js';
 
 const locationStore = useLocationStore();
 const lawyerFindStore = useLawyerFindStore();
 
 import {
-	LOCATION_KEY,
-	FILTER_CAREERS_KEY,
 	FILTER_BADGES_KEY,
+	FILTER_CAREERS_KEY,
 	FILTER_DISTANCE_KEY,
-	FILTER_SORT_KEY,
 	FILTER_KEYWORD_KEY,
+	FILTER_SORT_KEY,
+	LOCATION_KEY,
 } from '~/assets/js/storageKeys.js';
 
 definePageMeta({

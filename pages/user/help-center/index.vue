@@ -3,14 +3,14 @@
 	<div class="help-center-container">
 		<div class="help-center-item bb">
 			<div class="help-center-item-left">
-				<img src="/img/icon/pin-white.svg" />
+				<img src="/img/icon/pin-white.svg" alt="공지사항" aria-hidden />
 				<p>공지사항</p>
 			</div>
 			<NuxtLink to="/notice" class="help-center-link">확인하기</NuxtLink>
 		</div>
 		<div class="help-center-item bb">
 			<div class="help-center-item-left">
-				<img src="/img/icon/message-white.svg" />
+				<img src="/img/icon/message-white.svg" alt="고객 문의" aria-hidden />
 				<p>고객 문의</p>
 			</div>
 			<NuxtLink to="/user/inquiry" class="help-center-link"
@@ -23,7 +23,7 @@
 		</p>
 		<div class="help-center-item bb bt mt60">
 			<div class="help-center-item-left">
-				<img src="/img/icon/live-chat-white.svg" />
+				<img src="/img/icon/live-chat-white.svg" alt="고객 문의" aria-hidden />
 				<p>고객 문의</p>
 			</div>
 			<button class="help-center-link" @click="toggleHelpCenterCallModal">

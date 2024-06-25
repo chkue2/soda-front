@@ -2,14 +2,18 @@
 	<HeaderClose title="등기프로 찾기" />
 	<div class="find-complete-container">
 		<div class="complete-title">
-			<img src="/img/icon/love-letter.png" />
+			<img src="/img/icon/love-letter.png" alt="프로필카드 받는 중" />
 			<p>프로필카드 받는 중</p>
 		</div>
 		<p class="complete-subtitle">
 			최대 5명에게 받아 볼 수 있습니다.<br />모집이 완료되면 알림톡을
 			보내드려요.
 		</p>
-		<img src="/img/cow/cow-03.gif" class="complete-image" />
+		<img
+			src="/img/cow/cow-03.gif"
+			class="complete-image"
+			alt="프로필 카드 받는 중 이미지"
+		/>
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -22,8 +26,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 const router = useRouter();
 const handlerClickHomeButton = () => {

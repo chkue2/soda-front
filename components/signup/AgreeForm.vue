@@ -1,7 +1,7 @@
 <template>
 	<div class="agree-form-container">
 		<div class="agree-form-top">
-			<img src="/img/icon/soda-home.png" />
+			<img src="/img/icon/soda-home.png" alt="회원가입" />
 			<p class="agree-form-top-title">고객님<br />환영합니다!</p>
 		</div>
 		<div class="agree-form-bottom">
@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 

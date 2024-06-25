@@ -26,7 +26,7 @@
 					{{ form.address }} {{ form.detailAddress }}
 				</p>
 				<div class="preview-file">
-					<img src="/img/icon/folder-yellow.png" />
+					<img src="/img/icon/folder-yellow.png" alt="매매계약서" />
 					<p>매매계약서</p>
 					<a :href="contractFileUrl" target="_blank">보기</a>
 				</div>
@@ -34,12 +34,12 @@
 					<b>매매대금 {{ (Number(form.price) || 0).toLocaleString() }}</b> 원
 				</p>
 				<div v-if="props.ins === 'soda'" class="preview-date-column mt20">
-					<img src="/img/icon/calendar-color.png" />
+					<img src="/img/icon/calendar-color.png" alt="계약일" />
 					<p class="preview-date-title">계약일</p>
 					<p class="preview-date-content">{{ form.cDate }}</p>
 				</div>
 				<div class="preview-date-column mt10">
-					<img src="/img/icon/clock-color.png" />
+					<img src="/img/icon/clock-color.png" alt="잔금일" />
 					<p class="preview-date-title">잔금일</p>
 					<p class="preview-date-content">{{ form.bDate }}</p>
 				</div>

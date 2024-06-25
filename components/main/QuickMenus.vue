@@ -2,20 +2,28 @@
 	<div class="quick-my-contract-container">
 		<NuxtLink to="/user/contract-manage/list" class="quick-my-contract">
 			<div class="quick-my-contract-left">
-				<img src="/img/icon/paper-emoji.svg" />
+				<img src="/img/icon/paper-emoji.svg" alt="내 계약관리로 이동" />
 				<p>원클릭으로 쉬운 내 계약관리</p>
 			</div>
-			<img src="/img/icon/expand-right-black.svg" />
+			<img src="/img/icon/expand-right-black.svg" alt="내 계약관리로 이동" />
 		</NuxtLink>
 	</div>
 	<div class="quick-menus-container">
 		<NuxtLink to="/intro/soda" class="quick-menu">
-			<img src="/img/icon/home-emoji-color.svg" class="quick-menu-icon" />
+			<img
+				src="/img/icon/home-emoji-color.svg"
+				class="quick-menu-icon"
+				alt="견적계산으로 이동"
+			/>
 			<p>소유권이전등기</p>
 		</NuxtLink>
 		<i class="quick-menus-bar"></i>
 		<NuxtLink to="/lawyer/find" class="quick-menu">
-			<img src="/img/icon/cap-emoji-color.svg" class="quick-menu-icon" />
+			<img
+				src="/img/icon/cap-emoji-color.svg"
+				class="quick-menu-icon"
+				alt="등기프로찾기로 이동"
+			/>
 			<p>등기프로 찾기</p>
 		</NuxtLink>
 	</div>

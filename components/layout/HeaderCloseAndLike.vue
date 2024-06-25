@@ -7,11 +7,15 @@
 				class="header-like"
 				@click="handlerClickLikeButton"
 			>
-				<img v-if="!props.isLike" src="/img/icon/heart-gray.svg" />
-				<img v-if="props.isLike" src="/img/icon/heart-red.svg" />
+				<img v-if="!props.isLike" src="/img/icon/heart-gray.svg" alt="좋아요" />
+				<img
+					v-if="props.isLike"
+					src="/img/icon/heart-red.svg"
+					alt="좋아요 취소"
+				/>
 			</button>
 			<button class="header-close" @click="handlerClickClose">
-				<img src="/img/icon/close-black.svg" />
+				<img src="/img/icon/close-black.svg" alt="뒤로가기" />
 			</button>
 		</div>
 	</div>
