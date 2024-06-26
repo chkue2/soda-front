@@ -121,7 +121,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
 import { useLocationStore } from '~/store/location.js';
 
@@ -236,8 +236,8 @@ const handlerClickApplyButton = () => {
 	}
 	emit('set-careers', careersValue.value);
 	emit('set-badges', badgesValue.value);
-	emit('set-distance', Number(distanceValue.value));
 	emit('set-address', addressValue.value);
+	emit('set-distance', Number(distanceValue.value));
 	emit('call-api');
 	emit('close-modal');
 };
@@ -248,6 +248,12 @@ const closeModal = () => {
 
 const backgroundSize = ref('20% 100%');
 const updateSlider = e => {
+	if (addressValue.value.locationCode === '') {
+		alert('반경 설정 시 지역을 동/읍/면까지 설정이 필요합니다.');
+		distanceValue.value = 15;
+		e.target.value = 15;
+		return false;
+	}
 	let clickedElement = e.target,
 		min = clickedElement.min,
 		max = clickedElement.max,
