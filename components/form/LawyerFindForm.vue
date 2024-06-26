@@ -52,6 +52,14 @@
 			@click-button="handlerClickNextButton"
 		/>
 	</div>
+	<LawyerFindOnlyOneModal
+		v-if="isLawyerFindOnlyOneModalShow"
+		@close-modal="() => router.replace('/user/contract-manage/list')"
+	/>
+	<LawyerFindMaxCountModal
+		v-if="isLawyerFindMaxCountModalShow"
+		@close-modal="() => router.replace('/user/contract-manage/list')"
+	/>
 </template>
 
 <script setup>
@@ -59,6 +67,8 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import LawyerFindMaxCountModal from '~/components/modal/LawyerFindMaxCountModal.vue';
+import LawyerFindOnlyOneModal from '~/components/modal/LawyerFindOnlyOneModal.vue';
 
 import {
 	LAWTER_FIND_TYPE_KEY,
@@ -94,25 +104,38 @@ const form = ref({
 const won = ref('');
 
 onMounted(() => {
-	const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
-	if (tmpKeyStorage) {
-		tmpKey.value = tmpKeyStorage;
+	lawyerContract
+		.checkValid()
+		.then(({ data }) => {
+			if (data.status === 'TRADING') {
+				togglelawyerFindOnlyOneModal();
+			} else if (data.status === 'LIMIT_OVER') {
+				toggleLawyerFindMaxCountModal();
+			} else {
+				const tmpKeyStorage = window.localStorage.getItem(LAWYER_FIND_TMP_KEY);
+				if (tmpKeyStorage) {
+					tmpKey.value = tmpKeyStorage;
 
-		lawyerContract
-			.getLawyerContract({ tmpKey: tmpKey.value, mode: props.mode })
-			.then(({ data }) => {
-				form.value.bDate = data.contract.bdate;
-				form.value.address = data.contract.address;
-				form.value.detailAddress = data.contract.detailAddress;
-				form.value.cDate = data.contract.cdate;
-				form.value.price = data.contract.price;
-				form.value.contract = data.contract.contractFileName;
-			})
-			.catch(e => {
-				window.localStorage.removeItem(LAWYER_FIND_TMP_KEY);
-				alert(e.response.data.message);
-			});
-	}
+					lawyerContract
+						.getLawyerContract({ tmpKey: tmpKey.value, mode: props.mode })
+						.then(({ data }) => {
+							form.value.bDate = data.contract.bdate;
+							form.value.address = data.contract.address;
+							form.value.detailAddress = data.contract.detailAddress;
+							form.value.cDate = data.contract.cdate;
+							form.value.price = data.contract.price;
+							form.value.contract = data.contract.contractFileName;
+						})
+						.catch(e => {
+							window.localStorage.removeItem(LAWYER_FIND_TMP_KEY);
+							alert(e.response.data.message);
+						});
+				}
+			}
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 });
 
 watch(
@@ -230,6 +253,15 @@ const handlerClickNextButton = () => {
 				alert(e.response.data.message);
 			});
 	}
+};
+
+const isLawyerFindOnlyOneModalShow = ref(false);
+const togglelawyerFindOnlyOneModal = () => {
+	isLawyerFindOnlyOneModalShow.value = !isLawyerFindOnlyOneModalShow.value;
+};
+const isLawyerFindMaxCountModalShow = ref(false);
+const toggleLawyerFindMaxCountModal = () => {
+	isLawyerFindMaxCountModalShow.value = !isLawyerFindMaxCountModalShow.value;
 };
 </script>
 

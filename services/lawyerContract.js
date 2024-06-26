@@ -43,4 +43,7 @@ export const lawyerContract = {
 			return await PUT(endpoint, data.formData);
 		}
 	},
+	async checkValid() {
+		return await GET_AUTH(API_URL.LAWYER.CHECK_VALID);
+	},
 };
