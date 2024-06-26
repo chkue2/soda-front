@@ -20,7 +20,7 @@
 				모집에 참가한 등기프로를 확인하고 선택해주세요.
 			</p>
 		</div>
-		<ListEmptyItem
+		<ListEmptyForMatchItem
 			v-if="lawyerList.length === 0 && status === 'OPEN'"
 			title="아직 등기프로를 모집중이예요!"
 			sub-title="등기프로가 모집 될 때까지 기다려주세요!<br>(영업일 기준 다음날 오후 4시까지 모집)"
@@ -74,6 +74,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import ListEmptyForMatchItem from '~/components/item/ListEmptyForMatchItem.vue';
 import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
