@@ -70,7 +70,7 @@ const API_URL = {
 	CALCULATE: {
 		GET: '/soda/calculate',
 		TYPE: '/soda/calculate/servicetype/sodaContract/:tmp_key',
-		TYPE_BANK: '/soda/calculate/servicetype/sodaContract/:tmp_key',
+		TYPE_BANK: '/bank/calculate/servicetype/sodaContract/:tmp_key',
 	},
 	NOTICE: {
 		LIST: '/notice/list',
