@@ -14,6 +14,7 @@ export default defineNuxtPlugin(nuxtApp => {
 			'/login/sns',
 			'/user/find/id',
 			'/user/find/password',
+			'certified',
 		];
 		if (!exceptionEnums.includes(from.path)) {
 			localStorage.setItem(LOGIN_REDIRECT_KEY, from.path);
