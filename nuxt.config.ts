@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 				{
 					name: 'og:title',
 					property: 'og:title',
-					content: '등기소다',
+					content: '등기 잘하는 등기소다',
 				},
 				{
 					name: 'og:url',
@@ -33,7 +33,7 @@ export default defineNuxtConfig({
 				{
 					name: 'og:description',
 					property: 'og:description',
-					content: '부동산 등기를 위한 법무사 매칭, 등기소다',
+					content: '아는사람 찾지말고 등기는 등기소다',
 				},
 				{
 					name: 'og:image',
