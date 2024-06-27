@@ -10,6 +10,7 @@
 						v-if="isLoggedIn"
 						class="setting-icon"
 						src="/img/icon/setting-circle-gray.svg"
+						alt="프로필 이미지 변경"
 					/>
 					<input
 						ref="profileImageFile"
