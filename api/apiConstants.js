@@ -73,7 +73,7 @@ const API_URL = {
 		TYPE_BANK: '/bank/calculate/servicetype/sodaContract/:tmp_key',
 	},
 	NOTICE: {
-		LIST: '/notice/list',
+		LIST: '/notice/soda/list',
 		POPUP: '/notice/noticePopup',
 	},
 	NOTIFICATION: {
