@@ -127,7 +127,7 @@ const answer = computed(() =>
 }
 .inquiry-answer-memo {
 	font-size: 14px;
-	line-height: 14px;
+	line-height: 24px;
 	margin-bottom: 14px;
 }
 .inquiry-answer-created {
