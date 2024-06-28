@@ -100,6 +100,8 @@ const API_URL = {
 		GET_BANK: '/bank/tradeCase/detail/:trade_case_id',
 		INFO: '/soda/tradeCase/update/:trade_case_id',
 		DELETE: '/soda/tradeCase/close/:trade_case_id',
+		CANCEL: '/soda/tradeCase/cancel-regist/:trade_case_id',
+		RE_REG: '/soda/tradeCase/re-regist/:trade_case_id',
 	},
 };
 

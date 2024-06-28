@@ -1,11 +1,11 @@
 import {
 	API_URL,
-	GET_AUTH,
+	DELETE_AUTH,
 	GET,
+	GET_AUTH,
 	GET_DOWNLOAD,
 	GET_DOWNLOAD_AUTH,
 	PUT_AUTH,
-	DELETE_AUTH,
 	getEndpoint,
 } from '~/composables/useApi.js';
 
@@ -84,5 +84,17 @@ export const tradeCase = {
 			trade_case_id: tid,
 		});
 		return await DELETE_AUTH(endpoint);
+	},
+	async cancelTradeCase(tid) {
+		const endpoint = getEndpoint(API_URL.TRADECASE.CANCEL, {
+			trade_case_id: tid,
+		});
+		return await POST_AUTH(endpoint);
+	},
+	async reRegTradeCase(tid) {
+		const endpoint = getEndpoint(API_URL.TRADECASE.RE_REG, {
+			trade_case_id: tid,
+		});
+		return await POST_AUTH(endpoint);
 	},
 };

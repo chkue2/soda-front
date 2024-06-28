@@ -69,10 +69,18 @@
 							{{ t.address }}
 						</p>
 					</div>
+					<div v-if="!t.showDetail" class="contract-manage-bottom">
+						<button @click="handlerClickCancelButton(t.tradeCaseId)">
+							등록취소
+						</button>
+					</div>
 				</div>
 			</swiper-slide>
 		</swiper>
 	</div>
+	<p class="contract-list-help-text">
+		계약정보를 수정하려면 등록취소 후 다시 등록해주세요
+	</p>
 	<BottomToast
 		v-if="tradeCaseList.length === 0"
 		:bottom="64"
@@ -87,6 +95,16 @@
 		:is-disable="false"
 		@click-button="moveToFindForm"
 	/>
+	<ContractBeforeCancelModal
+		v-if="isContractBeforeCancelModalShow"
+		@close-modal="toggleContractBeforeCancelModal"
+		@click-cancel-button="handlerClickCancelApplyButton"
+	/>
+	<ContractRestartConfirmModal
+		v-if="isContractRestartConfirmModalShow"
+		@close-modal="toggleContractRestartConfirmModal"
+		@click-re-reg-button="handlerClickReRegButton"
+	/>
 </template>
 
 <script setup>
@@ -99,8 +117,11 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
+import ContractBeforeCancelModal from '~/components/modal/ContractBeforeCancelModal.vue';
+import ContractRestartConfirmModal from '~/components/modal/ContractRestartConfirmModal.vue';
 import BottomToast from '~/components/toast/BottomToast.vue';
 
+import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 import { tradeCase } from '~/services/tradeCase.js';
 import { useLoadingStore } from '~/store/loading.js';
 
@@ -114,6 +135,7 @@ const router = useRouter();
 
 const loadingStore = useLoadingStore();
 const tradeCaseList = ref([]);
+const cancelTid = ref(0);
 
 onMounted(() => {
 	loadingStore.setLoadingShow(true);
@@ -130,6 +152,17 @@ onMounted(() => {
 		});
 });
 
+const isContractBeforeCancelModalShow = ref(false);
+const toggleContractBeforeCancelModal = () => {
+	isContractBeforeCancelModalShow.value =
+		!isContractBeforeCancelModalShow.value;
+};
+const isContractRestartConfirmModalShow = ref(false);
+const toggleContractRestartConfirmModal = () => {
+	isContractRestartConfirmModalShow.value =
+		!isContractRestartConfirmModalShow.value;
+};
+
 const handlerClickMoveToDetailButton = (isShowDetail, tid) => {
 	if (!isShowDetail) return false;
 
@@ -141,6 +174,32 @@ const day = date => dayjs(date).format('D');
 
 const moveToFindForm = () => {
 	router.push('/lawyer/find/form');
+};
+const handlerClickCancelButton = tid => {
+	cancelTid.value = tid;
+	toggleContractBeforeCancelModal();
+};
+const handlerClickCancelApplyButton = () => {
+	tradeCase
+		.cancelTradeCase(cancelTid.value)
+		.then(() => {
+			toggleContractBeforeCancelModal();
+			toggleContractRestartConfirmModal();
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+};
+const handlerClickReRegButton = () => {
+	tradeCase
+		.reRegTradeCase(cancelTid.value)
+		.then(({ data }) => {
+			window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
+			router.push('/lawyer/find/form');
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 </script>
 
@@ -239,11 +298,11 @@ const moveToFindForm = () => {
 }
 .contract-wait-box {
 	border-radius: 6px;
-	border: 1px solid #3182f7;
+	background-color: #727272;
 	padding: 3px 6px;
 	font-size: 12px;
 	font-weight: $ft-bold;
-	color: #3182f7;
+	color: #ffffff;
 }
 .contract-calendar {
 	display: flex;
@@ -315,6 +374,26 @@ const moveToFindForm = () => {
 .contract-empty-title {
 	color: #b9babe;
 	margin-bottom: 62px;
+}
+.contract-manage-bottom {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 8px;
+	padding: 0 16px 19px;
+	& > button {
+		padding: 4px 12px;
+		color: #097cff;
+		font-size: 12px;
+		border-radius: 6px;
+		border: 1px solid #097cff;
+	}
+}
+.contract-list-help-text {
+	margin: 30px 0 20px;
+	font-size: 12px;
+	color: #949599;
+	text-align: center;
 }
 
 /* swiper */
