@@ -3,7 +3,10 @@
 	<div class="contract-manage-top-container">
 		<div class="contract-manage-info-wrapper">
 			<button
-				v-if="tradeCaseDetail.sodaCase === true"
+				v-if="
+					tradeCaseDetail.sodaCase === true &&
+					tradeCaseDetail.receiveFlag === false
+				"
 				class="contract-manage-info-button"
 				@click="toggleContractUpdateModal"
 			>
@@ -55,7 +58,10 @@
 						<p>사무소 선택완료</p>
 					</div>
 					<button
-						v-if="tradeCaseDetail.sodaCase === true"
+						v-if="
+							tradeCaseDetail.sodaCase === true &&
+							tradeCaseDetail.receiveFlag === false
+						"
 						class="contract-cancel-button"
 						@click="toggleContractCancelModal"
 					>
