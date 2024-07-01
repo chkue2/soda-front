@@ -59,9 +59,9 @@ export default defineNuxtConfig({
 	ssr: false,
 	modules: ['@pinia/nuxt', '@nuxtjs/eslint-module', '@nuxtjs/robots'],
 	robots: {
-		UserAgent: '*',
-		Disallow: '/contract/',
-		Allow: '/',
+		userAgent: '*',
+		disallow: '/contract-manage/',
+		allow: '/',
 	},
 	css: ['~/assets/scss/_style.scss'],
 	vite: {
