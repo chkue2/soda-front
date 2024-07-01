@@ -52,6 +52,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			apiURL: process.env.API_URL,
+			GA_TRACKING_ID: process.env.GA_TRACKING_ID,
 		},
 	},
 	plugins: ['~/plugins/router.js'],
