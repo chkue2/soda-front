@@ -5,7 +5,7 @@
 			<div class="form-container">
 				<p class="form-title mb11">부동산 종류를 선택해주세요</p>
 				<select v-model="form['type']" class="form-select mb29">
-					<option value="아파트">주택 (아파트, 빌라, 단독주택 등)</option>
+					<option value="HOUSE">주택 (아파트, 빌라, 단독주택 등)</option>
 				</select>
 				<p class="form-title mb11">매매대금을 입력해주세요</p>
 				<div class="form-input mb11">
@@ -40,17 +40,17 @@
 </template>
 
 <script setup>
-import { watch, computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { CALC_FORM_DATA_KEY } from '~/assets/js/storageKeys.js';
 
 import {
-	keyupToLocaleString,
 	convertToKoreanCurrency,
+	keyupToLocaleString,
 } from '~/assets/js/utils.js';
 
 definePageMeta({
