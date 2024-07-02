@@ -95,7 +95,7 @@ onMounted(() => {
 		const form = JSON.parse(formStorage);
 		calculate
 			.get({
-				subjectUse: form.type,
+				subjectUse: `HEY${form.subjectCnt}`,
 				tradePrice: form.price.replaceAll(',', ''),
 				subjectCnt: form.subjectCnt,
 				farmTaxApply: form.farmTaxApply === 'Y',
