@@ -75,8 +75,8 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { CALC_FORM_DATA_KEY } from '~/assets/js/storageKeys.js';
 import { calculate } from '~/services/calculate.js';
@@ -95,6 +95,7 @@ onMounted(() => {
 		const form = JSON.parse(formStorage);
 		calculate
 			.get({
+				subjectUse: form.type,
 				tradePrice: form.price.replaceAll(',', ''),
 				subjectCnt: form.subjectCnt,
 				farmTaxApply: form.farmTaxApply === 'Y',

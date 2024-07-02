@@ -66,7 +66,7 @@ onMounted(() => {
 });
 
 const form = ref({
-	type: '아파트',
+	type: 'HOUSE',
 	price: '',
 	farmTaxApply: '',
 	subjectCnt: '',
