@@ -99,10 +99,6 @@
 		v-if="isContractBeforeCancelModalShow"
 		@close-modal="toggleContractBeforeCancelModal"
 		@click-cancel-button="handlerClickCancelApplyButton"
-	/>
-	<ContractRestartConfirmModal
-		v-if="isContractRestartConfirmModalShow"
-		@close-modal="toggleContractRestartConfirmModal"
 		@click-re-reg-button="handlerClickReRegButton"
 	/>
 </template>
@@ -118,7 +114,6 @@ import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ContractBeforeCancelModal from '~/components/modal/ContractBeforeCancelModal.vue';
-import ContractRestartConfirmModal from '~/components/modal/ContractRestartConfirmModal.vue';
 import BottomToast from '~/components/toast/BottomToast.vue';
 
 import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';

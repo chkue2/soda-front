@@ -5,11 +5,22 @@
 				<p class="cancel-modal-content">확인해주세요</p>
 				<p class="cancel-modal-title">등록을 취소하시겠어요?</p>
 				<p class="cancel-modal-subtitle">
-					등록을 취소하면<br />모든 계약정보가 삭제됩니다.
+					계약정보를 수정하려면<br />다시 등록하기를 클릭해주세요
 				</p>
-				<button class="cancel-modal-button" @click="handlerClickApplyButton">
-					그래도 취소하기
-				</button>
+				<div class="cancel-modal-buttons">
+					<button
+						class="cancel-modal-button button--black"
+						@click="handlerClickApplyButton"
+					>
+						등록취소
+					</button>
+					<button
+						class="cancel-modal-button button--blue"
+						@click="handlerClickReRegButton"
+					>
+						다시 등록하기
+					</button>
+				</div>
 			</div>
 		</template>
 	</CommonModal>
@@ -18,13 +29,21 @@
 <script setup>
 import CommonModal from '~/components/modal/CommonModal.vue';
 
-const emit = defineEmits(['close-modal', 'click-cancel-button']);
+const emit = defineEmits([
+	'close-modal',
+	'click-cancel-button',
+	'click-re-reg-button',
+]);
 const closeModal = () => {
 	emit('close-modal');
 };
 
 const handlerClickApplyButton = () => {
 	emit('click-cancel-button');
+};
+
+const handlerClickReRegButton = () => {
+	emit('click-re-reg-button');
 };
 </script>
 
@@ -50,13 +69,24 @@ const handlerClickApplyButton = () => {
 	margin: 17px 0 26px;
 	text-align: center;
 }
+.cancel-modal-buttons {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
 .cancel-modal-button {
-	width: 100%;
+	flex: 1;
 	padding: 14px 0;
 	border-radius: 8px;
-	background-color: #29cdff;
 	font-size: 14px;
 	font-weight: $ft-bold;
-	color: #f5f5f5;
+	&.button--black {
+		background-color: #000000;
+		color: #ffffff;
+	}
+	&.button--blue {
+		background-color: #29cdff;
+		color: #f5f5f5;
+	}
 }
 </style>
