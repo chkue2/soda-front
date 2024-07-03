@@ -34,7 +34,7 @@
 				<input v-model="agreeAd" type="checkbox" />
 				<i></i>
 				<span>[선택] 광고성 정보 수신 동의</span>
-				<button>보기</button>
+				<button @click="toggleTermsAdModal">보기</button>
 			</label>
 		</div>
 	</div>
@@ -53,12 +53,14 @@
 		v-if="isTermsPrivacyModalShow"
 		@close-modal="toggleTermsPrivacyModal"
 	/>
+	<TermsAdModal v-if="isTermsAdModalShow" @close-modal="toggleTermsAdModal" />
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import TermsAdModal from '~/components/modal/TermsAdModal.vue';
 import TermsPrivacyModal from '~/components/modal/TermsPrivacyModal.vue';
 import TermsUserModal from '~/components/modal/TermsUserModal.vue';
 
@@ -74,6 +76,7 @@ const agreeAd = ref(false);
 
 const isTermsPrivacyModalShow = ref(false);
 const isTermsUseModalShow = ref(false);
+const isTermsAdModalShow = ref(false);
 
 const handlerClickAgreeAll = e => {
 	e.preventDefault();
@@ -121,6 +124,9 @@ const toggleTermsUseModal = () => {
 };
 const toggleTermsPrivacyModal = () => {
 	isTermsPrivacyModalShow.value = !isTermsPrivacyModalShow.value;
+};
+const toggleTermsAdModal = () => {
+	isTermsAdModalShow.value = !isTermsAdModalShow.value;
 };
 </script>
 
