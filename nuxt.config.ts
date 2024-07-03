@@ -57,11 +57,19 @@ export default defineNuxtConfig({
 	},
 	plugins: ['~/plugins/router.js'],
 	ssr: false,
-	modules: ['@pinia/nuxt', '@nuxtjs/eslint-module', '@nuxtjs/robots'],
+	modules: [
+		'@pinia/nuxt',
+		'@nuxtjs/eslint-module',
+		'@nuxtjs/robots',
+		'@nuxtjs/sitemap',
+	],
 	robots: {
 		userAgent: '*',
 		disallow: '/contract-manage/',
 		allow: '/',
+	},
+	site: {
+		url: 'https://lawtalksoda.com',
 	},
 	css: ['~/assets/scss/_style.scss'],
 	vite: {
