@@ -22,13 +22,13 @@
 				<input v-model="agreeUse" type="checkbox" />
 				<i></i>
 				<span>[필수] 이용약관</span>
-				<button>보기</button>
+				<button @click="toggleTermsUseModal">보기</button>
 			</label>
 			<label class="agree-form-label pt4 pb14 mb5">
 				<input v-model="agreePolicy" type="checkbox" />
 				<i></i>
 				<span>[필수] 개인정보처리방침</span>
-				<button>보기</button>
+				<button @click="toggleTermsPrivacyModal">보기</button>
 			</label>
 			<label class="agree-form-label pt4 pb14 mb5">
 				<input v-model="agreeAd" type="checkbox" />
@@ -45,12 +45,22 @@
 			@click-button="handlerClickNextButton"
 		/>
 	</div>
+	<TermsUserModal
+		v-if="isTermsUseModalShow"
+		@close-modal="toggleTermsUseModal"
+	/>
+	<TermsPrivacyModal
+		v-if="isTermsPrivacyModalShow"
+		@close-modal="toggleTermsPrivacyModal"
+	/>
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import TermsPrivacyModal from '~/components/modal/TermsPrivacyModal.vue';
+import TermsUserModal from '~/components/modal/TermsUserModal.vue';
 
 import { useSignupStore } from '~/store/signup.js';
 
@@ -61,6 +71,9 @@ const agreeAdult = ref(false);
 const agreeUse = ref(false);
 const agreePolicy = ref(false);
 const agreeAd = ref(false);
+
+const isTermsPrivacyModalShow = ref(false);
+const isTermsUseModalShow = ref(false);
 
 const handlerClickAgreeAll = e => {
 	e.preventDefault();
@@ -101,6 +114,13 @@ const handlerClickNextButton = () => {
 		agreeAd: agreeAd.value,
 	});
 	signupStore.nextStep();
+};
+
+const toggleTermsUseModal = () => {
+	isTermsUseModalShow.value = !isTermsUseModalShow.value;
+};
+const toggleTermsPrivacyModal = () => {
+	isTermsPrivacyModalShow.value = !isTermsPrivacyModalShow.value;
 };
 </script>
 

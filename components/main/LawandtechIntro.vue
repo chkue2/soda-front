@@ -1,8 +1,18 @@
 <template>
 	<div class="lawandtech-intro-container" :class="{ mb90: props.isToastOpen }">
 		<div class="intro-trems">
-			<button class="intro-trems-button use-term">이용약관</button>
-			<button class="intro-trems-button policy-term">개인정보처리방침</button>
+			<button
+				class="intro-trems-button use-term"
+				@click="() => emit('open-terms-use-modal')"
+			>
+				이용약관
+			</button>
+			<button
+				class="intro-trems-button policy-term"
+				@click="() => emit('open-terms-privacy-modal')"
+			>
+				개인정보처리방침
+			</button>
 		</div>
 		<p class="intro-copy mt25 mb17">
 			(주)로앤텍은 통신판매중개자로 법률 서비스 및 업무 당사자가 아니므로 법률
@@ -56,6 +66,7 @@ const props = defineProps({
 		default: false,
 	},
 });
+const emit = defineEmits(['open-terms-use-modal', 'open-terms-privacy-modal']);
 
 const isToggle = ref(false);
 

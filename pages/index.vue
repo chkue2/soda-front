@@ -24,7 +24,11 @@
 				<p class="index-title mb36">등기소다는 이렇게 진행 해요</p>
 			</div>
 			<ProcessBanner />
-			<LawandtechIntro :is-toast-open="toast && toast.state !== 'NONE'" />
+			<LawandtechIntro
+				:is-toast-open="toast && toast.state !== 'NONE'"
+				@open-terms-use-modal="toggleTermsUseModal"
+				@open-terms-privacy-modal="toggleTermsPrivacyModal"
+			/>
 			<BottomToast
 				v-if="toast && toast.state === 'OPEN'"
 				:bottom="64"
@@ -48,6 +52,14 @@
 				:is-disable="false"
 				@click-button="handlerClickToastButton"
 			/>
+			<TermsUserModal
+				v-if="isTermsUseModalShow"
+				@close-modal="toggleTermsUseModal"
+			/>
+			<TermsPrivacyModal
+				v-if="isTermsPrivacyModalShow"
+				@close-modal="toggleTermsPrivacyModal"
+			/>
 		</template>
 	</NuxtLayout>
 </template>
@@ -63,6 +75,8 @@ import LawandtechIntro from '~/components/main/LawandtechIntro.vue';
 import ProcessBanner from '~/components/main/ProcessBanner.vue';
 import QuickMenus from '~/components/main/QuickMenus.vue';
 import TopBanner from '~/components/main/TopBanner.vue';
+import TermsPrivacyModal from '~/components/modal/TermsPrivacyModal.vue';
+import TermsUserModal from '~/components/modal/TermsUserModal.vue';
 import BottomToast from '~/components/toast/BottomToast.vue';
 
 import { lawyerFind } from '~/services/lawyerFind.js';
@@ -80,6 +94,9 @@ const authStore = useAuthStore();
 
 const expertList = ref([]);
 const toast = ref(null);
+
+const isTermsPrivacyModalShow = ref(false);
+const isTermsUseModalShow = ref(false);
 
 onMounted(() => {
 	callApi();
@@ -130,6 +147,13 @@ const callToast = () => {
 
 const handlerClickToastButton = () => {
 	router.push(`/lawyer/find/soda/match/${toast.value.tradeCaseId}`);
+};
+
+const toggleTermsUseModal = () => {
+	isTermsUseModalShow.value = !isTermsUseModalShow.value;
+};
+const toggleTermsPrivacyModal = () => {
+	isTermsPrivacyModalShow.value = !isTermsPrivacyModalShow.value;
 };
 </script>
 
