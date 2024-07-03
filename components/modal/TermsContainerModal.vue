@@ -1,6 +1,10 @@
 <template>
 	<CommonModal :title="props.title" @close-modal="closeModal">
-		<slot />
+		<template #modal-body>
+			<div class="terms-container">
+				<slot name="body" />
+			</div>
+		</template>
 	</CommonModal>
 </template>
 
@@ -25,5 +29,8 @@ const closeModal = () => {
 	font-size: 18px;
 	font-weight: $ft-bold;
 	text-align: center;
+}
+.terms-container {
+	padding: 12px;
 }
 </style>
