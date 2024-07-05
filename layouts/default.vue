@@ -32,9 +32,11 @@ onBeforeMount(() => {
 		document.head.appendChild(script);
 
 		window.dataLayer = window.dataLayer || [];
-		function gtag() {
-			window.dataLayer.push(arguments);
-		}
+		window.gtag =
+			window.gtag ||
+			function () {
+				window.dataLayer.push(arguments);
+			};
 		gtag('js', new Date());
 		gtag('config', useRuntimeConfig().public.GA_TRACKING_ID, {
 			anonymize_up: true,
