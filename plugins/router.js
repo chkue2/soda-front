@@ -3,6 +3,15 @@ import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 export default defineNuxtPlugin(nuxtApp => {
 	const router = nuxtApp.$router;
 
+	nuxtApp.hook('app:navigation', info => {
+		if (info.to.redirectedFrom) {
+			nuxtApp.$router.push({
+				...info.to,
+				redirectedFrom: info.to.redirectedFrom,
+			});
+		}
+	});
+
 	router.beforeEach((to, from, next) => {
 		const exceptionEnums = [
 			'/login',
