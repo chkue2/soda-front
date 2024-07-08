@@ -45,6 +45,18 @@ export default defineNuxtConfig({
 				{
 					src: 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js',
 				},
+				{
+					src: 'https://www.googletagmanager.com/gtag/js?id=GTM-PRNPQZTH',
+					async: true,
+				},
+				{
+					innerHTML: `
+						window.dataLayer = window.dataLayer || [];
+						function gtag(){dataLayer.push(arguments);}
+						gtag('js', new Date());
+						gtag('config', 'GTM-PRNPQZTH');
+					`,
+				},
 			],
 		},
 	},
