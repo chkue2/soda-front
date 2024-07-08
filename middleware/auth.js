@@ -1,5 +1,5 @@
+import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 import { useAuthStore } from '~/store/auth.js';
-import { LOGIN_REDIRECT_AUTH_KEY } from '~/assets/js/storageKeys.js';
 
 export default defineNuxtRouteMiddleware((to, from) => {
 	const useAuth = useAuthStore();
@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
 	const isLoggedIn = useAuth.user !== null;
 
 	if (!isLoggedIn) {
-		window.localStorage.setItem(LOGIN_REDIRECT_AUTH_KEY, 'Y');
+		window.localStorage.setItem(LOGIN_REDIRECT_KEY, to.path);
 		return navigateTo('/login');
 	}
 });

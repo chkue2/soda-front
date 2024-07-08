@@ -28,25 +28,26 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-import HeaderClose from '~/components/layout/HeaderClose.vue';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
+import HeaderClose from '~/components/layout/HeaderClose.vue';
 
-import {
-	LOGIN_REDIRECT_KEY,
-	LOGIN_REDIRECT_AUTH_KEY,
-	BANK_ID_KEY,
-	BANK_AUTH_KEY,
-} from '~/assets/js/storageKeys.js';
 import { banks } from '~/assets/js/banks.js';
+import {
+	BANK_AUTH_KEY,
+	BANK_ID_KEY,
+	LOGIN_REDIRECT_KEY,
+} from '~/assets/js/storageKeys.js';
 import { bankAuth } from '~/services/bankAuth.js';
 
 const form = ref({
 	phone: '',
 	bank: '',
 });
+
+const router = useRouter();
 
 const validateCount = computed(
 	() => Object.values(form.value).filter(v => v !== '').length,
@@ -59,8 +60,6 @@ const isValidation = computed(() => {
 	);
 });
 
-const router = useRouter();
-const route = useRoute();
 const handlerClickNextButton = () => {
 	if (!isValidation.value) {
 		if (form.value.phone === '') {
@@ -96,17 +95,8 @@ const handlerClickNextButton = () => {
 
 const redirect = () => {
 	const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
-	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
 
-	if (redirectAuth === 'Y') {
-		if (route.redirectedFrom.fullPath === undefined) {
-			router.replace('/');
-		} else {
-			router.replace(route.redirectedFrom.fullPath);
-		}
-	} else {
-		router.replace(redirectUrl || '/');
-	}
+	router.replace(redirectUrl || '/');
 };
 </script>
 

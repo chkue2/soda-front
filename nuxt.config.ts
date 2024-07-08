@@ -67,7 +67,7 @@ export default defineNuxtConfig({
 			GA_TRACKING_ID: process.env.GA_TRACKING_ID,
 		},
 	},
-	plugins: ['~/plugins/router.js'],
+	plugins: ['~/plugins/router.js', '~/plugins/google-analytics.client.js'],
 	ssr: false,
 	modules: [
 		'@pinia/nuxt',

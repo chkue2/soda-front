@@ -53,19 +53,15 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
-import {
-	LOGIN_REDIRECT_AUTH_KEY,
-	LOGIN_REDIRECT_KEY,
-} from '~/assets/js/storageKeys.js';
+import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 import { useAuthStore } from '~/store/auth.js';
 
 const router = useRouter();
-const route = useRoute();
 const useAuth = useAuthStore();
 
 let isSwitchToggle = ref(false);
@@ -125,25 +121,9 @@ const handlerClickLoginButton = async () => {
 
 const redirect = () => {
 	const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
-	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
 
-	if (redirectAuth === 'Y') {
-		if (
-			route.redirectedFrom === undefined ||
-			route.redirectedFrom.fullPath === undefined
-		) {
-			router.replace('/');
-		} else {
-			router.replace(route.redirectedFrom.fullPath);
-		}
-	} else {
-		router.replace(redirectUrl || '/');
-	}
+	router.replace(redirectUrl || '/');
 };
-
-onBeforeUnmount(() => {
-	localStorage.removeItem(LOGIN_REDIRECT_AUTH_KEY);
-});
 
 const handlerClickKakaoLogin = () => {
 	const domain =
