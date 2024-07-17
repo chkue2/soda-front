@@ -66,16 +66,24 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
 import dayjs from 'dayjs';
+import { computed, onMounted, ref } from 'vue';
 
 import CommonModal from '~/components/modal/CommonModal.vue';
 
-import { useLoadingStore } from '~/store/loading.js';
 import { user } from '~/services/user.js';
+import { useLoadingStore } from '~/store/loading.js';
 
 const props = defineProps({
 	seq: {
+		type: Number,
+		default: 0,
+	},
+	ins: {
+		type: String,
+		default: 'soda',
+	},
+	tid: {
 		type: Number,
 		default: 0,
 	},
@@ -93,7 +101,7 @@ onMounted(() => {
 const callApi = () => {
 	loadingStore.setLoadingShow(true);
 	user
-		.getReviewDetail(props.seq)
+		.getReviewDetail(props.ins === 'soda' ? props.seq : props.tid, props.ins)
 		.then(({ data }) => {
 			reviewDetail.value = data;
 			content.value = data.memo;
@@ -126,17 +134,20 @@ const toggleUpdate = () => {
 
 const handlerClickUpdateButton = () => {
 	user
-		.updateReview({
-			seq: reviewDetail.value.seq,
-			formData: {
-				timeCriteria: reviewDetail.value.timeCriteria,
-				kindCriteria: reviewDetail.value.kindCriteria,
-				rapidCriteria: reviewDetail.value.rapidCriteria,
-				memo: content.value,
-				useYn: true,
-				showYn: true,
+		.updateReview(
+			{
+				seq: reviewDetail.value.seq,
+				formData: {
+					timeCriteria: reviewDetail.value.timeCriteria,
+					kindCriteria: reviewDetail.value.kindCriteria,
+					rapidCriteria: reviewDetail.value.rapidCriteria,
+					memo: content.value,
+					useYn: true,
+					showYn: true,
+				},
 			},
-		})
+			props.ins,
+		)
 		.then(() => {
 			callApi();
 			emit('re-call-api');

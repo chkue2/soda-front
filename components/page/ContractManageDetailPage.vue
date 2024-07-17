@@ -286,12 +286,15 @@
 		v-if="isReviewWriteModalShow"
 		:card="profileCard"
 		:detail="tradeCaseDetail"
+		:ins="props.ins"
 		@call-api="callApi"
 		@close-modal="toggleReviewWriteModal"
 	/>
 	<ReviewUpdateModal
 		v-if="isReviewUpdateModalShow"
 		:seq="profileCard.review ? profileCard.review[0].seq : 0"
+		:tid="tradeCaseDetail.tradeCaseId"
+		:ins="props.ins"
 		@re-call-api="callApi"
 		@click-delete-button="toggleReviewDeleteConfirmModal"
 		@close-modal="toggleReviewUpdateModal"
@@ -482,7 +485,7 @@ const cancelContract = () => {
 
 const deleteReview = () => {
 	user
-		.deleteReview(profileCard.value.review[0].seq)
+		.deleteReview(profileCard.value.review[0].seq, props.ins)
 		.then(() => {
 			alert('작성하신 리뷰가 삭제되었습니다.');
 			callApi();

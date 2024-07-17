@@ -96,6 +96,10 @@ const props = defineProps({
 		type: Object,
 		default: () => {},
 	},
+	ins: {
+		type: String,
+		default: 'soda',
+	},
 });
 const emit = defineEmits(['call-api', 'close-modal']);
 
@@ -145,16 +149,19 @@ const handlerClickApplyButton = () => {
 
 	loadingStore.setLoadingShow(true);
 	user
-		.insertReview({
-			tradeCaseId: props.detail.tradeCaseId,
-			firmCode: props.card.firmCode,
-			timeCriteria: timeRate.value,
-			kindCriteria: kindRate.value,
-			rapidCriteria: performanceRate.value,
-			memo: memo.value === '' ? memoPlaceholder.value : memo.value,
-			useYn: 'Y',
-			showYn: 'Y',
-		})
+		.insertReview(
+			{
+				tradeCaseId: props.detail.tradeCaseId,
+				firmCode: props.card.firmCode,
+				timeCriteria: timeRate.value,
+				kindCriteria: kindRate.value,
+				rapidCriteria: performanceRate.value,
+				memo: memo.value === '' ? memoPlaceholder.value : memo.value,
+				useYn: 'Y',
+				showYn: 'Y',
+			},
+			props.ins,
+		)
 		.then(() => {
 			alert('리뷰가 작성되었습니다.');
 			emit('call-api');
