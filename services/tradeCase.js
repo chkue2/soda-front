@@ -90,14 +90,9 @@ export const tradeCase = {
 		});
 		return await DELETE_AUTH(endpoint);
 	},
-	async cancelTradeCase(tid) {
-		const endpoint = getEndpoint(API_URL.TRADECASE.CANCEL, {
-			trade_case_id: tid,
-		});
-		return await POST_AUTH(endpoint);
-	},
 	async reRegTradeCase(tid) {
-		const endpoint = getEndpoint(API_URL.TRADECASE.RE_REG, {
+		const endpoint = getEndpoint(API_URL.LAWYER.RE_FIND, {
+			ins: 'soda',
 			trade_case_id: tid,
 		});
 		return await POST_AUTH(endpoint);

@@ -176,7 +176,7 @@ const handlerClickCancelButton = tid => {
 };
 const handlerClickCancelApplyButton = () => {
 	tradeCase
-		.cancelTradeCase(cancelTid.value)
+		.deleteTradeCase(cancelTid.value)
 		.then(() => {
 			toggleContractBeforeCancelModal();
 			toggleContractRestartConfirmModal();
