@@ -26,14 +26,14 @@
 			</p>
 			<div class="info-column">
 				<div class="info-column-title">
-					<img src="/img/icon/calendar-color.svg" alt="잔금일" />
+					<img src="/img/icon/calendar-color.png" alt="잔금일" />
 					<p>잔금일</p>
 				</div>
 				<p class="info-column-content">{{ tradeCaseDetail.issueDate }}</p>
 			</div>
 			<div class="info-column">
 				<div class="info-column-title">
-					<img src="/img/icon/clock-color.svg" alt="잔금시간" />
+					<img src="/img/icon/clock-color.png" alt="잔금시간" />
 					<p>잔금시간</p>
 				</div>
 				<p
@@ -565,6 +565,10 @@ const deleteReview = () => {
 			& > p {
 				font-size: 14px;
 				font-weight: $ft-bold;
+			}
+			& > img {
+				width: 18px;
+				height: 18px;
 			}
 		}
 		.info-column-content {
