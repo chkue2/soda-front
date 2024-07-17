@@ -72,13 +72,19 @@
 					<div class="contract-state-profile">
 						<ExpertListItem :item="profileCard" :ins="props.ins" />
 					</div>
-					<div class="contract-state-profile-info">
+					<div
+						v-if="tradeCaseDetail.serviceCode !== 'NONE'"
+						class="contract-state-profile-info"
+					>
 						<p class="contract-state-profile-info-title">서비스 유형</p>
 						<p class="contract-state-profile-info-content">
 							{{ serviceTypeText }}
 						</p>
 					</div>
-					<div class="contract-state-profile-info">
+					<div
+						v-if="tradeCaseDetail.serviceCode !== 'NONE'"
+						class="contract-state-profile-info"
+					>
 						<p class="contract-state-profile-info-title">보수금액</p>
 						<p class="contract-state-profile-info-content">
 							{{ servicePriceText }}
