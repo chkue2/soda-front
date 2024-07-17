@@ -93,6 +93,7 @@ const API_URL = {
 		ESTIMATE: '/tradecases/:trade_case_id/estimate',
 		ESTIMATE_BANK: '/bank/tradecases/:trade_case_id/estimate',
 		DOCUMENT: '/tradecases/:trade_case_id/document',
+		DOCUMENT_BANK: '/bank/tradecases/:trade_case_id/document',
 		DOCUMENT_DOWNLOAD:
 			'/tradecases/:trade_case_id/document/:document_id/download',
 		DOCUMENT_DOWNLOAD_BANK:

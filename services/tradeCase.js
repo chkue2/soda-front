@@ -40,9 +40,14 @@ export const tradeCase = {
 		}
 	},
 	async getDocuments(tid, ins) {
-		const endpoint = getEndpoint(API_URL.TRADECASE.DOCUMENT, {
-			trade_case_id: tid,
-		});
+		const endpoint = getEndpoint(
+			ins === 'soda'
+				? API_URL.TRADECASE.DOCUMENT
+				: API_URL.TRADECASE.DOCUMENT_BANK,
+			{
+				trade_case_id: tid,
+			},
+		);
 
 		if (ins === 'soda') {
 			return await GET_AUTH(endpoint);

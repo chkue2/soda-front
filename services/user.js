@@ -1,11 +1,11 @@
 import {
-	getEndpoint,
 	API_URL,
-	GET_AUTH,
-	POST_AUTH,
-	POST,
-	PUT_AUTH,
 	DELETE_AUTH,
+	GET_AUTH,
+	POST,
+	POST_AUTH,
+	PUT_AUTH,
+	getEndpoint,
 } from '~/composables/useApi.js';
 
 export const user = {
