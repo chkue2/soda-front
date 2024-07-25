@@ -84,6 +84,7 @@ import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
 
 import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 import { lawyerMatch } from '~/services/lawyerMatch.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	tid: {
@@ -96,10 +97,13 @@ const props = defineProps({
 	},
 });
 
+const router = useRouter();
+
+const alertStore = useAlertStore();
+
 const lawyerList = ref([]);
 const status = ref('');
 
-const router = useRouter();
 onMounted(() => {
 	lawyerMatch
 		.getLawyerList(props.tid, props.ins)
@@ -108,7 +112,7 @@ onMounted(() => {
 			status.value = data.status;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 			router.push('/');
 		});
 });
@@ -124,7 +128,7 @@ const handlerClickRematchButton = () => {
 			router.push(`/lawyer/find/${props.ins}/type`);
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -156,7 +160,7 @@ const handlerClickRetryButton = () => {
 			}
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 </script>

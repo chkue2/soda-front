@@ -168,12 +168,14 @@ import { notice } from '~/services/notice.js';
 import { user } from '~/services/user.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const modules = [Autoplay];
 
 const router = useRouter();
 const useAuth = useAuthStore();
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
 
 const noticeCount = ref(1);
 
@@ -216,7 +218,7 @@ const getFirmLikeCount = () => {
 			likeCount.value = data.likeCount;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -227,7 +229,7 @@ const getNoticePopup = () => {
 			noticePopupList.value = data.noticeList;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -253,7 +255,7 @@ const handlerChangeProfileImageFile = e => {
 				useAuth.userProfile();
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			});
 	});
 };

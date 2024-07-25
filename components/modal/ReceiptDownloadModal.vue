@@ -33,6 +33,7 @@ import CommonModal from '~/components/modal/CommonModal.vue';
 
 import { fileDownload } from '~/assets/js/utils.js';
 import { tradeCase } from '~/services/tradeCase.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	tid: {
@@ -44,6 +45,9 @@ const props = defineProps({
 		default: 'soda',
 	},
 });
+const emit = defineEmits(['close-modal']);
+
+const alertStore = useAlertStore();
 
 const receiptList = ref([]);
 
@@ -54,7 +58,7 @@ onMounted(() => {
 			receiptList.value = data.list;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 			closeModal();
 		});
 });
@@ -66,15 +70,14 @@ const handlerClickDownloadButton = (did, fileName) => {
 			if (data !== null && data !== '') {
 				fileDownload(data, fileName.split('.')[0], fileName.split('.')[1]);
 			} else {
-				alert('파일을 다운로드 할 수 없습니다.');
+				alertStore.open('파일을 다운로드 할 수 없습니다.');
 			}
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
-const emit = defineEmits(['close-modal']);
 const closeModal = () => {
 	emit('close-modal');
 };

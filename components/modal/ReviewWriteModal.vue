@@ -78,6 +78,7 @@ import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
 
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const randomMemoEnums = [
 	'안심하고 진행했어요.',
@@ -104,6 +105,7 @@ const props = defineProps({
 const emit = defineEmits(['call-api', 'close-modal']);
 
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
 
 const timeRate = ref(0);
 const kindRate = ref(0);
@@ -116,6 +118,15 @@ onMounted(() => {
 	memoPlaceholder.value = randomMemoEnums[Math.floor(Math.random() * 5)];
 });
 
+const profileImageUrl = computed(() => {
+	const domain =
+		location.href.includes('.local') || location.href.includes('dev.')
+			? 'https://pro-api.dev.priros.com'
+			: 'https://pro-api.priros.com';
+
+	return `${domain}${props.card.profileFileUrl}`;
+});
+
 const setTimeRate = rate => {
 	timeRate.value = rate;
 };
@@ -126,24 +137,15 @@ const setPerformanceRate = rate => {
 	performanceRate.value = rate;
 };
 
-const profileImageUrl = computed(() => {
-	const domain =
-		location.href.includes('.local') || location.href.includes('dev.')
-			? 'https://pro-api.dev.priros.com'
-			: 'https://pro-api.priros.com';
-
-	return `${domain}${props.card.profileFileUrl}`;
-});
-
 const handlerClickApplyButton = () => {
 	if (timeRate.value === 0) {
-		alert('시간준수 만족도 별점을 눌러 평가해주세요.');
+		alertStore.open('시간준수 만족도 별점을 눌러 평가해주세요.');
 		return false;
 	} else if (kindRate.value === 0) {
-		alert('친절 만족도 별점을 눌러 평가해주세요.');
+		alertStore.open('친절 만족도 별점을 눌러 평가해주세요.');
 		return false;
 	} else if (performanceRate.value === 0) {
-		alert('업무수행 만족도 별점을 눌러 평가해주세요.');
+		alertStore.open('업무수행 만족도 별점을 눌러 평가해주세요.');
 		return false;
 	}
 
@@ -163,12 +165,12 @@ const handlerClickApplyButton = () => {
 			props.ins,
 		)
 		.then(() => {
-			alert('리뷰가 작성되었습니다.');
+			alertStore.open('리뷰가 작성되었습니다.');
 			emit('call-api');
 			CloseModal();
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

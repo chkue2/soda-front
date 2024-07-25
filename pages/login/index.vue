@@ -60,9 +60,11 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 import { useAuthStore } from '~/store/auth.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const router = useRouter();
 const useAuth = useAuthStore();
+const alertStore = useAlertStore();
 
 let isSwitchToggle = ref(false);
 
@@ -92,9 +94,9 @@ const isValidation = computed(() => {
 const handlerClickLoginButton = async () => {
 	if (!isValidation.value) {
 		if (credentials.value.userId === '') {
-			alert('아이디를 입력해주세요.');
+			alertStore.open('아이디를 입력해주세요.');
 		} else if (credentials.value.password === '') {
-			alert('비밀번호를 입력해주세요.');
+			alertStore.open('비밀번호를 입력해주세요.');
 		}
 		return false;
 	}
@@ -115,7 +117,7 @@ const handlerClickLoginButton = async () => {
 			redirect();
 		}, 100);
 	} else {
-		alert('아이디 또는 비밀번호가 다릅니다.');
+		alertStore.open('아이디 또는 비밀번호가 다릅니다.');
 	}
 };
 

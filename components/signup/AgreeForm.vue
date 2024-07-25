@@ -65,8 +65,10 @@ import TermsPrivacyModal from '~/components/modal/TermsPrivacyModal.vue';
 import TermsUserModal from '~/components/modal/TermsUserModal.vue';
 
 import { useSignupStore } from '~/store/signup.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const signupStore = useSignupStore();
+const alertStore = useAlertStore();
 
 const agreeAll = ref(false);
 const agreeAdult = ref(false);
@@ -107,7 +109,7 @@ const agreePass = computed(
 
 const handlerClickNextButton = () => {
 	if (!agreePass.value) {
-		alert('필수 항목에 모두 동의해주세요.');
+		alertStore.open('필수 항목에 모두 동의해주세요.');
 		return false;
 	}
 

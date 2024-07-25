@@ -83,6 +83,7 @@ import { lawyerFind } from '~/services/lawyerFind.js';
 import { user } from '~/services/user.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	layout: false,
@@ -91,6 +92,7 @@ definePageMeta({
 const router = useRouter();
 const loadingStore = useLoadingStore();
 const authStore = useAuthStore();
+const alertStore = useAlertStore();
 
 const expertList = ref([]);
 const toast = ref(null);
@@ -124,7 +126,7 @@ const callLawyerFindApi = () => {
 			expertList.value = data.slice(0, 6);
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -139,7 +141,7 @@ const callToast = () => {
 					}
 				})
 				.catch(e => {
-					alert(e.response.data.message);
+					alertStore.open(e.response.data.message);
 				});
 		}
 	}, 500);

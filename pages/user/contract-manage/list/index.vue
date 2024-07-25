@@ -119,6 +119,7 @@ import BottomToast from '~/components/toast/BottomToast.vue';
 import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 import { tradeCase } from '~/services/tradeCase.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	middleware: 'auth',
@@ -129,6 +130,8 @@ const modules = [Pagination];
 const router = useRouter();
 
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
+
 const tradeCaseList = ref([]);
 const cancelTid = ref(0);
 
@@ -140,7 +143,7 @@ onMounted(() => {
 			tradeCaseList.value = data;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
@@ -182,7 +185,7 @@ const handlerClickCancelApplyButton = () => {
 			toggleContractRestartConfirmModal();
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 const handlerClickReRegButton = () => {
@@ -193,7 +196,7 @@ const handlerClickReRegButton = () => {
 			router.push('/lawyer/find/form');
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 </script>

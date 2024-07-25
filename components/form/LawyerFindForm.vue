@@ -80,6 +80,7 @@ import {
 } from '~/assets/js/utils.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	mode: {
@@ -92,6 +93,11 @@ const props = defineProps({
 	},
 });
 
+const router = useRouter();
+
+const useAuth = useAuthStore();
+const alertStore = useAlertStore();
+
 const tmpKey = ref('');
 const form = ref({
 	bDate: '',
@@ -102,6 +108,9 @@ const form = ref({
 	contract: null,
 });
 const won = ref('');
+const contractFile = ref(null);
+const isLawyerFindOnlyOneModalShow = ref(false);
+const isLawyerFindMaxCountModalShow = ref(false);
 
 onMounted(() => {
 	lawyerContract
@@ -128,13 +137,13 @@ onMounted(() => {
 						})
 						.catch(e => {
 							window.localStorage.removeItem(LAWYER_FIND_TMP_KEY);
-							alert(e.response.data.message);
+							alertStore.open(e.response.data.message);
 						});
 				}
 			}
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 });
 
@@ -154,6 +163,14 @@ const isValidation = computed(
 	() => validateCount.value === Object.values(form.value).length,
 );
 
+const contractFileText = computed(() =>
+	!form.value.contract
+		? '파일업로드'
+		: typeof form.value.contract === 'object'
+			? form.value.contract.name
+			: form.value.contract,
+);
+
 const handlerClickSearchAddress = () => {
 	new window.daum.Postcode({
 		onComplete: function (data) {
@@ -162,7 +179,6 @@ const handlerClickSearchAddress = () => {
 	}).open();
 };
 
-const contractFile = ref(null);
 const handlerClickContractFile = () => {
 	contractFile.value.click();
 };
@@ -172,28 +188,19 @@ const handlerChangeContractFile = e => {
 
 	form.value.contract = files[0];
 };
-const contractFileText = computed(() =>
-	!form.value.contract
-		? '파일업로드'
-		: typeof form.value.contract === 'object'
-			? form.value.contract.name
-			: form.value.contract,
-);
 
-const useAuth = useAuthStore();
-const router = useRouter();
 const handlerClickNextButton = () => {
 	if (!isValidation.value) {
 		if (form.value.bDate === '') {
-			alert('잔금일자를 선택해주세요.');
+			alertStore.open('잔금일자를 선택해주세요.');
 		} else if (form.value.address === '' || form.value.detailAddress === '') {
-			alert('목적물 소재지를 입력해주세요.');
+			alertStore.open('목적물 소재지를 입력해주세요.');
 		} else if (form.value.cDate === '') {
-			alert('계약일자를 선택해주세요.');
+			alertStore.open('계약일자를 선택해주세요.');
 		} else if (form.value.price === '') {
-			alert('매매대금을 입력해주세요.');
+			alertStore.open('매매대금을 입력해주세요.');
 		} else if (form.value.contract === null) {
-			alert('계약서 사진을 등록해주세요.');
+			alertStore.open('계약서 사진을 등록해주세요.');
 		}
 
 		return false;
@@ -236,7 +243,7 @@ const handlerClickNextButton = () => {
 				);
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			});
 	} else {
 		lawyerContract
@@ -250,16 +257,15 @@ const handlerClickNextButton = () => {
 				);
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			});
 	}
 };
 
-const isLawyerFindOnlyOneModalShow = ref(false);
 const togglelawyerFindOnlyOneModal = () => {
 	isLawyerFindOnlyOneModalShow.value = !isLawyerFindOnlyOneModalShow.value;
 };
-const isLawyerFindMaxCountModalShow = ref(false);
+
 const toggleLawyerFindMaxCountModal = () => {
 	isLawyerFindMaxCountModalShow.value = !isLawyerFindMaxCountModalShow.value;
 };

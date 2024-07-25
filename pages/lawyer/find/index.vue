@@ -98,6 +98,7 @@ import LocationSettingModal from '~/components/modal/LocationSettingModal.vue';
 import { useLawyerFindStore } from '~/store/lawyerFind.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useLocationStore } from '~/store/location.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const locationStore = useLocationStore();
 const lawyerFindStore = useLawyerFindStore();
@@ -114,6 +115,8 @@ import {
 definePageMeta({
 	layout: false,
 });
+
+const alertStore = useAlertStore();
 
 const careers = ref([]);
 const badges = ref([]);
@@ -150,7 +153,7 @@ const setSort = val => {
 
 const handlerEnterKeyword = () => {
 	if (keyword.value.length === 1) {
-		alert('두 글자 이상 검색해 주세요');
+		alertStore.open('두 글자 이상 검색해 주세요');
 		return false;
 	}
 	window.localStorage.setItem(FILTER_KEYWORD_KEY, keyword.value);
@@ -210,7 +213,7 @@ const callApi = () => {
 			keyword: keyword.value,
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

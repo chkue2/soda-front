@@ -97,6 +97,7 @@ import {
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	middleware: 'auth',
@@ -108,6 +109,16 @@ const props = defineProps({
 		default: 'soda',
 	},
 });
+
+const route = useRoute();
+const router = useRouter();
+
+const loadingStore = useLoadingStore();
+const useAuth = useAuthStore();
+const alertStore = useAlertStore();
+
+const mode = route.params.mode;
+const firmCode = route.params.firmCode;
 
 const tmpKey = ref('');
 const form = ref({
@@ -124,15 +135,6 @@ const typeObj = ref({
 	type: 0,
 	amount: 0,
 });
-
-const route = useRoute();
-const router = useRouter();
-
-const loadingStore = useLoadingStore();
-const useAuth = useAuthStore();
-
-const mode = route.params.mode;
-const firmCode = route.params.firmCode;
 
 onMounted(() => {
 	const typeStorage = window.localStorage.getItem(LAWTER_FIND_TYPE_KEY);
@@ -160,13 +162,13 @@ onMounted(() => {
 				lawyerDetail.value = data.firm;
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			})
 			.finally(() => {
 				loadingStore.setLoadingShow(false);
 			});
 	} else {
-		alert('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
+		alertStore.open('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
 		router.push('/');
 	}
 });
@@ -225,7 +227,7 @@ const handlerClickApplyButton = () => {
 			}
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 

@@ -341,6 +341,7 @@ import { rexFormatPhone } from '~/assets/js/utils.js';
 import { tradeCase } from '~/services/tradeCase.js';
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	tid: {
@@ -353,18 +354,43 @@ const props = defineProps({
 	},
 });
 
+const router = useRouter();
+
+const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
+
 const profileCard = ref({});
 const tradeCaseDetail = ref({});
 const charger = ref({});
+
+onMounted(() => {
+	callApi();
+});
 
 const issueTimeText = computed(
 	() => tradeCaseDetail.value.issueTime || '아직 정해지지 않았어요',
 );
 
-const router = useRouter();
-const loadingStore = useLoadingStore();
-onMounted(() => {
-	callApi();
+const bankIcon = computed(() =>
+	tradeCaseDetail.value.venderId
+		? `/img/icon/${bankSVG[tradeCaseDetail.value.venderId].icon}`
+		: '',
+);
+
+const bankName = computed(() =>
+	tradeCaseDetail.value.venderId
+		? bankSVG[tradeCaseDetail.value.venderId].title
+		: '',
+);
+
+const serviceTypeText = computed(() => {
+	return getServiceType(tradeCaseDetail.value.serviceType);
+});
+
+const servicePriceText = computed(() => {
+	return tradeCaseDetail.value.serviceType === 'CARD'
+		? '협의완료'
+		: `${(tradeCaseDetail.value.servicePrice || 0).toLocaleString()}원`;
 });
 
 const callApi = () => {
@@ -378,7 +404,7 @@ const callApi = () => {
 		})
 		.catch(e => {
 			window.localStorage.removeItem(BANK_AUTH_KEY);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 			router.go(-1);
 		})
 		.finally(() => {
@@ -435,28 +461,8 @@ const handlerClickIssueTimeText = () => {
 		toggleBalanceTimeInformationModal();
 };
 
-const bankIcon = computed(() =>
-	tradeCaseDetail.value.venderId
-		? `/img/icon/${bankSVG[tradeCaseDetail.value.venderId].icon}`
-		: '',
-);
-const bankName = computed(() =>
-	tradeCaseDetail.value.venderId
-		? bankSVG[tradeCaseDetail.value.venderId].title
-		: '',
-);
-
 const checkImage = flag =>
 	flag ? '/img/icon/check-bubble-blue.svg' : '/img/icon/check-bubble-gray.svg';
-
-const serviceTypeText = computed(() => {
-	return getServiceType(tradeCaseDetail.value.serviceType);
-});
-const servicePriceText = computed(() => {
-	return tradeCaseDetail.value.serviceType === 'CARD'
-		? '협의완료'
-		: `${(tradeCaseDetail.value.servicePrice || 0).toLocaleString()}원`;
-});
 
 const chargerProfileImage = computed(() => {
 	const domain =
@@ -472,11 +478,11 @@ const cancelContract = () => {
 	tradeCase
 		.deleteTradeCase(props.tid)
 		.then(() => {
-			alert('계약을 취소하였습니다.');
+			alertStore.open('계약을 취소하였습니다.');
 			router.replace('/');
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
@@ -487,13 +493,13 @@ const deleteReview = () => {
 	user
 		.deleteReview(profileCard.value.review[0].seq, props.ins)
 		.then(() => {
-			alert('작성하신 리뷰가 삭제되었습니다.');
+			alertStore.open('작성하신 리뷰가 삭제되었습니다.');
 			callApi();
 			toggleReviewDeleteConfirmModal();
 			toggleReviewUpdateModal();
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 </script>

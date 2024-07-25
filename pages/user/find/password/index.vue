@@ -64,6 +64,9 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 import { isValidPassword } from '~/assets/js/utils.js';
 import { signup } from '~/services/signup.js';
 import { user } from '~/services/user.js';
+import { useAlertStore } from '~/store/alert.js';
+
+const alertStore = useAlertStore();
 
 const form = ref({
 	mobile: '',
@@ -100,7 +103,7 @@ const handlerClickSelfIdentification = () => {
 		})
 		.catch(e => {
 			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -118,17 +121,17 @@ const router = useRouter();
 const handlerClickApplyButton = () => {
 	if (!isFormValidation.value) {
 		if (form.value.id === '') {
-			alert('아이디를 입력해주세요');
+			alertStore.open('아이디를 입력해주세요');
 		} else if (form.value.mobile === '' || form.value.userName === '') {
-			alert('본인인증이 필요합니다');
+			alertStore.open('본인인증이 필요합니다');
 		} else if (form.value.password === '') {
-			alert('비밀번호를 입력해주세요');
+			alertStore.open('비밀번호를 입력해주세요');
 		} else if (!isValidPassword(form.value.password)) {
-			alert(
+			alertStore.open(
 				'비밀번호는 영문, 숫자, 특수문자를 조합한 8자리 이상 입력해야 합니다',
 			);
 		} else if (form.value.password !== form.value.passwordConfirm) {
-			alert('비밀번호와 비밀번호 확인이 다릅니다');
+			alertStore.open('비밀번호와 비밀번호 확인이 다릅니다');
 		}
 		return false;
 	}
@@ -147,7 +150,7 @@ const handlerClickApplyButton = () => {
 		})
 		.catch(e => {
 			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 </script>

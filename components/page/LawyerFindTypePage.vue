@@ -250,6 +250,7 @@ import { BANK_AUTH_KEY, LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 import { keyupToLocaleString } from '~/assets/js/utils.js';
 import { calculate } from '~/services/calculate.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	ins: {
@@ -262,6 +263,8 @@ const emit = defineEmits(['click-apply-button']);
 
 const router = useRouter();
 const route = useRoute();
+
+const alertStore = useAlertStore();
 
 const offerPrice = ref(0);
 const normalPrice = ref(0);
@@ -278,7 +281,7 @@ onMounted(() => {
 				callApi();
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 				window.localStorage.removeItem(BANK_AUTH_KEY);
 				router.go(0);
 			});
@@ -301,10 +304,10 @@ const callApi = () => {
 				legalpayPrice.value = data.serviceType.LEGALPAY / 10000;
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			});
 	} else {
-		alert('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
+		alertStore.open('잘못된 경로로 접근했네요. 다시 홈으로 돌아갈게요.');
 		location.href = '/';
 	}
 };

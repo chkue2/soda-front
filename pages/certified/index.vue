@@ -41,6 +41,7 @@ import {
 	LOGIN_REDIRECT_KEY,
 } from '~/assets/js/storageKeys.js';
 import { bankAuth } from '~/services/bankAuth.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const form = ref({
 	phone: '',
@@ -48,6 +49,8 @@ const form = ref({
 });
 
 const router = useRouter();
+
+const alertStore = useAlertStore();
 
 const validateCount = computed(
 	() => Object.values(form.value).filter(v => v !== '').length,
@@ -63,11 +66,11 @@ const isValidation = computed(() => {
 const handlerClickNextButton = () => {
 	if (!isValidation.value) {
 		if (form.value.phone === '') {
-			alert('휴대전화 뒤의 4자리를 입력해주세요');
+			alertStore.open('휴대전화 뒤의 4자리를 입력해주세요');
 		} else if (form.value.phone.length !== 4) {
-			alert('휴대전화 뒤의 4자리를 입력해주세요');
+			alertStore.open('휴대전화 뒤의 4자리를 입력해주세요');
 		} else if (form.value.bank !== '') {
-			alert('대출받은 은행을 선택해주세요');
+			alertStore.open('대출받은 은행을 선택해주세요');
 		}
 		return false;
 	}
@@ -89,7 +92,7 @@ const handlerClickNextButton = () => {
 		})
 		.catch(e => {
 			window.localStorage.removeItem(BANK_AUTH_KEY);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 

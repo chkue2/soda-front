@@ -124,17 +124,7 @@
 import { onMounted, ref } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
 import { useLocationStore } from '~/store/location.js';
-
-const locationStore = useLocationStore();
-
-const emit = defineEmits([
-	'close-modal',
-	'set-careers',
-	'set-badges',
-	'set-address',
-	'set-distance',
-	'call-api',
-]);
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	careers: {
@@ -161,6 +151,17 @@ const props = defineProps({
 		},
 	},
 });
+const emit = defineEmits([
+	'close-modal',
+	'set-careers',
+	'set-badges',
+	'set-address',
+	'set-distance',
+	'call-api',
+]);
+
+const locationStore = useLocationStore();
+const alertStore = useAlertStore();
 
 const careersValue = ref([...props.careers]);
 const badgesValue = ref([...props.badges]);
@@ -231,7 +232,7 @@ const handlerClickResetButton = () => {
 
 const handlerClickApplyButton = () => {
 	if (addressValue.value.sido !== '' && addressValue.value.dong === '') {
-		alert('동/읍/면까지 모두 선택해야 조회 가능합니다.');
+		alertStore.open('동/읍/면까지 모두 선택해야 조회 가능합니다.');
 		return false;
 	}
 	emit('set-careers', careersValue.value);
@@ -249,7 +250,7 @@ const closeModal = () => {
 const backgroundSize = ref('20% 100%');
 const updateSlider = e => {
 	if (addressValue.value.locationCode === '') {
-		alert('반경 설정 시 지역을 동/읍/면까지 설정이 필요합니다.');
+		alertStore.open('반경 설정 시 지역을 동/읍/면까지 설정이 필요합니다.');
 		distanceValue.value = 15;
 		e.target.value = 15;
 		return false;

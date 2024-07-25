@@ -80,8 +80,11 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { CALC_FORM_DATA_KEY } from '~/assets/js/storageKeys.js';
 import { calculate } from '~/services/calculate.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const router = useRouter();
+
+const alertStore = useAlertStore();
 
 const res = ref({});
 
@@ -89,7 +92,7 @@ onMounted(() => {
 	const formStorage = window.localStorage.getItem(CALC_FORM_DATA_KEY);
 
 	if (!formStorage) {
-		alert('계산에 필요한 항목들을 먼저 입력해주세요.');
+		alertStore.open('계산에 필요한 항목들을 먼저 입력해주세요.');
 		router.push('/calculate/form');
 	} else {
 		const form = JSON.parse(formStorage);
@@ -104,7 +107,7 @@ onMounted(() => {
 				res.value = data;
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			});
 	}
 });

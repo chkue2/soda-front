@@ -25,6 +25,7 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { inquiry } from '~/services/inquiry.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	middleware: 'auth',
@@ -33,6 +34,8 @@ definePageMeta({
 const inquiryList = ref([]);
 
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
+
 onMounted(() => {
 	loadingStore.setLoadingShow(true);
 	inquiry
@@ -41,7 +44,7 @@ onMounted(() => {
 			inquiryList.value = data;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

@@ -52,10 +52,13 @@ import {
 	convertToKoreanCurrency,
 	keyupToLocaleString,
 } from '~/assets/js/utils.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	layout: false,
 });
+
+const alertStore = useAlertStore();
 
 onMounted(() => {
 	const formStorage = window.localStorage.getItem(CALC_FORM_DATA_KEY);
@@ -88,13 +91,13 @@ const validateCount = computed(
 const router = useRouter();
 const handlerClickCalcButton = () => {
 	if (form.value.price === '') {
-		alert('매매대금을 입력해주세요');
+		alertStore.open('매매대금을 입력해주세요');
 		return false;
 	} else if (form.value.subjectCnt === '') {
-		alert('보유주택수를 선택해주세요');
+		alertStore.open('보유주택수를 선택해주세요');
 		return false;
 	} else if (form.value.farmTaxApply === '') {
-		alert('감면조항을 선택해주세요');
+		alertStore.open('감면조항을 선택해주세요');
 		return false;
 	}
 	window.localStorage.setItem(CALC_FORM_DATA_KEY, JSON.stringify(form.value));

@@ -71,6 +71,7 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 import { isValidPassword, isValidId } from '~/assets/js/utils.js';
 import { signup } from '~/services/signup.js';
 import { useSignupStore } from '~/store/signup.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const form = ref({
 	phone: '',
@@ -81,6 +82,8 @@ const form = ref({
 	userIdentityKey: '',
 });
 const idCheck = ref(false);
+
+const alertStore = useAlertStore();
 
 onMounted(() => {
 	const receiveData = async e => {
@@ -106,7 +109,7 @@ const handlerClickSelfIdentification = () => {
 		})
 		.catch(e => {
 			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -128,21 +131,23 @@ const handlerKeyupId = () => {
 
 const handlerClickIdCheckButton = () => {
 	if (form.value.id === '') {
-		alert('아이디를 입력해주세요');
+		alertStore.open('아이디를 입력해주세요');
 		return false;
 	}
 	if (!isValidId(form.value.id)) {
-		alert('아이디는 영문이나 숫자를 조합한 5자리 이상 입력해야 합니다');
+		alertStore.open(
+			'아이디는 영문이나 숫자를 조합한 5자리 이상 입력해야 합니다',
+		);
 		return false;
 	}
 	signup
 		.checkId({ userId: form.value.id })
 		.then(() => {
 			idCheck.value = true;
-			alert('사용 가능한 아이디입니다');
+			alertStore.open('사용 가능한 아이디입니다');
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -151,19 +156,19 @@ const signupStore = useSignupStore();
 const handlerClickSignupButton = () => {
 	if (!isFormValidation.value) {
 		if (form.value.phone === '' || form.value.name === '') {
-			alert('본인인증이 필요합니다');
+			alertStore.open('본인인증이 필요합니다');
 		} else if (form.value.id === '') {
-			alert('아이디를 입력해주세요');
+			alertStore.open('아이디를 입력해주세요');
 		} else if (!idCheck.value) {
-			alert('아이디 중복체크를 해주세요');
+			alertStore.open('아이디 중복체크를 해주세요');
 		} else if (form.value.password === '') {
-			alert('비밀번호를 입력해주세요');
+			alertStore.open('비밀번호를 입력해주세요');
 		} else if (!isValidPassword(form.value.password)) {
-			alert(
+			alertStore.open(
 				'비밀번호는 영문, 숫자, 특수문자를 조합한 8자리 이상 입력해야 합니다',
 			);
 		} else if (form.value.password !== form.value.passwordConfirm) {
-			alert('비밀번호와 비밀번호 확인이 다릅니다');
+			alertStore.open('비밀번호와 비밀번호 확인이 다릅니다');
 		}
 		return false;
 	}
@@ -185,7 +190,7 @@ const handlerClickSignupButton = () => {
 			router.replace('/signup/success');
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 </script>

@@ -19,6 +19,9 @@ import Pagination from '~/components/paging/Pagination.vue';
 
 import { useLoadingStore } from '~/store/loading.js';
 import { notice } from '~/services/notice.js';
+import { useAlertStore } from '~/store/alert.js';
+
+const alertStore = useAlertStore();
 
 const paging = ref({
 	startPage: 1,
@@ -44,7 +47,7 @@ const callApi = pageNo => {
 			paging.value = data.paging;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

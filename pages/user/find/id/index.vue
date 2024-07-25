@@ -76,6 +76,9 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 import { signup } from '~/services/signup.js';
 import { user } from '~/services/user.js';
+import { useAlertStore } from '~/store/alert.js';
+
+const alertStore = useAlertStore();
 
 const form = ref({
 	userName: '',
@@ -119,8 +122,7 @@ const handlerClickSelfIdentification = () => {
 			wnd.document.write(data);
 		})
 		.catch(e => {
-			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -131,7 +133,7 @@ const handlerClickFindId = () => {
 		form.value.userIdentityKey === ''
 	) {
 		isSuccess.value = false;
-		alert('본인인증을 해주세요.');
+		alertStore.open('본인인증을 해주세요.');
 		return false;
 	}
 

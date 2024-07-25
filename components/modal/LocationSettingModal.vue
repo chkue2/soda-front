@@ -56,8 +56,7 @@
 import { onMounted, ref } from 'vue';
 import CommonModal from '~/components/modal/CommonModal.vue';
 import { useLocationStore } from '~/store/location.js';
-
-const locationStore = useLocationStore();
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	address: {
@@ -72,6 +71,10 @@ const props = defineProps({
 		},
 	},
 });
+const emit = defineEmits(['set-address', 'call-api', 'close-modal']);
+
+const locationStore = useLocationStore();
+const alertStore = useAlertStore();
 
 const selectedAddress = ref({ ...props.address });
 
@@ -109,10 +112,9 @@ const handlerChangeDong = () => {
 	selectedAddress.value.locationCode = code;
 };
 
-const emit = defineEmits(['set-address', 'call-api', 'close-modal']);
 const setAddress = () => {
 	if (selectedAddress.value.dong === '') {
-		alert('동/읍/면까지 모두 선택해야 조회 가능합니다.');
+		alertStore.open('동/읍/면까지 모두 선택해야 조회 가능합니다.');
 		return false;
 	}
 	emit('set-address', selectedAddress.value);

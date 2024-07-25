@@ -66,10 +66,13 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { isValidPassword } from '~/assets/js/utils.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	middleware: 'auth',
 });
+
+const alertStore = useAlertStore();
 
 const form = ref({
 	userName: '',
@@ -113,7 +116,7 @@ onMounted(() => {
 			isToggle.value = form.value.advInfoReceiveAgree === 'Y';
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
@@ -124,15 +127,15 @@ const router = useRouter();
 const handlerClickUpdateButton = () => {
 	if (!isValidation.value) {
 		if (form.value.currentPassword === '')
-			alert('현재 비밀번호를 입력해주세요.');
+			alertStore.open('현재 비밀번호를 입력해주세요.');
 		else if (!isValidPassword(form.value.currentPassword))
-			alert('비밀번호는 영문,숫자,특수문자를 조합한 8자 이상입니다.');
+			alertStore.open('비밀번호는 영문,숫자,특수문자를 조합한 8자 이상입니다.');
 		else if (form.value.newPassword === '')
-			alert('새 비밀번호를 입력해주세요.');
+			alertStore.open('새 비밀번호를 입력해주세요.');
 		else if (!isValidPassword(form.value.newPassword))
-			alert('비밀번호는 영문,숫자,특수문자를 조합한 8자 이상입니다.');
+			alertStore.open('비밀번호는 영문,숫자,특수문자를 조합한 8자 이상입니다.');
 		else if (form.value.newPassword !== form.value.confirmPassword)
-			alert('새 비밀번호와 새 비밀번호 확인이 다릅니다.');
+			alertStore.open('새 비밀번호와 새 비밀번호 확인이 다릅니다.');
 		return false;
 	}
 	loadingStore.setLoadingShow(true);
@@ -147,11 +150,11 @@ const handlerClickUpdateButton = () => {
 	user
 		.setUserInfoUpdate(formData)
 		.then(() => {
-			alert('정보가 변경되었습니다.');
+			alertStore.open('정보가 변경되었습니다.');
 			router.go(-1);
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

@@ -73,6 +73,7 @@ import CommonModal from '~/components/modal/CommonModal.vue';
 
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	seq: {
@@ -89,10 +90,11 @@ const props = defineProps({
 	},
 });
 
+const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
+
 const reviewDetail = ref({});
 const content = ref('');
-
-const loadingStore = useLoadingStore();
 
 onMounted(() => {
 	callApi();
@@ -107,7 +109,7 @@ const callApi = () => {
 			content.value = data.memo;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
@@ -154,7 +156,7 @@ const handlerClickUpdateButton = () => {
 			toggleUpdate();
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 

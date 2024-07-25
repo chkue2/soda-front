@@ -120,6 +120,7 @@ import { lawyerDetail } from '~/services/lawyerDetail.js';
 import { lawyerMatch } from '~/services/lawyerMatch.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useConfirmStore } from '~/store/confirm.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	type: {
@@ -134,8 +135,10 @@ const props = defineProps({
 
 const route = useRoute();
 const router = useRouter();
+
 const confirmStore = useConfirmStore();
 const useAuth = useAuthStore();
+const alertStore = useAlertStore();
 
 const firmDetail = ref({});
 const firmLikeYN = ref(false);
@@ -188,7 +191,7 @@ const callApi = () => {
 				firmLikeYN.value = data.like;
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			});
 	}
 };
@@ -204,7 +207,7 @@ const handlerClickLikeButton = () => {
 				callApi();
 			})
 			.catch(e => {
-				alert(e.response.data.message);
+				alertStore.open(e.response.data.message);
 			});
 	}
 };
@@ -216,7 +219,7 @@ const handlerClickSelectButton = () => {
 			toggleLawyerSelectCompleteModal();
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 

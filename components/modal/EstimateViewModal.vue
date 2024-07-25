@@ -223,6 +223,7 @@ import CommonModal from '~/components/modal/CommonModal.vue';
 import { bankSVG } from '~/assets/js/bankSVG.js';
 import { rexFormatPhone } from '~/assets/js/utils.js';
 import { tradeCase } from '~/services/tradeCase.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	tid: {
@@ -234,6 +235,9 @@ const props = defineProps({
 		default: 'soda',
 	},
 });
+const emit = defineEmits(['close-modal']);
+
+const alertStore = useAlertStore();
 
 const summary = ref({});
 const tradeCaseInfo = ref({});
@@ -258,7 +262,7 @@ onMounted(() => {
 			info.value = data.info;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 			closeModal();
 		});
 });
@@ -270,7 +274,6 @@ const infoMemo = computed(() =>
 	(info.value.estimateMemo || '').replaceAll('\r\n', '<br>'),
 );
 
-const emit = defineEmits(['close-modal']);
 const closeModal = () => {
 	emit('close-modal');
 };

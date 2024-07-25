@@ -33,6 +33,7 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 
 import { inquiry } from '~/services/inquiry.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	middleware: 'auth',
@@ -44,6 +45,7 @@ const form = ref({
 });
 
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
 
 const isValidation = computed(
 	() => form.value.title !== '' && form.value.memo !== '',
@@ -54,9 +56,9 @@ const router = useRouter();
 const handlerClickApplyButton = () => {
 	if (!isValidation.value) {
 		if (form.value.title === '') {
-			alert('제목을 입력해주세요.');
+			alertStore.open('제목을 입력해주세요.');
 		} else if (form.value.memo === '') {
-			alert('문의사항을 입력해주세요.');
+			alertStore.open('문의사항을 입력해주세요.');
 		}
 		return false;
 	}
@@ -69,11 +71,13 @@ const handlerClickApplyButton = () => {
 	inquiry
 		.setInquiry(formData)
 		.then(() => {
-			alert('일대일 문의가 작성되었습니다.\n빠른 시일내에 답변 드리겠습니다.');
+			alertStore.open(
+				'일대일 문의가 작성되었습니다.\n빠른 시일내에 답변 드리겠습니다.',
+			);
 			router.go(-1);
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

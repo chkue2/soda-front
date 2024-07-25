@@ -68,15 +68,7 @@ import {
 } from '~/assets/js/utils.js';
 import { tradeCase } from '~/services/tradeCase.js';
 import { useLoadingStore } from '~/store/loading.js';
-
-const form = ref({
-	bDate: '',
-	address: '',
-	detailAddress: '',
-	price: '',
-	contract: null,
-});
-const won = ref('');
+import { useAlertStore } from '~/store/alert.js';
 
 const props = defineProps({
 	tid: {
@@ -87,6 +79,16 @@ const props = defineProps({
 const emit = defineEmits(['call-api', 'close-modal']);
 
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
+
+const form = ref({
+	bDate: '',
+	address: '',
+	detailAddress: '',
+	price: '',
+	contract: null,
+});
+const won = ref('');
 
 onMounted(() => {
 	loadingStore.setLoadingShow(true);
@@ -100,8 +102,7 @@ onMounted(() => {
 			form.value.contract = data.contractFileName;
 		})
 		.catch(e => {
-			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
@@ -166,12 +167,12 @@ const handlerClickUpdateButton = () => {
 	tradeCase
 		.updateInfo(props.tid, formData)
 		.then(() => {
-			alert('계약정보가 수정되었습니다.');
+			alertStore.open('계약정보가 수정되었습니다.');
 			emit('call-api');
 			closeModal();
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

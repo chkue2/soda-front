@@ -71,6 +71,7 @@ import ListEmptyItem from '~/components/item/ListEmptyItem.vue';
 
 import { notification } from '~/services/notification.js';
 import { useLoadingStore } from '~/store/loading';
+import { useAlertStore } from '~/store/alert.js';
 
 const notificationList = ref([]);
 
@@ -79,6 +80,7 @@ onMounted(() => {
 });
 
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
 
 const callApi = () => {
 	loadingStore.setLoadingShow(true);
@@ -88,7 +90,7 @@ const callApi = () => {
 			notificationList.value = data.notification;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);
@@ -114,7 +116,7 @@ const callApiReadNotification = seq => {
 		})
 		.catch(e => {
 			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -126,7 +128,7 @@ const callApiReadAllNotification = () => {
 		})
 		.catch(e => {
 			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 

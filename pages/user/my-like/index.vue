@@ -19,14 +19,17 @@ import ExpertList from '~/components/list/ExpertList.vue';
 
 import { firmLike } from '~/services/firmLike.js';
 import { useLoadingStore } from '~/store/loading.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	middleware: 'auth',
 });
 
+const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
+
 const likeList = ref([]);
 
-const loadingStore = useLoadingStore();
 onMounted(() => {
 	loadingStore.setLoadingShow(true);
 	firmLike
@@ -35,7 +38,7 @@ onMounted(() => {
 			likeList.value = data;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		})
 		.finally(() => {
 			loadingStore.setLoadingShow(false);

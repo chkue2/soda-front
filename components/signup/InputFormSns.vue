@@ -43,6 +43,7 @@ import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButt
 
 import { signup } from '~/services/signup.js';
 import { useSignupStore } from '~/store/signup.js';
+import { useAlertStore } from '~/store/alert.js';
 
 const form = ref({
 	phone: '',
@@ -58,6 +59,7 @@ const props = defineProps({
 		default: () => {},
 	},
 });
+const alertStore = useAlertStore();
 
 onMounted(() => {
 	const receiveData = async e => {
@@ -83,7 +85,7 @@ const handlerClickSelfIdentification = () => {
 		})
 		.catch(e => {
 			console.log(e);
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -99,7 +101,7 @@ const signupStore = useSignupStore();
 const handlerClickSignupButton = () => {
 	if (!isFormValidation.value) {
 		if (form.value.phone === '' || form.value.name === '') {
-			alert('본인인증이 필요합니다');
+			alertStore.open('본인인증이 필요합니다');
 		}
 		return false;
 	}
@@ -121,7 +123,7 @@ const handlerClickSignupButton = () => {
 			router.replace('/signup/success');
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 </script>

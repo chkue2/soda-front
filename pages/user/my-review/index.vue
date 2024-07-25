@@ -40,12 +40,14 @@ import ReviewDeleteConfirmModal from '~/components/modal/ReviewDeleteConfirmModa
 
 import { useLoadingStore } from '~/store/loading.js';
 import { user } from '~/services/user.js';
+import { useAlertStore } from '~/store/alert.js';
 
 definePageMeta({
 	middleware: 'auth',
 });
 
 const loadingStore = useLoadingStore();
+const alertStore = useAlertStore();
 
 const reviewCount = ref(0);
 const reviewList = ref([]);
@@ -70,7 +72,7 @@ const getReviewCount = () => {
 			reviewCount.value = data.count;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -81,7 +83,7 @@ const getReviewList = () => {
 			reviewList.value = data;
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
@@ -90,11 +92,11 @@ const deleteReview = () => {
 	user
 		.deleteReview(selectSeq.value)
 		.then(() => {
-			alert('작성하신 리뷰가 삭제되었습니다.');
+			alertStore.open('작성하신 리뷰가 삭제되었습니다.');
 			router.go(0);
 		})
 		.catch(e => {
-			alert(e.response.data.message);
+			alertStore.open(e.response.data.message);
 		});
 };
 
