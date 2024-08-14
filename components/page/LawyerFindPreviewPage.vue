@@ -94,6 +94,7 @@ import { getServiceType } from '~/assets/js/serviceType.js';
 import {
 	LAWTER_FIND_TYPE_KEY,
 	LAWYER_FIND_TMP_KEY,
+	BANK_AUTH_KEY,
 } from '~/assets/js/storageKeys.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
@@ -140,6 +141,10 @@ const typeObj = ref({
 usePageLeave();
 
 onMounted(() => {
+	if (props.ins === 'bank' && !window.localStorage.getItem(BANK_AUTH_KEY)) {
+		router.go(-1);
+	}
+
 	const typeStorage = window.localStorage.getItem(LAWTER_FIND_TYPE_KEY);
 	if (typeStorage) {
 		typeObj.value = JSON.parse(typeStorage);

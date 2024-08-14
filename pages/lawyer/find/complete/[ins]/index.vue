@@ -24,11 +24,13 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
+import { BANK_AUTH_KEY } from '~/assets/js/storageKeys.js';
 import { usePageLeave } from '~/composables/usePageLeave.js';
 
 const router = useRouter();
@@ -37,6 +39,12 @@ const route = useRoute();
 const ins = route.params.ins;
 
 usePageLeave();
+
+onMounted(() => {
+	if (ins === 'bank' && !window.localStorage.getItem(BANK_AUTH_KEY)) {
+		router.go(-2);
+	}
+});
 
 const handlerClickHomeButton = () => {
 	router.push('/');

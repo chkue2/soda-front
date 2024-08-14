@@ -3,10 +3,10 @@ import { pageLeave } from '~/assets/js/pageLeave.js';
 
 export function usePageLeave() {
 	onMounted(() => {
-		window.addEventListener('beforeunload', pageLeave);
+		window.addEventListener('visibilitychange', pageLeave);
 	});
 
 	onBeforeUnmount(() => {
-		window.removeEventListener('beforeunload', pageLeave);
+		window.removeEventListener('visibilitychange', pageLeave);
 	});
 }
