@@ -121,6 +121,7 @@ import { lawyerMatch } from '~/services/lawyerMatch.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useConfirmStore } from '~/store/confirm.js';
 import { useAlertStore } from '~/store/alert.js';
+import { usePageLeave } from '~/composables/usePageLeave.js';
 
 const props = defineProps({
 	type: {
@@ -145,6 +146,8 @@ const firmLikeYN = ref(false);
 
 const tid = route.params.id;
 const firmCode = route.params.firmCode;
+
+usePageLeave();
 
 onMounted(() => {
 	useAuth.initialize();

@@ -342,6 +342,7 @@ import { tradeCase } from '~/services/tradeCase.js';
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
+import { usePageLeave } from '~/composables/usePageLeave.js';
 
 const props = defineProps({
 	tid: {
@@ -362,6 +363,8 @@ const alertStore = useAlertStore();
 const profileCard = ref({});
 const tradeCaseDetail = ref({});
 const charger = ref({});
+
+usePageLeave();
 
 onMounted(() => {
 	callApi();

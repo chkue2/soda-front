@@ -85,6 +85,7 @@ import LawyerRematchModal from '~/components/modal/LawyerRematchModal.vue';
 import { LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 import { lawyerMatch } from '~/services/lawyerMatch.js';
 import { useAlertStore } from '~/store/alert.js';
+import { usePageLeave } from '~/composables/usePageLeave.js';
 
 const props = defineProps({
 	tid: {
@@ -103,6 +104,8 @@ const alertStore = useAlertStore();
 
 const lawyerList = ref([]);
 const status = ref('');
+
+usePageLeave();
 
 onMounted(() => {
 	lawyerMatch
