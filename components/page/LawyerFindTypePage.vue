@@ -246,6 +246,7 @@ import { useRoute, useRouter } from 'vue-router';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
+import { usePageLeave } from '~/composables/usePageLeave.js';
 import { BANK_AUTH_KEY, LAWYER_FIND_TMP_KEY } from '~/assets/js/storageKeys.js';
 import { keyupToLocaleString } from '~/assets/js/utils.js';
 import { calculate } from '~/services/calculate.js';
@@ -271,6 +272,8 @@ const normalPrice = ref(0);
 const premiumPrice = ref(0);
 const passPrice = ref(0);
 const legalpayPrice = ref(0);
+
+usePageLeave();
 
 onMounted(() => {
 	if (route.params.id) {

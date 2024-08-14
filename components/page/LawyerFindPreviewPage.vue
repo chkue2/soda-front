@@ -89,6 +89,7 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 import LawyerFindSelectCompleteModal from '~/components/modal/LawyerFindSelectCompleteModal.vue';
 import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeCompleteModal.vue';
 
+import { usePageLeave } from '~/composables/usePageLeave.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
 import {
 	LAWTER_FIND_TYPE_KEY,
@@ -135,6 +136,8 @@ const typeObj = ref({
 	type: 0,
 	amount: 0,
 });
+
+usePageLeave();
 
 onMounted(() => {
 	const typeStorage = window.localStorage.getItem(LAWTER_FIND_TYPE_KEY);

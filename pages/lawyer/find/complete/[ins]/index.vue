@@ -29,10 +29,14 @@ import { useRouter, useRoute } from 'vue-router';
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
+import { usePageLeave } from '~/composables/usePageLeave.js';
+
 const router = useRouter();
 const route = useRoute();
 
 const ins = route.params.ins;
+
+usePageLeave();
 
 const handlerClickHomeButton = () => {
 	router.push('/');
