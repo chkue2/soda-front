@@ -1,5 +1,5 @@
 <template>
-	<HeaderClose title="등기프로 찾기" />
+	<HeaderClose title="등기프로 찾기" :is-close-show="ins !== 'bank'" />
 	<div class="find-complete-container">
 		<div class="complete-title">
 			<img src="/img/icon/love-letter.png" alt="프로필카드 받는 중" />
@@ -15,7 +15,7 @@
 			alt="프로필 카드 받는 중 이미지"
 		/>
 	</div>
-	<div class="form-bottom-buttons">
+	<div v-if="ins !== 'bank'" class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="홈으로"
 			@click-button="handlerClickHomeButton"
@@ -24,12 +24,16 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
 import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 const router = useRouter();
+const route = useRoute();
+
+const ins = route.params.ins;
+
 const handlerClickHomeButton = () => {
 	router.push('/');
 };

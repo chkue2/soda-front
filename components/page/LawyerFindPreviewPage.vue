@@ -223,7 +223,7 @@ const handlerClickApplyButton = () => {
 			if (mode === 'PRO_CARD') {
 				toggleLawyerFindSelectCompleteModal();
 			} else {
-				router.push('/lawyer/find/complete');
+				router.push(`/lawyer/find/complete/${props.ins}`);
 			}
 		})
 		.catch(e => {
