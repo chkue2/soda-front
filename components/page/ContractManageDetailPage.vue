@@ -48,11 +48,11 @@
 	<div class="contract-manage-middle-container">
 		<p class="middle-title">진행현황</p>
 		<div class="contract-state-wrapper">
-			<div class="contract-state-card mb12 card-on">
+			<div class="contract-state-card mb12" :class="{ 'card-on': profileCard }">
 				<div class="contract-state-title">
 					<div class="contract-state-title-left">
 						<img
-							src="/img/icon/check-bubble-blue.svg"
+							:src="checkImage(profileCard ? true : false)"
 							alt="사무소 선택 완료 여부"
 						/>
 						<p>사무소 선택완료</p>
@@ -68,7 +68,7 @@
 						배정취소
 					</button>
 				</div>
-				<div>
+				<div v-if="profileCard">
 					<div class="contract-state-profile">
 						<ExpertListItem :item="profileCard" :ins="props.ins" />
 					</div>
