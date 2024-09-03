@@ -2,7 +2,7 @@
 	<CommonModal @close-modal="CloseModal">
 		<template #modal-body>
 			<div class="balance-container">
-				<p class="balance-modal-subtitle">앗! 지금은 아니예요!</p>
+				<p class="balance-modal-subtitle">앗! 지금은 아니에요!</p>
 				<p class="balance-modal-title">잔금시간 안내</p>
 				<p class="balance-modal-content">
 					선택한 사무소와 협의해야해요.<br />담당법무사가 잔금일 전에

@@ -90,13 +90,21 @@
 							{{ servicePriceText }}
 						</p>
 					</div>
-					<div class="contract-state-profile-tel mt30">
+					<div
+						v-if="profileCard.firmPhone && profileCard.firmPhone !== ''"
+						class="contract-state-profile-tel mt30"
+					>
 						<span>사무소로 전화하기</span>
-						<a :href="`tel:${rexFormatPhone(profileCard.firmPhone)}`">{{
-							rexFormatPhone(profileCard.firmPhone)
+						<a :href="`tel:${profileCard.firmPhone}`">{{
+							profileCard.firmPhone
 						}}</a>
 					</div>
-					<div class="contract-state-profile-tel mt18">
+					<div
+						v-if="
+							profileCard.delegaterPhone && profileCard.delegaterPhone !== ''
+						"
+						class="contract-state-profile-tel mt18"
+					>
 						<span>대표에게 전화하기</span>
 						<a :href="`tel:${rexFormatPhone(profileCard.delegaterPhone)}`">{{
 							rexFormatPhone(profileCard.delegaterPhone)
