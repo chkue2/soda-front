@@ -78,7 +78,7 @@
 			</swiper-slide>
 		</swiper>
 	</div>
-	<p class="contract-list-help-text">
+	<p v-if="tradeCaseList.length > 0" class="contract-list-help-text">
 		계약정보를 수정하려면 등록취소 후 다시 등록해주세요
 	</p>
 	<BottomToast
