@@ -79,7 +79,7 @@ import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
-import { domain } from '~/assets/js/apiUrls';
+import { useDomain } from '~/composables/useDomain.js';
 
 const randomMemoEnums = [
 	'안심하고 진행했어요.',
@@ -120,7 +120,7 @@ onMounted(() => {
 });
 
 const profileImageUrl = computed(() => {
-	return `${domain}${props.card.profileFileUrl}`;
+	return `${useDomain}${props.card.profileFileUrl}`;
 });
 
 const setTimeRate = rate => {

@@ -61,7 +61,7 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useAlertStore } from '~/store/alert.js';
-import { domain } from '~/assets/js/apiUrls';
+import { useDomain } from '~/composables/useDomain.js';
 
 const router = useRouter();
 const useAuth = useAuthStore();
@@ -129,11 +129,11 @@ const redirect = () => {
 };
 
 const handlerClickKakaoLogin = () => {
-	location.href = domain + '/oauth2/authorization/kakao';
+	location.href = useDomain + '/oauth2/authorization/kakao';
 };
 
 const handlerClickNaverLogin = () => {
-	location.href = domain + '/oauth2/authorization/naver';
+	location.href = useDomain + '/oauth2/authorization/naver';
 };
 </script>
 

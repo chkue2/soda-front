@@ -100,7 +100,7 @@ import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
-import { domain } from '~/assets/js/apiUrls';
+import { useDomain } from '~/composables/useDomain.js';
 
 definePageMeta({
 	middleware: 'auth',
@@ -192,7 +192,7 @@ const serviceAmountText = computed(() => {
 });
 
 const contractFileUrl = computed(() => {
-	return `${domain}${form.value.contractUrl}`;
+	return `${useDomain}${form.value.contractUrl}`;
 });
 
 const isLawyerFindTypeCompleteModalShow = ref(false);
