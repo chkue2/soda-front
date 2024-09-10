@@ -82,7 +82,7 @@
 		계약정보를 수정하려면 등록취소 후 다시 등록해주세요
 	</p>
 	<BottomToast
-		:bottom="64"
+		:bottom="24"
 		title="원클릭으로 쉬운 내 계약관리"
 		content="간단한 정보입력으로 계약등록"
 		button-text="등록하기"
@@ -387,7 +387,7 @@ const handlerClickReRegButton = () => {
 	}
 }
 .contract-list-help-text {
-	margin: 30px 0 20px;
+	margin: 8px 0 120px;
 	font-size: 12px;
 	color: #949599;
 	text-align: center;
