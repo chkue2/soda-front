@@ -16,7 +16,9 @@
 				{{ bank.text }}
 			</option>
 		</select>
-		<p class="form-warning">입력하신 정보를 다시 한번 확인해주세요!</p>
+		<p v-if="isWarningShow" class="form-warning">
+			입력하신 정보를 다시 한번 확인해주세요!
+		</p>
 	</div>
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
@@ -47,6 +49,7 @@ const form = ref({
 	phone: '',
 	bank: '',
 });
+const isWarningShow = ref(false);
 
 const router = useRouter();
 
@@ -84,6 +87,8 @@ const handlerClickNextButton = () => {
 			venderId: form.value.bank,
 		})
 		.then(() => {
+			isWarningShow.value = false;
+
 			window.localStorage.setItem(BANK_AUTH_KEY, JSON.stringify(form.value));
 
 			setTimeout(() => {
@@ -91,6 +96,7 @@ const handlerClickNextButton = () => {
 			}, 100);
 		})
 		.catch(e => {
+			isWarningShow.value = true;
 			window.localStorage.removeItem(BANK_AUTH_KEY);
 			alertStore.open(e.response.data.message);
 		});
