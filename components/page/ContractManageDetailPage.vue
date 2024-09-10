@@ -351,6 +351,7 @@ import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
 import { usePageLeave } from '~/composables/usePageLeave.js';
+import { domain } from '~/assets/js/apiUrls';
 
 const props = defineProps({
 	tid: {
@@ -476,11 +477,6 @@ const checkImage = flag =>
 	flag ? '/img/icon/check-bubble-blue.svg' : '/img/icon/check-bubble-gray.svg';
 
 const chargerProfileImage = computed(() => {
-	const domain =
-		location.href.includes('.local') || location.href.includes('dev.')
-			? 'https://pro-api.dev-2.priros.com'
-			: 'https://pro-api.priros.com';
-
 	return `${domain}${charger.value.profileFileUrl}`;
 });
 

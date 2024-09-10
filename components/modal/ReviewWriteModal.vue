@@ -79,6 +79,7 @@ import ExpertTagsItem from '~/components/item/ExpertTagsItem.vue';
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
+import { domain } from '~/assets/js/apiUrls';
 
 const randomMemoEnums = [
 	'안심하고 진행했어요.',
@@ -119,11 +120,6 @@ onMounted(() => {
 });
 
 const profileImageUrl = computed(() => {
-	const domain =
-		location.href.includes('.local') || location.href.includes('dev.')
-			? 'https://pro-api.dev-2.priros.com'
-			: 'https://pro-api.priros.com';
-
 	return `${domain}${props.card.profileFileUrl}`;
 });
 

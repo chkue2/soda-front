@@ -61,6 +61,7 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useAlertStore } from '~/store/alert.js';
+import { domain } from '~/assets/js/apiUrls';
 
 const router = useRouter();
 const useAuth = useAuthStore();
@@ -128,20 +129,10 @@ const redirect = () => {
 };
 
 const handlerClickKakaoLogin = () => {
-	const domain =
-		location.href.includes('.local') || location.href.includes('dev.')
-			? 'https://pro-api.dev-2.priros.com'
-			: 'https://pro-api.priros.com';
-
 	location.href = domain + '/oauth2/authorization/kakao';
 };
 
 const handlerClickNaverLogin = () => {
-	const domain =
-		location.href.includes('.local') || location.href.includes('dev.')
-			? 'http://pro-api.dev-2.priros.com'
-			: 'https://pro-api.priros.com';
-
 	location.href = domain + '/oauth2/authorization/naver';
 };
 </script>

@@ -100,6 +100,7 @@ import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
+import { domain } from '~/assets/js/apiUrls';
 
 definePageMeta({
 	middleware: 'auth',
@@ -191,10 +192,6 @@ const serviceAmountText = computed(() => {
 });
 
 const contractFileUrl = computed(() => {
-	const domain =
-		location.href.includes('.local') || location.href.includes('dev.')
-			? 'https://pro-api.dev-2.priros.com'
-			: 'https://pro-api.priros.com';
 	return `${domain}${form.value.contractUrl}`;
 });
 
