@@ -169,6 +169,7 @@ import { user } from '~/services/user.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
+import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 
 const modules = [Autoplay];
 
@@ -195,6 +196,7 @@ const likeCount = ref(0);
 const noticePopupList = ref([]);
 
 onMounted(() => {
+	window.localStorage.setItem(LOGIN_REDIRECT_KEY, '/user/mypage');
 	callApi();
 });
 
