@@ -130,7 +130,7 @@ const redirect = () => {
 const handlerClickKakaoLogin = () => {
 	const domain =
 		location.href.includes('.local') || location.href.includes('dev.')
-			? 'https://pro-api.dev.priros.com'
+			? 'https://pro-api.dev-2.priros.com'
 			: 'https://pro-api.priros.com';
 
 	location.href = domain + '/oauth2/authorization/kakao';
@@ -139,7 +139,7 @@ const handlerClickKakaoLogin = () => {
 const handlerClickNaverLogin = () => {
 	const domain =
 		location.href.includes('.local') || location.href.includes('dev.')
-			? 'http://pro-api.dev.priros.com'
+			? 'http://pro-api.dev-2.priros.com'
 			: 'https://pro-api.priros.com';
 
 	location.href = domain + '/oauth2/authorization/naver';

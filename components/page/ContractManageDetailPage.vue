@@ -478,7 +478,7 @@ const checkImage = flag =>
 const chargerProfileImage = computed(() => {
 	const domain =
 		location.href.includes('.local') || location.href.includes('dev.')
-			? 'https://pro-api.dev.priros.com'
+			? 'https://pro-api.dev-2.priros.com'
 			: 'https://pro-api.priros.com';
 
 	return `${domain}${charger.value.profileFileUrl}`;

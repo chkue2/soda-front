@@ -11,13 +11,13 @@ services:
       - 4000:3000
       - 4001:3001
     environment:
-      - API_URL=https://pro-api.dev.priros.com
+      - API_URL=https://pro-api.dev-2.priros.com
     expose:
       - 4000
       - 4001
     networks:
       priros_local_network:
-    command: ["sh","-c","pnpm dev"]
+    command: ['sh', '-c', 'pnpm dev']
 networks:
   priros_local_network:
     external: true
