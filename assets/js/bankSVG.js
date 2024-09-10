@@ -31,4 +31,8 @@ export const bankSVG = {
 		title: '케이뱅크',
 		icon: 'kbank.png',
 	},
+	SODA: {
+		title: '등기소다',
+		icon: 'soda.png',
+	},
 };

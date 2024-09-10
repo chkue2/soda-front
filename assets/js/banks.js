@@ -31,4 +31,8 @@ export const banks = [
 		key: 'JB_BK',
 		text: '전북은행',
 	},
+	{
+		key: 'SODA',
+		text: '등기소다',
+	},
 ];
