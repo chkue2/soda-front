@@ -82,7 +82,6 @@
 		계약정보를 수정하려면 등록취소 후 다시 등록해주세요
 	</p>
 	<BottomToast
-		v-if="tradeCaseList.length === 0"
 		:bottom="64"
 		title="원클릭으로 쉬운 내 계약관리"
 		content="간단한 정보입력으로 계약등록"
