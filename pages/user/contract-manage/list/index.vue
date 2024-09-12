@@ -154,11 +154,6 @@ const toggleContractBeforeCancelModal = () => {
 	isContractBeforeCancelModalShow.value =
 		!isContractBeforeCancelModalShow.value;
 };
-const isContractRestartConfirmModalShow = ref(false);
-const toggleContractRestartConfirmModal = () => {
-	isContractRestartConfirmModalShow.value =
-		!isContractRestartConfirmModalShow.value;
-};
 
 const handlerClickMoveToDetailButton = (isShowDetail, tid) => {
 	if (!isShowDetail) return false;
