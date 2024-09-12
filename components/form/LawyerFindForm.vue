@@ -44,7 +44,7 @@
 	<div class="form-bottom-buttons">
 		<ProgressBackgroundButton
 			title="다음"
-			:progress-width="(validateCount / 6) * 100"
+			:progress-width="(validateCount / 5) * 100"
 			@click-button="handlerClickNextButton"
 		/>
 	</div>
