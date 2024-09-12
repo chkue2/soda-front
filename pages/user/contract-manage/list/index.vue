@@ -180,8 +180,7 @@ const handlerClickCancelApplyButton = () => {
 	tradeCase
 		.deleteTradeCase(cancelTid.value)
 		.then(() => {
-			toggleContractBeforeCancelModal();
-			toggleContractRestartConfirmModal();
+			router.go(0);
 		})
 		.catch(e => {
 			alertStore.open(e.response.data.message);

@@ -33,11 +33,6 @@
 				<p class="preview-price">
 					<b>매매대금 {{ (Number(form.price) || 0).toLocaleString() }}</b> 원
 				</p>
-				<div v-if="props.ins === 'soda'" class="preview-date-column mt20">
-					<img src="/img/icon/calendar-color.png" alt="계약일" />
-					<p class="preview-date-title">계약일</p>
-					<p class="preview-date-content">{{ form.cDate }}</p>
-				</div>
 				<div class="preview-date-column mt10">
 					<img src="/img/icon/clock-color.png" alt="잔금일" />
 					<p class="preview-date-title">잔금일</p>
@@ -128,7 +123,6 @@ const form = ref({
 	bDate: '',
 	address: '',
 	detailAddress: '',
-	cDate: '',
 	price: '',
 	contract: '',
 	contractUrl: '',
@@ -164,7 +158,6 @@ onMounted(() => {
 				form.value.bDate = data.contract.bdate;
 				form.value.address = data.contract.address;
 				form.value.detailAddress = data.contract.detailAddress;
-				form.value.cDate = data.contract.cdate;
 				form.value.price = data.contract.price;
 				form.value.contract = data.contract.contractFileName;
 				form.value.contractUrl = data.contract.contractUrl;

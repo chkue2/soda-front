@@ -22,10 +22,6 @@
 				placeholder="상세주소를 입력해주세요"
 			/>
 		</div>
-		<p class="form-title mb11">계약일자를 선택해주세요</p>
-		<div class="form-input mb27">
-			<input v-model="form['cDate']" type="date" placeholder="YYYY-MM-DD" />
-		</div>
 		<p class="form-title mb11">매매대금을 입력해주세요</p>
 		<div class="form-input mb11">
 			<input v-model="form['price']" type="tel" placeholder="0" />
@@ -103,7 +99,6 @@ const form = ref({
 	bDate: '',
 	address: '',
 	detailAddress: '',
-	cDate: '',
 	price: '',
 	contract: null,
 });
@@ -131,7 +126,6 @@ onMounted(() => {
 							form.value.bDate = data.contract.bdate;
 							form.value.address = data.contract.address;
 							form.value.detailAddress = data.contract.detailAddress;
-							form.value.cDate = data.contract.cdate;
 							form.value.price = data.contract.price;
 							form.value.contract = data.contract.contractFileName;
 						})
@@ -195,8 +189,6 @@ const handlerClickNextButton = () => {
 			alertStore.open('잔금일자를 선택해주세요.');
 		} else if (form.value.address === '' || form.value.detailAddress === '') {
 			alertStore.open('목적물 소재지를 입력해주세요.');
-		} else if (form.value.cDate === '') {
-			alertStore.open('계약일자를 선택해주세요.');
 		} else if (form.value.price === '') {
 			alertStore.open('매매대금을 입력해주세요.');
 		} else if (form.value.contract === null) {
@@ -212,7 +204,6 @@ const handlerClickNextButton = () => {
 	formData.append('userId', useAuth.user.profile.userId);
 	formData.append('price', form.value.price.replaceAll(',', ''));
 	formData.append('bDate', form.value.bDate);
-	formData.append('cDate', form.value.cDate);
 	formData.append('address', form.value.address);
 	formData.append('firmCode', props.firmCode);
 	if (typeof form.value.contract === 'object') {
