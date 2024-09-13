@@ -21,14 +21,16 @@ const defineApi = config => {
 
 	async function requestRefreshTokenUpdate() {
 		const refreshToken = tokenApi.getRefreshToken();
-		console.log(refreshToken);
 		if (refreshToken) {
 			const response = await api
 				.post(API_URL.AUTH.REFRESH, {
 					refreshToken: refreshToken,
 				})
 				.catch(e => {
-					if (e.response.data.errorCode === 'A011') {
+					if (
+						e.response.data.errorCode === 'A011' ||
+						e.response.data.errorCode === 'A009'
+					) {
 						tokenApi.clearAll();
 						alert('로그아웃되었습니다. 다시 로그인해주세요.');
 						location.href = '/';
@@ -47,12 +49,6 @@ const defineApi = config => {
 	apiAuth.interceptors.request.use(
 		async config => {
 			const token = tokenApi.getAccessToken();
-			if (!token) {
-				tokenApi.clearAll();
-				location.href = '/';
-				alert('로그아웃되었습니다. 다시 로그인해주세요.');
-				return Promise.reject('토큰 없어');
-			}
 			config.headers.Authorization = `Bearer ${token}`;
 			return config;
 		},
