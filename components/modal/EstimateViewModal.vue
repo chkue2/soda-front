@@ -166,6 +166,10 @@
 							<p class="estimate-accordion-contents-text">
 								{{ (fee.multiPay || 0).toLocaleString() }} 원
 							</p>
+							<p class="estimate-accordion-contents-title">특수매도인</p>
+							<p class="estimate-accordion-contents-text">
+								{{ (fee.specialSellerPay || 0).toLocaleString() }} 원
+							</p>
 							<p class="estimate-accordion-contents-title">수수료계</p>
 							<p class="estimate-accordion-contents-text">
 								{{ (fee.payedPaySum || 0).toLocaleString() }} 원
