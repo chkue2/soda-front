@@ -84,6 +84,7 @@ import { user } from '~/services/user.js';
 import { useAuthStore } from '~/store/auth.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
+import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 
 definePageMeta({
 	layout: false,
@@ -101,6 +102,7 @@ const isTermsPrivacyModalShow = ref(false);
 const isTermsUseModalShow = ref(false);
 
 onMounted(() => {
+	window.localStorage.setItem(LOGIN_REDIRECT_KEY, '/');
 	callApi();
 });
 
