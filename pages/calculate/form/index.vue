@@ -1,7 +1,7 @@
 <template>
 	<NuxtLayout name="nav">
 		<template #body>
-			<HeaderClose title="소유권이전등기 계산하기" />
+			<HeaderLogo />
 			<div class="form-container">
 				<p class="form-title mb11">부동산 종류를 선택해주세요</p>
 				<select v-model="form['type']" class="form-select mb29">
@@ -44,7 +44,7 @@ import { computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ProgressBackgroundButton from '~/components/button/ProgressBackgroundButton.vue';
-import HeaderClose from '~/components/layout/HeaderClose.vue';
+import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 
 import { CALC_FORM_DATA_KEY } from '~/assets/js/storageKeys.js';
 
