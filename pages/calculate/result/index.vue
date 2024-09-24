@@ -201,4 +201,14 @@ const handlerClickFind = () => {
 		}
 	}
 }
+
+@media all and (max-width: 360px) {
+	.table-body {
+		.table-column {
+			& > div {
+				font-size: 12px;
+			}
+		}
+	}
+}
 </style>

@@ -12,7 +12,7 @@
 					<input v-model="form['price']" type="tel" placeholder="0" />
 					<span>원</span>
 				</div>
-				<p class="form-won-text mb37">{{ won }} 원</p>
+				<p class="form-won-text mb37 pr20">{{ won }} 원</p>
 				<p class="form-title mb11">보유주택수를 선택해주세요</p>
 				<select v-model="form['subjectCnt']" class="form-select mb29">
 					<option value="">선택해주세요</option>

@@ -1,73 +1,79 @@
 .form-title {
-  font-weight: $ft-bold;
-  &.text-center {
-    text-align: center;
-  }
+	font-weight: $ft-bold;
+	&.text-center {
+		text-align: center;
+	}
 }
 .form-input {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  border-radius: 30px;
-  border: 1px solid #C5C6CC;
-  font-size: 16px;
-  & > input {
-    flex: 1;
-    border: none;
-    font-size: 16px;
-  }
-  & > input[type=date] {
-    color: #000000;
-  }
-  & > input[type=file] {
-    display: none;
-  }
-  &.input-file {
-    cursor: pointer;
-    & > p {
-      line-height: 1.2;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
+	border-radius: 30px;
+	border: 1px solid #c5c6cc;
+	font-size: 16px;
+	gap: 4px;
+	&.text-right {
+		& > input {
+			text-align: right;
+		}
+	}
+	& > input {
+		flex: 1;
+		border: none;
+		font-size: 16px;
+	}
+	& > input[type='date'] {
+		color: #000000;
+	}
+	& > input[type='file'] {
+		display: none;
+	}
+	&.input-file {
+		cursor: pointer;
+		& > p {
+			line-height: 1.2;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
 }
 .form-select {
-  width: 100%;
-  height: 50px;
-  padding: 0 20px;
-  border-radius: 30px;
-  border: 1px solid #C5C6CC;
-  font-size: 16px;
+	width: 100%;
+	height: 50px;
+	padding: 0 20px;
+	border-radius: 30px;
+	border: 1px solid #c5c6cc;
+	font-size: 16px;
 }
 .form-won-text {
-  color: #29CDFF;
-  text-align: right;
+	color: #29cdff;
+	text-align: right;
 }
 .form-bottom-buttons {
-  width: 100%;
-  max-width: 640px;
-  display: flex;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+	width: 100%;
+	max-width: 640px;
+	display: flex;
+	align-items: center;
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
 }
 .form-count {
-  text-align: center;
-  color: #29cdff;
-  margin-top: 48px;
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+	text-align: center;
+	color: #29cdff;
+	margin-top: 48px;
+	position: fixed;
+	bottom: 80px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 .form-help-text {
-  font-size: 14px;
-  color: #a8a8a8;
+	font-size: 14px;
+	color: #a8a8a8;
 }
 .form-readonly-box {
 	display: flex;
@@ -96,7 +102,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-  color: #252525;
+	color: #252525;
 	& > span {
 		font-size: 12px;
 		color: #a3a3a3;

@@ -1,31 +1,33 @@
-@import "reset";
+@import 'reset';
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-body {
-  //background-color: $body-bg;
-  color: $font-default;
-  font: {
-    family: 'Noto Sans KR', 'Roboto', sans-serif;
-    weight: 400;
-    size: 16px;
-  }
+body,
+button,
+input {
+	//background-color: $body-bg;
+	color: $font-default;
+	font: {
+		family: 'Noto Sans KR', 'Roboto', sans-serif;
+		weight: 400;
+		size: 16px;
+	}
 }
 
-.container{
-  margin: 0 $grid-margin;
+.container {
+	margin: 0 $grid-margin;
 }
 
 .app {
-  max-width: $wrapper-width;
-  margin: 0 auto;
+	max-width: $wrapper-width;
+	margin: 0 auto;
 }
 
 .wrapper {
-  padding-bottom: $footer-nav-height;
+	padding-bottom: $footer-nav-height;
 }
 
 .pointer {
-  cursor: pointer;
+	cursor: pointer;
 }

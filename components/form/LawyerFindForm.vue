@@ -27,7 +27,7 @@
 			<input v-model="form['price']" type="tel" placeholder="0" />
 			<span>원</span>
 		</div>
-		<p class="form-won-text">{{ won }} 원</p>
+		<p class="form-won-text pr20">{{ won }} 원</p>
 		<p class="form-title mt14 mb11">계약서 사진 업로드</p>
 		<div class="form-input input-file mb11" @click="handlerClickContractFile">
 			<input
