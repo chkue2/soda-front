@@ -4,7 +4,6 @@
 			<HeaderLogo />
 			<TopBanner />
 			<QuickMenus />
-			<BankBanner />
 			<div class="index-title-container">
 				<p class="index-title mt37 mb8">내 주변 등기프로 찾기!</p>
 				<div class="index-subtitle">
@@ -70,7 +69,6 @@ import { useRouter } from 'vue-router';
 
 import HeaderLogo from '~/components/layout/HeaderLogo.vue';
 import ExpertList from '~/components/list/ExpertList.vue';
-import BankBanner from '~/components/main/BankBanner.vue';
 import LawandtechIntro from '~/components/main/LawandtechIntro.vue';
 import ProcessBanner from '~/components/main/ProcessBanner.vue';
 import QuickMenus from '~/components/main/QuickMenus.vue';

@@ -14,11 +14,11 @@
 			:class="{ active: nowMenu === 'calc' }"
 		>
 			<img
-				:src="`/img/icon/pie${nowMenu === 'calc' ? '-on' : ''}.svg`"
-				alt="견적넣기"
+				:src="`/img/icon/calc${nowMenu === 'calc' ? '-on' : ''}.svg`"
+				alt="계산하기"
 				aria-hidden
 			/>
-			<span>견적넣기</span>
+			<span>계산하기</span>
 		</NuxtLink>
 		<NuxtLink
 			to="/lawyer/find"

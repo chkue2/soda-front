@@ -1,87 +1,161 @@
 <template>
-	<div class="quick-my-contract-container">
-		<NuxtLink to="/user/contract-manage/list" class="quick-my-contract">
-			<div class="quick-my-contract-left">
-				<img src="/img/icon/paper-emoji.svg" alt="내 계약관리로 이동" />
-				<p>원클릭으로 쉬운 내 계약관리</p>
+	<div class="quick-menu-container">
+		<div class="quick-menu-top-wrapper">
+			<NuxtLink
+				to="/user/contract-manage/list"
+				class="quick-menu quick-menu-contract"
+			>
+				<p class="quick-menu-title">내 계약 관리하기</p>
+				<p class="quick-menu-subtitle">
+					복잡한건 이제 그만!<br />등기소다로 간편하게
+				</p>
+				<img src="/img/icon/soda-folder.png" alt="내 계약관리로 이동" />
+			</NuxtLink>
+			<NuxtLink to="/intro/soda" class="quick-menu quick-menu-small">
+				<p class="quick-menu-title">계산하기</p>
+				<p class="quick-menu-subtitle">
+					소유권이전등기<br />견적을 계산해보세요
+				</p>
+			</NuxtLink>
+			<NuxtLink to="/lawyer/find" class="quick-menu quick-menu-small">
+				<p class="quick-menu-title">등기프로 찾기</p>
+				<p class="quick-menu-subtitle">내가 원하는<br />법무사를 찾아보세요</p>
+			</NuxtLink>
+		</div>
+		<div class="quick-menu-bottom-wrapper">
+			<div class="quick-menu-bottom-contents">
+				<p class="quick-menu-bottom-title">거래의 끝은 등기다!</p>
+				<p class="quick-menu-bottom-subtitle">
+					소유권확보가 중요하다는거<br />알고계셨나요?
+				</p>
+				<img src="/img/icon/bank-house.png" alt="등기소다 알아보기" />
+				<p class="quick-menu-bottom-content">은행들도 믿고쓰는 등기소다</p>
+				<p class="quick-menu-bottom-tags">
+					#카카오뱅크 #케이뱅크 #전북은행 #경남은행
+				</p>
 			</div>
-			<img src="/img/icon/expand-right-black.svg" alt="내 계약관리로 이동" />
-		</NuxtLink>
-	</div>
-	<div class="quick-menus-container">
-		<NuxtLink to="/intro/soda" class="quick-menu">
-			<img
-				src="/img/icon/home-emoji-color.svg"
-				class="quick-menu-icon"
-				alt="견적계산으로 이동"
-			/>
-			<p>소유권이전등기</p>
-		</NuxtLink>
-		<i class="quick-menus-bar"></i>
-		<NuxtLink to="/lawyer/find" class="quick-menu">
-			<img
-				src="/img/icon/cap-emoji-color.svg"
-				class="quick-menu-icon"
-				alt="등기프로찾기로 이동"
-			/>
-			<p>등기프로 찾기</p>
-		</NuxtLink>
+			<NuxtLink to="/intro/soda" class="quick-menu-bottom-button">
+				알아보기
+			</NuxtLink>
+		</div>
 	</div>
 </template>
 
 <style lang="scss" scoped>
-.quick-my-contract-container {
-	margin: 10px 0 20px;
-	padding: 0 14px;
-}
-.quick-my-contract {
-	height: 68px;
-	padding: 0 20px;
-	border-radius: 16px;
-	background-color: #f7f8fa;
+.quick-menu-container {
+	padding: 20px 30px 48px;
+	background-color: #e7f5ff;
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	text-decoration: none;
+	flex-direction: column;
+	gap: 16px;
 }
-.quick-my-contract-left {
-	display: flex;
-	align-items: center;
-	gap: 11px;
-	& > p {
-		font-weight: $ft-medium;
-		text-decoration: none;
-		color: #000000;
-	}
-}
-.quick-menus-container {
-	display: flex;
-	margin: 20px 0 30px;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
-	gap: 24px;
+.quick-menu-top-wrapper {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 10px;
 }
 .quick-menu {
+	background-color: #ffffff;
+	border-radius: 16px;
+	text-decoration: none;
+	.quick-menu-title {
+		font-size: 15px;
+		font-weight: $ft-bold;
+		color: #000000;
+		text-decoration: none;
+	}
+	.quick-menu-subtitle {
+		font-size: 12px;
+		font-weight: $ft-medium;
+		text-decoration: none;
+	}
+}
+.quick-menu-contract {
+	grid-row: 2 span;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 15px 0 18px;
+	.quick-menu-title {
+		text-align: center;
+	}
+	.quick-menu-subtitle {
+		margin: 12px 0 48px;
+		text-align: center;
+		color: #000000;
+	}
+	& > img {
+		width: 90px;
+		height: auto;
+	}
+}
+.quick-menu-small {
+	padding: 12px 14px;
+	.quick-menu-subtitle {
+		margin-top: 4px;
+		color: #b9babe;
+	}
+}
+.quick-menu-bottom-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+.quick-menu-bottom-contents {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #445feb;
+	border-radius: 16px 16px 0 0;
+	padding: 28px 0 35px;
+	.quick-menu-bottom-title {
+		font-size: 24px;
+		font-weight: $ft-bold;
+		color: #ffffff;
+		text-align: center;
+	}
+	.quick-menu-bottom-subtitle {
+		margin: 10px 0 50px;
+		font-size: 20px;
+		font-weight: $ft-bold;
+		line-height: 30px;
+		color: #ffffff;
+		text-align: center;
+	}
+	& > img {
+		width: 215px;
+		height: auto;
+	}
+	.quick-menu-bottom-content {
+		font-size: 18px;
+		font-weight: $ft-bold;
+		color: #ffffff;
+		margin: 30px 0 4px;
+	}
+	.quick-menu-bottom-tags {
+		font-size: 14px;
+		font-weight: $ft-medium;
+		color: #ffffff;
+	}
+}
+.quick-menu-bottom-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 6px;
+	width: 100%;
+	height: 63px;
+	border-radius: 0 0 16px 16px;
+	background-color: #ffffff;
+	font-size: 16px;
+	font-weight: $ft-medium;
+	color: #62656c;
 	text-decoration: none;
-	color: #252525;
-	& > p {
-		font-size: 14px;
-		font-weight: $ft-medium;
+}
+
+@media all and (max-width: 640px) {
+	.quick-menu-container {
+		padding: 20px 16px 48px;
 	}
-}
-.quick-menu-icon {
-	width: 30px;
-	height: 30px;
-}
-.quick-menus-bar {
-	width: 1px;
-	height: 16px;
-	background-color: #dde0e3;
-	display: block;
 }
 </style>

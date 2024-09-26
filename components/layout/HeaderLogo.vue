@@ -49,13 +49,14 @@ const isLoggedIn = computed(() => useAuth.user !== null);
 	text-decoration: none;
 	& > button {
 		display: flex;
-		padding: 10px 16px;
+		padding: 5px 12px;
 		justify-content: center;
 		align-items: center;
 		gap: 10px;
 		border-radius: 4px;
 		border: 1px solid #d4d4d6;
 		background: #fff;
+		font-size: 12px;
 		color: #484848;
 		cursor: pointer;
 	}
