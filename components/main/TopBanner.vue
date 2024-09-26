@@ -72,26 +72,22 @@ const moveToIntroPartnership = () => {
 		z-index: -1;
 	}
 	.banner-title {
-		font-size: 24px;
+		font-size: 20px;
 		font-weight: $ft-bold;
-		line-height: 35px;
+		line-height: 29px;
 	}
 	.banner-subtitle {
-		font-size: 20px;
-		line-height: 29px;
-		margin: 12px 0 24px;
+		font-size: 14px;
+		line-height: 20px;
+		margin: 6px 0 16px;
+		color: #767676;
 	}
 	.banner-button {
-		display: flex;
-		padding: 8px 10px;
-		justify-content: center;
-		align-items: center;
-		gap: 10px;
-		border-radius: 4px;
-		background-color: #29cdff;
-		font-size: 14px;
+		font-size: 12px;
 		font-weight: $ft-medium;
-		color: #ffffff;
+		color: #484c52;
+		padding: 0;
+		text-decoration: underline;
 	}
 }
 </style>
