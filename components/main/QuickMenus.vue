@@ -26,7 +26,7 @@
 			<div class="quick-menu-bottom-contents">
 				<p class="quick-menu-bottom-title">거래의 끝은 등기다!</p>
 				<p class="quick-menu-bottom-subtitle">
-					소유권확보가 중요하다는거<br />알고계셨나요?
+					소유권확보가 중요하다는거<br />알고계시죠?
 				</p>
 				<img src="/img/icon/bank-house.png" alt="등기소다 알아보기" />
 				<p class="quick-menu-bottom-content">은행들도 믿고쓰는 등기소다</p>
