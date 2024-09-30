@@ -4,14 +4,14 @@
 			<div class="banner-container" @click="moveToIntroSoda">
 				<picture>
 					<source
-						srcset="/img/main/banner-mo-01.png"
+						srcset="/img/main/banner-mo-03.png"
 						media="all and (max-width: 640px)"
 					/>
-					<img src="/img/main/banner-pc-01.png" alt="메인 배너" />
+					<img src="/img/main/banner-pc-03.png" alt="메인 배너" />
 				</picture>
 				<p class="banner-title">법무사매칭은?<br />등기소다!</p>
 				<p class="banner-subtitle">
-					어려운 비용계산부터<br />법무사 매칭까지 원스톱서비스!
+					어려운 비용계산부터<br />매칭까지 원스톱서비스!
 				</p>
 				<button class="banner-button">알아보기</button>
 			</div>
@@ -57,8 +57,8 @@ const moveToIntroPartnership = () => {
 
 <style lang="scss" scoped>
 .banner-container {
-	height: 407px;
-	padding: 40px;
+	height: 253px;
+	padding: 30px 115px;
 	position: relative;
 	cursor: pointer;
 	& > picture,
@@ -88,6 +88,11 @@ const moveToIntroPartnership = () => {
 		color: #484c52;
 		padding: 0;
 		text-decoration: underline;
+	}
+}
+@media all and (max-width: 640px) {
+	.banner-container {
+		padding: 30px 34px;
 	}
 }
 </style>

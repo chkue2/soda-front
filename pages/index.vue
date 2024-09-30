@@ -18,11 +18,6 @@
 				</div>
 			</div>
 			<ExpertList :margin="[23, 17, 37, 17]" :list="expertList" />
-			<div class="index-title-container">
-				<p class="index-toptitle">등기잘하는 등기소다</p>
-				<p class="index-title mb36">등기소다는 이렇게 진행 해요</p>
-			</div>
-			<ProcessBanner />
 			<LawandtechIntro
 				:is-toast-open="toast && toast.state !== 'NONE'"
 				@open-terms-use-modal="toggleTermsUseModal"
