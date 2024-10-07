@@ -11,7 +11,7 @@
 				</p>
 				<img src="/img/icon/soda-folder.png" alt="내 계약관리로 이동" />
 			</NuxtLink>
-			<NuxtLink to="/intro/soda" class="quick-menu quick-menu-small">
+			<NuxtLink to="/calculate/form" class="quick-menu quick-menu-small">
 				<p class="quick-menu-title">계산하기</p>
 				<p class="quick-menu-subtitle">
 					소유권이전등기<br />견적을 계산해보세요
