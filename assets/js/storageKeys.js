@@ -8,7 +8,8 @@ const LOGIN_REDIRECT_KEY = 'soda-login-redirect-url';
 const LOGIN_REDIRECT_AUTH_KEY = 'soda-login-redirect-auth';
 const CALC_FORM_DATA_KEY = 'soda-calc-form-data';
 const LAWYER_FIND_TMP_KEY = 'soda-lawyer-find-temp';
-const LAWTER_FIND_TYPE_KEY = 'soda-lawyer-find-type';
+const LAWYER_FIND_TYPE_KEY = 'soda-lawyer-find-type';
+const LAWYER_FIND_SENDER_KEY = 'soda-lawyer-find-sender';
 const BANK_ID_KEY = 'bank-id-key';
 const BANK_AUTH_KEY = 'bank-auth-key';
 
@@ -23,7 +24,8 @@ export {
 	LOGIN_REDIRECT_AUTH_KEY,
 	CALC_FORM_DATA_KEY,
 	LAWYER_FIND_TMP_KEY,
-	LAWTER_FIND_TYPE_KEY,
+	LAWYER_FIND_TYPE_KEY,
+	LAWYER_FIND_SENDER_KEY,
 	BANK_ID_KEY,
 	BANK_AUTH_KEY,
 };

@@ -67,7 +67,7 @@ import LawyerFindMaxCountModal from '~/components/modal/LawyerFindMaxCountModal.
 import LawyerFindOnlyOneModal from '~/components/modal/LawyerFindOnlyOneModal.vue';
 
 import {
-	LAWTER_FIND_TYPE_KEY,
+	LAWYER_FIND_TYPE_KEY,
 	LAWYER_FIND_TMP_KEY,
 } from '~/assets/js/storageKeys.js';
 import {
@@ -212,7 +212,7 @@ const handlerClickNextButton = () => {
 
 	if (props.mode === 'PRO_CARD') {
 		window.localStorage.setItem(
-			LAWTER_FIND_TYPE_KEY,
+			LAWYER_FIND_TYPE_KEY,
 			JSON.stringify({
 				type: 'CARD',
 				amount: 0,

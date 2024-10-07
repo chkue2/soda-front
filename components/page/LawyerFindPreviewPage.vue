@@ -87,9 +87,10 @@ import LawyerFindTypeCompleteModal from '~/components/modal/LawyerFindTypeComple
 import { usePageLeave } from '~/composables/usePageLeave.js';
 import { getServiceType } from '~/assets/js/serviceType.js';
 import {
-	LAWTER_FIND_TYPE_KEY,
+	LAWYER_FIND_TYPE_KEY,
 	LAWYER_FIND_TMP_KEY,
 	BANK_AUTH_KEY,
+	LAWYER_FIND_SENDER_KEY,
 } from '~/assets/js/storageKeys.js';
 import { lawyerContract } from '~/services/lawyerContract.js';
 import { useAuthStore } from '~/store/auth.js';
@@ -140,7 +141,7 @@ onMounted(() => {
 		router.go(-1);
 	}
 
-	const typeStorage = window.localStorage.getItem(LAWTER_FIND_TYPE_KEY);
+	const typeStorage = window.localStorage.getItem(LAWYER_FIND_TYPE_KEY);
 	if (typeStorage) {
 		typeObj.value = JSON.parse(typeStorage);
 	}
@@ -204,6 +205,7 @@ const handlerClickBackButton = () => {
 };
 
 const handlerClickApplyButton = () => {
+	const sender = window.localStorage.getItem(LAWYER_FIND_SENDER_KEY);
 	lawyerContract
 		.doneLawyerContract(
 			{
@@ -211,13 +213,15 @@ const handlerClickApplyButton = () => {
 				formData: {
 					serviceType: typeObj.value.type,
 					servicePrice: typeObj.value.amount * 10000,
+					...(sender && { sender }),
 				},
 			},
 			props.ins,
 		)
 		.then(() => {
 			window.localStorage.removeItem(LAWYER_FIND_TMP_KEY);
-			window.localStorage.removeItem(LAWTER_FIND_TYPE_KEY);
+			window.localStorage.removeItem(LAWYER_FIND_TYPE_KEY);
+			window.localStorage.removeItem(LAWYER_FIND_SENDER_KEY);
 			if (mode === 'PRO_CARD') {
 				toggleLawyerFindSelectCompleteModal();
 			} else {
