@@ -2,8 +2,6 @@
 	<CommonModal @close-modal="closeModal">
 		<template #modal-body>
 			<div class="update-modal-container">
-				<p class="update-modal-subtitle">확인하고 입력해주세요</p>
-				<p class="update-modal-title">계약정보 수정</p>
 				<p class="form-title mb11">목적물 소재지</p>
 				<div class="form-input pointer mb11" @click="handlerClickSearchAddress">
 					<input
@@ -186,18 +184,7 @@ const closeModal = () => {
 
 <style lang="scss" scoped>
 .update-modal-container {
-	padding: 0 25px 28px;
-}
-.update-modal-subtitle {
-	font-size: 14px;
-	color: #707070;
-	font-weight: $ft-medium;
-	text-align: center;
-}
-.update-modal-title {
-	font-weight: $ft-bold;
-	text-align: center;
-	margin: 23px 0 43px;
+	padding: 12px 25px 28px;
 }
 .update-bottom-buttons {
 	display: flex;
