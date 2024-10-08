@@ -117,3 +117,11 @@
 	color: #ffffff;
 	margin-right: -20px;
 }
+
+@media all and (max-width: 640px) {
+	.form-input {
+		& > input {
+			max-width: 280px;
+		}
+	}
+}
