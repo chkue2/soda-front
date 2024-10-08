@@ -12,7 +12,6 @@ export const lawyerContract = {
 		return await POST(API_URL.LAWYER.CREATE, data);
 	},
 	async getLawyerContractTmpKey(tid, cmd) {
-		console.log('cmd', cmd);
 		const endpoint = getEndpoint(API_URL.LAWYER.GET_TMP_KEY, {
 			trade_case_id: tid,
 		});
