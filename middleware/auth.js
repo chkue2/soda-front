@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
 	const isLoggedIn = useAuth.user !== null;
 
 	if (!isLoggedIn) {
-		window.localStorage.setItem(LOGIN_REDIRECT_KEY, to.path);
+		window.localStorage.setItem(LOGIN_REDIRECT_KEY, to.fullPath);
 		return navigateTo('/login');
 	}
 });

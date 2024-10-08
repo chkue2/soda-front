@@ -5,6 +5,7 @@ import {
 } from '~/assets/js/storageKeys.js';
 
 export default defineNuxtRouteMiddleware((to, from) => {
+	console.log(to);
 	window.localStorage.setItem(BANK_ID_KEY, to.params.id);
 
 	const user = window.localStorage.getItem(BANK_AUTH_KEY);
@@ -12,7 +13,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
 	const isLoggedIn = user !== null && user !== undefined;
 
 	if (!isLoggedIn) {
-		window.localStorage.setItem(LOGIN_REDIRECT_KEY, to.path);
+		window.localStorage.setItem(LOGIN_REDIRECT_KEY, to.fullPath);
 		return navigateTo('/certified');
 	}
 });

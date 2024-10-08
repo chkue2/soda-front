@@ -11,11 +11,14 @@ export const lawyerContract = {
 		console.log(data);
 		return await POST(API_URL.LAWYER.CREATE, data);
 	},
-	async getLawyerContractTmpKey(tid) {
+	async getLawyerContractTmpKey(tid, cmd) {
+		console.log('cmd', cmd);
 		const endpoint = getEndpoint(API_URL.LAWYER.GET_TMP_KEY, {
 			trade_case_id: tid,
 		});
-		return await POST(endpoint);
+		return await POST(endpoint, {
+			...(cmd && { cmd }),
+		});
 	},
 	async getLawyerContract(data, ins) {
 		const endpoint = getEndpoint(

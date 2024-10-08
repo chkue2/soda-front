@@ -276,9 +276,10 @@ const legalpayPrice = ref(0);
 usePageLeave();
 
 onMounted(() => {
+	const cmd = route.query.cmd;
 	if (route.params.id) {
 		lawyerContract
-			.getLawyerContractTmpKey(route.params.id)
+			.getLawyerContractTmpKey(route.params.id, cmd)
 			.then(({ data }) => {
 				window.localStorage.setItem(LAWYER_FIND_TMP_KEY, data.tmpKey);
 				callApi();
