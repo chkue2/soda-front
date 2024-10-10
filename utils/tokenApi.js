@@ -1,6 +1,6 @@
 const accessTokenKey = 'access_token';
 const refreshTokenKey = 'refresh_token';
-const userSessionKey = 'auth-user';
+const userSessionKey = 'soda-auth-user';
 
 const tokenApi = {
 	setToken: (accessToken, refreshToken) => {
