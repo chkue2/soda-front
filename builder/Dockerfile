@@ -5,10 +5,12 @@ ARG NODE_ENV=production
 FROM node:${NODE_VERSION}-alpine as base
 
 ARG API_URL
+ARG AES_SECRET_KEY
 
 ENV API_URL=${API_URL}
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV AES_SECRET_KEY=${AES_SECRET_KEY}
 
 RUN corepack enable
 COPY . /app
