@@ -13,8 +13,10 @@
     "@nuxtjs/robots": "^3.0.0",
     "@nuxtjs/sitemap": "^5.3.2",
     "axios": "^1.6.8",
+    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.10",
     "dompurify": "^3.1.1",
+    "nitropack": "^2.9.7",
     "nuxt": "^3.10.3",
     "vue": "^3.4.19",
     "vue-router": "^4.3.0"
@@ -28,10 +30,13 @@
     "eslint-plugin-vue": "^9.22.0",
     "pinia": "^2.1.7",
     "prettier": "^3.2.5",
+    "rollup": "^4.24.0",
     "sass": "^1.71.1",
     "swiper": "^11.0.6"
   },
   "optionalDependencies": {
+    "@rollup/rollup-linux-arm64-msul": "*",
+    "@rollup/rollup-linux-arm64-musl": "^4.24.0",
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
   },
   "prettier": {

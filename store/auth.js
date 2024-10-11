@@ -1,19 +1,20 @@
 import { defineStore } from 'pinia';
 import { API_URL, GET } from '~/composables/useApi.js';
 import { tokenApi, userSessionKey } from '~/utils/tokenApi';
+import { useEncrypted, useDecrypted } from '~/composables/useAes256';
+
+const $runtimeConfig = useRuntimeConfig();
 
 export const useAuthStore = defineStore(
 	'auth',
 	{
 		state: () => ({
 			user: null,
+			secretKey: $runtimeConfig.public.aesSecretKey,
 		}),
 		actions: {
 			initialize() {
-				this.user =
-					(typeof window !== 'undefined' &&
-						JSON.parse(localStorage.getItem(userSessionKey))) ||
-					null;
+				this.user = useDecrypted(this.secretKey, userSessionKey) || null;
 			},
 			async login(credentials) {
 				try {
@@ -62,7 +63,8 @@ export const useAuthStore = defineStore(
 								},
 							};
 							if (typeof window !== 'undefined') {
-								localStorage.setItem(userSessionKey, JSON.stringify(this.user));
+								window.localStorage.removeItem('auth-user');
+								useEncrypted(this.secretKey, userSessionKey, this.user);
 							}
 						}
 					});

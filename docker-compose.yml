@@ -12,6 +12,7 @@ services:
       - 4001:3001
     environment:
       - API_URL=https://pro-api.dev-2.priros.com
+      - AES_SECRET_KEY=22ea0aeac00792392c73b53ea359abf2
     expose:
       - 4000
       - 4001

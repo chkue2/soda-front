@@ -8,11 +8,13 @@ FROM node:${NODE_VERSION}-alpine as base
 RUN npm i -g pnpm && npm i -g npm@latest
 
 ARG PORT=3000
+ARG AES_SECRET_KEY
 
 USER node
 
 # 환경변수 설정
 ENV NODE_ENV=${NODE_ENV}
 ENV PORT=${PORT}
+ENV AES_SECRET_KEY=${AES_SECRET_KEY}
 
 WORKDIR /app

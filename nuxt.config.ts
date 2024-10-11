@@ -65,6 +65,7 @@ export default defineNuxtConfig({
 		public: {
 			apiURL: process.env.API_URL,
 			GA_TRACKING_ID: process.env.GA_TRACKING_ID,
+			aesSecretKey: process.env.AES_SECRET_KEY,
 		},
 	},
 	plugins: ['~/plugins/google-analytics.client.js'],
