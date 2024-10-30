@@ -288,7 +288,11 @@ onMounted(() => {
 				alertStore.open(e.response.data.message);
 				window.localStorage.removeItem(BANK_AUTH_KEY);
 				alert(e.response.data.message);
-				router.go(0);
+				if (props.ins === 'soda') {
+					router.push('/');
+				} else {
+					router.go(0);
+				}
 			});
 	} else {
 		callApi();
