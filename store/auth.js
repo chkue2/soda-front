@@ -21,12 +21,21 @@ export const useAuthStore = defineStore(
 					const response = await POST('/auth/login', credentials);
 					if (response && response.data) {
 						tokenApi.setToken(response.data.token, response.data.refreshToken);
-						return true;
+						return {
+							state: true,
+							message: '',
+						};
 					}
 
-					return false;
+					return {
+						state: false,
+						message: '',
+					};
 				} catch (e) {
-					return false;
+					return {
+						state: false,
+						message: e.response.data.message,
+					};
 				}
 			},
 			async loginSns(form) {
