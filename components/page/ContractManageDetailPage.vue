@@ -222,6 +222,7 @@
 				</div>
 			</div>
 			<div
+				v-if="props.ins === 'bank'"
 				class="contract-state-card"
 				:class="{ 'card-on': tradeCaseDetail.repayReportFlag }"
 			>
