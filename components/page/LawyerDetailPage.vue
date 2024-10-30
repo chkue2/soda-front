@@ -69,7 +69,7 @@
 		<ReviewDetailBlockItem
 			v-if="tab === 'review'"
 			:time="firmDetail.timeStar"
-			:performance="firmDetail.repidStar"
+			:performance="firmDetail.rapidStar"
 			:kind="firmDetail.kindStar"
 			:inside="firmDetail.workStar"
 			:score-avg="firmDetail.firmAvgStar"

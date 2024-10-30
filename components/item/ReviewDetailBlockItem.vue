@@ -12,28 +12,30 @@
 				<div class="review-detail-block-bar">
 					<i :style="{ width: timeBarWidth }"></i>
 				</div>
-				<p class="review-detail-block-score">{{ props.time }}</p>
+				<p class="review-detail-block-score">{{ props.time.toFixed(1) }}</p>
 			</div>
 			<div class="review-detail-block-column">
 				<p class="review-detail-block-column-title">업무수행</p>
 				<div class="review-detail-block-bar">
 					<i :style="{ width: performanceBarWidth }"></i>
 				</div>
-				<p class="review-detail-block-score">{{ props.performance }}</p>
+				<p class="review-detail-block-score">
+					{{ props.performance.toFixed(1) }}
+				</p>
 			</div>
 			<div class="review-detail-block-column">
 				<p class="review-detail-block-column-title">친절만족</p>
 				<div class="review-detail-block-bar">
 					<i :style="{ width: kindBarWidth }"></i>
 				</div>
-				<p class="review-detail-block-score">{{ props.kind }}</p>
+				<p class="review-detail-block-score">{{ props.kind.toFixed(1) }}</p>
 			</div>
 			<div class="review-detail-block-column">
 				<p class="review-detail-block-column-title">내부평점</p>
 				<div class="review-detail-block-bar">
 					<i :style="{ width: insideBarWidth }"></i>
 				</div>
-				<p class="review-detail-block-score">{{ props.inside }}</p>
+				<p class="review-detail-block-score">{{ props.inside.toFixed(1) }}</p>
 			</div>
 		</div>
 	</div>
@@ -131,5 +133,13 @@ const calcRate = rate => {
 .review-detail-block-score {
 	font-size: 12px;
 	font-weight: $ft-bold;
+}
+@media all and (max-width: 350px) {
+	.review-detail-block-container {
+		justify-content: space-between;
+	}
+	.review-detail-block-bar {
+		width: 65px;
+	}
 }
 </style>
