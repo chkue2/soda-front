@@ -22,7 +22,7 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 
 const router = useRouter();
 const handlerClickMoveToLogin = () => {
-	router.replace('/login');
+	router.replace('/');
 };
 </script>
 
