@@ -3,7 +3,12 @@
 	<div class="inquiry-form">
 		<p class="form-title mb11">제목</p>
 		<div class="inquiry-input mb32">
-			<input v-model="form.title" type="text" placeholder="제목을 입력하세요" />
+			<input
+				v-model="form.title"
+				type="text"
+				placeholder="제목을 입력하세요 (최대 20자)"
+				maxlength="20"
+			/>
 		</div>
 		<p class="form-title mb11">문의사항</p>
 		<textarea

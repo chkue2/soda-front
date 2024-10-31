@@ -81,6 +81,7 @@ const answer = computed(() =>
 	cursor: pointer;
 }
 .inquiry-item-title-left {
+	width: 100%;
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -102,6 +103,7 @@ const answer = computed(() =>
 		}
 	}
 	& > p {
+		width: 75%;
 		font-size: 14px;
 	}
 }
