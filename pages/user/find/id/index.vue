@@ -4,6 +4,7 @@
 		<p class="input-form-title mb5">휴대전화번호</p>
 		<div class="form-readonly-box mb10">
 			<input
+				class="w60"
 				v-model="form.mobile"
 				type="text"
 				readonly
@@ -14,6 +15,7 @@
 		<p class="input-form-title mb5">이름</p>
 		<div class="form-readonly-box mb40">
 			<input
+				class="w100"
 				v-model="form.userName"
 				type="text"
 				readonly
