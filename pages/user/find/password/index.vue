@@ -8,6 +8,7 @@
 		<p class="input-form-title mb11">휴대전화번호</p>
 		<div class="form-readonly-input mb36">
 			<input
+				class="w60"
 				v-model="form.mobile"
 				type="tel"
 				readonly
@@ -18,8 +19,9 @@
 			</button>
 		</div>
 		<p class="input-form-title mb11">이름</p>
-		<div class="form-readonly-input mb24 w60">
+		<div class="form-readonly-input mb24">
 			<input
+				class="w100"
 				v-model="form.userName"
 				type="text"
 				readonly
@@ -37,7 +39,7 @@
 			/>
 		</div>
 		<p class="input-form-title mb11">비밀번호 확인</p>
-		<div class="form-input mb36 w100">
+		<div class="form-input mb36">
 			<input
 				v-model="form.passwordConfirm"
 				type="password"
