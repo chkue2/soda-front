@@ -10,14 +10,20 @@
 			<img :src="imageUrl" class="detail-profile" alt="프로필 이미지" />
 			<p class="firm-name">{{ firmDetail.firmName }}</p>
 			<div class="tel-container">
-				<span>사무소 전화</span>
-				<a :href="`tel:${rexFormatPhone(firmDetail.firmPhone || '')}`">{{
-					rexFormatPhone(firmDetail.firmPhone || '')
-				}}</a>
-				<span class="ml12">대표전화</span>
-				<a :href="`tel:${rexFormatPhone(firmDetail.delegaterPhone || '')}`">{{
-					rexFormatPhone(firmDetail.delegaterPhone || '')
-				}}</a>
+				<span v-if="firmDetail.firmPhone !== ''">사무소 전화</span>
+				<a
+					v-if="firmDetail.firmPhone !== ''"
+					:href="`tel:${rexFormatPhone(firmDetail.firmPhone || '')}`"
+					>{{ rexFormatPhone(firmDetail.firmPhone || '') }}</a
+				>
+				<span v-if="firmDetail.delegaterPhone !== ''" class="ml12"
+					>대표전화</span
+				>
+				<a
+					v-if="firmDetail.delegaterPhone !== ''"
+					:href="`tel:${rexFormatPhone(firmDetail.delegaterPhone || '')}`"
+					>{{ rexFormatPhone(firmDetail.delegaterPhone || '') }}</a
+				>
 			</div>
 			<ExpertTagsItem v-if="isTagShow" :badge="badge" align="center" />
 			<ExpertOptionsItem v-if="isOptionShow" :badge="badge" align="center" />
