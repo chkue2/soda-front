@@ -37,7 +37,8 @@
 					<p>잔금시간</p>
 				</div>
 				<p
-					class="info-column-content time-none"
+					class="info-column-content"
+					:class="{ 'time-none': tradeCaseDetail.value.issueTime === null }"
 					@click="handlerClickIssueTimeText"
 				>
 					{{ issueTimeText }}
