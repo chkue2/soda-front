@@ -38,7 +38,7 @@
 				</div>
 				<p
 					class="info-column-content"
-					:class="{ 'time-none': tradeCaseDetail.value.issueTime === null }"
+					:class="{ 'time-none': tradeCaseDetail.issueTime === null }"
 					@click="handlerClickIssueTimeText"
 				>
 					{{ issueTimeText }}
