@@ -18,7 +18,7 @@
 			</button>
 		</div>
 		<p class="input-form-title mb11">이름</p>
-		<div class="form-readonly-input mb24">
+		<div class="form-readonly-input mb24 w60">
 			<input
 				v-model="form.userName"
 				type="text"
@@ -37,7 +37,7 @@
 			/>
 		</div>
 		<p class="input-form-title mb11">비밀번호 확인</p>
-		<div class="form-input mb36">
+		<div class="form-input mb36 w100">
 			<input
 				v-model="form.passwordConfirm"
 				type="password"

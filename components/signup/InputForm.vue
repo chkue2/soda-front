@@ -13,6 +13,7 @@
 		<p class="input-form-title mb5">이름</p>
 		<div class="form-readonly-box mb40">
 			<input
+				class="w60"
 				v-model="form.name"
 				type="text"
 				readonly
