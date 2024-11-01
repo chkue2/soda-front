@@ -78,7 +78,7 @@ const API_URL = {
 	},
 	NOTICE: {
 		LIST: '/notice/soda/list',
-		POPUP: '/notice/noticePopup',
+		POPUP: '/notice/noticePopupSoda',
 	},
 	NOTIFICATION: {
 		LIST: '/notification/list',

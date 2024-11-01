@@ -47,7 +47,7 @@
 					<swiper-slide v-for="(n, index) in noticePopupList" :key="index">
 						<div class="mypage-banner" @click="handlerClickNotice">
 							<p><b>NOTICE</b></p>
-							<p>{{ n.title }}</p>
+							<p class="mypage-banner-title">{{ n.title }}</p>
 						</div>
 					</swiper-slide>
 				</swiper>
@@ -346,6 +346,12 @@ const handlerChangeSlide = e => {
 				font-weight: $ft-bold;
 			}
 		}
+	}
+	.mypage-banner-title {
+		width: 70%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 }
 .banner-counter {
