@@ -1,5 +1,8 @@
 <template>
-	<TermsContainerModal title="광고성 정보 수신 약관" @close-modal="closeModal">
+	<TermsContainerModal
+		title="광고성 정보 수신 동의 약관"
+		@close-modal="closeModal"
+	>
 		<template #body>
 			<div class="terms-ad-container">
 				<div class="terms-ad-table">
