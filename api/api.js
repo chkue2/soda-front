@@ -1,5 +1,6 @@
 import axios from 'axios';
 import API_URL from './apiConstants';
+import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 
 const getEndpoint = (url, params) => {
 	let endpoint = url;
@@ -33,7 +34,11 @@ const defineApi = config => {
 					) {
 						tokenApi.clearAll();
 						alert('로그아웃되었습니다. 다시 로그인해주세요.');
-						location.href = '/';
+						setTimeout(() => {
+							const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
+
+							location.href = redirectUrl || '/';
+						}, 100);
 					}
 				});
 
