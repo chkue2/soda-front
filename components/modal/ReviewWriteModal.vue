@@ -57,7 +57,11 @@
 						v-model="memo"
 						class="review-write-form-text"
 						:placeholder="memoPlaceholder"
+						:maxlength="CONTENT_MAX_LENGTH"
 					></textarea>
+					<p class="review-update-memo-count">
+						{{ content.length }} / {{ CONTENT_MAX_LENGTH }}
+					</p>
 				</div>
 				<button
 					class="review-write-modal-button"
@@ -80,6 +84,7 @@ import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
 import { useDomain } from '~/composables/useDomain.js';
+import { CONTENT_MAX_LENGTH } from '~/assets/js/share.js';
 
 const randomMemoEnums = [
 	'안심하고 진행했어요.',
@@ -260,5 +265,11 @@ const CloseModal = () => {
 	font-size: 12px;
 	line-height: 1.45;
 	resize: none;
+}
+.review-write-memo-count {
+	margin-top: 8px;
+	color: #969696;
+	text-align: right;
+	font-size: 13px;
 }
 </style>

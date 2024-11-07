@@ -46,7 +46,11 @@
 					v-if="isUpdate"
 					v-model="content"
 					class="review-update-content area"
+					:maxlength="CONTENT_MAX_LENGTH"
 				></textarea>
+				<p v-if="isUpdate" class="review-update-memo-count">
+					{{ content.length }} / {{ CONTENT_MAX_LENGTH }}
+				</p>
 				<div class="review-update-modal-buttons">
 					<button class="button--gray" @click="clickDeleteButton">삭제</button>
 					<button v-if="!isUpdate" class="button--blue" @click="toggleUpdate">
@@ -74,6 +78,7 @@ import CommonModal from '~/components/modal/CommonModal.vue';
 import { user } from '~/services/user.js';
 import { useLoadingStore } from '~/store/loading.js';
 import { useAlertStore } from '~/store/alert.js';
+import { CONTENT_MAX_LENGTH } from '~/assets/js/share.js';
 
 const props = defineProps({
 	seq: {
@@ -260,5 +265,11 @@ const clickDeleteButton = () => {
 		border: 1px solid #e4e4e4;
 		resize: none;
 	}
+}
+.review-update-memo-count {
+	margin-top: 8px;
+	color: #969696;
+	text-align: right;
+	font-size: 13px;
 }
 </style>
