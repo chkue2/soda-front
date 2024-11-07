@@ -60,7 +60,7 @@
 						:maxlength="CONTENT_MAX_LENGTH"
 					></textarea>
 					<p class="review-write-memo-count">
-						{{ content.length }} / {{ CONTENT_MAX_LENGTH }}
+						{{ memo.length }} / {{ CONTENT_MAX_LENGTH }}
 					</p>
 				</div>
 				<button
