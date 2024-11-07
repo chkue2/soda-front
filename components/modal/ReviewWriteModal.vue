@@ -59,7 +59,7 @@
 						:placeholder="memoPlaceholder"
 						:maxlength="CONTENT_MAX_LENGTH"
 					></textarea>
-					<p class="review-update-memo-count">
+					<p class="review-write-memo-count">
 						{{ content.length }} / {{ CONTENT_MAX_LENGTH }}
 					</p>
 				</div>
