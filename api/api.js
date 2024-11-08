@@ -2,6 +2,12 @@ import axios from 'axios';
 import API_URL from './apiConstants';
 import { LOGIN_REDIRECT_KEY } from '~/assets/js/storageKeys.js';
 
+const ERROR_CODES = {
+	A011: 'A011',
+	A009: 'A009',
+	A010: 'A010',
+};
+
 const getEndpoint = (url, params) => {
 	let endpoint = url;
 
@@ -14,7 +20,6 @@ const getEndpoint = (url, params) => {
 
 const defineApi = config => {
 	const { host, tokenApi } = config;
-	// axios
 	axios.defaults.baseURL = host;
 
 	const api = axios.create();
@@ -23,31 +28,27 @@ const defineApi = config => {
 	async function requestRefreshTokenUpdate() {
 		const refreshToken = tokenApi.getRefreshToken();
 		if (refreshToken) {
-			const response = await api
-				.post(API_URL.AUTH.REFRESH, {
+			try {
+				const response = await api.post(API_URL.AUTH.REFRESH, {
 					refreshToken: refreshToken,
-				})
-				.catch(e => {
-					if (
-						e.response.data.errorCode === 'A011' ||
-						e.response.data.errorCode === 'A009'
-					) {
-						tokenApi.clearAll();
-						alert('로그아웃되었습니다. 다시 로그인해주세요.');
-						setTimeout(() => {
-							const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
-
-							location.href = redirectUrl || '/';
-						}, 100);
-					}
 				});
-
-			if (response && response.data) {
-				tokenApi.setToken(response.data.token, response.data.refreshToken);
-				return true;
+				if (response && response.data) {
+					tokenApi.setToken(response.data.token, response.data.refreshToken);
+					return true;
+				}
+			} catch (e) {
+				if (
+					e.response &&
+					(e.response.data.errorCode === ERROR_CODES.A011 ||
+						e.response.data.errorCode === ERROR_CODES.A009)
+				) {
+					tokenApi.clearAll();
+					alert('로그아웃되었습니다. 다시 로그인해주세요.');
+					const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
+					location.href = redirectUrl || '/';
+				}
 			}
 		}
-
 		return false;
 	}
 
@@ -71,17 +72,15 @@ const defineApi = config => {
 			if (response) {
 				const request = error.config;
 				if (response.status === 401 && !request._retry) {
-					// token 인증만료
-					if (response.data.errorCode === 'A010') {
+					if (response.data.errorCode === ERROR_CODES.A010) {
 						const isOk = await requestRefreshTokenUpdate();
 						if (isOk) {
-							request._retry = 1;
-							return apiAuth(request);
+							request._retry = true; // boolean으로 변경
+							return apiAuth(request); // await 추가
 						}
 					}
 				}
 			}
-
 			return Promise.reject(error);
 		},
 	);
