@@ -10,7 +10,7 @@
 
 const API_URL = {
 	AUTH: {
-		LOGIN: '/auth/login',
+		LOGIN: '/auth/login/soda',
 		LOGIN_SNS: '/soda/:login_type/key/:user_key',
 		LOGOUT: '/auth/logout',
 		REFRESH: '/auth/refresh',
