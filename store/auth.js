@@ -18,7 +18,7 @@ export const useAuthStore = defineStore(
 			},
 			async login(credentials) {
 				try {
-					const response = await POST('/auth/login', credentials);
+					const response = await POST('/auth/login/soda', credentials);
 					if (response && response.data) {
 						tokenApi.setToken(response.data.token, response.data.refreshToken);
 						return {
