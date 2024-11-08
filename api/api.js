@@ -6,6 +6,7 @@ const ERROR_CODES = {
 	A011: 'A011',
 	A009: 'A009',
 	A010: 'A010',
+	A008: 'A008',
 };
 
 const getEndpoint = (url, params) => {
@@ -40,7 +41,8 @@ const defineApi = config => {
 				if (
 					e.response &&
 					(e.response.data.errorCode === ERROR_CODES.A011 ||
-						e.response.data.errorCode === ERROR_CODES.A009)
+						e.response.data.errorCode === ERROR_CODES.A009 ||
+						e.response.data.errorCode === ERROR_CODES.A008)
 				) {
 					tokenApi.clearAll();
 					alert('로그아웃되었습니다. 다시 로그인해주세요.');
