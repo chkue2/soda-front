@@ -4,8 +4,8 @@
 		<p class="input-form-title mb5">휴대전화번호</p>
 		<div class="form-readonly-box mb10">
 			<input
-				class="w60"
 				v-model="form.mobile"
+				class="w60"
 				type="text"
 				readonly
 				placeholder="본인인증 후 자동입력"
@@ -15,8 +15,8 @@
 		<p class="input-form-title mb5">이름</p>
 		<div class="form-readonly-box mb40">
 			<input
-				class="w100"
 				v-model="form.userName"
+				class="w100"
 				type="text"
 				readonly
 				placeholder="본인인증 후 자동입력"
