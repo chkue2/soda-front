@@ -50,6 +50,10 @@ const defineApi = config => {
 					location.href = redirectUrl || '/';
 				}
 			}
+		} else {
+			alert('인증 토큰이 없습니다. 다시 로그인해주세요.');
+			const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
+			location.href = redirectUrl || '/';
 		}
 		return false;
 	}
