@@ -62,7 +62,7 @@ const API_URL = {
 		GET_BANK: '/bank/find-lawyer/contract/:tmp_key',
 		UPDATE: '/soda/find-lawyer/contract/:tmp_key',
 		DONE: '/soda/find-lawyer/contract/done/:tmp_key',
-		DONE_BANK: '/soda/find-lawyer/contract/done/:tmp_key',
+		DONE_BANK: '/bank/find-lawyer/contract/done/:tmp_key',
 		LIST: '/soda/find-lawyer/join/:trade_case_id/list',
 		LIST_BANK: '/bank/find-lawyer/join/:trade_case_id/list',
 		SELECT: '/soda/find-lawyer/pro-select/:trade_case_id/:firm_code',
