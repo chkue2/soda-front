@@ -3,7 +3,12 @@
 	<div class="find-container mb56">
 		<p class="input-form-title mb11">아이디</p>
 		<div class="form-input mb36">
-			<input v-model="form.id" type="text" placeholder="아이디를 입력하세요" />
+			<input
+				v-model="form.id"
+				class="w100"
+				type="text"
+				placeholder="아이디를 입력하세요"
+			/>
 		</div>
 		<p class="input-form-title mb11">휴대전화번호</p>
 		<div class="form-readonly-input mb36">
@@ -35,6 +40,7 @@
 			<input
 				v-model="form.password"
 				type="password"
+				class="w100"
 				placeholder="비밀번호를 입력하세요"
 			/>
 		</div>
@@ -43,6 +49,7 @@
 			<input
 				v-model="form.passwordConfirm"
 				type="password"
+				class="w100"
 				placeholder="비밀번호를 한번 더 입력하세요"
 			/>
 		</div>

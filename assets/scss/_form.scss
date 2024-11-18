@@ -120,7 +120,7 @@
 
 @media all and (max-width: 640px) {
 	.form-input {
-		& > input {
+		& > input:not(.w100) {
 			max-width: 200px;
 		}
 	}

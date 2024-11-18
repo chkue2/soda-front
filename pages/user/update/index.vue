@@ -7,23 +7,24 @@
 		</div>
 		<p class="input-form-title mb11">이름</p>
 		<div class="form-readonly-box mb10">
-			<input v-model="form.userName" type="text" readonly />
+			<input v-model="form.userName" class="w100" type="text" readonly />
 		</div>
 		<p class="input-form-title mb11">
 			휴대전화번호<span>휴대전화번호 변경은 고객센터로 문의</span>
 		</p>
 		<div class="form-readonly-box mb10">
-			<input v-model="form.mobile" type="tel" readonly />
+			<input v-model="form.mobile" class="w100" type="tel" readonly />
 		</div>
 		<div v-if="loginType === 'DEFAULT'">
 			<p class="input-form-title mb11">아이디</p>
 			<div class="form-readonly-box mb37">
-				<input v-model="form.userId" type="text" readonly />
+				<input v-model="form.userId" class="w100" type="text" readonly />
 			</div>
 			<p class="input-form-title mb11">현재 비밀번호</p>
 			<div class="form-input mb37">
 				<input
 					v-model="form.currentPassword"
+					class="w100"
 					type="password"
 					placeholder="비밀번호를 입력하세요"
 				/>
@@ -34,6 +35,7 @@
 			<div class="form-input mb10">
 				<input
 					v-model="form.newPassword"
+					class="w100"
 					type="password"
 					placeholder="새 비밀번호를 입력하세요"
 				/>
@@ -41,6 +43,7 @@
 			<div class="form-input mb10">
 				<input
 					v-model="form.confirmPassword"
+					class="w100"
 					type="password"
 					placeholder="새 비밀번호를 한번 더 입력하세요"
 				/>

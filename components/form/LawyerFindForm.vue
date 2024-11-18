@@ -2,7 +2,12 @@
 	<div class="form-container">
 		<p class="form-title mb11">잔금일자를 선택해주세요</p>
 		<div class="form-input mb27">
-			<input v-model="form['bDate']" type="date" placeholder="YYYY-MM-DD" />
+			<input
+				v-model="form['bDate']"
+				class="w100"
+				type="date"
+				placeholder="YYYY-MM-DD"
+			/>
 		</div>
 		<p class="form-title mb11">목적물 소재지를 입력해주세요</p>
 		<div class="form-input pointer mb11" @click="handlerClickSearchAddress">
