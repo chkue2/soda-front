@@ -31,7 +31,7 @@
 				<img src="/img/icon/bank-house.png" alt="등기소다 알아보기" />
 				<p class="quick-menu-bottom-content">은행들도 믿고쓰는 등기소다</p>
 				<p class="quick-menu-bottom-tags">
-					#카카오뱅크 #케이뱅크 #전북은행 #경남은행
+					카카오뱅크, 케이뱅크 등 5개의 은행과 협약
 				</p>
 			</div>
 			<NuxtLink to="/intro/soda" class="quick-menu-bottom-button">

@@ -27,7 +27,25 @@
 			등기프로는 ‘법무사' 혹은 ‘변호사’등 고객님의 소유권이전등기를 책임질
 			전문가를 뜻합니다.
 		</p>
-		<p class="intro-title mb10">3. 등기소다를 어떻게 사용하면 좋을까요?</p>
+		<p class="intro-title mb10">3. 믿을 수 있는 곳인가요?</p>
+		<p class="intro-content mb30">
+			등기소다는 카카오뱅크, 케이뱅크, 경남은행, 광주은행, 전북은행 등 주요
+			금융기관과 협약된 신뢰할 수 있는 등기 서비스 기관입니다. 다양한 은행과의
+			협력을 통해 더욱 편리하고 안전한 등기 절차를 제공하며, 고객의 소중한
+			재산을 안전하게 보호합니다.
+		</p>
+		<div class="intro-partners">
+			<div class="intro-partners-column">
+				<img src="/img/intro/kakaobank.png" />
+				<img src="/img/intro/kbank-01.png" />
+				<img src="/img/intro/bnk-02.png" />
+			</div>
+			<div class="intro-partners-column">
+				<img src="/img/intro/jbbank-01.png" />
+				<img src="/img/intro/kjbank-01.png" />
+			</div>
+		</div>
+		<p class="intro-title mb10">4. 등기소다를 어떻게 사용하면 좋을까요?</p>
 		<p class="intro-content mb40">
 			<b class="intro-blue">[계산하기]</b> 기능은 견적을 넣기전에
 			소유권이전등기에 필요한 가금액을 알 수 있습니다.<br />
@@ -247,6 +265,21 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 	color: #ffffff;
 	text-decoration: none;
 }
+.intro-partners {
+	display: flex;
+	gap: 13px;
+	margin-bottom: 80px;
+}
+.intro-partners-column {
+	display: flex;
+	gap: 13px;
+	justify-content: center;
+	align-items: center;
+	& > img {
+		width: 106px;
+		height: auto;
+	}
+}
 
 @media all and (max-width: 640px) {
 	.intro-top-section {
@@ -254,6 +287,10 @@ import HeaderClose from '~/components/layout/HeaderClose.vue';
 		justify-content: center;
 		align-items: unset;
 		padding: 0 24px;
+	}
+	.intro-partners {
+		flex-direction: column;
+		margin-bottom: 40px;
 	}
 }
 </style>
