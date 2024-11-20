@@ -70,6 +70,7 @@ const API_URL = {
 		RE_FIND: '/:ins/find-lawyer/contract/retry/:trade_case_id',
 		RE_FIND_CHECK: '/:ins/find-lawyer/contract/retry/check/:trade_case_id',
 		CHECK_VALID: '/soda/tradeCase/check/valid',
+		RE_CREATE: '/soda/find-lawyer/contract/cancelRegister/:trade_case_id',
 	},
 	CALCULATE: {
 		GET: '/soda/calculate',

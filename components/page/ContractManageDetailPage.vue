@@ -97,7 +97,7 @@
 					>
 						<span>사무소로 전화하기</span>
 						<a :href="`tel:${profileCard.firmPhone}`">{{
-							profileCard.firmPhone
+							rexFormatPhone(profileCard.firmPhone)
 						}}</a>
 					</div>
 					<div

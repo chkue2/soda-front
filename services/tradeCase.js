@@ -91,8 +91,7 @@ export const tradeCase = {
 		return await DELETE_AUTH(endpoint);
 	},
 	async reRegTradeCase(tid) {
-		const endpoint = getEndpoint(API_URL.LAWYER.RE_FIND, {
-			ins: 'soda',
+		const endpoint = getEndpoint(API_URL.LAWYER.RE_CREATE, {
 			trade_case_id: tid,
 		});
 		return await POST_AUTH(endpoint);
