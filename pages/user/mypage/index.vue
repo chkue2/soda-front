@@ -37,7 +37,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="mypage-banner-container">
+			<div v-if="noticePopupList.length > 0" class="mypage-banner-container">
 				<swiper
 					:modules="modules"
 					:autoplay="true"
