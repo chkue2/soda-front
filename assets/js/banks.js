@@ -16,10 +16,6 @@ export const banks = [
 		text: '광주은행',
 	},
 	{
-		key: 'BS_BK',
-		text: '부산은행',
-	},
-	{
 		key: 'SS_IS',
 		text: '삼성생명',
 	},
@@ -30,6 +26,14 @@ export const banks = [
 	{
 		key: 'JB_BK',
 		text: '전북은행',
+	},
+	{
+		key: 'SE_BK',
+		text: '수협은행',
+	},
+	{
+		key: 'SD_BK',
+		text: '수협중앙회',
 	},
 	{
 		key: 'SODA',
