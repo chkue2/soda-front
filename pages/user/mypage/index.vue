@@ -81,7 +81,11 @@
 							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
-					<NuxtLink to="/registration/change/intro" class="mypage-menu-item">
+					<NuxtLink
+						v-if="false"
+						to="/registration/change/intro"
+						class="mypage-menu-item"
+					>
 						<div class="mypage-menu-item-title">
 							<p>등기부등본 변동 알림서비스</p>
 						</div>
@@ -91,7 +95,7 @@
 							alt="메뉴로 이동"
 						/>
 					</NuxtLink>
-					<div class="mypage-menu-toggle">
+					<div v-if="false" class="mypage-menu-toggle">
 						<p>
 							내가 계약한 부동산 등기부등본 변동 알림서비스를 알림톡으로 받아볼
 							수 있습니다.
