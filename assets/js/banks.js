@@ -24,16 +24,16 @@ export const banks = [
 		text: '삼성화재',
 	},
 	{
-		key: 'JB_BK',
-		text: '전북은행',
-	},
-	{
 		key: 'SE_BK',
 		text: '수협은행',
 	},
 	{
 		key: 'SD_BK',
 		text: '수협중앙회',
+	},
+	{
+		key: 'JB_BK',
+		text: '전북은행',
 	},
 	{
 		key: 'SODA',
