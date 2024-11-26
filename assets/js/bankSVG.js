@@ -35,4 +35,12 @@ export const bankSVG = {
 		title: '등기소다',
 		icon: 'soda.png',
 	},
+	SE_BK: {
+		title: '수협은행',
+		icon: 'sh-bank.png',
+	},
+	SD_BK: {
+		title: '수협중앙회',
+		icon: 'sh-center.png',
+	},
 };
